@@ -34,7 +34,7 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @addtogroup supportConvolution
  * @{
  */
 
@@ -167,5 +167,5 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
 }
 
 /**
- * @} end of NNBasicMath group
+ * @} end of Doxygen group
  */

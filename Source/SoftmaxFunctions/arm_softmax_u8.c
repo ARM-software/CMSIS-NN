@@ -34,7 +34,7 @@
 #define ACCUM_BITS 12
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

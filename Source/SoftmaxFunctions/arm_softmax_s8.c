@@ -75,7 +75,7 @@ static int32x4_t arm_exp_on_negative_values_mve_32x4(int32x4_t val)
 #endif
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

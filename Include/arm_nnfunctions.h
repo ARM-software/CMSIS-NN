@@ -30,29 +30,29 @@
 /**
    \mainpage CMSIS NN Software Library
    *
-   * Introduction
-   * ------------
+   * \section Introduction
+   * 
    *
    * This user manual describes the CMSIS NN software library,
    * a collection of efficient neural network kernels developed to maximize the
    * performance and minimize the memory footprint of neural networks on Cortex-M processor cores.
    *
    * The library is divided into a number of functions each covering a specific category:
-   * - Convolution Functions
-   * - Activation Functions
-   * - Fully-connected Layer Functions
-   * - SVDF Layer Functions
-   * - Pooling Functions
-   * - Softmax Functions
-   * - Basic math Functions
+   * - \ref NNConv Convolution Functions
+   * - \ref Acti "Activation Functions"
+   * - \ref FC Fully-connected Layer Functions
+   * - \ref SVDF Layer Functions
+   * - \ref Pooling Functions
+   * - \ref Softmax Functions
+   * - \ref groupElementwise Basic math Functions
    *
    * The library has separate functions for operating on different weight and activation data
    * types including 8-bit integers (q7_t) and 16-bit integers (q15_t). The descrition of the
    * kernels are included in the function description. The implementation details are also
    * described in this paper [1].
    *
-   * Supported Processors
-   * -------
+   * \section Supported Processors
+   * 
    * CMSIS-NN targets Cortex-M processors with typically three different implementations for each function. Each
    * targets a different group of processors.
    *  - Processors without SIMD capability (e.g, Cortex-M0)
@@ -60,8 +60,8 @@
    *  - Processors with MVE extension (e.g Cortex-M55)
    * The right implementation is picked through feature flags and the user usually does not have to explicit set it.
    *
-   * Function Classification
-   * --------
+   * \section Function Classification
+   * 
    * The functions can be classified into two segments
    * - Legacy functions supporting ARM's internal symmetric quantization(8 bits).
    * - Functions that support TensorFlow Lite framework with symmetric quantization(8 bits).
@@ -73,12 +73,12 @@
    * micro. The functions are bit exact to TensorFlow Lite. Refer to the TensorFlow's documentation in [3] on how to run
    * a TensorFlow Lite model using optimized CMSIS-NN kernels.
    *
-   * Block Diagram
-   * --------
+   * \section Block Diagram
+   * 
    * \image html CMSIS-NN-OVERVIEW.PNG
    *
-   * Examples
-   * --------
+   * \section Examples
+   * 
    *
    * The library ships with a number of examples which demonstrate how to use the library functions.
    *
@@ -120,8 +120,9 @@
    */
 
 /**
- * @defgroup groupNN Neural Network Functions
- * A collection of functions to perform basic operations for neural network layers. 
+ * @defgroup Public Public
+ * A collection of functions to perform basic operations for neural network layers. Functions with a _s8 suffix support
+ * TensorFlow Lite framework.
  */
 
 #ifndef _ARM_NNFUNCTIONS_H
@@ -1027,7 +1028,7 @@ int32_t arm_fully_connected_s16_get_buffer_size(const cmsis_nn_dims *filter_dims
 
 
 /**
- * @defgroup BasicMath Basic math functions
+ * @defgroup groupElementwise Elementwise Functions
  *
  * Elementwise add and multiplication functions.
  *
@@ -1657,7 +1658,7 @@ void arm_concatenation_s8_w(const int8_t *input,
                             int8_t *output,
                             const uint32_t offset_w);
 /**
- * @defgroup SVDF SVDF Layer Functions
+ * @defgroup SVDF SVDF Functions
  *
  */
 

@@ -99,7 +99,15 @@ union arm_nn_long_long
 };
 
 /**
- * @defgroup nndata_convert Neural Network Data Conversion Functions
+ * @defgroup groupSupport Private
+ *
+ * Internal Support functions. Not intended to be called direclty by a CMSIS-NN user.
+ *
+ */
+
+
+/**
+ * @defgroup supportConversion Data Conversion
  *
  * Perform data type conversion in-between neural network operations
  *
@@ -728,13 +736,6 @@ read_and_pad_reordered_with_offset(const q7_t *source, q31_t *out1, q31_t *out2,
 }
 
 #endif
-
-/**
- * @defgroup NNBasicMath Basic Math Functions for Neural Network Computation
- *
- * Basic Math Functions for Neural Network Computation
- *
- */
 
 /**
  * @brief Matrix-multiplication function for convolution with per-channel requantization.

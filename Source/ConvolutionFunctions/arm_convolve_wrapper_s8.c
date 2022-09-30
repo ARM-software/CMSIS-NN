@@ -32,7 +32,7 @@
 #include "arm_nnfunctions.h"
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

@@ -33,7 +33,7 @@
 #include <stdio.h>
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

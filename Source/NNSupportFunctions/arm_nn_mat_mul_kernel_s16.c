@@ -30,6 +30,15 @@
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
 
+/**
+ * @ingroup groupSupport
+ */
+
+/**
+ * @addtogroup supportConvolution
+ * @{
+ */
+
 /*
  * Matrix-multiplication function for convolution with per-channel requantization.
  *
@@ -248,3 +257,7 @@ q15_t *arm_nn_mat_mult_kernel_s16(const q7_t *input_a,
     return NULL;
 #endif
 }
+
+/**
+ * @} end of Doxygen group
+ */

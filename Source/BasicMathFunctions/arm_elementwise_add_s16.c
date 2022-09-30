@@ -32,11 +32,11 @@
 #include "arm_nnsupportfunctions.h"
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**
- * @addtogroup BasicMath
+ * @addtogroup groupElementwise
  * @{
  */
 
@@ -132,5 +132,5 @@ arm_cmsis_nn_status arm_elementwise_add_s16(const int16_t *input_1_vect,
 }
 
 /**
- * @} end of BasicMath group
+ * @} end of Doxygen group
  */

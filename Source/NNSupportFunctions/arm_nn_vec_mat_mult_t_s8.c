@@ -35,7 +35,14 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @defgroup supportFC Fully Connected
+ *
+ * Support functions for Fully Connected
+ *
+ */
+
+/**
+ * @addtogroup supportFC
  * @{
  */
 
@@ -398,5 +405,5 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const q7_t *lhs,
 }
 
 /**
- * @} end of NNBasicMath group
+ * @} end of Doxygen group
  */

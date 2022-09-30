@@ -145,7 +145,7 @@ static void clamp_output(q7_t *source, int32_t length, const int32_t act_min, co
 }
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

@@ -36,7 +36,14 @@
  */
 
 /**
- * @addtogroup Softmax
+ * @defgroup supportSoftmax Softmax
+ *
+ * Support functions for Softmax
+ *
+ */
+
+/**
+ * @addtogroup supportSoftmax
  * @{
  */
 
@@ -137,5 +144,5 @@ void arm_nn_softmax_common_s8(const int8_t *input,
 }
 
 /**
- * @} end of NNBasicMath group
+ * @} end of Doxygen group
  */

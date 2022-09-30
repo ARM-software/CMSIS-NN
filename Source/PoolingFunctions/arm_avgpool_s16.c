@@ -55,7 +55,7 @@ static void scale_q31_to_q15_and_clamp(const q31_t *buffer,
 #endif
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
 
  */
 

@@ -35,7 +35,7 @@
  */
 
 /**
- * @addtogroup nndata_convert
+ * @addtogroup supportConversion
  * @{
  */
 
@@ -110,5 +110,5 @@ void arm_q7_to_q15_with_offset(const q7_t *src, q15_t *dst, uint32_t block_size,
 }
 
 /**
- * @} end of nndata_convert group
+ * @} end of Doxygen group
  */

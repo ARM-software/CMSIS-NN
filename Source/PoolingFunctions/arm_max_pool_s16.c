@@ -127,7 +127,7 @@ static void clamp_output(int16_t *source, int32_t length, const int16_t act_min,
 }
 
 /**
- *  @ingroup groupNN
+ *  @ingroup Public
  */
 
 /**

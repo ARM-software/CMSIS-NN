@@ -34,7 +34,14 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @defgroup supportConvolution Convolution
+ *
+ * Support functions for Convolution and DW Convolution
+ *
+ */
+
+/**
+ * @addtogroup supportConvolution
  * @{
  */
 
@@ -165,5 +172,5 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_padded_s8(const q7_t *lhs,
 }
 
 /**
- * @} end of NNBasicMath group
+ * @} end of Doxygen group
  */
