@@ -16,12 +16,6 @@
 # limitations under the License.
 #
 
-file(GLOB SRC "./*_s8.c")
-target_sources(cmsis-nn PRIVATE ${SRC} arm_q7_to_q15_with_offset.c
-                                       arm_nn_mat_mul_kernel_s16.c
-                                       arm_q7_to_q15_with_offset.c
-                                       arm_nn_mat_mul_kernel_s16.c
-                                       arm_nn_vec_mat_mult_t_s16.c
-                                       arm_q7_to_q15_no_shift.c
-                                       arm_nn_depthwise_conv_nt_t_s16.c)
-
+file(GLOB SRC "./*_s8*.c")
+file(GLOB SRC_S16 "./*_s16*.c")
+target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16} arm_q7_to_q15_with_offset.c)

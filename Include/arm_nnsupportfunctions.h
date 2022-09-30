@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        8 August 2022
- * $Revision:    V.10.0.0
+ * $Date:        30 September 2022
+ * $Revision:    V.11.0.0
  *
  * Target Processor:  Cortex-M CPUs
  * -------------------------------------------------------------------- */
@@ -106,42 +106,6 @@ union arm_nn_long_long
  */
 
 /**
- * @brief Converts the elements of the q7 vector to q15 vector without left-shift
- * @param[in]       *pSrc points to the q7 input vector
- * @param[out]      *pDst points to the q15 output vector
- * @param[in]       blockSize length of the input vector
- *
- */
-void arm_q7_to_q15_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize);
-
-/**
- * @brief Non-saturating addition of elements of a q7 vector
- * @param[in]       *input Pointer to the q7 input vector
- * @param[out]      *output Pointer to the q31 output variable.
- * @param[in]       block_size length of the input vector
- * \par Description:
- *
- * 2^24 samples can be added without saturating the result.
- *
- * The equation used for the conversion process is:
- *
- * <pre>
- *  sum = input[0] + input[1] + .. + input[block_size -1]
- * </pre>
- *
- * */
-void arm_nn_add_q7(const q7_t *input, q31_t *output, uint32_t block_size);
-
-/**
- * @brief  Converts the elements of the q7 vector to reordered q15 vector without left-shift
- * @param[in]       *pSrc points to the q7 input vector
- * @param[out]      *pDst points to the q15 output vector
- * @param[in]       blockSize length of the input vector
- *
- */
-void arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t blockSize);
-
-/**
  * @brief Converts the elements from a q7 vector to a q15 vector with an added offset
  * @param[in]    src        pointer to the q7 input vector
  * @param[out]   dst        pointer to the q15 output vector
@@ -158,37 +122,6 @@ void arm_q7_to_q15_reordered_no_shift(const q7_t *pSrc, q15_t *pDst, uint32_t bl
  *
  */
 void arm_q7_to_q15_with_offset(const q7_t *src, q15_t *dst, uint32_t block_size, q15_t offset);
-
-/**
- * @brief Converts the elements of the q7 vector to reordered q15 vector with an added offset
- * @param[in]       src        pointer to the q7 input vector
- * @param[out]      dst        pointer to the q15 output vector
- * @param[in]       block_size length of the input vector
- * @param[in]       offset     offset to be added to each input vector element.
- *
- * @details  This function does the q7 to q15 expansion with re-ordering of bytes. Re-ordering is a consequence of
- *           the sign extension intrinsic(DSP extension). The tail (i.e., last (N % 4) elements) retains its
- * original order.
- *
- */
-void arm_q7_to_q15_reordered_with_offset(const q7_t *src, q15_t *dst, uint32_t block_size, q15_t offset);
-
-/**
- * @brief Converts the elements from a q7 vector and accumulate to a q15 vector
- * @param[in]    *src       points to the q7 input vector
- * @param[out]   *dst       points to the q15 output vector
- * @param[in]    block_size length of the input vector
- *
- * \par Description:
- *
- * The equation used for the conversion process is:
- *
- * <pre>
- *  dst[n] += (q15_t) src[n] ;   0 <= n < block_size.
- * </pre>
- *
- */
-void arm_nn_accumulate_q7_to_q15(q15_t *dst, const q7_t *src, uint32_t block_size);
 
 /**
  * @brief Depthwise conv on an im2col buffer where the input channel equals output channel.
@@ -802,38 +735,6 @@ read_and_pad_reordered_with_offset(const q7_t *source, q31_t *out1, q31_t *out2,
  * Basic Math Functions for Neural Network Computation
  *
  */
-
-/**
- * @brief           q7 vector multiplication with variable output shifts
- * @param[in]       *pSrcA        pointer to the first input vector
- * @param[in]       *pSrcB        pointer to the second input vector
- * @param[out]      *pDst         pointer to the output vector
- * @param[in]       out_shift     amount of right-shift for output
- * @param[in]       blockSize     number of samples in each vector
- *
- * <b>Scaling and Overflow Behavior:</b>
- * \par
- * The function uses saturating arithmetic.
- * Results outside of the allowable q15 range [0x8000 0x7FFF] will be saturated.
- */
-
-void arm_nn_mult_q15(q15_t *pSrcA, q15_t *pSrcB, q15_t *pDst, const uint16_t out_shift, uint32_t blockSize);
-
-/**
- * @brief           q7 vector multiplication with variable output shifts
- * @param[in]       *pSrcA        pointer to the first input vector
- * @param[in]       *pSrcB        pointer to the second input vector
- * @param[out]      *pDst         pointer to the output vector
- * @param[in]       out_shift     amount of right-shift for output
- * @param[in]       blockSize     number of samples in each vector
- *
- * <b>Scaling and Overflow Behavior:</b>
- * \par
- * The function uses saturating arithmetic.
- * Results outside of the allowable q7 range [0x80 0x7F] will be saturated.
- */
-
-void arm_nn_mult_q7(q7_t *pSrcA, q7_t *pSrcB, q7_t *pDst, const uint16_t out_shift, uint32_t blockSize);
 
 /**
  * @brief Matrix-multiplication function for convolution with per-channel requantization.
