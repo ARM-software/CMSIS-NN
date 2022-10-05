@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Arm Limited.
+# SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -20,7 +20,11 @@ cmake_minimum_required(VERSION 3.15.6)
 
 project(CMSISNN)
 
-set(CMSIS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../..")
+set(CMSIS_PATH "</path/to/CMSIS>" CACHE PATH "Path to CMSIS.")
+
+if (${CMSIS_PATH} STREQUAL "</path/to/CMSIS>")
+  message(FATAL_ERROR "CMSIS_PATH not set. Did you provide -DCMSIS_PATH=<path/to/CMSIS>?")
+endif()
 
 option(BUILD_CMSIS_NN_FUNCTIONS "Build CMSIS-NN Source." ON)
 

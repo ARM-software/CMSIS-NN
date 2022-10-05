@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+# SPDX-FileCopyrightText: Copyright 2010-2020, 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -35,11 +35,9 @@ from termcolor import colored
 
 OUTPUT = "Output/"
 BASE_PATH = "../../"
-CMSIS_PATH = "../../../../../"
 UNITY_PATH = "Unity/"
 UNITY_BASE = BASE_PATH + UNITY_PATH
 UNITY_SRC = UNITY_BASE + "src/"
-CMSIS_FLAGS = " -DARM_MATH_DSP -DARM_MATH_LOOPUNROLL"
 
 
 def parse_args():
@@ -53,6 +51,10 @@ def parse_args():
     parser.add_argument('-c', '--compiler', type=str, default='GCC_ARM', choices=['GCC_ARM', 'ARMC6'])
     parser.add_argument('--download-and-generate-test-runners', dest='download_and_generate', action='store_true',
                         help="Just download Unity and generate test runners if needed")
+
+    required_arguments = parser.add_argument_group('required named arguments')
+    required_arguments.add_argument('-p', '--path-to-cmsis', help='Path to CMSIS project for CMSIS/Core.',
+                                    required=True)
 
     args = parser.parse_args()
     return args
@@ -129,9 +131,10 @@ def detect_architecture(target_name, target_json):
 def test_target(target, args, main_test):
     result = 3
     compiler = args.compiler
+    cmsis_path = args.path_to_cmsis
+    cmsis_nn_path = "../../../../"
     target_name = target['name']
     target_model = target['model']
-    cmsis_flags = None
     unittestframework = 'UNITY_UNITTEST'
 
     dir_name = OUTPUT + args.testdir + '_' + unittestframework + '_' + target_name + '_' + compiler
@@ -139,6 +142,9 @@ def test_target(target, args, main_test):
     os.makedirs(dir_name, exist_ok=True)
     start_dir = os.getcwd()
     os.chdir(dir_name)
+
+    cmsis_core_include_path = cmsis_path + '/CMSIS/Core/Include/'
+    relative_cmsis_core_include_path = os.path.relpath(cmsis_core_include_path, '.')
 
     try:
         target_json = 'mbed-os/targets/targets.json'
@@ -150,14 +156,11 @@ def test_target(target, args, main_test):
             shutil.copyfile(mbed_path + 'mbed_app.json', 'mbed_app.json')
             run_command('mbed config root .')
             run_command('mbed deploy')
-
         arch = detect_architecture(target_model, target_json)
-        if arch == 'Cortex-M4' or arch == 'Cortex-M7':
-            cmsis_flags = CMSIS_FLAGS
 
         print("----------------------------------------------------------------")
-        print("Running {} on {} target: {} with compiler: {} and cmsis flags: {} in directory: {} test: {}\n".format(
-            unittestframework, arch, target_name, compiler, cmsis_flags, os.getcwd(), main_test))
+        print("Running {} on {} target: {} with compiler: {} in directory: {} test: {}\n".format(
+            unittestframework, arch, target_name, compiler, os.getcwd(), main_test))
 
         die = False
         flash_error_msg = 'failed to flash'
@@ -172,17 +175,16 @@ def test_target(target, args, main_test):
                              test +
                              ' --source .'
                              ' --source ' + BASE_PATH + 'TestCases/Utils/'
-                             ' --source ' + CMSIS_PATH + 'NN/Include/'
-                             ' --source ' + CMSIS_PATH + 'DSP/Include/'
-                             ' --source ' + CMSIS_PATH + 'Core/Include/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/ConvolutionFunctions/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/PoolingFunctions/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/NNSupportFunctions/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/FullyConnectedFunctions/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/SoftmaxFunctions/'
-                             ' --source ' + CMSIS_PATH + 'NN/Source/SVDFunctions/'
-                             + cmsis_flags +
-                             additional_options,
+                             ' --source ' + cmsis_nn_path + 'Include/'
+                             ' --source ' + relative_cmsis_core_include_path +
+                             ' --source ' + cmsis_nn_path + 'Source/ConvolutionFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/PoolingFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/NNSupportFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/FullyConnectedFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/SoftmaxFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/SVDFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/BasicMathFunctions/'
+                             + additional_options,
                              flash_error_msg, die=die)
 
     except Exception as e:

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2022 Arm Limited.
+# SPDX-FileCopyrightText: Copyright 2019-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -20,7 +20,7 @@ cmake_minimum_required(VERSION 3.15.6)
 
 project(cmsis_nn_unit_tests VERSION 0.0.1)
 
-set(CMSIS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../..")
+set(CMSIS_PATH "</path/to/CMSIS>" CACHE PATH "Path to CMSIS.")
 
 add_compile_options(-Ofast
                     -fomit-frame-pointer
@@ -93,8 +93,9 @@ add_subdirectory(TestCases/test_arm_svdf_state_s16_s8)
 set(MAKE_CMD "python3")
 set(MAKE_CMD_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/unittest_targets.py")
 set(MAKE_CMD_SCRIPT_OPTION "--download-and-generate-test-runners")
+set(MAKE_CMD_SCRIPT_CMSIS_PATH "-p ${CMSIS_PATH}")
 MESSAGE(STATUS "Downloading Unity and generating test runners for CMSIS-NN unit tests if needed..")
-execute_process(COMMAND ${MAKE_CMD} ${MAKE_CMD_SCRIPT} ${MAKE_CMD_SCRIPT_OPTION}
+execute_process(COMMAND ${MAKE_CMD} ${MAKE_CMD_SCRIPT} ${MAKE_CMD_SCRIPT_OPTION} ${MAKE_CMD_SCRIPT_CMSIS_PATH}
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(Unity)
 

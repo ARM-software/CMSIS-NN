@@ -68,6 +68,25 @@ Each File has a version number and a date field that must be updated when making
 follows Semantic Versioning 2.0.0 format. 
 
 ## Building CMSIS-NN as a library
+It is recommended to use toolchain files from [Arm Ethos-U Core Platform](https://review.mlplatform.org/admin/repos/ml/ethos-u/ethos-u-core-platform) project. These are supporting TARGET_CPU, which is a required argument. Note that if not specifying TARGET_CPU, these toolchains will set some default. The format must be TARGET_CPU=cortex-mXX, see examples below.
+Furthermore CMSIS-NN has a dependency to [CMSIS](https://github.com/ARM-software/CMSIS_5) project.
+Here is an example:
+
+```
+cd </path/to/CMSIS_NN>
+mkdir build
+cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain/arm-none-eabi-gcc.cmake -DTARGET_CPU=cortex-m55 -DCMSIS_PATH=</path/to/CMSIS>
+make
+```
+
+Some more examples:
+
+```
+cmake .. -DCMAKE_TOOLCHAIN_FILE=~/ethos-u-core-platform/cmake/toolchain/arm-none-eabi-gcc.cmake -DTARGET_CPU=cortex-m55 -DCMSIS_PATH=</path/to/CMSIS>
+cmake .. -DCMAKE_TOOLCHAIN_FILE=~/ethos-u-core-platform/cmake/toolchain/arm-none-eabi-gcc.cmake -DTARGET_CPU=cortex-m7 -DCMSIS_PATH=</path/to/CMSIS>
+cmake .. -DCMAKE_TOOLCHAIN_FILE=~/ethos-u-core-platform/cmake/toolchain/armclang.cmake -DTARGET_CPU=cortex-m3 -DCMSIS_PATH=</path/to/CMSIS>
+```
 
 ### Compiler Options
 Default optimization level is set at Ofast. Please change according to project needs. Just bear in mind this can impact
@@ -75,7 +94,7 @@ performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to
 Technology.
 
 The compiler option *'-fomit-frame-pointer'* is enabled by default at -O and higher. When no optimization level is specified,
-you may need to specifiy '-fomit-frame-pointer'.
+you may need to specify '-fomit-frame-pointer'.
 
 The compiler option *'-fno-builtin'* does not utilize optimized implementations of e.g. memcpy and memset, which are heavily used by CMSIS-NN. It can significantly downgrade performance. So this should be avoided. The compiler option *'-ffreestanding'* should also be avoided as it enables '-fno-builtin' implicitly.
 
