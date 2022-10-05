@@ -30,12 +30,13 @@
 /**
    \mainpage CMSIS NN Software Library
    *
+   * \tableofcontents
    * \section Introduction
    * 
    *
    * This user manual describes the CMSIS NN software library,
    * a collection of efficient neural network kernels developed to maximize the
-   * performance and minimize the memory footprint of neural networks on Cortex-M processor cores.
+   * performance and minimize the memory footprint of neural networks on Arm Cortex-M processors.
    *
    * The library is divided into a number of functions each covering a specific category:
    * - \ref NNConv Convolution Functions
@@ -46,77 +47,54 @@
    * - \ref Softmax Functions
    * - \ref groupElementwise Basic math Functions
    *
-   * The library has separate functions for operating on different weight and activation data
-   * types including 8-bit integers (q7_t) and 16-bit integers (q15_t). The descrition of the
-   * kernels are included in the function description. The implementation details are also
-   * described in this paper [1].
    *
-   * \section Supported Processors
+   * \section Processors Supported Processors
    * 
    * CMSIS-NN targets Cortex-M processors with typically three different implementations for each function. Each
    * targets a different group of processors.
-   *  - Processors without SIMD capability (e.g, Cortex-M0)
-   *  - Processors with DSP extention (e.g Cortex-M4)
-   *  - Processors with MVE extension (e.g Cortex-M55)
-   * The right implementation is picked through feature flags and the user usually does not have to explicit set it.
+   *  - Processors without Single Instruction Multiple Data(SIMD) capability (e.g, Cortex-M0)
+   *  - Processors with DSP extension (e.g Cortex-M4)
+   *  - Processors with Arm M-Profile Vector Extension(MVE) instructions (e.g Cortex-M55)
+   * The right implementation is picked through feature flags and the user does not have to explicit set it.
    *
-   * \section Function Classification
-   * 
-   * The functions can be classified into two segments
-   * - Legacy functions supporting ARM's internal symmetric quantization(8 bits).
-   * - Functions that support TensorFlow Lite framework with symmetric quantization(8 bits).
-   *
-   * The legacy functions can be identified with their suffix of _q7 or _q15 and are no new development is done there.
-   * The article in [2] describes in detail how to run a network using the legacy functions.
-   *
-   * The functions supporting TensorFlow Lite framework is identified by the _s8 suffix and can be invoked from TFL
-   * micro. The functions are bit exact to TensorFlow Lite. Refer to the TensorFlow's documentation in [3] on how to run
-   * a TensorFlow Lite model using optimized CMSIS-NN kernels.
-   *
-   * \section Block Diagram
+   * \section Framework Quantization Specification
+   * The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16
+   *  quantization specification of TensorFlow Lite for Microcontrollers. 
+   * \section Overview Block Diagram
    * 
    * \image html CMSIS-NN-OVERVIEW.PNG
    *
    * \section Examples
    * 
    *
-   * The library ships with a number of examples which demonstrate how to use the library functions.
+   * An example image recognition application using TensorFlow Flow Lite for Microcontrollers as an inference engine
+   * and CMSIS-NN as the optimized library can be found in the Examples directory.
    *
-   * Pre-processor Macros
-   * ------------
+   * \section Macros Pre-processor Macros
+   * 
+   * \subsection Feature Feature flag based
+   * The macros below are defined in a build system based on feature flags for a chosen processor or architecture
+   * input to a compiler.
+   * These tie in to the classification in \ref Macros. 
+   * 
+   * For a CMSIS-NN file compiled as *armclang -mcpu=cortex-m4 --target=arm-arm-none-eabi -I<CMSIS Core Include> 
+   * -Ofast -O file.c* , ARM_MATH_DSP is enabled as Cortex-M4 has the DSP extension as a feature.
+   * 
+   * - `ARM_MATH_DSP`  - Selects code for processors with DSP extension.
    *
-   * Each library project have different pre-processor macros.
+   * - `ARM_MATH_MVEI`  - Selects code for processors which supports MVE instructions.
    *
-   * - ARM_MATH_DSP:
+   * \subsection MiscFlags User Set 
+   * - `ARM_MATH_AUTOVECTORIZE`
+   *  Applicable when ARM_MATH_MVEI is active to let the compiler auto vectorize functions, if available, that uses inline
+   *  assembly. This has to be explicitly set at compile time.
    *
-   * Define macro ARM_MATH_DSP, If the silicon supports DSP instructions(DSP extension).
-   *
-   * - ARM_MATH_MVEI:
-   *
-   * Define macro ARM_MATH_MVEI, If the silicon supports M-Profile Vector Extension.
-
-   * - ARM_MATH_AUTOVECTORIZE
-   *  Used in conjucture with ARM_MATH_MVEI to let the compiler auto vectorize for the functions that uses inline
-   *  assembly. It does not affect functions that use C or intrinsics.
-   * - ARM_MATH_BIG_ENDIAN:
-   *
-   * Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. This is supported only for the legacy
-   * functions i.e, functions targetted at TensorFlow Lite do not support big endianness. By default library builds for
-   * little endian targets.
-   *
-   * Copyright Notice
-   * ------------
+   * \section Copyright Copyright Notice
+   * 
    *
    * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
    *
-   * [1] CMSIS-NN: Efficient Neural Network Kernels for Arm Cortex-M CPUs https://arxiv.org/abs/1801.06601
    *
-   * [2] Converting a Neural Network for Arm Cortex-M with CMSIS-NN
-   *
-   https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/how-to-guides/converting-a-neural-network-for-arm-cortex-m-with-cmsis-nn/single-page
-   * [3] https://www.tensorflow.org/lite/microcontrollers/library
-   *
-   * [4] https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/NN#legacy-vs-tfl-micro-compliant-apis
    */
 
 /**
