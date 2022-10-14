@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <package schemaVersion="1.7.7" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.7/schema/PACK.xsd">
-  <name>CMSIS</name>
+  <name>CMSIS-NN</name>
   <description>CMSIS (Common Microcontroller Software Interface Standard)</description>
   <vendor>ARM</vendor>
   <!-- <license>license.txt</license> -->
@@ -15,25 +15,10 @@
 
   <!-- conditions are dependency rules that can apply to a component or an individual file -->
   <conditions>
-    <!-- compiler -->
-    <condition id="ARMCC GCC IAR">
-      <accept Tcompiler="ARMCC"/>
-      <accept Tcompiler="GCC"/>
-      <accept Tcompiler="IAR"/>
-    </condition>
-
-    <!-- CMSIS-Core-->
-    <condition id="CMSIS-CORE">
-      <description>Components required for CMSIS-Core</description>
-      <require condition="ARMCC GCC IAR"/>
-      <require Cclass="CMSIS" Cgroup="CORE"/>
-    </condition>
-
     <!-- CMSIS-NN -->
     <condition id="CMSIS-NN">
       <description>Components required for CMSIS-NN</description>
-      <require condition="CMSIS-CORE"/>
-      <require Cclass="CMSIS" Cgroup="NN" Csub=""/>
+      <require Cclass="CMSIS" Cgroup="CORE"/>
     </condition>
   </conditions>
 
@@ -42,73 +27,73 @@
     <component Cclass="CMSIS" Cgroup="NN Lib" Cversion="0.0.0" condition="CMSIS-NN">
       <description>CMSIS Neural Network(NN) Library</description>
       <files>
-        <file category="doc" name="Documentation/NN/html/index.html"/>
-        <file category="header" name="CMSIS/NN/Include/arm_nn_types.h"/>
-        <file category="header" name="CMSIS/NN/Include/arm_nnfunctions.h"/>
-        <file category="header" name="CMSIS/NN/Include/arm_nnsupportfunctions.h"/>
-        <file category="header" name="CMSIS/NN/Include/arm_nn_tables.h"/>
+        <file category="doc" name="Documentation/html/index.html"/>
+        <file category="header" name="Include/arm_nn_types.h"/>
+        <file category="header" name="Include/arm_nnfunctions.h"/>
+        <file category="header" name="Include/arm_nnsupportfunctions.h"/>
+        <file category="header" name="Include/arm_nn_tables.h"/>
 
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_fast_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8_opt.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_w.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_y.c"/>
-        <file category="source" name="CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_z.c"/>
-        <file category="source" name="CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/SVDFunctions/arm_svdf_state_s16_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.c"/>
-        <file category="source" name="CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.c"/>
-        <file category="source" name="CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.c"/>
-        <file category="source" name="CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.c"/>
-        <file category="source" name="CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nntables.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>
-        <file category="source" name="CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.c"/>
-        <file category="source" name="CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.c"/>
+        <!-- file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c"/ -->
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_fast_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_fast_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_s8_opt.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_wrapper_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_wrapper_s16.c"/>
+        <!-- file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.c"/ -->
+        <file category="source" name="Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_w.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_y.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_z.c"/>
+        <file category="source" name="Source/SVDFunctions/arm_svdf_s8.c"/>
+        <file category="source" name="Source/SVDFunctions/arm_svdf_state_s16_s8.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_max_pool_s8.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_max_pool_s16.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_avgpool_s8.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_avgpool_s16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s8.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s8.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s16.c"/>
+        <file category="source" name="Source/ActivationFunctions/arm_relu6_s8.c"/>
+        <file category="source" name="Source/ActivationFunctions/arm_relu_q15.c"/>
+        <file category="source" name="Source/ActivationFunctions/arm_relu_q7.c"/>
+        <!-- file category="source" name="Source/ActivationFunctions/arm_nn_activations_q15.c"/ -->
+        <!-- file category="source" name="Source/ActivationFunctions/arm_nn_activations_q7.c"/ -->
+        <file category="source" name="Source/ReshapeFunctions/arm_reshape_s8.c"/>
+        <!-- file category="source" name="Source/NNSupportFunctions/arm_nn_mult_q7.c"/ -->
+        <!-- file category="source" name="Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c"/ -->
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c"/>
+        <!-- file category="source" name="Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c"/ -->
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nntables.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s16.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_u8.c"/>
       </files>
     </component>
   </components>
