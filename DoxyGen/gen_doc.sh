@@ -97,7 +97,7 @@ rm -rf ${DIRNAME}/../Documentation/html
 sed -e "s/{projectNumber}/${VERSION}/" "${DIRNAME}/nn.dxy.in" \
   > "${DIRNAME}/nn.dxy"
 
-git_changelog -f html 1> history.txt 2>/dev/null
+git_changelog -p "v" -f html 1> history.txt 2>/dev/null
 
 echo "${DOXYGEN} nn.dxy"
 "${DOXYGEN}" nn.dxy

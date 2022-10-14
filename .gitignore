@@ -7,3 +7,5 @@ Tests/UnitTest/Unity/*
 Documentation/html/*
 DoxyGen/history.txt
 DoxyGen/nn.dxy
+build
+output
