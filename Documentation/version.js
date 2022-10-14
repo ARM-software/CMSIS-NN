@@ -1,3 +1,3 @@
 function myFunction() {
-  /* dummy function not used for local docs */ 
+  /* Placeholder function not used for local docs */ 
 }

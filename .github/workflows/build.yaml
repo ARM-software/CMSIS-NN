@@ -49,6 +49,6 @@ jobs:
               ./Documentation/html/index.html \
               ./DoxyGen
           doc-path: ./Documentation/html
-          gen-pack-script: ./gen_pack.sh
+          gen-pack-script: ./Scripts/gen_pack.sh
           gen-pack-output: ./output
           gh-pages-branch: gh-pages
