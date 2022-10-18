@@ -97,6 +97,9 @@ you may need to specify '-fomit-frame-pointer'.
 
 The compiler option *'-fno-builtin'* does not utilize optimized implementations of e.g. memcpy and memset, which are heavily used by CMSIS-NN. It can significantly downgrade performance. So this should be avoided. The compiler option *'-ffreestanding'* should also be avoided as it enables '-fno-builtin' implicitly.
 
+## Inclusive Language
+CMSIS-NN uses inclusive language and is awarded the Inclusive Language at Arm certificate.<br>
+![image](/DoxyGen/images/CMSIS_NN_ILaA_Mark_128.png)
 ## Support / Contact
 
 For any questions or to reach the CMSIS-NN team, please create a new issue in https://github.com/ARM-software/CMSIS-NN/issues

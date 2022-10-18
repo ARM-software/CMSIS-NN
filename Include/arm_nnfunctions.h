@@ -88,6 +88,11 @@
    * - `ARM_MATH_AUTOVECTORIZE`
    *  Applicable when ARM_MATH_MVEI is active to let the compiler auto vectorize functions, if available, that uses inline
    *  assembly. This has to be explicitly set at compile time.
+   * 
+   * \section Inclusive Inclusive Language
+   * CMSIS-NN uses inclusive language and is awarded the Inclusive Language at Arm certificate.
+   * 
+   * \image html CMSIS_NN_ILaA_Mark_128.png
    *
    * \section Copyright Copyright Notice
    * 
