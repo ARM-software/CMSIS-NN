@@ -35,6 +35,7 @@ var NAVTREE =
         [ "Feature flag based", "index.html#Feature", null ],
         [ "User Set", "index.html#MiscFlags", null ]
       ] ],
+      [ "Inclusive Language", "index.html#Inclusive", null ],
       [ "Copyright Notice", "index.html#Copyright", null ]
     ] ],
     [ "Revision History", "rev_hist.html", null ],
