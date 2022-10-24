@@ -32,8 +32,8 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | Conv2D          | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
 | DepthwiseConv2D | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
 | Fully Connected | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| Add             | Yes    | Yes              | Yes           | Yes   | Yes         | No    |
-| Mul             | Yes    | Yes              | Yes           | Yes   | Yes         | No    |
+| Add             | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
+| Mul             | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
 | MaxPooling      | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
 | AvgPooling      | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
 | Softmax         | Yes    | Yes              | Yes           | Yes   | No          | No   |
