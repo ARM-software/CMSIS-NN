@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t depthwise_null_bias_0_weights[8] = {67, 0, 34, -93, 127, 92, -99, -127};
+const int8_t depthwise_null_bias_0_weights[8] = {67, 0, 34, -93, 127, 92, -99, -127};

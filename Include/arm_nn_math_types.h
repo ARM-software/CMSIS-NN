@@ -19,8 +19,8 @@
 /******************************************************************************
  * @file     arm_nn_math_types.h
  * @brief    Compiler include and basic types
- * @version  V1.2.0
- * @date     20 June 2022
+ * @version  V1.2.1
+ * @date     26 October 2022
  * Target Processor: Cortex-M
  ******************************************************************************/
 
@@ -41,12 +41,6 @@ extern "C" {
 #include <math.h>
 #include <stdint.h>
 #include <string.h>
-
-/* Integer aliases */
-typedef int8_t q7_t;
-typedef int16_t q15_t;
-typedef int32_t q31_t;
-typedef int64_t q63_t;
 
 /* Compiler specific diagnostic adjustment */
 #if defined(__CC_ARM)
@@ -147,12 +141,12 @@ extern "C" {
  * @brief Add necessary typedefs
  */
 
-#define NN_Q31_MAX ((q31_t)(0x7FFFFFFFL))
-#define NN_Q15_MAX ((q15_t)(0x7FFF))
-#define NN_Q7_MAX ((q7_t)(0x7F))
-#define NN_Q31_MIN ((q31_t)(0x80000000L))
-#define NN_Q15_MIN ((q15_t)(0x8000))
-#define NN_Q7_MIN ((q7_t)(0x80))
+#define NN_Q31_MAX ((int32_t)(0x7FFFFFFFL))
+#define NN_Q15_MAX ((int16_t)(0x7FFF))
+#define NN_Q7_MAX ((int8_t)(0x7F))
+#define NN_Q31_MIN ((int32_t)(0x80000000L))
+#define NN_Q15_MIN ((int16_t)(0x8000))
+#define NN_Q7_MIN ((int8_t)(0x80))
 
 /**
  * @brief Error status returned by some functions in the library.

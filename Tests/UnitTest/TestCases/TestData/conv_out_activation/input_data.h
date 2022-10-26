@@ -2,5 +2,5 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t conv_out_activation_input[18] =
+const int8_t conv_out_activation_input[18] =
     {23, -12, -1, -29, 63, -36, 83, -71, -26, 66, 56, -37, -6, -95, -18, 3, -23, 21};

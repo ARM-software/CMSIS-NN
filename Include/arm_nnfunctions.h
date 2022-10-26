@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        30 September 2022
- * $Revision:    V.11.0.0
+ * $Date:        26 October 2022
+ * $Revision:    V.11.0.1
  *
  * Target Processor:  Cortex-M CPUs
  * -------------------------------------------------------------------- */
@@ -32,7 +32,7 @@
    *
    * \tableofcontents
    * \section Introduction
-   * 
+   *
    *
    * This user manual describes the CMSIS NN software library,
    * a collection of efficient neural network kernels developed to maximize the
@@ -49,7 +49,7 @@
    *
    *
    * \section Processors Supported Processors
-   * 
+   *
    * CMSIS-NN targets Cortex-M processors with typically three different implementations for each function. Each
    * targets a different group of processors.
    *  - Processors without Single Instruction Multiple Data(SIMD) capability (e.g, Cortex-M0)
@@ -59,43 +59,44 @@
    *
    * \section Framework Quantization Specification
    * The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16
-   *  quantization specification of TensorFlow Lite for Microcontrollers. 
+   *  quantization specification of TensorFlow Lite for Microcontrollers.
    * \section Overview Block Diagram
-   * 
+   *
    * \image html CMSIS-NN-OVERVIEW.PNG
    *
    * \section Examples
-   * 
+   *
    *
    * An example image recognition application using TensorFlow Flow Lite for Microcontrollers as an inference engine
    * and CMSIS-NN as the optimized library can be found in the Examples directory.
    *
    * \section Macros Pre-processor Macros
-   * 
+   *
    * \subsection Feature Feature flag based
    * The macros below are defined in a build system based on feature flags for a chosen processor or architecture
    * input to a compiler.
-   * These tie in to the classification in \ref Macros. 
-   * 
-   * For a CMSIS-NN file compiled as *armclang -mcpu=cortex-m4 --target=arm-arm-none-eabi -I<CMSIS Core Include> 
+   * These tie in to the classification in \ref Macros.
+   *
+   * For a CMSIS-NN file compiled as *armclang -mcpu=cortex-m4 --target=arm-arm-none-eabi -I<CMSIS Core Include>
    * -Ofast -O file.c* , ARM_MATH_DSP is enabled as Cortex-M4 has the DSP extension as a feature.
-   * 
+   *
    * - `ARM_MATH_DSP`  - Selects code for processors with DSP extension.
    *
    * - `ARM_MATH_MVEI`  - Selects code for processors which supports MVE instructions.
    *
-   * \subsection MiscFlags User Set 
+   * \subsection MiscFlags User Set
    * - `ARM_MATH_AUTOVECTORIZE`
-   *  Applicable when ARM_MATH_MVEI is active to let the compiler auto vectorize functions, if available, that uses inline
+   *  Applicable when ARM_MATH_MVEI is active to let the compiler auto vectorize functions, if available, that uses
+   inline
    *  assembly. This has to be explicitly set at compile time.
-   * 
+   *
    * \section Inclusive Inclusive Language
    * CMSIS-NN uses inclusive language and is awarded the Inclusive Language at Arm certificate.
-   * 
+   *
    * \image html CMSIS_NN_ILaA_Mark_128.png
    *
    * \section Copyright Copyright Notice
-   * 
+   *
    *
    * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
    *
@@ -180,13 +181,13 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
                                             const cmsis_nn_conv_params *conv_params,
                                             const cmsis_nn_per_channel_quant_params *quant_params,
                                             const cmsis_nn_dims *input_dims,
-                                            const q7_t *input_data,
+                                            const int8_t *input_data,
                                             const cmsis_nn_dims *filter_dims,
-                                            const q7_t *filter_data,
+                                            const int8_t *filter_data,
                                             const cmsis_nn_dims *bias_dims,
                                             const int32_t *bias_data,
                                             const cmsis_nn_dims *output_dims,
-                                            q7_t *output_data);
+                                            int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for arm_convolve_wrapper_s8
@@ -238,13 +239,13 @@ arm_cmsis_nn_status arm_convolve_wrapper_s16(const cmsis_nn_context *ctx,
                                              const cmsis_nn_conv_params *conv_params,
                                              const cmsis_nn_per_channel_quant_params *quant_params,
                                              const cmsis_nn_dims *input_dims,
-                                             const q15_t *input_data,
+                                             const int16_t *input_data,
                                              const cmsis_nn_dims *filter_dims,
-                                             const q7_t *filter_data,
+                                             const int8_t *filter_data,
                                              const cmsis_nn_dims *bias_dims,
                                              const int64_t *bias_data,
                                              const cmsis_nn_dims *output_dims,
-                                             q15_t *output_data);
+                                             int16_t *output_data);
 
 /**
  * @brief Get the required buffer size for arm_convolve_wrapper_s16
@@ -289,21 +290,20 @@ int32_t arm_convolve_wrapper_s16_get_buffer_size(const cmsis_nn_conv_params *con
  *
  * @details
  *    1. Supported framework: TensorFlow Lite micro
- *    2. q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
- *    3. Additional memory is required for optimization. Refer to argument 'ctx' for details.
+ *    2. Additional memory is required for optimization. Refer to argument 'ctx' for details.
  *
  */
 arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                                     const cmsis_nn_conv_params *conv_params,
                                     const cmsis_nn_per_channel_quant_params *quant_params,
                                     const cmsis_nn_dims *input_dims,
-                                    const q7_t *input_data,
+                                    const int8_t *input_data,
                                     const cmsis_nn_dims *filter_dims,
-                                    const q7_t *filter_data,
+                                    const int8_t *filter_data,
                                     const cmsis_nn_dims *bias_dims,
                                     const int32_t *bias_data,
                                     const cmsis_nn_dims *output_dims,
-                                    q7_t *output_data);
+                                    int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for s8 convolution function
@@ -340,21 +340,20 @@ int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const c
  *
  * @details
  *    1. Supported framework: TensorFlow Lite micro
- *    2. q7/q15 is used as data type eventhough it is s8/s16 data. It is done so to be consistent with existing APIs.
- *    3. Additional memory is required for optimization. Refer to argument 'ctx' for details.
+ *    2. Additional memory is required for optimization. Refer to argument 'ctx' for details.
  *
  */
 arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                                      const cmsis_nn_conv_params *conv_params,
                                      const cmsis_nn_per_channel_quant_params *quant_params,
                                      const cmsis_nn_dims *input_dims,
-                                     const q15_t *input_data,
+                                     const int16_t *input_data,
                                      const cmsis_nn_dims *filter_dims,
-                                     const q7_t *filter_data,
+                                     const int8_t *filter_data,
                                      const cmsis_nn_dims *bias_dims,
                                      const int64_t *bias_data,
                                      const cmsis_nn_dims *output_dims,
-                                     q15_t *output_data);
+                                     int16_t *output_data);
 /**
  * @brief Optimized s16 convolution function
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
@@ -380,9 +379,8 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
  *
  * @details
  *    1. Supported framework: TensorFlow Lite micro
- *    2. q7/q15 is used as data type eventhough it is s8/s16 data. It is done so to be consistent with existing APIs.
- *    3. Additional memory is required for optimization. Refer to argument 'ctx' for details.
- *    4. Implementation supports kernel volumes (filter width * filter height * input channels) < 512.
+ *    2. Additional memory is required for optimization. Refer to argument 'ctx' for details.
+ *    3. Implementation supports kernel volumes (filter width * filter height * input channels) < 512.
  *
  */
 
@@ -390,13 +388,13 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                                           const cmsis_nn_conv_params *conv_params,
                                           const cmsis_nn_per_channel_quant_params *quant_params,
                                           const cmsis_nn_dims *input_dims,
-                                          const q15_t *input_data,
+                                          const int16_t *input_data,
                                           const cmsis_nn_dims *filter_dims,
-                                          const q7_t *filter_data,
+                                          const int8_t *filter_data,
                                           const cmsis_nn_dims *bias_dims,
                                           const int64_t *bias_data,
                                           const cmsis_nn_dims *output_dims,
-                                          q15_t *output_data);
+                                          int16_t *output_data);
 
 /**
  * @brief Get the required buffer size for s16 convolution function
@@ -456,13 +454,13 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
                                              const cmsis_nn_conv_params *conv_params,
                                              const cmsis_nn_per_channel_quant_params *quant_params,
                                              const cmsis_nn_dims *input_dims,
-                                             const q7_t *input_data,
+                                             const int8_t *input_data,
                                              const cmsis_nn_dims *filter_dims,
-                                             const q7_t *filter_data,
+                                             const int8_t *filter_data,
                                              const cmsis_nn_dims *bias_dims,
                                              const int32_t *bias_data,
                                              const cmsis_nn_dims *output_dims,
-                                             q7_t *output_data);
+                                             int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for arm_convolve_1x1_s8_fast
@@ -514,13 +512,13 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                                           const cmsis_nn_conv_params *conv_params,
                                           const cmsis_nn_per_channel_quant_params *quant_params,
                                           const cmsis_nn_dims *input_dims,
-                                          const q7_t *input_data,
+                                          const int8_t *input_data,
                                           const cmsis_nn_dims *filter_dims,
-                                          const q7_t *filter_data,
+                                          const int8_t *filter_data,
                                           const cmsis_nn_dims *bias_dims,
                                           const int32_t *bias_data,
                                           const cmsis_nn_dims *output_dims,
-                                          q7_t *output_data);
+                                          int8_t *output_data);
 
 /**
  * @brief Get the required additional buffer size for 1xn convolution
@@ -566,7 +564,6 @@ int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_dims *input_dims, c
  *        -# arm_depthwise_conv_s8()
  *        -# arm_depthwise_conv_3x3_s8() - Cortex-M CPUs with DSP extension only
  *        -# arm_depthwise_conv_s8_opt()
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  *    - Check details of arm_depthwise_conv_s8_opt() for potential data that can be accessed outside of the
  * boundary.
  */
@@ -574,13 +571,13 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s8(const cmsis_nn_context *ctx,
                                                   const cmsis_nn_dw_conv_params *dw_conv_params,
                                                   const cmsis_nn_per_channel_quant_params *quant_params,
                                                   const cmsis_nn_dims *input_dims,
-                                                  const q7_t *input_data,
+                                                  const int8_t *input_data,
                                                   const cmsis_nn_dims *filter_dims,
-                                                  const q7_t *filter_data,
+                                                  const int8_t *filter_data,
                                                   const cmsis_nn_dims *bias_dims,
                                                   const int32_t *bias_data,
                                                   const cmsis_nn_dims *output_dims,
-                                                  q7_t *output_data);
+                                                  int8_t *output_data);
 
 /**
  * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s8()
@@ -628,19 +625,18 @@ int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size(const cmsis_nn_dw_conv_par
  *
  * @details
  *    - Supported framework: TensorFlow Lite
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  */
 arm_cmsis_nn_status arm_depthwise_conv_s8(const cmsis_nn_context *ctx,
                                           const cmsis_nn_dw_conv_params *dw_conv_params,
                                           const cmsis_nn_per_channel_quant_params *quant_params,
                                           const cmsis_nn_dims *input_dims,
-                                          const q7_t *input_data,
+                                          const int8_t *input_data,
                                           const cmsis_nn_dims *filter_dims,
-                                          const q7_t *filter_data,
+                                          const int8_t *filter_data,
                                           const cmsis_nn_dims *bias_dims,
                                           const int32_t *bias_data,
                                           const cmsis_nn_dims *output_dims,
-                                          q7_t *output_data);
+                                          int8_t *output_data);
 
 /**
  * @brief Basic s16 depthwise convolution function that doesn't have any constraints on the input dimensions.
@@ -670,19 +666,18 @@ arm_cmsis_nn_status arm_depthwise_conv_s8(const cmsis_nn_context *ctx,
  *
  * @details
  *    - Supported framework: TensorFlow Lite
- *    - q15 is used as data type eventhough it is s16 data. It is done so to be consistent with existing APIs.
  */
 arm_cmsis_nn_status arm_depthwise_conv_s16(const cmsis_nn_context *ctx,
                                            const cmsis_nn_dw_conv_params *dw_conv_params,
                                            const cmsis_nn_per_channel_quant_params *quant_params,
                                            const cmsis_nn_dims *input_dims,
-                                           const q15_t *input_data,
+                                           const int16_t *input_data,
                                            const cmsis_nn_dims *filter_dims,
-                                           const q7_t *filter_data,
+                                           const int8_t *filter_data,
                                            const cmsis_nn_dims *bias_dims,
                                            const int64_t *bias_data,
                                            const cmsis_nn_dims *output_dims,
-                                           q15_t *output_data);
+                                           int16_t *output_data);
 
 /**
  * @brief Wrapper function to pick the right optimized s16 depthwise convolution function
@@ -716,19 +711,18 @@ arm_cmsis_nn_status arm_depthwise_conv_s16(const cmsis_nn_context *ctx,
  *    - Picks one of the the following functions
  *        -# arm_depthwise_conv_s16()
  *        -# arm_depthwise_conv_fast_s16()  - Cortex-M CPUs with DSP extension only
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  */
 arm_cmsis_nn_status arm_depthwise_conv_wrapper_s16(const cmsis_nn_context *ctx,
                                                    const cmsis_nn_dw_conv_params *dw_conv_params,
                                                    const cmsis_nn_per_channel_quant_params *quant_params,
                                                    const cmsis_nn_dims *input_dims,
-                                                   const q15_t *input_data,
+                                                   const int16_t *input_data,
                                                    const cmsis_nn_dims *filter_dims,
-                                                   const q7_t *filter_data,
+                                                   const int8_t *filter_data,
                                                    const cmsis_nn_dims *bias_dims,
                                                    const int64_t *bias_data,
                                                    const cmsis_nn_dims *output_dims,
-                                                   q15_t *output_data);
+                                                   int16_t *output_data);
 
 /**
  * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s16()
@@ -764,7 +758,6 @@ int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size(const cmsis_nn_dw_conv_pa
  *    - Supported framework: TensorFlow Lite
  *    - The following constrains on the arguments apply
  *        -# Number of input channel equals number of output channels or ch_mult equals 1
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  *    - Reccomended when number of channels is 4 or greater.
  *
  */
@@ -772,13 +765,13 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
                                                 const cmsis_nn_dw_conv_params *dw_conv_params,
                                                 const cmsis_nn_per_channel_quant_params *quant_params,
                                                 const cmsis_nn_dims *input_dims,
-                                                const q15_t *input_data,
+                                                const int16_t *input_data,
                                                 const cmsis_nn_dims *filter_dims,
-                                                const q7_t *filter_data,
+                                                const int8_t *filter_data,
                                                 const cmsis_nn_dims *bias_dims,
                                                 const int64_t *bias_data,
                                                 const cmsis_nn_dims *output_dims,
-                                                q15_t *output_data);
+                                                int16_t *output_data);
 
 /**
  * @brief Get the required buffer size for optimized s16 depthwise convolution
@@ -813,13 +806,13 @@ arm_cmsis_nn_status arm_depthwise_conv_3x3_s8(const cmsis_nn_context *ctx,
                                               const cmsis_nn_dw_conv_params *dw_conv_params,
                                               const cmsis_nn_per_channel_quant_params *quant_params,
                                               const cmsis_nn_dims *input_dims,
-                                              const q7_t *input_data,
+                                              const int8_t *input_data,
                                               const cmsis_nn_dims *filter_dims,
-                                              const q7_t *filter_data,
+                                              const int8_t *filter_data,
                                               const cmsis_nn_dims *bias_dims,
                                               const int32_t *bias_data,
                                               const cmsis_nn_dims *output_dims,
-                                              q7_t *output_data);
+                                              int8_t *output_data);
 
 /**
  * @brief Optimized s8 depthwise convolution function with constraint that in_channel equals out_channel.
@@ -840,7 +833,6 @@ arm_cmsis_nn_status arm_depthwise_conv_3x3_s8(const cmsis_nn_context *ctx,
  *    - Supported framework: TensorFlow Lite
  *    - The following constrains on the arguments apply
  *        -# Number of input channel equals number of output channels or ch_mult equals 1
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  *    - Reccomended when number of channels is 4 or greater.
  *
  */
@@ -848,13 +840,13 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                                               const cmsis_nn_dw_conv_params *dw_conv_params,
                                               const cmsis_nn_per_channel_quant_params *quant_params,
                                               const cmsis_nn_dims *input_dims,
-                                              const q7_t *input_data,
+                                              const int8_t *input_data,
                                               const cmsis_nn_dims *filter_dims,
-                                              const q7_t *filter_data,
+                                              const int8_t *filter_data,
                                               const cmsis_nn_dims *bias_dims,
                                               const int32_t *bias_data,
                                               const cmsis_nn_dims *output_dims,
-                                              q7_t *output_data);
+                                              int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for optimized s8 depthwise convolution
@@ -914,19 +906,18 @@ int32_t arm_depthwise_conv_s8_opt_get_buffer_size(const cmsis_nn_dims *input_dim
  *
  * @details
  *    - Supported framework: TensorFlow Lite
- *    - q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
  */
 arm_cmsis_nn_status arm_fully_connected_s8(const cmsis_nn_context *ctx,
                                            const cmsis_nn_fc_params *fc_params,
                                            const cmsis_nn_per_tensor_quant_params *quant_params,
                                            const cmsis_nn_dims *input_dims,
-                                           const q7_t *input_data,
+                                           const int8_t *input_data,
                                            const cmsis_nn_dims *filter_dims,
-                                           const q7_t *filter_data,
+                                           const int8_t *filter_data,
                                            const cmsis_nn_dims *bias_dims,
                                            const int32_t *bias_data,
                                            const cmsis_nn_dims *output_dims,
-                                           q7_t *output_data);
+                                           int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for S8 basic fully-connected and
@@ -971,19 +962,18 @@ int32_t arm_fully_connected_s8_get_buffer_size(const cmsis_nn_dims *filter_dims)
  *
  * @details
  *    - Supported framework: TensorFlow Lite
- *    - q15 is used as data type eventhough it is s16 data. It is done so to be consistent with existing APIs.
  */
 arm_cmsis_nn_status arm_fully_connected_s16(const cmsis_nn_context *ctx,
                                             const cmsis_nn_fc_params *fc_params,
                                             const cmsis_nn_per_tensor_quant_params *quant_params,
                                             const cmsis_nn_dims *input_dims,
-                                            const q15_t *input_data,
+                                            const int16_t *input_data,
                                             const cmsis_nn_dims *filter_dims,
-                                            const q7_t *filter_data,
+                                            const int8_t *filter_data,
                                             const cmsis_nn_dims *bias_dims,
                                             const int64_t *bias_data,
                                             const cmsis_nn_dims *output_dims,
-                                            q15_t *output_data);
+                                            int16_t *output_data);
 
 /**
  * @brief Get the required buffer size for S16 basic fully-connected and
@@ -993,22 +983,6 @@ arm_cmsis_nn_status arm_fully_connected_s16(const cmsis_nn_context *ctx,
  *
  */
 int32_t arm_fully_connected_s16_get_buffer_size(const cmsis_nn_dims *filter_dims);
-
-/**
- * @brief Q7 opt fully-connected layer function
- * @param[in]       pV          pointer to input vector
- * @param[in]       pM          pointer to matrix weights
- * @param[in]       dim_vec     length of the vector
- * @param[in]       num_of_rows number of rows in weight matrix
- * @param[in]       bias_shift  amount of left-shift for bias
- * @param[in]       out_shift   amount of right-shift for output
- * @param[in]       bias        pointer to bias
- * @param[in,out]   pOut        pointer to output vector
- * @param[in,out]   vec_buffer  pointer to buffer space for input
- * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
- *
- */
-
 
 /**
  * @defgroup groupElementwise Elementwise Functions
@@ -1163,7 +1137,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s16(const int16_t *input_1_vect,
  * @param[in]       size        number of elements
  */
 
-void arm_relu_q7(q7_t *data, uint16_t size);
+void arm_relu_q7(int8_t *data, uint16_t size);
 
 /**
  * @brief s8 ReLU6 function
@@ -1171,7 +1145,7 @@ void arm_relu_q7(q7_t *data, uint16_t size);
  * @param[in]       size        number of elements
  */
 
-void arm_relu6_s8(q7_t *data, uint16_t size);
+void arm_relu6_s8(int8_t *data, uint16_t size);
 
 /**
  * @brief Q15 RELU function
@@ -1179,7 +1153,7 @@ void arm_relu6_s8(q7_t *data, uint16_t size);
  * @param[in]       size        number of elements
  */
 
-void arm_relu_q15(q15_t *data, uint16_t size);
+void arm_relu_q15(int16_t *data, uint16_t size);
 
 /**
  * @brief s8 average pooling function.
@@ -1209,10 +1183,10 @@ void arm_relu_q15(q15_t *data, uint16_t size);
 arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                                    const cmsis_nn_pool_params *pool_params,
                                    const cmsis_nn_dims *input_dims,
-                                   const q7_t *input_data,
+                                   const int8_t *input_data,
                                    const cmsis_nn_dims *filter_dims,
                                    const cmsis_nn_dims *output_dims,
-                                   q7_t *output_data);
+                                   int8_t *output_data);
 
 /**
  * @brief Get the required buffer size for S8 average pooling function
@@ -1295,10 +1269,10 @@ int32_t arm_avgpool_s16_get_buffer_size(const int dim_dst_width, const int ch_sr
 arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
                                     const cmsis_nn_pool_params *pool_params,
                                     const cmsis_nn_dims *input_dims,
-                                    const q7_t *input_data,
+                                    const int8_t *input_data,
                                     const cmsis_nn_dims *filter_dims,
                                     const cmsis_nn_dims *output_dims,
-                                    q7_t *output_data);
+                                    int8_t *output_data);
 
 /**
  * @brief s16 max pooling function.
@@ -1435,7 +1409,6 @@ void arm_softmax_u8(const uint8_t *input,
                     const int32_t shift,
                     const int32_t diff_min,
                     uint8_t *output);
-
 
 /**
  * @defgroup Reshape Reshape Functions
@@ -1674,8 +1647,6 @@ void arm_concatenation_s8_w(const int8_t *input,
  *
  * @details
  *    1. Supported framework: TensorFlow Lite micro
- *    2. q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
- *
  */
 arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *input_ctx,
                                 const cmsis_nn_context *output_ctx,
@@ -1683,17 +1654,17 @@ arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *input_ctx,
                                 const cmsis_nn_per_tensor_quant_params *input_quant_params,
                                 const cmsis_nn_per_tensor_quant_params *output_quant_params,
                                 const cmsis_nn_dims *input_dims,
-                                const q7_t *input_data,
+                                const int8_t *input_data,
                                 const cmsis_nn_dims *state_dims,
-                                q7_t *state_data,
+                                int8_t *state_data,
                                 const cmsis_nn_dims *weights_feature_dims,
-                                const q7_t *weights_feature_data,
+                                const int8_t *weights_feature_data,
                                 const cmsis_nn_dims *weights_time_dims,
-                                const q7_t *weights_time_data,
+                                const int8_t *weights_time_data,
                                 const cmsis_nn_dims *bias_dims,
-                                const q31_t *bias_data,
+                                const int32_t *bias_data,
                                 const cmsis_nn_dims *output_dims,
-                                q7_t *output_data);
+                                int8_t *output_data);
 
 /**
  * @brief s8 SVDF function with 16 bit state tensor and 16 bit time weights
@@ -1724,8 +1695,6 @@ arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *input_ctx,
  *
  * @details
  *    1. Supported framework: TensorFlow Lite micro
- *    2. q7 is used as data type eventhough it is s8 data. It is done so to be consistent with existing APIs.
- *
  */
 arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
                                           const cmsis_nn_context *output_ctx,
@@ -1733,17 +1702,17 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
                                           const cmsis_nn_per_tensor_quant_params *input_quant_params,
                                           const cmsis_nn_per_tensor_quant_params *output_quant_params,
                                           const cmsis_nn_dims *input_dims,
-                                          const q7_t *input_data,
+                                          const int8_t *input_data,
                                           const cmsis_nn_dims *state_dims,
-                                          q15_t *state_data,
+                                          int16_t *state_data,
                                           const cmsis_nn_dims *weights_feature_dims,
-                                          const q7_t *weights_feature_data,
+                                          const int8_t *weights_feature_data,
                                           const cmsis_nn_dims *weights_time_dims,
-                                          const q15_t *weights_time_data,
+                                          const int16_t *weights_time_data,
                                           const cmsis_nn_dims *bias_dims,
-                                          const q31_t *bias_data,
+                                          const int32_t *bias_data,
                                           const cmsis_nn_dims *output_dims,
-                                          q7_t *output_data);
+                                          int8_t *output_data);
 
 #ifdef __cplusplus
 }

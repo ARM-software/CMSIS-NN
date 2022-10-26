@@ -28,7 +28,7 @@
 
 void int16xint8_arm_convolve_fast_s16(void)
 {
-    q15_t output[INT16XINT8_DST_SIZE] = {0};
+    int16_t output[INT16XINT8_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -38,10 +38,10 @@ void int16xint8_arm_convolve_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = int16xint8_biases;
-    const q7_t *kernel_data = int16xint8_weights;
-    const q15_t *input_data = int16xint8_input;
-    const q15_t *output_ref = int16xint8_output_ref;
+    const int64_t *bias_data = int16xint8_biases;
+    const int8_t *kernel_data = int16xint8_weights;
+    const int16_t *input_data = int16xint8_input;
+    const int16_t *output_ref = int16xint8_output_ref;
     const int32_t output_ref_size = INT16XINT8_DST_SIZE;
 
     input_dims.n = INT16XINT8_INPUT_BATCHES;
@@ -122,7 +122,7 @@ void int16xint8_arm_convolve_fast_s16(void)
 
 void requantize_s64_arm_convolve_fast_s16(void)
 {
-    q15_t output[REQUANTIZE_S64_DST_SIZE] = {0};
+    int16_t output[REQUANTIZE_S64_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -132,10 +132,10 @@ void requantize_s64_arm_convolve_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = requantize_s64_biases;
-    const q7_t *kernel_data = requantize_s64_weights;
-    const q15_t *input_data = requantize_s64_input;
-    const q15_t *output_ref = requantize_s64_output_ref;
+    const int64_t *bias_data = requantize_s64_biases;
+    const int8_t *kernel_data = requantize_s64_weights;
+    const int16_t *input_data = requantize_s64_input;
+    const int16_t *output_ref = requantize_s64_output_ref;
     const int32_t output_ref_size = REQUANTIZE_S64_DST_SIZE;
 
     input_dims.n = REQUANTIZE_S64_INPUT_BATCHES;

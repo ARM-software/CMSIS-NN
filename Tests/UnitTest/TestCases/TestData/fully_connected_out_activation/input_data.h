@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t fully_connected_out_activation_input[10] = {-11, 119, -74, 109, -34, 59, 96, 2, -115, 55};
+const int8_t fully_connected_out_activation_input[10] = {-11, 119, -74, 109, -34, 59, 96, 2, -115, 55};

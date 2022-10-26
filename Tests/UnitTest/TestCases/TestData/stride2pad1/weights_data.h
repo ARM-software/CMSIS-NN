@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t stride2pad1_weights[9] = {85, 77, -30, 10, -12, 97, 34, 127, -4};
+const int8_t stride2pad1_weights[9] = {85, 77, -30, 10, -12, 97, 34, 127, -4};

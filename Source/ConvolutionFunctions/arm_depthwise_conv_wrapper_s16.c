@@ -22,8 +22,8 @@
  * Description:  Wrapper API to select appropriate depthwise conv API based
  *               on dimensions.
  *
- * $Date:        6 July 2022
- * $Revision:    V.1.0.1
+ * $Date:        26 October 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -31,11 +31,9 @@
 
 #include "arm_nnfunctions.h"
 
-
 #define USE_FAST_DW_CONV_FUNCTION(dw_conv_params, filter_dims, input_dims)                                             \
     (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
      filter_dims->w * filter_dims->h * input_dims->c < 512)
-
 
 /**
  *  @ingroup Public
@@ -56,13 +54,13 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s16(const cmsis_nn_context *ctx,
                                                    const cmsis_nn_dw_conv_params *dw_conv_params,
                                                    const cmsis_nn_per_channel_quant_params *quant_params,
                                                    const cmsis_nn_dims *input_dims,
-                                                   const q15_t *input,
+                                                   const int16_t *input,
                                                    const cmsis_nn_dims *filter_dims,
-                                                   const q7_t *filter,
+                                                   const int8_t *filter,
                                                    const cmsis_nn_dims *bias_dims,
                                                    const int64_t *bias,
                                                    const cmsis_nn_dims *output_dims,
-                                                   q15_t *output)
+                                                   int16_t *output)
 {
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
 

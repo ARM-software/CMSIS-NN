@@ -41,7 +41,7 @@ const int32_t *get_bias_address(const int32_t *bias, int32_t size)
 void depthwise_kernel_3x3_arm_depthwise_conv_3x3_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[DEPTHWISE_KERNEL_3X3_DST_SIZE] = {0};
+    int8_t output[DEPTHWISE_KERNEL_3X3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -52,9 +52,9 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_s8(void)
     cmsis_nn_dims output_dims;
 
     const int32_t output_ref_size = DEPTHWISE_KERNEL_3X3_DST_SIZE;
-    const q31_t *bias_data = depthwise_kernel_3x3_biases;
-    const q7_t *kernel_data = depthwise_kernel_3x3_weights;
-    const q7_t *input_data = depthwise_kernel_3x3_input;
+    const int32_t *bias_data = depthwise_kernel_3x3_biases;
+    const int8_t *kernel_data = depthwise_kernel_3x3_weights;
+    const int8_t *input_data = depthwise_kernel_3x3_input;
 
     input_dims.n = DEPTHWISE_KERNEL_3X3_INPUT_BATCHES;
     input_dims.w = DEPTHWISE_KERNEL_3X3_INPUT_W;
@@ -136,7 +136,7 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_s8(void)
 void depthwise_kernel_3x3_arm_depthwise_conv_3x3_1_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
-    q7_t output[DEPTHWISE_KERNEL_3X3_DST_SIZE] = {0};
+    int8_t output[DEPTHWISE_KERNEL_3X3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -146,9 +146,9 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_1_s8(void)
     cmsis_nn_dims bias_dims = {};
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = depthwise_kernel_3x3_biases;
-    const q7_t *kernel_data = depthwise_kernel_3x3_weights;
-    const q7_t *input_data = depthwise_kernel_3x3_input;
+    const int32_t *bias_data = depthwise_kernel_3x3_biases;
+    const int8_t *kernel_data = depthwise_kernel_3x3_weights;
+    const int8_t *input_data = depthwise_kernel_3x3_input;
 
     input_dims.n = DEPTHWISE_KERNEL_3X3_INPUT_BATCHES;
     input_dims.w = DEPTHWISE_KERNEL_3X3_INPUT_W;
@@ -227,7 +227,7 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_1_s8(void)
 void depthwise_kernel_3x3_null_bias_arm_depthwise_conv_3x3_null_bias_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[DEPTHWISE_KERNEL_3X3_NULL_BIAS_DST_SIZE] = {0};
+    int8_t output[DEPTHWISE_KERNEL_3X3_NULL_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -238,10 +238,10 @@ void depthwise_kernel_3x3_null_bias_arm_depthwise_conv_3x3_null_bias_s8(void)
     cmsis_nn_dims output_dims;
 
     const int32_t output_ref_size = DEPTHWISE_KERNEL_3X3_NULL_BIAS_DST_SIZE;
-    const q31_t *bias_data = depthwise_kernel_3x3_null_bias_biases;
+    const int32_t *bias_data = depthwise_kernel_3x3_null_bias_biases;
     // get_bias_address(depthwise_kernel_3x3_null_bias_biases, DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_CH);
-    const q7_t *kernel_data = depthwise_kernel_3x3_null_bias_weights;
-    const q7_t *input_data = depthwise_kernel_3x3_null_bias_input;
+    const int8_t *kernel_data = depthwise_kernel_3x3_null_bias_weights;
+    const int8_t *input_data = depthwise_kernel_3x3_null_bias_input;
 
     input_dims.n = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_BATCHES;
     input_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_W;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Wrapper API to select appropriate depthwise conv API based
  *               on dimensions.
  *
- * $Date:        19 April 2022
- * $Revision:    V.2.0.0
+ * $Date:        26 October 2022
+ * $Revision:    V.2.0.1
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -50,13 +50,13 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s8(const cmsis_nn_context *ctx,
                                                   const cmsis_nn_dw_conv_params *dw_conv_params,
                                                   const cmsis_nn_per_channel_quant_params *quant_params,
                                                   const cmsis_nn_dims *input_dims,
-                                                  const q7_t *input,
+                                                  const int8_t *input,
                                                   const cmsis_nn_dims *filter_dims,
-                                                  const q7_t *filter,
+                                                  const int8_t *filter,
                                                   const cmsis_nn_dims *bias_dims,
                                                   const int32_t *bias,
                                                   const cmsis_nn_dims *output_dims,
-                                                  q7_t *output)
+                                                  int8_t *output)
 {
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
     if (1 == dw_conv_params->ch_mult && input_dims->n == 1 && dw_conv_params->dilation.w == 1 &&

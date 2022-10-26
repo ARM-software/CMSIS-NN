@@ -306,7 +306,7 @@ class TestSettings(ABC):
                 f.write("#define {}_INPUT_BATCHES {}\n".format(prefix, self.batches))
         self.format_output_file(filepath)
 
-    def generate_c_array(self, name, array, datatype="q7_t", const="const "):
+    def generate_c_array(self, name, array, datatype="int8_t", const="const "):
         os.makedirs(self.headers_dir, exist_ok=True)
 
         w = None
@@ -534,11 +534,11 @@ class ConvSettings(TestSettings):
     def generate_data(self, input_data=None, weights=None, biases=None):
         if self.is_int16xint8:
             inttype = tf.int16
-            datatype = "q15_t"
+            datatype = "int16_t"
             bias_datatype = "int64_t"
         else:
             inttype = tf.int8
-            datatype = "q7_t"
+            datatype = "int8_t"
             bias_datatype = "int32_t"
 
         input_data = self.get_randomized_input_data(input_data)
@@ -710,11 +710,11 @@ class FullyConnectedSettings(TestSettings):
 
         if self.is_int16xint8:
             inttype = tf.int16
-            datatype = "q15_t"
+            datatype = "int16_t"
             bias_datatype = "int64_t"
         else:
             inttype = tf.int8
-            datatype = "q7_t"
+            datatype = "int8_t"
             bias_datatype = "int32_t"
 
         fc_weights_format = [self.input_ch * self.y_input * self.x_input, self.output_ch]
@@ -845,17 +845,17 @@ class SoftmaxSettings(TestSettings):
 
         if self.is_int16xint8:
             inttype = tf.int16
-            datatype = "q15_t"
+            datatype = "int16_t"
         else:
             inttype = tf.int8
-            datatype = "q7_t"
+            datatype = "int8_t"
 
         self.generate_c_array("input", input_data, datatype=datatype)
 
         # Generate reference.
         if self.inInt8outInt16:
             # Output is int16.
-            datatype = "q15_t"
+            datatype = "int16_t"
 
             # Keras does not support int8 input and int16 output for Softmax.
             # Using a template json instead.
@@ -1024,9 +1024,9 @@ class SVDFSettings(TestSettings):
 
         # Generate unit test C headers
         self.generate_c_array("weights_feature", interpreter.get_tensor(weights_1_layer['index']))
-        self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='q15_t')
+        self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='int16_t')
         self.generate_c_array("biases", interpreter.get_tensor(bias_layer['index']), "int32_t")
-        self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "q15_t")
+        self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "int16_t")
 
         # Generate reference output
         svdf_ref = None

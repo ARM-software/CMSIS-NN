@@ -42,7 +42,7 @@
 void basic_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[BASIC_DST_SIZE] = {0};
+    int8_t output[BASIC_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -52,10 +52,10 @@ void basic_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = basic_biases;
-    const q7_t *kernel_data = basic_weights;
-    const q7_t *input_data = basic_input;
-    const q7_t *output_ref = basic_output_ref;
+    const int32_t *bias_data = basic_biases;
+    const int8_t *kernel_data = basic_weights;
+    const int8_t *input_data = basic_input;
+    const int8_t *output_ref = basic_output_ref;
     const int32_t output_ref_size = BASIC_DST_SIZE;
 
     input_dims.n = BASIC_INPUT_BATCHES;
@@ -136,7 +136,7 @@ void basic_arm_convolve_s8(void)
 void stride2pad1_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[STRIDE2PAD1_DST_SIZE] = {0};
+    int8_t output[STRIDE2PAD1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -146,10 +146,10 @@ void stride2pad1_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = stride2pad1_biases;
-    const q7_t *kernel_data = stride2pad1_weights;
-    const q7_t *input_data = stride2pad1_input;
-    const q7_t *output_ref = stride2pad1_output_ref;
+    const int32_t *bias_data = stride2pad1_biases;
+    const int8_t *kernel_data = stride2pad1_weights;
+    const int8_t *input_data = stride2pad1_input;
+    const int8_t *output_ref = stride2pad1_output_ref;
     const int32_t output_ref_size = STRIDE2PAD1_DST_SIZE;
 
     input_dims.n = STRIDE2PAD1_INPUT_BATCHES;
@@ -229,7 +229,7 @@ void stride2pad1_arm_convolve_s8(void)
 void conv_2_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_2_DST_SIZE] = {0};
+    int8_t output[CONV_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -239,10 +239,10 @@ void conv_2_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_2_biases;
-    const q7_t *kernel_data = conv_2_weights;
-    const q7_t *input_data = conv_2_input;
-    const q7_t *output_ref = conv_2_output_ref;
+    const int32_t *bias_data = conv_2_biases;
+    const int8_t *kernel_data = conv_2_weights;
+    const int8_t *input_data = conv_2_input;
+    const int8_t *output_ref = conv_2_output_ref;
     const int32_t output_ref_size = CONV_2_DST_SIZE;
 
     input_dims.n = CONV_2_INPUT_BATCHES;
@@ -322,7 +322,7 @@ void conv_2_arm_convolve_s8(void)
 void conv_3_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_3_DST_SIZE] = {0};
+    int8_t output[CONV_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -332,10 +332,10 @@ void conv_3_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_3_biases;
-    const q7_t *kernel_data = conv_3_weights;
-    const q7_t *input_data = conv_3_input;
-    const q7_t *output_ref = conv_3_output_ref;
+    const int32_t *bias_data = conv_3_biases;
+    const int8_t *kernel_data = conv_3_weights;
+    const int8_t *input_data = conv_3_input;
+    const int8_t *output_ref = conv_3_output_ref;
     const int32_t output_ref_size = CONV_3_DST_SIZE;
 
     input_dims.n = CONV_3_INPUT_BATCHES;
@@ -415,7 +415,7 @@ void conv_3_arm_convolve_s8(void)
 void conv_4_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_4_DST_SIZE] = {0};
+    int8_t output[CONV_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -425,10 +425,10 @@ void conv_4_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_4_biases;
-    const q7_t *kernel_data = conv_4_weights;
-    const q7_t *input_data = conv_4_input;
-    const q7_t *output_ref = conv_4_output_ref;
+    const int32_t *bias_data = conv_4_biases;
+    const int8_t *kernel_data = conv_4_weights;
+    const int8_t *input_data = conv_4_input;
+    const int8_t *output_ref = conv_4_output_ref;
     const int32_t output_ref_size = CONV_4_DST_SIZE;
 
     input_dims.n = CONV_4_INPUT_BATCHES;
@@ -508,7 +508,7 @@ void conv_4_arm_convolve_s8(void)
 void conv_1_x_n_1_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_1_X_N_1_DST_SIZE] = {0};
+    int8_t output[CONV_1_X_N_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -518,10 +518,10 @@ void conv_1_x_n_1_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_1_x_n_1_biases;
-    const q7_t *kernel_data = conv_1_x_n_1_weights;
-    const q7_t *input_data = conv_1_x_n_1_input;
-    const q7_t *output_ref = conv_1_x_n_1_output_ref;
+    const int32_t *bias_data = conv_1_x_n_1_biases;
+    const int8_t *kernel_data = conv_1_x_n_1_weights;
+    const int8_t *input_data = conv_1_x_n_1_input;
+    const int8_t *output_ref = conv_1_x_n_1_output_ref;
     const int32_t output_ref_size = CONV_1_X_N_1_DST_SIZE;
 
     input_dims.n = CONV_1_X_N_1_INPUT_BATCHES;
@@ -599,7 +599,7 @@ void conv_1_x_n_1_arm_convolve_s8(void)
 void conv_1_x_n_2_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_1_X_N_2_DST_SIZE] = {0};
+    int8_t output[CONV_1_X_N_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -609,10 +609,10 @@ void conv_1_x_n_2_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_1_x_n_2_biases;
-    const q7_t *kernel_data = conv_1_x_n_2_weights;
-    const q7_t *input_data = conv_1_x_n_2_input;
-    const q7_t *output_ref = conv_1_x_n_2_output_ref;
+    const int32_t *bias_data = conv_1_x_n_2_biases;
+    const int8_t *kernel_data = conv_1_x_n_2_weights;
+    const int8_t *input_data = conv_1_x_n_2_input;
+    const int8_t *output_ref = conv_1_x_n_2_output_ref;
     const int32_t output_ref_size = CONV_1_X_N_2_DST_SIZE;
 
     input_dims.n = CONV_1_X_N_2_INPUT_BATCHES;
@@ -689,7 +689,7 @@ void conv_1_x_n_2_arm_convolve_s8(void)
 void conv_1_x_n_3_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
-    q7_t output[CONV_1_X_N_3_DST_SIZE] = {0};
+    int8_t output[CONV_1_X_N_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -699,10 +699,10 @@ void conv_1_x_n_3_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_1_x_n_3_biases;
-    const q7_t *kernel_data = conv_1_x_n_3_weights;
-    const q7_t *input_data = conv_1_x_n_3_input;
-    const q7_t *output_ref = conv_1_x_n_3_output_ref;
+    const int32_t *bias_data = conv_1_x_n_3_biases;
+    const int8_t *kernel_data = conv_1_x_n_3_weights;
+    const int8_t *input_data = conv_1_x_n_3_input;
+    const int8_t *output_ref = conv_1_x_n_3_output_ref;
     const int32_t output_ref_size = CONV_1_X_N_3_DST_SIZE;
 
     input_dims.n = CONV_1_X_N_3_INPUT_BATCHES;
@@ -778,7 +778,7 @@ void conv_1_x_n_3_arm_convolve_s8(void)
 
 void conv_out_activation_arm_convolve_s8(void)
 {
-    q7_t output[CONV_OUT_ACTIVATION_DST_SIZE] = {0};
+    int8_t output[CONV_OUT_ACTIVATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -788,10 +788,10 @@ void conv_out_activation_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_out_activation_biases;
-    const q7_t *kernel_data = conv_out_activation_weights;
-    const q7_t *input_data = conv_out_activation_input;
-    const q7_t *output_ref = conv_out_activation_output_ref;
+    const int32_t *bias_data = conv_out_activation_biases;
+    const int8_t *kernel_data = conv_out_activation_weights;
+    const int8_t *input_data = conv_out_activation_input;
+    const int8_t *output_ref = conv_out_activation_output_ref;
     const int32_t output_ref_size = CONV_OUT_ACTIVATION_DST_SIZE;
 
     input_dims.n = CONV_OUT_ACTIVATION_INPUT_BATCHES;
@@ -843,7 +843,7 @@ void conv_out_activation_arm_convolve_s8(void)
 
 void conv_2x2_dilation_arm_convolve_s8(void)
 {
-    q7_t output[CONV_2X2_DILATION_DST_SIZE] = {0};
+    int8_t output[CONV_2X2_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -854,10 +854,10 @@ void conv_2x2_dilation_arm_convolve_s8(void)
     cmsis_nn_dims output_dims;
 
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    const q31_t *bias_data = conv_2x2_dilation_biases;
-    const q7_t *kernel_data = conv_2x2_dilation_weights;
-    const q7_t *input_data = conv_2x2_dilation_input;
-    const q7_t *output_ref = conv_2x2_dilation_output_ref;
+    const int32_t *bias_data = conv_2x2_dilation_biases;
+    const int8_t *kernel_data = conv_2x2_dilation_weights;
+    const int8_t *input_data = conv_2x2_dilation_input;
+    const int8_t *output_ref = conv_2x2_dilation_output_ref;
     const int32_t output_ref_size = CONV_2X2_DILATION_DST_SIZE;
 
     input_dims.n = CONV_2X2_DILATION_INPUT_BATCHES;
@@ -936,7 +936,7 @@ void conv_2x2_dilation_arm_convolve_s8(void)
 
 void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
 {
-    q7_t output[CONV_2X2_DILATION_5X5_INPUT_DST_SIZE] = {0};
+    int8_t output[CONV_2X2_DILATION_5X5_INPUT_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -946,10 +946,10 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_2x2_dilation_5x5_input_biases;
-    const q7_t *kernel_data = conv_2x2_dilation_5x5_input_weights;
-    const q7_t *input_data = conv_2x2_dilation_5x5_input_input;
-    const q7_t *output_ref = conv_2x2_dilation_5x5_input_output_ref;
+    const int32_t *bias_data = conv_2x2_dilation_5x5_input_biases;
+    const int8_t *kernel_data = conv_2x2_dilation_5x5_input_weights;
+    const int8_t *input_data = conv_2x2_dilation_5x5_input_input;
+    const int8_t *output_ref = conv_2x2_dilation_5x5_input_output_ref;
     const int32_t output_ref_size = CONV_2X2_DILATION_5X5_INPUT_DST_SIZE;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
@@ -1027,7 +1027,7 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
 
 void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
 {
-    q7_t output[CONV_3X3_DILATION_5X5_INPUT_DST_SIZE] = {0};
+    int8_t output[CONV_3X3_DILATION_5X5_INPUT_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -1037,10 +1037,10 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_3x3_dilation_5x5_input_biases;
-    const q7_t *kernel_data = conv_3x3_dilation_5x5_input_weights;
-    const q7_t *input_data = conv_3x3_dilation_5x5_input_input;
-    const q7_t *output_ref = conv_3x3_dilation_5x5_input_output_ref;
+    const int32_t *bias_data = conv_3x3_dilation_5x5_input_biases;
+    const int8_t *kernel_data = conv_3x3_dilation_5x5_input_weights;
+    const int8_t *input_data = conv_3x3_dilation_5x5_input_input;
+    const int8_t *output_ref = conv_3x3_dilation_5x5_input_output_ref;
     const int32_t output_ref_size = CONV_3X3_DILATION_5X5_INPUT_DST_SIZE;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
@@ -1118,7 +1118,7 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
 
 void conv_2x3_dilation_arm_convolve_s8(void)
 {
-    q7_t output[CONV_2X3_DILATION_DST_SIZE] = {0};
+    int8_t output[CONV_2X3_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -1128,10 +1128,10 @@ void conv_2x3_dilation_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_2x3_dilation_biases;
-    const q7_t *kernel_data = conv_2x3_dilation_weights;
-    const q7_t *input_data = conv_2x3_dilation_input;
-    const q7_t *output_ref = conv_2x3_dilation_output_ref;
+    const int32_t *bias_data = conv_2x3_dilation_biases;
+    const int8_t *kernel_data = conv_2x3_dilation_weights;
+    const int8_t *input_data = conv_2x3_dilation_input;
+    const int8_t *output_ref = conv_2x3_dilation_output_ref;
     const int32_t output_ref_size = CONV_2X3_DILATION_DST_SIZE;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
@@ -1209,7 +1209,7 @@ void conv_2x3_dilation_arm_convolve_s8(void)
 
 void conv_3x2_dilation_arm_convolve_s8(void)
 {
-    q7_t output[CONV_3X2_DILATION_DST_SIZE] = {0};
+    int8_t output[CONV_3X2_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -1219,10 +1219,10 @@ void conv_3x2_dilation_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_3x2_dilation_biases;
-    const q7_t *kernel_data = conv_3x2_dilation_weights;
-    const q7_t *input_data = conv_3x2_dilation_input;
-    const q7_t *output_ref = conv_3x2_dilation_output_ref;
+    const int32_t *bias_data = conv_3x2_dilation_biases;
+    const int8_t *kernel_data = conv_3x2_dilation_weights;
+    const int8_t *input_data = conv_3x2_dilation_input;
+    const int8_t *output_ref = conv_3x2_dilation_output_ref;
     const int32_t output_ref_size = CONV_3X2_DILATION_DST_SIZE;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
@@ -1300,7 +1300,7 @@ void conv_3x2_dilation_arm_convolve_s8(void)
 
 void conv_dilation_golden_arm_convolve_s8(void)
 {
-    q7_t output[CONV_DILATION_GOLDEN_DST_SIZE] = {0};
+    int8_t output[CONV_DILATION_GOLDEN_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -1310,10 +1310,10 @@ void conv_dilation_golden_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_dilation_golden_biases;
-    const q7_t *kernel_data = conv_dilation_golden_weights;
-    const q7_t *input_data = conv_dilation_golden_input;
-    const q7_t *output_ref = conv_dilation_golden_output_ref;
+    const int32_t *bias_data = conv_dilation_golden_biases;
+    const int8_t *kernel_data = conv_dilation_golden_weights;
+    const int8_t *input_data = conv_dilation_golden_input;
+    const int8_t *output_ref = conv_dilation_golden_output_ref;
     const int32_t output_ref_size = CONV_DILATION_GOLDEN_DST_SIZE;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
@@ -1392,7 +1392,7 @@ void conv_dilation_golden_arm_convolve_s8(void)
 void conv_5_arm_convolve_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[CONV_5_DST_SIZE] = {0};
+    int8_t output[CONV_5_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -1402,10 +1402,10 @@ void conv_5_arm_convolve_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = conv_5_biases;
-    const q7_t *kernel_data = conv_5_weights;
-    const q7_t *input_data = conv_5_input;
-    const q7_t *output_ref = conv_5_output_ref;
+    const int32_t *bias_data = conv_5_biases;
+    const int8_t *kernel_data = conv_5_weights;
+    const int8_t *input_data = conv_5_input;
+    const int8_t *output_ref = conv_5_output_ref;
     const int32_t output_ref_size = CONV_5_DST_SIZE;
 
     input_dims.n = CONV_5_INPUT_BATCHES;

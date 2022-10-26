@@ -21,8 +21,8 @@
  * Title:        arm_avgpool_s8.c
  * Description:  Pooling function implementations
  *
- * $Date:        7 July 2022
- * $Revision:    V.3.0.2
+ * $Date:        26 October 2022
+ * $Revision:    V.3.0.3
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -32,8 +32,8 @@
 #include "arm_nnsupportfunctions.h"
 
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-static void scale_q31_to_q7_and_clamp(const q31_t *buffer,
-                                      q7_t *target,
+static void scale_q31_to_q7_and_clamp(const int32_t *buffer,
+                                      int8_t *target,
                                       int32_t length,
                                       const int32_t count,
                                       const int act_min,
@@ -48,7 +48,7 @@ static void scale_q31_to_q7_and_clamp(const q31_t *buffer,
         sum = MAX(sum, act_min);
         sum = MIN(sum, act_max);
 
-        target[i] = (q7_t)sum;
+        target[i] = (int8_t)sum;
     }
 }
 #endif
@@ -74,10 +74,10 @@ static void scale_q31_to_q7_and_clamp(const q31_t *buffer,
 arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                                    const cmsis_nn_pool_params *pool_params,
                                    const cmsis_nn_dims *input_dims,
-                                   const q7_t *src,
+                                   const int8_t *src,
                                    const cmsis_nn_dims *filter_dims,
                                    const cmsis_nn_dims *output_dims,
-                                   q7_t *dst)
+                                   int8_t *dst)
 {
     (void)ctx;
     const int32_t input_y = input_dims->h;
@@ -220,10 +220,10 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
 arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                                    const cmsis_nn_pool_params *pool_params,
                                    const cmsis_nn_dims *input_dims,
-                                   const q7_t *src,
+                                   const int8_t *src,
                                    const cmsis_nn_dims *filter_dims,
                                    const cmsis_nn_dims *output_dims,
-                                   q7_t *dst)
+                                   int8_t *dst)
 {
     const int32_t input_y = input_dims->h;
     const int32_t input_x = input_dims->w;
@@ -243,7 +243,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
     {
         return ARM_CMSIS_NN_ARG_ERROR;
     }
-    q31_t *buffer = (q31_t *)ctx->buf;
+    int32_t *buffer = (int32_t *)ctx->buf;
 
 #if defined(ARM_MATH_DSP)
 
@@ -269,7 +269,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
             {
                 for (int k_x = kernel_x_start; k_x < kernel_x_end; k_x++)
                 {
-                    const q7_t *start = src + ch_src * (k_x + idx_x + (k_y + idx_y) * input_x);
+                    const int8_t *start = src + ch_src * (k_x + idx_x + (k_y + idx_y) * input_x);
 
                     if (count == 0)
                     {

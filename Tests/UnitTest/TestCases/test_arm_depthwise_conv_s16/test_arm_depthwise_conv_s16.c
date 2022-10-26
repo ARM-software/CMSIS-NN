@@ -27,7 +27,7 @@
 void dw_int16xint8_arm_depthwise_conv_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -37,10 +37,10 @@ void dw_int16xint8_arm_depthwise_conv_s16(void)
     cmsis_nn_dims bias_dims = {};
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = dw_int16xint8_biases;
-    const q15_t *input_data = dw_int16xint8_input;
-    const q7_t *kernel_data = dw_int16xint8_weights;
-    const q15_t *output_ref = dw_int16xint8_output_ref;
+    const int64_t *bias_data = dw_int16xint8_biases;
+    const int16_t *input_data = dw_int16xint8_input;
+    const int8_t *kernel_data = dw_int16xint8_weights;
+    const int16_t *output_ref = dw_int16xint8_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_INPUT_BATCHES;
@@ -121,7 +121,7 @@ void dw_int16xint8_arm_depthwise_conv_s16(void)
 void dw_int16xint8_dilation_arm_depthwise_conv_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_DILATION_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -131,10 +131,10 @@ void dw_int16xint8_dilation_arm_depthwise_conv_s16(void)
     cmsis_nn_dims bias_dims = {};
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = dw_int16xint8_dilation_biases;
-    const q15_t *input_data = dw_int16xint8_dilation_input;
-    const q7_t *kernel_data = dw_int16xint8_dilation_weights;
-    const q15_t *output_ref = dw_int16xint8_dilation_output_ref;
+    const int64_t *bias_data = dw_int16xint8_dilation_biases;
+    const int16_t *input_data = dw_int16xint8_dilation_input;
+    const int8_t *kernel_data = dw_int16xint8_dilation_weights;
+    const int16_t *output_ref = dw_int16xint8_dilation_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_DILATION_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_DILATION_INPUT_BATCHES;
@@ -215,7 +215,7 @@ void dw_int16xint8_dilation_arm_depthwise_conv_s16(void)
 void dw_int16xint8_mult4_arm_depthwise_conv_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_MULT4_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_MULT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -225,10 +225,10 @@ void dw_int16xint8_mult4_arm_depthwise_conv_s16(void)
     cmsis_nn_dims bias_dims = {};
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = dw_int16xint8_mult4_biases;
-    const q15_t *input_data = dw_int16xint8_mult4_input;
-    const q7_t *kernel_data = dw_int16xint8_mult4_weights;
-    const q15_t *output_ref = dw_int16xint8_mult4_output_ref;
+    const int64_t *bias_data = dw_int16xint8_mult4_biases;
+    const int16_t *input_data = dw_int16xint8_mult4_input;
+    const int8_t *kernel_data = dw_int16xint8_mult4_weights;
+    const int16_t *output_ref = dw_int16xint8_mult4_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_MULT4_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_MULT4_INPUT_BATCHES;

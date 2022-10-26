@@ -44,7 +44,7 @@ const int32_t *get_bias_address(const int32_t *bias, int32_t size)
 void basic_arm_depthwise_conv_s8_opt(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[BASIC_DST_SIZE] = {0};
+    int8_t output[BASIC_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -54,9 +54,9 @@ void basic_arm_depthwise_conv_s8_opt(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = basic_biases;
-    const q7_t *kernel_data = basic_weights;
-    const q7_t *input_data = basic_input;
+    const int32_t *bias_data = basic_biases;
+    const int8_t *kernel_data = basic_weights;
+    const int8_t *input_data = basic_input;
 
     input_dims.n = BASIC_INPUT_BATCHES;
     input_dims.w = BASIC_INPUT_W;
@@ -112,7 +112,7 @@ void basic_arm_depthwise_conv_s8_opt(void)
 void stride2pad1_arm_depthwise_conv_s8_opt(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[STRIDE2PAD1_DST_SIZE] = {0};
+    int8_t output[STRIDE2PAD1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -122,9 +122,9 @@ void stride2pad1_arm_depthwise_conv_s8_opt(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = stride2pad1_biases;
-    const q7_t *kernel_data = stride2pad1_weights;
-    const q7_t *input_data = stride2pad1_input;
+    const int32_t *bias_data = stride2pad1_biases;
+    const int8_t *kernel_data = stride2pad1_weights;
+    const int8_t *input_data = stride2pad1_input;
 
     input_dims.n = STRIDE2PAD1_INPUT_BATCHES;
     input_dims.w = STRIDE2PAD1_INPUT_W;
@@ -179,7 +179,7 @@ void stride2pad1_arm_depthwise_conv_s8_opt(void)
 void depthwise_eq_in_out_ch_arm_depthwise_conv_s8_opt(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[DEPTHWISE_EQ_IN_OUT_CH_DST_SIZE] = {0};
+    int8_t output[DEPTHWISE_EQ_IN_OUT_CH_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -189,9 +189,9 @@ void depthwise_eq_in_out_ch_arm_depthwise_conv_s8_opt(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = get_bias_address(depthwise_eq_in_out_ch_biases, DEPTHWISE_EQ_IN_OUT_CH_IN_CH);
-    const q7_t *kernel_data = depthwise_eq_in_out_ch_weights;
-    const q7_t *input_data = depthwise_eq_in_out_ch_input;
+    const int32_t *bias_data = get_bias_address(depthwise_eq_in_out_ch_biases, DEPTHWISE_EQ_IN_OUT_CH_IN_CH);
+    const int8_t *kernel_data = depthwise_eq_in_out_ch_weights;
+    const int8_t *input_data = depthwise_eq_in_out_ch_input;
 
     input_dims.n = DEPTHWISE_EQ_IN_OUT_CH_INPUT_BATCHES;
     input_dims.w = DEPTHWISE_EQ_IN_OUT_CH_INPUT_W;
@@ -246,7 +246,7 @@ void depthwise_eq_in_out_ch_arm_depthwise_conv_s8_opt(void)
 void depthwise_sub_block_arm_depthwise_conv_s8_opt(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[DEPTHWISE_SUB_BLOCK_DST_SIZE] = {0};
+    int8_t output[DEPTHWISE_SUB_BLOCK_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -256,9 +256,9 @@ void depthwise_sub_block_arm_depthwise_conv_s8_opt(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = get_bias_address(depthwise_sub_block_biases, DEPTHWISE_SUB_BLOCK_IN_CH);
-    const q7_t *kernel_data = depthwise_sub_block_weights;
-    const q7_t *input_data = depthwise_sub_block_input;
+    const int32_t *bias_data = get_bias_address(depthwise_sub_block_biases, DEPTHWISE_SUB_BLOCK_IN_CH);
+    const int8_t *kernel_data = depthwise_sub_block_weights;
+    const int8_t *input_data = depthwise_sub_block_input;
 
     input_dims.n = DEPTHWISE_SUB_BLOCK_INPUT_BATCHES;
     input_dims.w = DEPTHWISE_SUB_BLOCK_INPUT_W;

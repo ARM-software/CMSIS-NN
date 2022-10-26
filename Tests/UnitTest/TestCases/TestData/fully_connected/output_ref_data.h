@@ -2,5 +2,5 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t fully_connected_output_ref[18] =
+const int8_t fully_connected_output_ref[18] =
     {5, -6, -20, -30, 103, 38, 21, 13, -72, -32, 85, 50, 15, 8, -40, -85, 87, 68};

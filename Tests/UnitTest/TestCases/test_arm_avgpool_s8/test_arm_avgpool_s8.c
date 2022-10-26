@@ -30,7 +30,7 @@
 void avgpooling_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -38,7 +38,7 @@ void avgpooling_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_input;
+    const int8_t *input_data = avgpooling_input;
 
     input_dims.n = AVGPOOLING_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_INPUT_W;
@@ -77,7 +77,7 @@ void avgpooling_arm_avgpool_s8(void)
 void avgpooling_1_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_1_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -85,7 +85,7 @@ void avgpooling_1_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_1_input;
+    const int8_t *input_data = avgpooling_1_input;
 
     input_dims.n = AVGPOOLING_1_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_1_INPUT_W;
@@ -123,7 +123,7 @@ void avgpooling_1_arm_avgpool_s8(void)
 void avgpooling_2_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_2_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -131,7 +131,7 @@ void avgpooling_2_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_2_input;
+    const int8_t *input_data = avgpooling_2_input;
 
     input_dims.n = AVGPOOLING_2_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_2_INPUT_W;
@@ -169,7 +169,7 @@ void avgpooling_2_arm_avgpool_s8(void)
 void avgpooling_3_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_3_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -177,7 +177,7 @@ void avgpooling_3_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_3_input;
+    const int8_t *input_data = avgpooling_3_input;
 
     input_dims.n = AVGPOOLING_3_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_3_INPUT_W;
@@ -215,7 +215,7 @@ void avgpooling_3_arm_avgpool_s8(void)
 void avgpooling_4_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_4_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -223,7 +223,7 @@ void avgpooling_4_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_4_input;
+    const int8_t *input_data = avgpooling_4_input;
 
     input_dims.n = AVGPOOLING_4_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_4_INPUT_W;
@@ -261,7 +261,7 @@ void avgpooling_4_arm_avgpool_s8(void)
 void avgpooling_5_arm_avgpool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[AVGPOOLING_5_DST_SIZE] = {0};
+    int8_t output[AVGPOOLING_5_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -269,7 +269,7 @@ void avgpooling_5_arm_avgpool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = avgpooling_5_input;
+    const int8_t *input_data = avgpooling_5_input;
 
     input_dims.n = AVGPOOLING_5_INPUT_BATCHES;
     input_dims.w = AVGPOOLING_5_INPUT_W;

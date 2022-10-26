@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t fully_connected_mve_1_output_ref[4] = {62, -107, -28, -31};
+const int8_t fully_connected_mve_1_output_ref[4] = {62, -107, -28, -31};

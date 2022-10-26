@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q15_t requantize_s64_input[12] = {82, 66, -30, -105, 95, 74, 124, 93, -25, 93, 57, -32};
+const int16_t requantize_s64_input[12] = {82, 66, -30, -105, 95, 74, 124, 93, -25, 93, 57, -32};

@@ -26,7 +26,7 @@
 void kernel1x1_arm_convolve_1x1_s8_fast(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[KERNEL1X1_DST_SIZE] = {0};
+    int8_t output[KERNEL1X1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_conv_params conv_params;
@@ -36,8 +36,8 @@ void kernel1x1_arm_convolve_1x1_s8_fast(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = kernel1x1_biases;
-    const q7_t *input_data = kernel1x1_input;
+    const int32_t *bias_data = kernel1x1_biases;
+    const int8_t *input_data = kernel1x1_input;
 
     input_dims.n = KERNEL1X1_INPUT_BATCHES;
     input_dims.w = KERNEL1X1_INPUT_W;

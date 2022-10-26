@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t depthwise_out_activation_output_ref[6] = {36, 103, 63, -45, 103, -2};
+const int8_t depthwise_out_activation_output_ref[6] = {36, 103, 63, -45, 103, -2};
