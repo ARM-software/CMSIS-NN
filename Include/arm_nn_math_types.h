@@ -88,6 +88,7 @@ extern "C" {
 
 #else
 #include "cmsis_compiler.h"
+#include <arm_acle.h>
 #endif
 
 /* evaluate ARM DSP feature */
@@ -158,6 +159,11 @@ typedef enum
     ARM_CMSIS_NN_ARG_ERROR = -1,     /**< One or more arguments are incorrect */
     ARM_CMSIS_NN_NO_IMPL_ERROR = -2, /**<  No implementation available */
 } arm_cmsis_nn_status;
+
+#if defined(ARM_MATH_DSP)
+#define ACLE_SMLABB __smlabb
+#define ACLE_SMLATT __smlatt
+#endif
 
 #ifdef __cplusplus
 }
