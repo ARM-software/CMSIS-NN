@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+SET(ROOT ${CMSIS_PATH})
+
 # Select which parts of the CMSIS-DSP must be compiled.
 # There are some dependencies between the parts but they are not tracked
 # by this cmake. So, enabling some functions may require to enable some
@@ -29,26 +31,15 @@ option(SOFTMAX              "Softmax"               ON)
 option(BASICMATHSNN         "Basic Maths for NN"    ON)
 option(RESHAPE              "Reshape"               ON)
 option(SVDF                 "SVDF"                  ON)
+option(LSTM                 "LSTM"                  ON)
 
-# When OFF it is the default behavior : all tables are included.
+# Always needed if any other module above is on.
 option(NNSUPPORT            "NN Support"            ON)
 
+list(APPEND CMAKE_MODULE_PATH Source)
 
-###########################
-#
-# CMSIS NN
-#
-###########################
-
-list(APPEND CMAKE_MODULE_PATH ${NN}/Source)
-
-add_library(cmsis-nn STATIC)
-
-target_compile_options(cmsis-nn PRIVATE -Ofast)
-
-### Includes
-target_include_directories(cmsis-nn PUBLIC "../Include")
-target_include_directories(cmsis-nn PUBLIC "${CMSIS_PATH}/CMSIS/Core/Include")
+# There is a dependency to CMSIS-Core.
+target_include_directories(cmsis-nn PUBLIC "${ROOT}/CMSIS/Core/Include")
 
 if (BASICMATHSNN)
   add_subdirectory(BasicMathFunctions)
@@ -80,6 +71,10 @@ endif()
 
 if (SVDF)
   add_subdirectory(SVDFunctions)
+endif()
+
+if (LSTM)
+  add_subdirectory(LSTMFunctions)
 endif()
 
 if (RESHAPE)

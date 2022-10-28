@@ -18,4 +18,5 @@
 
 file(GLOB SRC "./*_s8*.c")
 file(GLOB SRC_S16 "./*_s16*.c")
-target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16} arm_q7_to_q15_with_offset.c)
+target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16} arm_nntables.c
+                                                  arm_q7_to_q15_with_offset.c)

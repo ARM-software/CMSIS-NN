@@ -26,8 +26,10 @@ if (${CMSIS_PATH} STREQUAL "</path/to/CMSIS>")
   message(FATAL_ERROR "CMSIS_PATH not set. Did you provide -DCMSIS_PATH=<path/to/CMSIS>?")
 endif()
 
-option(BUILD_CMSIS_NN_FUNCTIONS "Build CMSIS-NN Source." ON)
+add_library(cmsis-nn STATIC)
 
-if(BUILD_CMSIS_NN_FUNCTIONS)
-    add_subdirectory(Source)
-endif()
+target_compile_options(cmsis-nn PRIVATE -Ofast)
+
+target_include_directories(cmsis-nn PUBLIC "Include")
+
+add_subdirectory(Source)
