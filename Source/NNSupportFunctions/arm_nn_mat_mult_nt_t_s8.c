@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2020-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        19 April 2022
- * $Revision:    V.2.0.0
+ * $Date:        18 October 2022
+ * $Revision:    V.2.0.1
  *
  * Target Processor:  Cortex-M
  *
@@ -202,6 +202,34 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const q7_t *lhs,
                 res11 = __SMLAD(val0, val4, res11);
             }
 
+            for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
+            {
+                val1 = arm_nn_read_q7x4_ia((const q7_t **)&rhs_ptr);
+                val2 = __SXTB16(val1);
+                val0 = arm_nn_read_q7x4_ia((const q7_t **)&lhs_ptr);
+                val3 = __SXTB16(val0);
+                val4 = arm_nn_read_q7x4((const q7_t *)&rhs_ptr[off0]);
+                val1 = __SXTB16_RORn(val1, 8);
+                val0 = __SXTB16_RORn(val0, 8);
+
+                // 4 x MAC res00, res01
+                res00 = __SMLAD(val3, val2, res00);
+                val5 = __SXTB16(val4);
+                res00 = __SMLAD(val0, val1, res00);
+                val4 = __SXTB16_RORn(val4, 8);
+                res01 = __SMLAD(val3, val5, res01);
+                res01 = __SMLAD(val0, val4, res01);
+
+                // 4 x MAC res10, res11
+                val0 = arm_nn_read_q7x4((const q7_t *)&lhs_ptr[off0]);
+                val3 = __SXTB16(val0);
+                val0 = __SXTB16_RORn(val0, 8);
+                res10 = __SMLAD(val3, val2, res10);
+                res11 = __SMLAD(val3, val5, res11);
+                res10 = __SMLAD(val0, val1, res10);
+                res11 = __SMLAD(val0, val4, res11);
+            }
+
             for (; rhs_cols_idx < rhs_cols; ++rhs_cols_idx)
             {
                 q7_t rhs_value0 = rhs_ptr[0];
@@ -314,6 +342,25 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const q7_t *lhs,
                 res01 = __SMLAD(val5, val4, res01);
                 res01 = __SMLAD(val2, val1, res01);
 
+                val0 = arm_nn_read_q7x4_ia((const q7_t **)&rhs_ptr);
+                val1 = arm_nn_read_q7x4((const q7_t *)&rhs_ptr[off0]);
+                val2 = arm_nn_read_q7x4_ia((const q7_t **)&lhs_ptr);
+                val3 = __SXTB16(val0);
+                val5 = __SXTB16(val2);
+                val4 = __SXTB16(val1);
+                val0 = __SXTB16_RORn(val0, 8);
+                val2 = __SXTB16_RORn(val2, 8);
+                val1 = __SXTB16_RORn(val1, 8);
+
+                // 4 x MAC res00, res01
+                res00 = __SMLAD(val5, val3, res00);
+                res00 = __SMLAD(val2, val0, res00);
+                res01 = __SMLAD(val5, val4, res01);
+                res01 = __SMLAD(val2, val1, res01);
+            }
+
+            for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
+            {
                 val0 = arm_nn_read_q7x4_ia((const q7_t **)&rhs_ptr);
                 val1 = arm_nn_read_q7x4((const q7_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_q7x4_ia((const q7_t **)&lhs_ptr);
