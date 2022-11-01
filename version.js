@@ -1,7 +1,7 @@
 //--- list of versions ---
 const versions = {
-    "main": "4.0.0-dev8",
-    "latest": "4.0.0-dev8"
+    "main": "4.0.0-dev9",
+    "latest": "4.0.0-dev9"
 }
 //--- list of versions ---
 
