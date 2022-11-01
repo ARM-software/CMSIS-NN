@@ -24,7 +24,7 @@
  * $Date:        26 October 2022
  * $Revision:    V.2.0.2
  *
- * Target Processor:  Cortex-M
+ * Target Processor:  Arm Cortex-M Processors
  *
  * -------------------------------------------------------------------- */
 
@@ -57,10 +57,169 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t lhs_offset,
                                             const int32_t dst_offset,
                                             const int32_t activation_min,
-                                            const int32_t activation_max)
+                                            const int32_t activation_max,
+                                            const int32_t rhs_cols_offset)
 {
-#if defined(ARM_MATH_DSP)
+    if (rhs_cols_offset < rhs_cols)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+#if defined(ARM_MATH_MVEI)
+
+    int8_t *out_ref = dst;
+    const int8_t *in_ref = lhs;
+    (void)out_ref;
+    (void)in_ref;
+    int32_t offset = rhs_cols_offset;
+    int i_items = 0;
+    for (; i_items <= (lhs_rows - 4); i_items += 4)
+    {
+        for (int i = 0; i < rhs_rows; i++)
+        {
+            int32_t acc_n0 = 0;
+            int32_t acc_n1 = 0;
+            int32_t acc_n2 = 0;
+            int32_t acc_n3 = 0;
+
+            const int8_t *lhs_vec = lhs;
+            const int8_t *ip_row_1 = lhs + offset;
+            const int8_t *ip_row_2 = lhs + (2 * offset);
+            const int8_t *ip_row_3 = lhs + (3 * offset);
+            const int8_t *col_base = rhs + i * rhs_cols;
+            int32_t sum_tmp = 0;
+
+#if defined(ARM_MATH_AUTOVECTORIZE)
+            for (int j = 0; j < rhs_cols; j++)
+            {
+                int32_t col = col_base[j];
+                sum_tmp += col;
+                acc_n0 += lhs_vec[j] * col;
+                acc_n1 += ip_row_1[j] * col;
+                acc_n2 += ip_row_2[j] * col;
+                acc_n3 += ip_row_3[j] * col;
+            }
+#else
+            __ASM volatile("   vldrb.8         q0, [%[col]], #16     \n"
+                           "   wlstp.8         lr, %[cnt], 1f       \n"
+                           "2:                                      \n"
+                           "   vaddva.s8      %[sum], q0            \n"
+                           "   vldrb.8         q1, [%[row0]], #16    \n"
+                           "   vmladava.s8    %[out0], q0, q1       \n"
+                           "   vldrb.8         q2, [%[row1]], #16    \n"
+                           "   vmladava.s8     %[out1], q0, q2      \n"
+                           "   vldrb.8         q3, [%[row2]], #16    \n"
+                           "   vmladava.s8     %[out2], q0, q3      \n"
+                           "   vldrb.8         q4, [%[row3]], #16    \n"
+                           "   vmladava.s8     %[out3], q0, q4      \n"
+                           "   vldrb.8         q0, [%[col]], #16     \n"
+                           "   letp            lr, 2b               \n"
+                           "1:                                      \n"
+                           : [col] "+r"(col_base),
+                             [sum] "+Te"(sum_tmp),
+                             [row0] "+r"(lhs_vec),
+                             [row1] "+r"(ip_row_1),
+                             [row2] "+r"(ip_row_2),
+                             [row3] "+r"(ip_row_3),
+                             [out0] "+Te"(acc_n0),
+                             [out1] "+Te"(acc_n1),
+                             [out2] "+Te"(acc_n2),
+                             [out3] "+Te"(acc_n3)
+                           : [cnt] "r"(rhs_cols)
+                           : "q0", "q1", "q2", "q3", "q4", "memory", "r14");
+#endif
+            int32x4_t res = {acc_n0, acc_n1, acc_n2, acc_n3};
+            sum_tmp *= lhs_offset;
+            if (bias)
+            {
+                sum_tmp += bias[i];
+            }
+            res = vaddq_n_s32(res, sum_tmp);
+
+            res = arm_requantize_mve(res, dst_multipliers[i], dst_shifts[i]);
+            res = vaddq_n_s32(res, dst_offset);
+
+            res = vmaxq_s32(res, vdupq_n_s32(activation_min));
+            res = vminq_s32(res, vdupq_n_s32(activation_max));
+
+            const uint32x4_t scatter_offset = {0, (uint32_t)rhs_rows, (uint32_t)rhs_rows * 2, (uint32_t)rhs_rows * 3};
+            vstrbq_scatter_offset_s32(dst, scatter_offset, res);
+            dst++;
+        }
+        lhs += 4 * offset;
+        dst += (3 * rhs_rows);
+    }
+
+    for (; i_items < lhs_rows; i_items++)
+    {
+        int32_t acc[4];
+        const int32_t *multipliers = dst_multipliers;
+        const int32_t *shifts = dst_shifts;
+        for (int i = 0; i < rhs_rows; i++)
+        {
+            int32_t acc_n0 = 0;
+            const int8_t *lhs_vec = lhs;
+            const int8_t *col_base = rhs + i * rhs_cols;
+            int32_t sum_tmp = 0;
+
+#if defined(ARM_MATH_AUTOVECTORIZE)
+            for (int j = 0; j < rhs_cols; j++)
+            {
+                int32_t col = col_base[j];
+                sum_tmp += col;
+                acc_n0 += lhs_vec[j] * col;
+            }
+#else
+            __ASM volatile("   vldrb.8         q0, [%[col]], #16     \n"
+                           "   wlstp.8         lr, %[cnt], 1f       \n"
+                           "2:                                      \n"
+                           "   vaddva.s8      %[sum], q0            \n"
+                           "   vldrb.8         q1, [%[row0]], #16    \n"
+                           "   vmladava.s8    %[out0], q0, q1       \n"
+                           "   vldrb.8         q0, [%[col]], #16     \n"
+                           "   letp            lr, 2b               \n"
+                           "1:                                      \n"
+                           : [col] "+r"(col_base), [sum] "+Te"(sum_tmp), [row0] "+r"(lhs_vec), [out0] "+Te"(acc_n0)
+                           : [cnt] "r"(rhs_cols)
+                           : "q0", "q1", "memory", "r14");
+#endif
+            sum_tmp *= lhs_offset;
+            sum_tmp += acc_n0;
+            if (bias)
+            {
+                sum_tmp += bias[i];
+            }
+            const int32_t index = i & 0x3;
+            acc[index] = sum_tmp;
+
+            if (index == 3)
+            {
+                int32x4_t res = vldrwq_s32(acc);
+                res = arm_requantize_mve_32x4(res, vldrwq_s32(multipliers), vldrwq_s32(shifts));
+                multipliers += 4;
+                shifts += 4;
+                res = vaddq_n_s32(res, dst_offset);
+                res = vmaxq_s32(res, vdupq_n_s32(activation_min));
+                res = vminq_s32(res, vdupq_n_s32(activation_max));
+                vstrbq_s32(dst, res);
+                dst += 4;
+            }
+        }
+        lhs += offset;
+
+        for (int i = 0; i < (rhs_rows & 0x3); i++)
+        {
+            int32_t acc_n0 = acc[i];
+            acc_n0 = arm_nn_requantize(acc_n0, multipliers[i], shifts[i]);
+            acc_n0 += dst_offset;
+            acc_n0 = MAX(acc_n0, activation_min);
+            acc_n0 = MIN(acc_n0, activation_max);
+            *dst++ = (int8_t)acc_n0;
+        }
+    }
+
+#elif defined(ARM_MATH_DSP)
     const int32_t off0 = rhs_cols - 4;
+    const int32_t lhs_off0 = rhs_cols_offset - 4;
 
     for (int32_t rhs_rows_idx = 0; rhs_rows_idx <= (rhs_rows - 2); rhs_rows_idx += 2)
     {
@@ -118,7 +277,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = __SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
-                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[off0]);
+                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
                 val3 = __SXTB16(val0);
                 val0 = __SXTB16_RORn(val0, 8);
                 res10 = __SMLAD(val3, val2, res10);
@@ -143,7 +302,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = __SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
-                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[off0]);
+                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
                 val3 = __SXTB16(val0);
                 val0 = __SXTB16_RORn(val0, 8);
                 res10 = __SMLAD(val3, val2, res10);
@@ -168,7 +327,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = __SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
-                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[off0]);
+                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
                 val3 = __SXTB16(val0);
                 val0 = __SXTB16_RORn(val0, 8);
                 res10 = __SMLAD(val3, val2, res10);
@@ -193,7 +352,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = __SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
-                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[off0]);
+                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
                 val3 = __SXTB16(val0);
                 val0 = __SXTB16_RORn(val0, 8);
                 res10 = __SMLAD(val3, val2, res10);
@@ -221,7 +380,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = __SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
-                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[off0]);
+                val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
                 val3 = __SXTB16(val0);
                 val0 = __SXTB16_RORn(val0, 8);
                 res10 = __SMLAD(val3, val2, res10);
@@ -239,7 +398,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res00 += lhs_value * rhs_value0;
                 res01 += lhs_value * rhs_value1;
 
-                lhs_value = lhs_ptr[rhs_cols];
+                lhs_value = lhs_ptr[rhs_cols_offset];
                 res10 += lhs_value * rhs_value0;
                 res11 += lhs_value * rhs_value1;
 
@@ -276,7 +435,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             dst_ptr[1] = (int8_t)res11;
             dst_ptr += rhs_rows;
 
-            lhs_ptr += rhs_cols;
+            lhs_ptr -= rhs_cols;
+            lhs_ptr += 2 * rhs_cols_offset;
 
             lhs_rows_idx--;
         }
@@ -438,6 +598,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 ++rhs_ptr;
                 ++lhs_ptr;
             }
+            lhs_ptr -= rhs_cols;
+            lhs_ptr += rhs_cols_offset;
 
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multipliers[rhs_rows - 1], dst_shifts[rhs_rows - 1]);
@@ -454,6 +616,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
         }
     }
 #else
+    (void)rhs_cols_offset;
     for (int32_t rhs_rows_idx = 0; rhs_rows_idx <= (rhs_rows - 2); rhs_rows_idx += 2)
     {
         const int8_t *lhs_ptr = &lhs[0];
@@ -496,7 +659,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res00 += lhs_value * rhs_value0;
                 res01 += lhs_value * rhs_value1;
 
-                lhs_value = lhs_ptr[rhs_cols];
+                lhs_value = lhs_ptr[rhs_cols_offset];
                 res10 += lhs_value * rhs_value0;
                 res11 += lhs_value * rhs_value1;
 
@@ -533,7 +696,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             dst_ptr[1] = (int8_t)res11;
             dst_ptr += rhs_rows;
 
-            lhs_ptr += rhs_cols;
+            lhs_ptr -= rhs_cols;
+            lhs_ptr += 2 * rhs_cols_offset;
 
             lhs_rows_idx--;
         }
@@ -605,6 +769,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 ++rhs_ptr;
                 ++lhs_ptr;
             }
+            lhs_ptr -= rhs_cols;
+            lhs_ptr += rhs_cols_offset;
 
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multipliers[rhs_rows - 1], dst_shifts[rhs_rows - 1]);

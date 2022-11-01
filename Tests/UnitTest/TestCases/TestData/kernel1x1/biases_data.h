@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t kernel1x1_biases[9] = {25115, 24221, -14625, 4416, 20454, 10241, 19270, -24100, 24442};
+const int32_t kernel1x1_biases[7] = {20305, 0, 4112, 22799, 10069, -26378, 30496};

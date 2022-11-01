@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t kernel1x1_output_shift[7] = {-9, -9, -9, -9, -9, -9, -9};
+const int32_t kernel1x1_stride_x_y_1_biases[5] = {17076, -58409, -21502, -39745, -26634};

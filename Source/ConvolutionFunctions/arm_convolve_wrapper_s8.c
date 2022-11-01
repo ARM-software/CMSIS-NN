@@ -22,10 +22,10 @@
  * Description:  s8 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  * cmsis-nn to perform the convolution.
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.1.2
+ * $Date:        3 November 2022
+ * $Revision:    V.2.2.0
  *
- * Target Processor:  Cortex-M cores
+ * Target Processor:  Arm Cortex-M Processors
  *
  * -------------------------------------------------------------------- */
 
@@ -59,21 +59,37 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
                                             const cmsis_nn_dims *output_dims,
                                             int8_t *output_data)
 {
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (conv_params->stride.w == 1) &&
-        (conv_params->stride.h == 1) && (filter_dims->w == 1) && (filter_dims->h == 1) &&
-        (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
+    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
+        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
     {
-        return arm_convolve_1x1_s8_fast(ctx,
-                                        conv_params,
-                                        quant_params,
-                                        input_dims,
-                                        input_data,
-                                        filter_dims,
-                                        filter_data,
-                                        bias_dims,
-                                        bias_data,
-                                        output_dims,
-                                        output_data);
+        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
+        {
+            return arm_convolve_1x1_s8_fast(ctx,
+                                            conv_params,
+                                            quant_params,
+                                            input_dims,
+                                            input_data,
+                                            filter_dims,
+                                            filter_data,
+                                            bias_dims,
+                                            bias_data,
+                                            output_dims,
+                                            output_data);
+        }
+        else
+        {
+            return arm_convolve_1x1_s8(ctx,
+                                       conv_params,
+                                       quant_params,
+                                       input_dims,
+                                       input_data,
+                                       filter_dims,
+                                       filter_data,
+                                       bias_dims,
+                                       bias_data,
+                                       output_dims,
+                                       output_data);
+        }
     }
     else if ((input_dims->h == 1) && (output_dims->w % 4 == 0) && conv_params->dilation.w == 1 && (filter_dims->h == 1))
     {
@@ -110,11 +126,17 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv
                                                 const cmsis_nn_dims *filter_dims,
                                                 const cmsis_nn_dims *output_dims)
 {
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (conv_params->stride.w == 1) &&
-        (conv_params->stride.h == 1) && (filter_dims->w == 1) && (filter_dims->h == 1) &&
-        (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
+    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
+        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
     {
-        return arm_convolve_1x1_s8_fast_get_buffer_size(input_dims);
+        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
+        {
+            return arm_convolve_1x1_s8_fast_get_buffer_size(input_dims);
+        }
+        else
+        {
+            return 0;
+        }
     }
     else if ((input_dims->h == 1) && (output_dims->w % 4 == 0) && (conv_params->dilation.w == 1) &&
              (filter_dims->h == 1))

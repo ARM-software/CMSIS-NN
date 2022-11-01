@@ -21,10 +21,10 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.0.2
+ * $Date:        03 November 2022
+ * $Revision:    V.3.0.3
  *
- * Target Processor:  Cortex-M Processors
+ * Target Processor:  Arm Cortex-M Processors
  *
  * -------------------------------------------------------------------- */
 
@@ -70,43 +70,6 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
     (void)filter_dims;
     (void)bias_dims;
 
-#if defined(ARM_MATH_MVEI)
-
-    const int32_t col_len = input_dims->w * input_dims->h * input_dims->n;
-    const int32_t output_ch = output_dims->c;
-    const int32_t input_ch = input_dims->c;
-
-    for (int i_items = 0; i_items <= (col_len - 4); i_items += 4)
-    {
-        output_data = arm_nn_mat_mul_core_4x_s8(input_ch,
-                                                input_ch,
-                                                input_data + i_items * input_ch,
-                                                filter_data,
-                                                output_ch,
-                                                conv_params,
-                                                quant_params,
-                                                bias_data,
-                                                output_data);
-    }
-
-    /* Handle left over elements */
-    for (int i_items = (col_len & ~0x3); i_items < col_len; i_items++)
-    {
-        arm_nn_mat_mul_core_1x_s8(input_ch,
-                                  0,
-                                  input_data + i_items * input_ch,
-                                  filter_data,
-                                  output_ch,
-                                  conv_params,
-                                  quant_params,
-                                  bias_data,
-                                  output_data);
-        output_data += output_ch;
-    }
-
-#else
-    /* Run the following code as reference implementation for Cortex-M processors with or without DSP extension */
-
     const int32_t lhs_rows = input_dims->w * input_dims->h * input_dims->n;
     const int32_t rhs_rows = output_dims->c;
     const int32_t rhs_cols = input_dims->c;
@@ -123,9 +86,8 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
                             conv_params->input_offset,
                             conv_params->output_offset,
                             conv_params->activation.min,
-                            conv_params->activation.max);
-
-#endif
+                            conv_params->activation.max,
+                            rhs_cols);
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
