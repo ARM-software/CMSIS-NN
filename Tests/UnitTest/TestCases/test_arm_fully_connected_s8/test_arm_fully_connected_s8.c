@@ -30,7 +30,7 @@
 void fully_connected_arm_fully_connected_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[FULLY_CONNECTED_DST_SIZE] = {0};
+    int8_t output[FULLY_CONNECTED_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
@@ -40,10 +40,10 @@ void fully_connected_arm_fully_connected_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q31_t *bias_data = fully_connected_biases;
-    const q7_t *kernel_data = fully_connected_weights;
-    const q7_t *input_data = fully_connected_input;
-    const q7_t *output_ref = fully_connected_output_ref;
+    const int32_t *bias_data = fully_connected_biases;
+    const int8_t *kernel_data = fully_connected_weights;
+    const int8_t *input_data = fully_connected_input;
+    const int8_t *output_ref = fully_connected_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_DST_SIZE;
 
     input_dims.n = FULLY_CONNECTED_INPUT_BATCHES;
@@ -93,7 +93,7 @@ void fully_connected_arm_fully_connected_s8(void)
 void fully_connected_mve_0_arm_fully_connected_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[FULLY_CONNECTED_MVE_0_DST_SIZE] = {0};
+    int8_t output[FULLY_CONNECTED_MVE_0_DST_SIZE] = {0};
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
     cmsis_nn_per_tensor_quant_params quant_params;
@@ -101,10 +101,10 @@ void fully_connected_mve_0_arm_fully_connected_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
-    const q31_t *bias_data = fully_connected_mve_0_biases;
-    const q7_t *kernel_data = fully_connected_mve_0_weights;
-    const q7_t *input_data = fully_connected_mve_0_input;
-    const q7_t *output_ref = fully_connected_mve_0_output_ref;
+    const int32_t *bias_data = fully_connected_mve_0_biases;
+    const int8_t *kernel_data = fully_connected_mve_0_weights;
+    const int8_t *input_data = fully_connected_mve_0_input;
+    const int8_t *output_ref = fully_connected_mve_0_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_MVE_0_DST_SIZE;
     input_dims.n = FULLY_CONNECTED_MVE_0_INPUT_BATCHES;
     input_dims.w = FULLY_CONNECTED_MVE_0_INPUT_W;
@@ -149,7 +149,7 @@ void fully_connected_mve_0_arm_fully_connected_s8(void)
 void fully_connected_mve_1_arm_fully_connected_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[FULLY_CONNECTED_MVE_1_DST_SIZE] = {0};
+    int8_t output[FULLY_CONNECTED_MVE_1_DST_SIZE] = {0};
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
     cmsis_nn_per_tensor_quant_params quant_params;
@@ -157,10 +157,10 @@ void fully_connected_mve_1_arm_fully_connected_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
-    const q31_t *bias_data = fully_connected_mve_1_biases;
-    const q7_t *kernel_data = fully_connected_mve_1_weights;
-    const q7_t *input_data = fully_connected_mve_1_input;
-    const q7_t *output_ref = fully_connected_mve_1_output_ref;
+    const int32_t *bias_data = fully_connected_mve_1_biases;
+    const int8_t *kernel_data = fully_connected_mve_1_weights;
+    const int8_t *input_data = fully_connected_mve_1_input;
+    const int8_t *output_ref = fully_connected_mve_1_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_MVE_1_DST_SIZE;
     input_dims.n = FULLY_CONNECTED_MVE_1_INPUT_BATCHES;
     input_dims.w = FULLY_CONNECTED_MVE_1_INPUT_W;
@@ -205,7 +205,7 @@ void fully_connected_mve_1_arm_fully_connected_s8(void)
 void fully_connected_null_bias_0_arm_fully_connected_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[FULLY_CONNECTED_NULL_BIAS_0_DST_SIZE] = {0};
+    int8_t output[FULLY_CONNECTED_NULL_BIAS_0_DST_SIZE] = {0};
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
     cmsis_nn_per_tensor_quant_params quant_params;
@@ -213,10 +213,10 @@ void fully_connected_null_bias_0_arm_fully_connected_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
-    const q31_t *bias_data = fully_connected_null_bias_0_biases;
-    const q7_t *kernel_data = fully_connected_null_bias_0_weights;
-    const q7_t *input_data = fully_connected_null_bias_0_input;
-    const q7_t *output_ref = fully_connected_null_bias_0_output_ref;
+    const int32_t *bias_data = fully_connected_null_bias_0_biases;
+    const int8_t *kernel_data = fully_connected_null_bias_0_weights;
+    const int8_t *input_data = fully_connected_null_bias_0_input;
+    const int8_t *output_ref = fully_connected_null_bias_0_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_NULL_BIAS_0_DST_SIZE;
     input_dims.n = FULLY_CONNECTED_NULL_BIAS_0_INPUT_BATCHES;
     input_dims.w = FULLY_CONNECTED_NULL_BIAS_0_INPUT_W;
@@ -272,7 +272,7 @@ void fully_connected_null_bias_0_arm_fully_connected_s8(void)
 void fully_connected_out_activation_arm_fully_connected_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[FULLY_CONNECTED_OUT_ACTIVATION_DST_SIZE] = {0};
+    int8_t output[FULLY_CONNECTED_OUT_ACTIVATION_DST_SIZE] = {0};
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
     cmsis_nn_per_tensor_quant_params quant_params;
@@ -280,10 +280,10 @@ void fully_connected_out_activation_arm_fully_connected_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
-    const q31_t *bias_data = fully_connected_out_activation_biases;
-    const q7_t *kernel_data = fully_connected_out_activation_weights;
-    const q7_t *input_data = fully_connected_out_activation_input;
-    const q7_t *output_ref = fully_connected_out_activation_output_ref;
+    const int32_t *bias_data = fully_connected_out_activation_biases;
+    const int8_t *kernel_data = fully_connected_out_activation_weights;
+    const int8_t *input_data = fully_connected_out_activation_input;
+    const int8_t *output_ref = fully_connected_out_activation_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_OUT_ACTIVATION_DST_SIZE;
     input_dims.n = FULLY_CONNECTED_OUT_ACTIVATION_INPUT_BATCHES;
     input_dims.w = FULLY_CONNECTED_OUT_ACTIVATION_INPUT_W;

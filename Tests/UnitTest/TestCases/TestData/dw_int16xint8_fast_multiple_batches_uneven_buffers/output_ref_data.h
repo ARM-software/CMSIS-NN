@@ -2,7 +2,7 @@
 #pragma once
 #include <stdint.h>
 
-const q15_t dw_int16xint8_fast_multiple_batches_uneven_buffers_output_ref[216] = {
+const int16_t dw_int16xint8_fast_multiple_batches_uneven_buffers_output_ref[216] = {
     -568,   772,   -1403, 13165, -9121, 4293,  -1850, 9930,  2107,   -1542, 5116,  -4174, -866,  -4346, 6988,  15155,
     -3608,  -942,  -36,   7705,  -2565, 6334,  -238,  19493, 4860,   9163,  -6674, 10025, -9959, 597,   864,   10148,
     -3263,  4730,  9571,  -6187, 4213,  -710,  -1252, 123,   -2355,  9267,  -6429, 14192, 473,   4450,  2632,  -4260,

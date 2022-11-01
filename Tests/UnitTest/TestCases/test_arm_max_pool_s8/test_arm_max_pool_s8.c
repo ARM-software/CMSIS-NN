@@ -34,7 +34,7 @@
 void maxpooling_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -42,7 +42,7 @@ void maxpooling_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_input;
+    const int8_t *input_data = maxpooling_input;
 
     input_dims.n = MAXPOOLING_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_INPUT_W;
@@ -75,7 +75,7 @@ void maxpooling_arm_max_pool_s8(void)
 void maxpooling_1_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_1_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -83,7 +83,7 @@ void maxpooling_1_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_1_input;
+    const int8_t *input_data = maxpooling_1_input;
 
     input_dims.n = MAXPOOLING_1_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_1_INPUT_W;
@@ -116,7 +116,7 @@ void maxpooling_1_arm_max_pool_s8(void)
 void maxpooling_2_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_2_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -124,7 +124,7 @@ void maxpooling_2_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_2_input;
+    const int8_t *input_data = maxpooling_2_input;
 
     input_dims.n = MAXPOOLING_2_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_2_INPUT_W;
@@ -157,7 +157,7 @@ void maxpooling_2_arm_max_pool_s8(void)
 void maxpooling_3_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_3_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -165,7 +165,7 @@ void maxpooling_3_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_3_input;
+    const int8_t *input_data = maxpooling_3_input;
 
     input_dims.n = MAXPOOLING_3_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_3_INPUT_W;
@@ -198,7 +198,7 @@ void maxpooling_3_arm_max_pool_s8(void)
 void maxpooling_4_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_4_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -206,7 +206,7 @@ void maxpooling_4_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_4_input;
+    const int8_t *input_data = maxpooling_4_input;
 
     input_dims.n = MAXPOOLING_4_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_4_INPUT_W;
@@ -239,7 +239,7 @@ void maxpooling_4_arm_max_pool_s8(void)
 void maxpooling_5_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_5_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_5_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -247,7 +247,7 @@ void maxpooling_5_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_5_input;
+    const int8_t *input_data = maxpooling_5_input;
 
     input_dims.n = MAXPOOLING_5_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_5_INPUT_W;
@@ -280,7 +280,7 @@ void maxpooling_5_arm_max_pool_s8(void)
 void maxpooling_6_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_6_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_6_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -288,7 +288,7 @@ void maxpooling_6_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_6_input;
+    const int8_t *input_data = maxpooling_6_input;
 
     input_dims.n = MAXPOOLING_6_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_6_INPUT_W;
@@ -321,7 +321,7 @@ void maxpooling_6_arm_max_pool_s8(void)
 void maxpooling_7_arm_max_pool_s8(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q7_t output[MAXPOOLING_7_DST_SIZE] = {0};
+    int8_t output[MAXPOOLING_7_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -329,7 +329,7 @@ void maxpooling_7_arm_max_pool_s8(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const q7_t *input_data = maxpooling_7_input;
+    const int8_t *input_data = maxpooling_7_input;
 
     input_dims.n = MAXPOOLING_7_INPUT_BATCHES;
     input_dims.w = MAXPOOLING_7_INPUT_W;

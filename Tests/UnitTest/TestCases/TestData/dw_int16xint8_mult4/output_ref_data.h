@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q15_t dw_int16xint8_mult4_output_ref[8] = {14964, 113, 4445, -17539, -15735, 3848, -3806, 14080};
+const int16_t dw_int16xint8_mult4_output_ref[8] = {14964, 113, 4445, -17539, -15735, 3848, -3806, 14080};

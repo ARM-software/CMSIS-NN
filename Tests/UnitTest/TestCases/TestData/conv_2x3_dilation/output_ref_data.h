@@ -2,5 +2,5 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t conv_2x3_dilation_output_ref[18] =
+const int8_t conv_2x3_dilation_output_ref[18] =
     {-20, -61, -16, -61, 8, -61, 72, -61, -5, -61, 34, -61, 25, -61, 13, -61, 38, -56};

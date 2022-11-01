@@ -31,7 +31,7 @@ void softmax_arm_softmax_s8(void)
     const int32_t mult = SOFTMAX_INPUT_MULT;
     const int32_t shift = SOFTMAX_INPUT_LEFT_SHIFT;
     const int32_t diff_min = SOFTMAX_DIFF_MIN;
-    const q7_t *input_data = softmax_input;
+    const int8_t *input_data = softmax_input;
     int8_t output[SOFTMAX_DST_SIZE];
 
     for (int i = 0; i < REPEAT_NUM; i++)
@@ -48,10 +48,10 @@ void softmax_invalid_diff_min_arm_softmax_s8(void)
     const int32_t mult = SOFTMAX_INPUT_MULT;
     const int32_t shift = SOFTMAX_INPUT_LEFT_SHIFT;
     const int32_t diff_min = 0x7FFFFFFF;
-    const q7_t *input_data = softmax_input;
+    const int8_t *input_data = softmax_input;
     int8_t output[SOFTMAX_DST_SIZE];
 
-    q7_t *softmax_expect_invalid_output = malloc(SOFTMAX_DST_SIZE);
+    int8_t *softmax_expect_invalid_output = malloc(SOFTMAX_DST_SIZE);
     for (int i = 0; i < SOFTMAX_DST_SIZE; i++)
     {
         softmax_expect_invalid_output[i] = -128;

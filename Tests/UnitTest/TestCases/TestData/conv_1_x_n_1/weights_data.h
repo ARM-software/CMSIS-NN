@@ -2,5 +2,5 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t conv_1_x_n_1_weights[18] =
+const int8_t conv_1_x_n_1_weights[18] =
     {27, 85, -127, 26, -75, -106, 124, 29, 73, -36, 20, 127, 120, -19, -17, -121, 127, -48};

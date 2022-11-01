@@ -2,7 +2,7 @@
 #pragma once
 #include <stdint.h>
 
-const q15_t dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_output_ref[144] = {
+const int16_t dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_output_ref[144] = {
     9898,   -12494, 20130,  -14150, 24454,  14940,  1320,   32767,  7637,  4416,   6792,  10113,  -9105,  2676,  565,
     -17000, 12809,  2445,   2306,   7232,   4457,   -10952, 16570,  -9537, 7163,   -5208, 2130,   15009,  27017, 4309,
     8751,   6882,   -3744,  2048,   -17000, 16478,  -14428, 24242,  -1216, -16981, -6438, 3848,   -12394, 8126,  -17000,

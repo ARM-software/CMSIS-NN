@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mul_core_1x_s8.c
  * Description:  General Matrix-multiplication function
  *
- * $Date:        22 Aug 2022
- * $Revision:    V.3.1.0
+ * $Date:        26 October 2022
+ * $Revision:    V.3.1.1
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -129,7 +129,7 @@ arm_cmsis_nn_status arm_nn_mat_mul_core_1x_s8(int32_t row_elements,
         acc_n0 += conv_params->output_offset;
         acc_n0 = MAX(acc_n0, conv_params->activation.min);
         acc_n0 = MIN(acc_n0, conv_params->activation.max);
-        *output++ = (q7_t)acc_n0;
+        *output++ = (int8_t)acc_n0;
     }
 
 #else

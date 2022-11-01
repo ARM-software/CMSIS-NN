@@ -56,8 +56,8 @@ void svdf_arm_svdf_state_s16_s8(void)
     cmsis_nn_per_tensor_quant_params input_quant_params;
     cmsis_nn_per_tensor_quant_params output_quant_params;
     int8_t output_data[SVDF_DST_SIZE];
-    const q7_t *weights_feature_data = svdf_weights_feature;
-    const q15_t *weights_time_data = svdf_weights_time;
+    const int8_t *weights_feature_data = svdf_weights_feature;
+    const int16_t *weights_time_data = svdf_weights_time;
 
     input_dims.n = SVDF_INPUT_BATCHES;
     input_dims.h = SVDF_INPUT_SIZE;
@@ -89,7 +89,7 @@ void svdf_arm_svdf_state_s16_s8(void)
     output_ctx.buf = malloc(scratch_size_out);
 
     int8_t *input_data = malloc(input_round_size);
-    q15_t *state_data = malloc(sizeof(svdf_state));
+    int16_t *state_data = malloc(sizeof(svdf_state));
 
     const bool null_bias = check_null_bias(svdf_biases, SVDF_DST_SIZE / SVDF_INPUT_BATCHES);
 
@@ -142,8 +142,8 @@ void svdf_1_arm_svdf_state_s16_s8(void)
     cmsis_nn_per_tensor_quant_params input_quant_params;
     cmsis_nn_per_tensor_quant_params output_quant_params;
     int8_t output_data[SVDF_1_DST_SIZE];
-    const q7_t *weights_feature_data = svdf_1_weights_feature;
-    const q15_t *weights_time_data = svdf_1_weights_time;
+    const int8_t *weights_feature_data = svdf_1_weights_feature;
+    const int16_t *weights_time_data = svdf_1_weights_time;
 
     input_dims.n = SVDF_1_INPUT_BATCHES;
     input_dims.h = SVDF_1_INPUT_SIZE;
@@ -175,7 +175,7 @@ void svdf_1_arm_svdf_state_s16_s8(void)
     output_ctx.buf = malloc(scratch_size_out);
 
     int8_t *input_data = malloc(input_round_size);
-    q15_t *state_data = malloc(sizeof(svdf_1_state));
+    int16_t *state_data = malloc(sizeof(svdf_1_state));
     const bool null_bias = check_null_bias(svdf_1_biases, SVDF_1_DST_SIZE / SVDF_1_INPUT_BATCHES);
 
     for (int i = 0; i < REPEAT_NUM; i++)
@@ -227,8 +227,8 @@ void svdf_2_arm_svdf_state_s16_s8(void)
     cmsis_nn_per_tensor_quant_params input_quant_params;
     cmsis_nn_per_tensor_quant_params output_quant_params;
     int8_t output_data[SVDF_2_DST_SIZE];
-    const q7_t *weights_feature_data = svdf_2_weights_feature;
-    const q15_t *weights_time_data = svdf_2_weights_time;
+    const int8_t *weights_feature_data = svdf_2_weights_feature;
+    const int16_t *weights_time_data = svdf_2_weights_time;
 
     input_dims.n = SVDF_2_INPUT_BATCHES;
     input_dims.h = SVDF_2_INPUT_SIZE;
@@ -260,7 +260,7 @@ void svdf_2_arm_svdf_state_s16_s8(void)
     output_ctx.buf = malloc(scratch_size_out);
 
     int8_t *input_data = malloc(input_round_size);
-    q15_t *state_data = malloc(sizeof(svdf_2_state));
+    int16_t *state_data = malloc(sizeof(svdf_2_state));
     const bool null_bias = check_null_bias(svdf_2_biases, SVDF_2_DST_SIZE / SVDF_2_INPUT_BATCHES);
 
     for (int i = 0; i < REPEAT_NUM; i++)
@@ -312,8 +312,8 @@ void svdf_3_arm_svdf_state_s16_s8(void)
     cmsis_nn_per_tensor_quant_params input_quant_params;
     cmsis_nn_per_tensor_quant_params output_quant_params;
     int8_t output_data[SVDF_3_DST_SIZE];
-    const q7_t *weights_feature_data = svdf_3_weights_feature;
-    const q15_t *weights_time_data = svdf_3_weights_time;
+    const int8_t *weights_feature_data = svdf_3_weights_feature;
+    const int16_t *weights_time_data = svdf_3_weights_time;
 
     input_dims.n = SVDF_3_INPUT_BATCHES;
     input_dims.h = SVDF_3_INPUT_SIZE;
@@ -345,7 +345,7 @@ void svdf_3_arm_svdf_state_s16_s8(void)
     output_ctx.buf = malloc(scratch_size_out);
 
     int8_t *input_data = malloc(input_round_size);
-    q15_t *state_data = malloc(sizeof(svdf_3_state));
+    int16_t *state_data = malloc(sizeof(svdf_3_state));
     const bool null_bias = check_null_bias(svdf_3_biases, SVDF_3_DST_SIZE / SVDF_3_INPUT_BATCHES);
 
     for (int i = 0; i < REPEAT_NUM; i++)

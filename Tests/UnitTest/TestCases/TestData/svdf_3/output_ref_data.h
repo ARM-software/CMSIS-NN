@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t svdf_3_output_ref[12] = {20, 74, 56, 65, -23, 57, -49, -128, 2, 109, 72, -13};
+const int8_t svdf_3_output_ref[12] = {20, 74, 56, 65, -23, 57, -49, -128, 2, 109, 72, -13};

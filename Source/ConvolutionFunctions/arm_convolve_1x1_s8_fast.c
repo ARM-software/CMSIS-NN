@@ -19,10 +19,10 @@
 /* ----------------------------------------------------------------------
  * Project:      CMSIS NN Library
  * Title:        arm_convolve_1x1_s8_fast.c
- * Description:  Fast q7 version of 1x1 convolution (non-square shape)
+ * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        20 june 2022
- * $Revision:    V.3.0.1
+ * $Date:        26 October 2022
+ * $Revision:    V.3.0.2
  *
  * Target Processor:  Cortex-M Processors
  *
@@ -52,13 +52,13 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
                                              const cmsis_nn_conv_params *conv_params,
                                              const cmsis_nn_per_channel_quant_params *quant_params,
                                              const cmsis_nn_dims *input_dims,
-                                             const q7_t *input_data,
+                                             const int8_t *input_data,
                                              const cmsis_nn_dims *filter_dims,
-                                             const q7_t *filter_data,
+                                             const int8_t *filter_data,
                                              const cmsis_nn_dims *bias_dims,
                                              const int32_t *bias_data,
                                              const cmsis_nn_dims *output_dims,
-                                             q7_t *output_data)
+                                             int8_t *output_data)
 {
     if (conv_params->padding.w != 0 || conv_params->padding.h != 0 || conv_params->stride.w != 1 ||
         conv_params->stride.h != 1)

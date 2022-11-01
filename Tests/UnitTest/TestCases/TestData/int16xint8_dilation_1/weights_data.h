@@ -2,5 +2,5 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t int16xint8_dilation_1_weights[16] =
+const int8_t int16xint8_dilation_1_weights[16] =
     {-127, -37, 74, 1, -85, 102, -110, 65, -77, 127, 110, 124, 17, -10, 110, -110};

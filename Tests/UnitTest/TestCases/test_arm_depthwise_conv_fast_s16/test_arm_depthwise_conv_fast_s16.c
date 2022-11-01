@@ -47,7 +47,7 @@ const int64_t *get_bias_s64_address(const int64_t *bias, int32_t size)
 void dw_int16xint8_fast_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -57,10 +57,10 @@ void dw_int16xint8_fast_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_biases, DW_INT16XINT8_FAST_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_output_ref;
+    const int64_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_biases, DW_INT16XINT8_FAST_OUT_CH);
+    const int16_t *input_data = dw_int16xint8_fast_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_INPUT_BATCHES;
@@ -141,7 +141,7 @@ void dw_int16xint8_fast_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_SPILL_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_SPILL_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -151,10 +151,10 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_spill_biases, DW_INT16XINT8_FAST_SPILL_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_spill_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_spill_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_spill_output_ref;
+    const int64_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_spill_biases, DW_INT16XINT8_FAST_SPILL_OUT_CH);
+    const int16_t *input_data = dw_int16xint8_fast_spill_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_spill_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_spill_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_SPILL_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_SPILL_INPUT_BATCHES;
@@ -234,7 +234,7 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_STRIDE_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_STRIDE_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -244,10 +244,10 @@ void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_stride_biases, DW_INT16XINT8_FAST_STRIDE_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_stride_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_stride_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_stride_output_ref;
+    const int64_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_stride_biases, DW_INT16XINT8_FAST_STRIDE_OUT_CH);
+    const int16_t *input_data = dw_int16xint8_fast_stride_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_stride_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_stride_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_STRIDE_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_STRIDE_INPUT_BATCHES;
@@ -327,7 +327,7 @@ void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_null_bias_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_NULL_BIAS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_NULL_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -337,11 +337,11 @@ void dw_int16xint8_fast_null_bias_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data =
+    const int64_t *bias_data =
         get_bias_s64_address(dw_int16xint8_fast_null_bias_biases, DW_INT16XINT8_FAST_NULL_BIAS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_null_bias_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_null_bias_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_null_bias_output_ref;
+    const int16_t *input_data = dw_int16xint8_fast_null_bias_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_null_bias_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_null_bias_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_NULL_BIAS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_NULL_BIAS_INPUT_BATCHES;
@@ -421,7 +421,7 @@ void dw_int16xint8_fast_null_bias_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_stride_null_bias_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_STRIDE_NULL_BIAS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_STRIDE_NULL_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -431,11 +431,11 @@ void dw_int16xint8_fast_stride_null_bias_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data =
+    const int64_t *bias_data =
         get_bias_s64_address(dw_int16xint8_fast_stride_null_bias_biases, DW_INT16XINT8_FAST_STRIDE_NULL_BIAS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_stride_null_bias_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_stride_null_bias_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_stride_null_bias_output_ref;
+    const int16_t *input_data = dw_int16xint8_fast_stride_null_bias_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_stride_null_bias_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_stride_null_bias_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_STRIDE_NULL_BIAS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_STRIDE_NULL_BIAS_INPUT_BATCHES;
@@ -515,7 +515,7 @@ void dw_int16xint8_fast_stride_null_bias_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_spill_null_bias_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_SPILL_NULL_BIAS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_SPILL_NULL_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -525,11 +525,11 @@ void dw_int16xint8_fast_spill_null_bias_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data =
+    const int64_t *bias_data =
         get_bias_s64_address(dw_int16xint8_fast_spill_null_bias_biases, DW_INT16XINT8_FAST_SPILL_NULL_BIAS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_spill_null_bias_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_spill_null_bias_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_spill_null_bias_output_ref;
+    const int16_t *input_data = dw_int16xint8_fast_spill_null_bias_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_spill_null_bias_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_spill_null_bias_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_SPILL_NULL_BIAS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_SPILL_NULL_BIAS_INPUT_BATCHES;
@@ -609,7 +609,7 @@ void dw_int16xint8_fast_spill_null_bias_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_test_bias_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_TEST_BIAS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_TEST_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -619,11 +619,11 @@ void dw_int16xint8_fast_test_bias_arm_depthwise_conv_fast_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data =
+    const int64_t *bias_data =
         get_bias_s64_address(dw_int16xint8_fast_test_bias_biases, DW_INT16XINT8_FAST_TEST_BIAS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_test_bias_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_test_bias_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_test_bias_output_ref;
+    const int16_t *input_data = dw_int16xint8_fast_test_bias_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_test_bias_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_test_bias_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_TEST_BIAS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_TEST_BIAS_INPUT_BATCHES;
@@ -703,7 +703,7 @@ void dw_int16xint8_fast_test_bias_arm_depthwise_conv_fast_s16(void)
 void dw_int16xint8_fast_multiple_batches_uneven_buffers_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -713,11 +713,11 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_arm_depthwise_conv_fast_
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_multiple_batches_uneven_buffers_biases,
-                                                  DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_multiple_batches_uneven_buffers_output_ref;
+    const int64_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_multiple_batches_uneven_buffers_biases,
+                                                    DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_OUT_CH);
+    const int16_t *input_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_multiple_batches_uneven_buffers_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_INPUT_BATCHES;
@@ -797,7 +797,7 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_arm_depthwise_conv_fast_
 void dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_arm_depthwise_conv_fast_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DST_SIZE] = {0};
+    int16_t output[DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_dw_conv_params dw_conv_params;
@@ -807,11 +807,12 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_arm_depthwise_
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = get_bias_s64_address(dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_biases,
-                                                  DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_CH);
-    const q15_t *input_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_input;
-    const q7_t *kernel_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_weights;
-    const q15_t *output_ref = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_output_ref;
+    const int64_t *bias_data =
+        get_bias_s64_address(dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_biases,
+                             DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_CH);
+    const int16_t *input_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_input;
+    const int8_t *kernel_data = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_weights;
+    const int16_t *output_ref = dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_output_ref;
     const int32_t output_ref_size = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DST_SIZE;
 
     input_dims.n = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_BATCHES;

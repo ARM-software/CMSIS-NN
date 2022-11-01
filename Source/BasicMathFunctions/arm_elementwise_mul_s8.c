@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_mul_s8
  * Description:  Element wise multiplication
  *
- * $Date:        4 Aug 2022
- * $Revision:    V.2.0.1
+ * $Date:        26 October 2022
+ * $Revision:    V.2.0.2
  *
  * Target Processor:  Cortex-M cores
  *
@@ -131,7 +131,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
 
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
-        r1 = (q7_t)mul_res;
+        r1 = (int8_t)mul_res;
 
         /* Mul 3 */
         input_1 = (int16_t)((b_1 >> 16U) & 0x0FFFFL);
@@ -141,7 +141,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
-        r3 = (q7_t)mul_res;
+        r3 = (int8_t)mul_res;
 
         /* Mul 2 */
         input_1 = (int16_t)(a_1 & 0x0FFFFL);
@@ -151,7 +151,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
-        r2 = (q7_t)mul_res;
+        r2 = (int8_t)mul_res;
 
         /* Mul 4 */
         input_1 = (int16_t)((a_1 >> 16U) & 0x0FFFFL);
@@ -161,9 +161,9 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
-        r4 = (q7_t)mul_res;
+        r4 = (int8_t)mul_res;
 
-        arm_nn_write_q7x4_ia(&output, PACK_Q7x4_32x1(r1, r2, r3, r4));
+        arm_nn_write_s8x4_ia(&output, PACK_S8x4_32x1(r1, r2, r3, r4));
 
         loop_count--;
     }
@@ -186,7 +186,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
 
-        *output++ = (q7_t)mul_res;
+        *output++ = (int8_t)mul_res;
 
         /* Decrement loop counter */
         loop_count--;

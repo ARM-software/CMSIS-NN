@@ -2,7 +2,7 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_weights[48] = {
+const int8_t dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_weights[48] = {
     69,   -34,  -108, 96,  -89,  -24,  127, 81,  6,   -125, -65, 77,   84,  -84, 73,  -84,
     -59,  127,  57,   127, 37,   -91,  -16, 127, -70, -102, 127, -102, -44, 25,  -14, 23,
     -127, -105, 4,    21,  -127, -127, 97,  50,  -19, -90,  -25, -11,  1,   52,  20,  -68};

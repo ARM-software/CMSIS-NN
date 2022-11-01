@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_fast_s16.c
  * Description:  Optimized s16 version of convolution.
  *
- * $Date:        19 April 2022
- * $Revision:    V.2.0.0
+ * $Date:        26 October 2022
+ * $Revision:    V.2.0.1
  *
  * Target Processor:  Cortex-M cores
  *
@@ -52,13 +52,13 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                                           const cmsis_nn_conv_params *conv_params,
                                           const cmsis_nn_per_channel_quant_params *quant_params,
                                           const cmsis_nn_dims *input_dims,
-                                          const q15_t *input_data,
+                                          const int16_t *input_data,
                                           const cmsis_nn_dims *filter_dims,
-                                          const q7_t *filter_data,
+                                          const int8_t *filter_data,
                                           const cmsis_nn_dims *bias_dims,
                                           const int64_t *bias_data,
                                           const cmsis_nn_dims *output_dims,
-                                          q15_t *output_data)
+                                          int16_t *output_data)
 {
     (void)bias_dims;
     if (filter_dims->w * filter_dims->h * input_dims->c >= 512)
@@ -70,7 +70,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
     {
         return ARM_CMSIS_NN_ARG_ERROR;
     }
-    q15_t *buffer_a = (q15_t *)ctx->buf;
+    int16_t *buffer_a = (int16_t *)ctx->buf;
 
     const int32_t input_batches = input_dims->n;
     const int32_t input_x = input_dims->w;
@@ -96,8 +96,8 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
     {
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
         /* Generate two columns from the input tensor a GEMM computation */
-        q15_t *two_column_buf = buffer_a;
-        q15_t *out = output_data;
+        int16_t *two_column_buf = buffer_a;
+        int16_t *out = output_data;
         /* This part implements the im2col function */
         for (int32_t i_out_y = 0; i_out_y < output_y; i_out_y++)
         {
@@ -112,13 +112,13 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                         if (i_ker_y < 0 || i_ker_y >= input_y || i_ker_x < 0 || i_ker_x >= input_x)
                         {
                             /* Filling 0 for out-of-bound paddings */
-                            arm_memset_q7((q7_t *)two_column_buf, 0, sizeof(q15_t) * input_ch);
+                            arm_memset_s8((int8_t *)two_column_buf, 0, sizeof(int16_t) * input_ch);
                         }
                         else
                         {
-                            arm_memcpy_q7((q7_t *)two_column_buf,
-                                          (const q7_t *)(input_data + (i_ker_y * input_x + i_ker_x) * input_ch),
-                                          input_ch * sizeof(q15_t));
+                            arm_memcpy_s8((int8_t *)two_column_buf,
+                                          (const int8_t *)(input_data + (i_ker_y * input_x + i_ker_x) * input_ch),
+                                          input_ch * sizeof(int16_t));
                         }
                         two_column_buf += input_ch;
                     }
@@ -146,24 +146,24 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
         /* Left-over because odd number of output pixels */
         if (two_column_buf != buffer_a)
         {
-            const q7_t *ker_a = filter_data;
+            const int8_t *ker_a = filter_data;
             int i;
 
             for (i = 0; i < output_ch; i++)
             {
                 /* Init the accumulator*/
-                q31_t sum = 0;
+                int32_t sum = 0;
 
                 /* Point to the beginning of the im2col buffer where the input is available as a rearranged column */
-                const q15_t *ip_as_col = buffer_a;
+                const int16_t *ip_as_col = buffer_a;
 
                 /* 4 multiply and accumulates are done in one loop. */
                 uint16_t col_count = (input_ch * kernel_y * kernel_x) >> 2;
 
                 while (col_count)
                 {
-                    q31_t ker_a1, ker_a2;
-                    q31_t ip_b1, ip_b2;
+                    int32_t ker_a1, ker_a2;
+                    int32_t ip_b1, ip_b2;
 
                     ker_a = read_and_pad(ker_a, &ker_a1, &ker_a2);
 
@@ -178,15 +178,15 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                 col_count = input_ch * kernel_y * kernel_x & 0x3;
                 while (col_count)
                 {
-                    q7_t ker_a1 = *ker_a++;
-                    q15_t ip_b1 = *ip_as_col++;
+                    int8_t ker_a1 = *ker_a++;
+                    int16_t ip_b1 = *ip_as_col++;
                     sum += ker_a1 * ip_b1;
                     col_count--;
                 }
                 if (bias_data)
                 {
-                    q31_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[i]);
-                    q63_t acc_64 = sum + bias_data[i];
+                    int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[i]);
+                    int64_t acc_64 = sum + bias_data[i];
                     sum = arm_nn_requantize_s64(acc_64, reduced_multiplier, output_shift[i]);
                 }
                 else
@@ -195,7 +195,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                 }
                 sum = MAX(sum, out_activation_min);
                 sum = MIN(sum, out_activation_max);
-                *out++ = (q15_t)sum;
+                *out++ = (int16_t)sum;
             }
         }
 #else

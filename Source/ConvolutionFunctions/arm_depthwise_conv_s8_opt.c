@@ -22,8 +22,8 @@
  * Description:  Optimized s8 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        27 July 2022
- * $Revision:    V.3.1.0
+ * $Date:        26 October 2022
+ * $Revision:    V.3.1.1
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -52,13 +52,13 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                                               const cmsis_nn_dw_conv_params *dw_conv_params,
                                               const cmsis_nn_per_channel_quant_params *quant_params,
                                               const cmsis_nn_dims *input_dims,
-                                              const q7_t *input,
+                                              const int8_t *input,
                                               const cmsis_nn_dims *filter_dims,
-                                              const q7_t *kernel,
+                                              const int8_t *kernel,
                                               const cmsis_nn_dims *bias_dims,
                                               const int32_t *bias,
                                               const cmsis_nn_dims *output_dims,
-                                              q7_t *output)
+                                              int8_t *output)
 {
 
     const int32_t input_ch = input_dims->c;
@@ -92,12 +92,12 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
     const int32_t input_offset = dw_conv_params->input_offset;
     const int32_t output_activation_min = dw_conv_params->activation.min;
     const int32_t output_activation_max = dw_conv_params->activation.max;
-    q15_t *buffer_a = (q15_t *)ctx->buf;
+    int16_t *buffer_a = (int16_t *)ctx->buf;
 
 #ifdef ARM_MATH_MVEI
     /* Generate two columns from the input tensor */
-    q7_t *lhs_buffer = (q7_t *)buffer_a;
-    q7_t *out = output;
+    int8_t *lhs_buffer = (int8_t *)buffer_a;
+    int8_t *out = output;
     int padded = 0;
     int buffer_count = 0;
     const int32_t kernel_size = kernel_x * kernel_y;
@@ -122,12 +122,12 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                     {
                         if (i_ker_y < 0 || i_ker_y >= input_y || i_ker_x < 0 || i_ker_x >= input_x)
                         {
-                            arm_memset_q7(lhs_buffer, (int8_t)-input_offset, (uint32_t)active_ch);
+                            arm_memset_s8(lhs_buffer, (int8_t)-input_offset, (uint32_t)active_ch);
                             padded = 1;
                         }
                         else
                         {
-                            arm_memcpy_q7(lhs_buffer,
+                            arm_memcpy_s8(lhs_buffer,
                                           input_slice + (i_ker_y * input_x + i_ker_x) * input_ch,
                                           (uint32_t)active_ch);
                         }
@@ -139,7 +139,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                 if (buffer_count == 4)
                 {
                     const int32_t block_offset = i_ch * CH_IN_BLOCK_MVE;
-                    lhs_buffer = (q7_t *)buffer_a;
+                    lhs_buffer = (int8_t *)buffer_a;
                     if (padded == 0)
                     {
                         arm_nn_depthwise_conv_nt_t_s8(lhs_buffer,
@@ -179,7 +179,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
             }
         }
         /* Handle left over buffers */
-        lhs_buffer = (q7_t *)buffer_a;
+        lhs_buffer = (int8_t *)buffer_a;
 
         int8_t *out_base = out;
         for (int i_buf = 0; i_buf < buffer_count; i_buf++)
@@ -230,11 +230,11 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
 
 #else // ARM_MATH_DSP
     /* Run the following code in cores using DSP extension */
-    q15_t *const col_buffer_start = buffer_a;
-    q15_t *col_buffer = col_buffer_start;
+    int16_t *const col_buffer_start = buffer_a;
+    int16_t *col_buffer = col_buffer_start;
     const int32_t *const bias_start_pos = bias;
-    const q31_t *const out_mult_start_pos = output_mult;
-    const q31_t *const out_shift_start_pos = output_shift;
+    const int32_t *const out_mult_start_pos = output_mult;
+    const int32_t *const out_shift_start_pos = output_shift;
     uint16_t row_count;
     uint16_t row_shift;
 
@@ -254,7 +254,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
             int32_t index = 0;
             if (ker_y_start != 0)
             {
-                memset(&col_buffer[index], 0, (kernel_x * input_ch) * ker_y_start * sizeof(q15_t));
+                memset(&col_buffer[index], 0, (kernel_x * input_ch) * ker_y_start * sizeof(int16_t));
                 index += (kernel_x * input_ch) * ker_y_start;
             }
 
@@ -267,11 +267,11 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                     const int32_t idx_x = base_idx_x + i_ker_x;
                     if (idx_x < 0 || idx_x >= input_x)
                     {
-                        memset(&col_buffer[index], 0, input_ch * sizeof(q15_t));
+                        memset(&col_buffer[index], 0, input_ch * sizeof(int16_t));
                     }
                     else
                     {
-                        arm_q7_to_q15_with_offset((q7_t *)input + (idx_y * input_x + idx_x) * input_ch,
+                        arm_q7_to_q15_with_offset((int8_t *)input + (idx_y * input_x + idx_x) * input_ch,
                                                   &col_buffer[index],
                                                   input_ch,
                                                   input_offset);
@@ -283,7 +283,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
             const int diff = kernel_y - ker_y_end;
             if (diff != 0)
             {
-                memset(&col_buffer[index], 0, (kernel_x * input_ch) * diff * sizeof(q15_t));
+                memset(&col_buffer[index], 0, (kernel_x * input_ch) * diff * sizeof(int16_t));
             }
 
             row_count = output_ch / 4;
@@ -294,10 +294,10 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
 
             while (row_count)
             {
-                q31_t sum = 0;
-                q31_t sum_2 = 0;
-                q31_t sum_3 = 0;
-                q31_t sum_4 = 0;
+                int32_t sum = 0;
+                int32_t sum_2 = 0;
+                int32_t sum_3 = 0;
+                int32_t sum_4 = 0;
                 if (bias)
                 {
                     sum = *bias++;
@@ -307,8 +307,8 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                 }
 
                 uint16_t col_count = (kernel_x * kernel_y) / 2;
-                q15_t *col_pos = col_buffer_start + row_shift;
-                const q7_t *row_pos = kernel + row_shift;
+                int16_t *col_pos = col_buffer_start + row_shift;
+                const int8_t *row_pos = kernel + row_shift;
                 row_shift += 4;
 
                 while (col_count)
@@ -316,12 +316,12 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                     /* General idea is to read 4 + 4 (input, kernel) pair and re-arrange them in the right order to
                     use in a SMLAD instruction . One run of this loop produces 4 partial outputs with 8 MACs. */
                     /* Note: variable names can be improved here to align with rows and columns. */
-                    q31_t ip_a1, ip_a2, ip_b1, ip_b2, op_a, op_b, op_c;
+                    int32_t ip_a1, ip_a2, ip_b1, ip_b2, op_a, op_b, op_c;
                     /* Read 4 weights */
-                    ip_b1 = arm_nn_read_q7x4(row_pos);
-                    ip_a1 = arm_nn_read_q7x4(row_pos + input_ch);
-                    op_a = arm_nn_read_q15x2(col_pos);
-                    op_b = arm_nn_read_q15x2(col_pos + input_ch);
+                    ip_b1 = arm_nn_read_s8x4(row_pos);
+                    ip_a1 = arm_nn_read_s8x4(row_pos + input_ch);
+                    op_a = arm_nn_read_s16x2(col_pos);
+                    op_b = arm_nn_read_s16x2(col_pos + input_ch);
 
                     ip_a2 = __SXTB16(ip_b1);
                     ip_b1 = __SXTB16(__ROR(ip_b1, 8));
@@ -337,8 +337,8 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                     op_b = __PKHBT(ip_b1, ip_a1, 16);
                     sum_2 = __SMLAD(op_a, op_b, sum_2);
 
-                    op_a = arm_nn_read_q15x2(col_pos + 2);
-                    op_b = arm_nn_read_q15x2(col_pos + input_ch + 2);
+                    op_a = arm_nn_read_s16x2(col_pos + 2);
+                    op_b = arm_nn_read_s16x2(col_pos + input_ch + 2);
 
                     op_c = __PKHBT(op_b, op_a, 16);
                     op_a = __PKHTB(op_b, op_a, 16);
@@ -370,24 +370,24 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                 sum += output_offset;
                 sum = MAX(sum, output_activation_min);
                 sum = MIN(sum, output_activation_max);
-                *output++ = (q7_t)sum;
+                *output++ = (int8_t)sum;
 
                 sum_2 = arm_nn_requantize(sum_2, *output_mult++, *output_shift++);
                 sum_2 += output_offset;
                 sum_2 = MAX(sum_2, output_activation_min);
                 sum_2 = MIN(sum_2, output_activation_max);
-                *output++ = (q7_t)sum_2;
+                *output++ = (int8_t)sum_2;
                 sum_3 = arm_nn_requantize(sum_3, *output_mult++, *output_shift++);
                 sum_3 += output_offset;
                 sum_3 = MAX(sum_3, output_activation_min);
                 sum_3 = MIN(sum_3, output_activation_max);
-                *output++ = (q7_t)sum_3;
+                *output++ = (int8_t)sum_3;
 
                 sum_4 = arm_nn_requantize(sum_4, *output_mult++, *output_shift++);
                 sum_4 += output_offset;
                 sum_4 = MAX(sum_4, output_activation_min);
                 sum_4 = MIN(sum_4, output_activation_max);
-                *output++ = (q7_t)sum_4;
+                *output++ = (int8_t)sum_4;
 
                 row_count--;
             }
@@ -395,9 +395,9 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
             row_count = output_ch & 0x3;
             while (row_count)
             {
-                q15_t *col_pos = col_buffer_start + row_shift;
-                const q7_t *row_pos = kernel + row_shift;
-                q31_t sum = 0;
+                int16_t *col_pos = col_buffer_start + row_shift;
+                const int8_t *row_pos = kernel + row_shift;
+                int32_t sum = 0;
                 if (bias)
                 {
                     sum = *bias++;
@@ -413,7 +413,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                 sum += output_offset;
                 sum = MAX(sum, output_activation_min);
                 sum = MIN(sum, output_activation_max);
-                *output++ = (q7_t)sum;
+                *output++ = (int8_t)sum;
 
                 row_count--;
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_add_s8
  * Description:  Elementwise add
  *
- * $Date:        19 April 2022
- * $Revision:    V.3.0.0
+ * $Date:        26 October 2022
+ * $Revision:    V.3.0.2
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -147,7 +147,7 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         sum += out_offset;
         sum = MAX(sum, out_activation_min);
         sum = MIN(sum, out_activation_max);
-        r1 = (q7_t)sum;
+        r1 = (int8_t)sum;
 
         /* Sum 3 */
         input_1 = ((b_1 >> 16) & 0x0FFFF) << left_shift;
@@ -161,7 +161,7 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         sum += out_offset;
         sum = MAX(sum, out_activation_min);
         sum = MIN(sum, out_activation_max);
-        r3 = (q7_t)sum;
+        r3 = (int8_t)sum;
 
         /* Sum 2 */
         input_1 = (a_1 & 0x0FFFF) << left_shift;
@@ -175,7 +175,7 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         sum += out_offset;
         sum = MAX(sum, out_activation_min);
         sum = MIN(sum, out_activation_max);
-        r2 = (q7_t)sum;
+        r2 = (int8_t)sum;
 
         /* Sum 4 */
         input_1 = ((a_1 >> 16) & 0x0FFFF) << left_shift;
@@ -189,9 +189,9 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         sum += out_offset;
         sum = MAX(sum, out_activation_min);
         sum = MIN(sum, out_activation_max);
-        r4 = (q7_t)sum;
+        r4 = (int8_t)sum;
 
-        arm_nn_write_q7x4_ia(&output, PACK_Q7x4_32x1(r1, r2, r3, r4));
+        arm_nn_write_s8x4_ia(&output, PACK_S8x4_32x1(r1, r2, r3, r4));
 
         loop_count--;
     }
@@ -218,7 +218,7 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         sum = MAX(sum, out_activation_min);
         sum = MIN(sum, out_activation_max);
 
-        *output++ = (q7_t)sum;
+        *output++ = (int8_t)sum;
 
         /* Decrement loop counter */
         loop_count--;

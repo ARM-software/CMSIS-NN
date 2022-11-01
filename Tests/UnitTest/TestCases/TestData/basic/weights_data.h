@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t basic_weights[8] = {69, -84, -127, -24, 28, 45, 51, -53};
+const int8_t basic_weights[8] = {69, -84, -127, -24, 28, 45, 51, -53};

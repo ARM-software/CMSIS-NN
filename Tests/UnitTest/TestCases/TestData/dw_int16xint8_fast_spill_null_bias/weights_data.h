@@ -2,6 +2,6 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t dw_int16xint8_fast_spill_null_bias_weights[45] = {
+const int8_t dw_int16xint8_fast_spill_null_bias_weights[45] = {
     -124, 92, 127, 36, 96, 92,  -94, -57, 66, -127, 127, -52, -11, 23,   43,  -105, -110, 3,   38,  -30, 38,  20,  57,
     58,   81, -88, 34, 13, 127, 72,  97,  21, 109,  63,  63,  95,  -127, -97, -56,  43,   -84, -75, 29,  -69, -126};

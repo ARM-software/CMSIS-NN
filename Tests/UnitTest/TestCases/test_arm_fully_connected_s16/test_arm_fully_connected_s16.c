@@ -28,7 +28,7 @@
 void fully_connected_int16_arm_fully_connected_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[FULLY_CONNECTED_INT16_DST_SIZE] = {0};
+    int16_t output[FULLY_CONNECTED_INT16_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
@@ -38,10 +38,10 @@ void fully_connected_int16_arm_fully_connected_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = fully_connected_int16_biases;
-    const q7_t *kernel_data = fully_connected_int16_weights;
-    const q15_t *input_data = fully_connected_int16_input;
-    const q15_t *output_ref = fully_connected_int16_output_ref;
+    const int64_t *bias_data = fully_connected_int16_biases;
+    const int8_t *kernel_data = fully_connected_int16_weights;
+    const int16_t *input_data = fully_connected_int16_input;
+    const int16_t *output_ref = fully_connected_int16_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_INT16_DST_SIZE;
 
     input_dims.n = FULLY_CONNECTED_INT16_INPUT_BATCHES;
@@ -93,7 +93,7 @@ void fully_connected_int16_arm_fully_connected_s16(void)
 void fully_connected_int16_big_arm_fully_connected_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[FULLY_CONNECTED_INT16_BIG_DST_SIZE] = {0};
+    int16_t output[FULLY_CONNECTED_INT16_BIG_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
@@ -103,10 +103,10 @@ void fully_connected_int16_big_arm_fully_connected_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = fully_connected_int16_big_biases;
-    const q7_t *kernel_data = fully_connected_int16_big_weights;
-    const q15_t *input_data = fully_connected_int16_big_input;
-    const q15_t *output_ref = fully_connected_int16_big_output_ref;
+    const int64_t *bias_data = fully_connected_int16_big_biases;
+    const int8_t *kernel_data = fully_connected_int16_big_weights;
+    const int16_t *input_data = fully_connected_int16_big_input;
+    const int16_t *output_ref = fully_connected_int16_big_output_ref;
     const int32_t output_ref_size = FULLY_CONNECTED_INT16_BIG_DST_SIZE;
 
     input_dims.n = FULLY_CONNECTED_INT16_BIG_INPUT_BATCHES;
@@ -157,7 +157,7 @@ void fully_connected_int16_big_arm_fully_connected_s16(void)
 void fc_int16_slow_arm_fully_connected_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    q15_t output[FC_INT16_SLOW_DST_SIZE] = {0};
+    int16_t output[FC_INT16_SLOW_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_fc_params fc_params;
@@ -167,10 +167,10 @@ void fc_int16_slow_arm_fully_connected_s16(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const q63_t *bias_data = fc_int16_slow_biases;
-    const q7_t *kernel_data = fc_int16_slow_weights;
-    const q15_t *input_data = fc_int16_slow_input;
-    const q15_t *output_ref = fc_int16_slow_output_ref;
+    const int64_t *bias_data = fc_int16_slow_biases;
+    const int8_t *kernel_data = fc_int16_slow_weights;
+    const int16_t *input_data = fc_int16_slow_input;
+    const int16_t *output_ref = fc_int16_slow_output_ref;
     const int32_t output_ref_size = FC_INT16_SLOW_DST_SIZE;
 
     input_dims.n = FC_INT16_SLOW_INPUT_BATCHES;

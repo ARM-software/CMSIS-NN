@@ -2,4 +2,4 @@
 #pragma once
 #include <stdint.h>
 
-const q7_t stride2pad1_output_ref[16] = {-42, 3, -11, -112, -42, -38, -8, -29, -26, -19, -72, 31, -73, -68, -47, -41};
+const int8_t stride2pad1_output_ref[16] = {-42, 3, -11, -112, -42, -38, -8, -29, -26, -19, -72, 31, -73, -68, -47, -41};
