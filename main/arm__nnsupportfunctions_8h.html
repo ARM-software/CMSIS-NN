@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('arm__nnsupportfunctions_8h.html',''); 
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__nnword.html">arm_nnword</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union for SIMD access of q31/q15/q7 types.  <a href="unionarm__nnword.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union for SIMD access of q31/s16/s8 types.  <a href="unionarm__nnword.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__nn__double.html">arm_nn_double</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union for data type long long.  <a href="structarm__nn__double.html#details">More...</a><br /></td></tr>
@@ -165,22 +165,22 @@ Macros</h2></td></tr>
 <tr class="separator:a19343832dbe881d527496171f69dc0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ace380daf8e374d9ab4aa50095d1b39b1">CH_IN_BLOCK_MVE</a>&#160;&#160;&#160;(124)</td></tr>
 <tr class="separator:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f8d7623a6fd3492efd9b38f45da38a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7f8d7623a6fd3492efd9b38f45da38a6">PACK_Q7x4_32x1</a>(v0,  v1,  v2,  v3)</td></tr>
-<tr class="memdesc:a7f8d7623a6fd3492efd9b38f45da38a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition to pack four 8 bit values.  <a href="arm__nnsupportfunctions_8h.html#a7f8d7623a6fd3492efd9b38f45da38a6">More...</a><br /></td></tr>
-<tr class="separator:a7f8d7623a6fd3492efd9b38f45da38a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bde61046c9d2729f56054cafba589c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4bde61046c9d2729f56054cafba589c6">PACK_S8x4_32x1</a>(v0,  v1,  v2,  v3)</td></tr>
+<tr class="memdesc:a4bde61046c9d2729f56054cafba589c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition to pack four 8 bit values.  <a href="arm__nnsupportfunctions_8h.html#a4bde61046c9d2729f56054cafba589c6">More...</a><br /></td></tr>
+<tr class="separator:a4bde61046c9d2729f56054cafba589c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed1da44adc8e0378f6508b8eea94a40e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aed1da44adc8e0378f6508b8eea94a40e">PACK_Q15x2_32x1</a>(v0,  v1)&#160;&#160;&#160;(((int32_t)v0 &amp; (int32_t)0xFFFF) | ((int32_t)v1 &lt;&lt; 16))</td></tr>
 <tr class="memdesc:aed1da44adc8e0378f6508b8eea94a40e"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition to pack two 16 bit values.  <a href="arm__nnsupportfunctions_8h.html#aed1da44adc8e0378f6508b8eea94a40e">More...</a><br /></td></tr>
 <tr class="separator:aed1da44adc8e0378f6508b8eea94a40e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4cbd428a2b4a4f6b2a6e4219520c7ce0">NN_ROUND</a>(out_shift)&#160;&#160;&#160;((0x1 &lt;&lt; out_shift) &gt;&gt; 1)</td></tr>
 <tr class="memdesc:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">macro for adding rounding offset  <a href="arm__nnsupportfunctions_8h.html#a4cbd428a2b4a4f6b2a6e4219520c7ce0">More...</a><br /></td></tr>
 <tr class="separator:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a518f7e0db18bea6b61a2b88f266aef20"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a518f7e0db18bea6b61a2b88f266aef20">MUL_SAT</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a29b380794b5c652ec67511b88c6b9902">arm_nn_doubling_high_mult</a>((a), (b))</td></tr>
+<tr class="memitem:a518f7e0db18bea6b61a2b88f266aef20"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a518f7e0db18bea6b61a2b88f266aef20">MUL_SAT</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a>((a), (b))</td></tr>
 <tr class="separator:a518f7e0db18bea6b61a2b88f266aef20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6349818fec8167dff87c3fb7ca81fc1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a6349818fec8167dff87c3fb7ca81fc1c">MUL_SAT_MVE</a>(a,  b)&#160;&#160;&#160;arm_doubling_high_mult_mve_32x4((a), (b))</td></tr>
 <tr class="separator:a6349818fec8167dff87c3fb7ca81fc1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a9d7332bc4331d55ada7ea19407e2a8c3">MUL_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a913b7d4950637f0c47cf7ae5daef974f">arm_nn_mult_by_power_of_two</a>((a), (b))</td></tr>
+<tr class="memitem:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a9d7332bc4331d55ada7ea19407e2a8c3">MUL_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a>((a), (b))</td></tr>
 <tr class="separator:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7ce5ee6d8839bf541fb4bbdf4ef80eb1">DIV_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ad1abc37b23b6c64c06686dbc9cefd9c2">arm_nn_divide_by_power_of_two</a>((a), (b))</td></tr>
+<tr class="memitem:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7ce5ee6d8839bf541fb4bbdf4ef80eb1">DIV_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a>((a), (b))</td></tr>
 <tr class="separator:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e4379e9eef514ce88d02b5dfbff256d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a0e4379e9eef514ce88d02b5dfbff256d">DIV_POW2_MVE</a>(a,  b)&#160;&#160;&#160;arm_divide_by_power_of_two_mve((a), (b))</td></tr>
 <tr class="separator:a0e4379e9eef514ce88d02b5dfbff256d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,102 +193,99 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab2d48529ae05b350a015f8f1e6596a31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#gab2d48529ae05b350a015f8f1e6596a31">arm_q7_to_q15_with_offset</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *src, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *dst, uint32_t block_size, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> offset)</td></tr>
-<tr class="memdesc:gab2d48529ae05b350a015f8f1e6596a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a q7 vector to a q15 vector with an added offset.  <a href="group__supportConversion.html#gab2d48529ae05b350a015f8f1e6596a31">More...</a><br /></td></tr>
-<tr class="separator:gab2d48529ae05b350a015f8f1e6596a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a5b8cf6bccf4fe71f59aa30bf8d460e12">arm_nn_depthwise_conv_s8_core</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *row, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *col, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t kernel_size, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out)</td></tr>
-<tr class="memdesc:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise conv on an im2col buffer where the input channel equals output channel.  <a href="arm__nnsupportfunctions_8h.html#a5b8cf6bccf4fe71f59aa30bf8d460e12">More...</a><br /></td></tr>
-<tr class="separator:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac565ebd47c1e10d160cdbc6186841a35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ac565ebd47c1e10d160cdbc6186841a35">arm_nn_mat_mult_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *input_row, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *input_col, const uint16_t output_ch, const uint16_t col_batches, const int32_t *output_shift, const int32_t *output_mult, const int32_t out_offset, const int32_t col_offset, const int32_t row_offset, const int16_t out_activation_min, const int16_t out_activation_max, const uint16_t row_len, const int32_t *const bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out)</td></tr>
-<tr class="memdesc:ac565ebd47c1e10d160cdbc6186841a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#ac565ebd47c1e10d160cdbc6186841a35">More...</a><br /></td></tr>
-<tr class="separator:ac565ebd47c1e10d160cdbc6186841a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga45ec7e9cd96398ac06c51a3ed658bb2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga45ec7e9cd96398ac06c51a3ed658bb2a">arm_nn_mat_mult_kernel_s16</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *input_a, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *input_b, const int32_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int64_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *out_0)</td></tr>
-<tr class="memdesc:ga45ec7e9cd96398ac06c51a3ed658bb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization for 16 bits convolution.  <a href="group__supportConvolution.html#ga45ec7e9cd96398ac06c51a3ed658bb2a">More...</a><br /></td></tr>
-<tr class="separator:ga45ec7e9cd96398ac06c51a3ed658bb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, uint32_t block_size, int16_t offset)</td></tr>
+<tr class="memdesc:ga788c777ed24cce8d63f48173b93e4ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <a href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">More...</a><br /></td></tr>
+<tr class="separator:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a5ef2ef65ceb56c4252c519d36eae3caa">arm_nn_depthwise_conv_s8_core</a> (const int8_t *row, const int16_t *col, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t kernel_size, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise conv on an im2col buffer where the input channel equals output channel.  <a href="arm__nnsupportfunctions_8h.html#a5ef2ef65ceb56c4252c519d36eae3caa">More...</a><br /></td></tr>
+<tr class="separator:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195279926b8d39ef8a1ff9131832a40f"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a195279926b8d39ef8a1ff9131832a40f">arm_nn_mat_mult_s8</a> (const int8_t *input_row, const int8_t *input_col, const uint16_t output_ch, const uint16_t col_batches, const int32_t *output_shift, const int32_t *output_mult, const int32_t out_offset, const int32_t col_offset, const int32_t row_offset, const int16_t out_activation_min, const int16_t out_activation_max, const uint16_t row_len, const int32_t *const bias, int8_t *out)</td></tr>
+<tr class="memdesc:a195279926b8d39ef8a1ff9131832a40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#a195279926b8d39ef8a1ff9131832a40f">More...</a><br /></td></tr>
+<tr class="separator:a195279926b8d39ef8a1ff9131832a40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74">arm_nn_mat_mult_kernel_s16</a> (const int8_t *input_a, const int16_t *input_b, const int32_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int64_t *const output_bias, int16_t *out_0)</td></tr>
+<tr class="memdesc:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization for 16 bits convolution.  <a href="group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74">More...</a><br /></td></tr>
+<tr class="separator:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada3234313b4c9fefd7c4421d88c4a785"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785">arm_nn_mat_mul_core_1x_s8</a> (int32_t row_elements, const int32_t skipped_row_elements, const int8_t *row_base_ref, const int8_t *col_base_ref, const int32_t out_ch, const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
 <tr class="memdesc:gada3234313b4c9fefd7c4421d88c4a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Vector by Matrix multiplication with requantization and storage of result.  <a href="group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785">More...</a><br /></td></tr>
 <tr class="separator:gada3234313b4c9fefd7c4421d88c4a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2308fbfe9d11a742a712a0fe01643ae"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae">arm_nn_mat_mul_core_4x_s8</a> (const int32_t row_elements, const int32_t offset, const int8_t *row_base, const int8_t *col_base, const int32_t out_ch, const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
 <tr class="memdesc:gae2308fbfe9d11a742a712a0fe01643ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication with requantization &amp; activation function for four rows and one column.  <a href="group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae">More...</a><br /></td></tr>
 <tr class="separator:gae2308fbfe9d11a742a712a0fe01643ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga59ab655606dd4f7a90f573b7479c6dbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga59ab655606dd4f7a90f573b7479c6dbf">arm_nn_mat_mult_nt_t_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> *bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max)</td></tr>
-<tr class="memdesc:ga59ab655606dd4f7a90f573b7479c6dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <a href="group__supportConvolution.html#ga59ab655606dd4f7a90f573b7479c6dbf">More...</a><br /></td></tr>
-<tr class="separator:ga59ab655606dd4f7a90f573b7479c6dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga89f5ffb84bec69f51d734b8701d4df5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga89f5ffb84bec69f51d734b8701d4df5b">arm_nn_vec_mat_mult_t_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> *bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *dst, const int32_t lhs_offset, const int32_t rhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset)</td></tr>
-<tr class="memdesc:ga89f5ffb84bec69f51d734b8701d4df5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication  <a href="group__supportFC.html#ga89f5ffb84bec69f51d734b8701d4df5b">More...</a><br /></td></tr>
-<tr class="separator:ga89f5ffb84bec69f51d734b8701d4df5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3283c2da5c4e313a64cf348e2c161f3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga3283c2da5c4e313a64cf348e2c161f3f">arm_nn_vec_mat_mult_t_s16</a> (const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const <a class="el" href="arm__nn__math__types_8h.html#a5aea1cb12fc02d9d44c8abf217eaa5c6">q63_t</a> *bias, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *dst, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
-<tr class="memdesc:ga3283c2da5c4e313a64cf348e2c161f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 Vector by Matrix (transposed) multiplication  <a href="group__supportFC.html#ga3283c2da5c4e313a64cf348e2c161f3f">More...</a><br /></td></tr>
-<tr class="separator:ga3283c2da5c4e313a64cf348e2c161f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga15df1fc03dfaa6e7c2499dbcd8bc4932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga15df1fc03dfaa6e7c2499dbcd8bc4932">arm_nn_vec_mat_mult_t_svdf_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *dst, const int32_t lhs_offset, const int32_t rhs_offset, const int32_t scatter_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
-<tr class="memdesc:ga15df1fc03dfaa6e7c2499dbcd8bc4932"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication with s16 output  <a href="group__supportFC.html#ga15df1fc03dfaa6e7c2499dbcd8bc4932">More...</a><br /></td></tr>
-<tr class="separator:ga15df1fc03dfaa6e7c2499dbcd8bc4932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga24c66d123320bd578d0d393a07f61ae4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga24c66d123320bd578d0d393a07f61ae4">arm_nn_depthwise_conv_nt_t_padded_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out)</td></tr>
-<tr class="memdesc:ga24c66d123320bd578d0d393a07f61ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in padded cases where the padding is -lhs_offset(Range: int8). Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga24c66d123320bd578d0d393a07f61ae4">More...</a><br /></td></tr>
-<tr class="separator:ga24c66d123320bd578d0d393a07f61ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab055229b0c5322a6682e0b995d316716"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gab055229b0c5322a6682e0b995d316716">arm_nn_depthwise_conv_nt_t_s8</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out)</td></tr>
-<tr class="memdesc:gab055229b0c5322a6682e0b995d316716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#gab055229b0c5322a6682e0b995d316716">More...</a><br /></td></tr>
-<tr class="separator:gab055229b0c5322a6682e0b995d316716"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0fcef8891929c7cb59f187cfed0b910d"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga0fcef8891929c7cb59f187cfed0b910d">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
-<tr class="memdesc:ga0fcef8891929c7cb59f187cfed0b910d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga0fcef8891929c7cb59f187cfed0b910d">More...</a><br /></td></tr>
-<tr class="separator:ga0fcef8891929c7cb59f187cfed0b910d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f83b3cde0b227506aefa0cf8cd1aa6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab5f83b3cde0b227506aefa0cf8cd1aa6">arm_nn_mat_mult_kernel_q7_q15_reordered</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *pA, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *pInBuffer, const uint16_t ch_im_out, const uint16_t numCol_A, const uint16_t bias_shift, const uint16_t out_shift, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *pOut)</td></tr>
-<tr class="memdesc:ab5f83b3cde0b227506aefa0cf8cd1aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with reordered columns.  <a href="arm__nnsupportfunctions_8h.html#ab5f83b3cde0b227506aefa0cf8cd1aa6">More...</a><br /></td></tr>
-<tr class="separator:ab5f83b3cde0b227506aefa0cf8cd1aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a748dcfbafdd6fe582b3903bcf400a777"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a748dcfbafdd6fe582b3903bcf400a777">arm_nn_read_q15x2_ia</a> (const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> **in_q15)</td></tr>
-<tr class="memdesc:a748dcfbafdd6fe582b3903bcf400a777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 q15 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a748dcfbafdd6fe582b3903bcf400a777">More...</a><br /></td></tr>
-<tr class="separator:a748dcfbafdd6fe582b3903bcf400a777"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b6b32c0f93f6e060d65cbaab94eb963"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a8b6b32c0f93f6e060d65cbaab94eb963">arm_nn_read_q7x4_ia</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> **in_q7)</td></tr>
-<tr class="memdesc:a8b6b32c0f93f6e060d65cbaab94eb963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 q7 from q7 pointer and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a8b6b32c0f93f6e060d65cbaab94eb963">More...</a><br /></td></tr>
-<tr class="separator:a8b6b32c0f93f6e060d65cbaab94eb963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5780e1b79e07ae236fb92bb85f9e9c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ac5780e1b79e07ae236fb92bb85f9e9c6">arm_nn_read_q15x2</a> (const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *in_q15)</td></tr>
-<tr class="memdesc:ac5780e1b79e07ae236fb92bb85f9e9c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 q15 from q15 pointer.  <a href="arm__nnsupportfunctions_8h.html#ac5780e1b79e07ae236fb92bb85f9e9c6">More...</a><br /></td></tr>
-<tr class="separator:ac5780e1b79e07ae236fb92bb85f9e9c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6f4ee4bf2294fe60f21d1bb31ad6f36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ae6f4ee4bf2294fe60f21d1bb31ad6f36">arm_nn_read_q7x4</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *in_q7)</td></tr>
-<tr class="memdesc:ae6f4ee4bf2294fe60f21d1bb31ad6f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 q7 values.  <a href="arm__nnsupportfunctions_8h.html#ae6f4ee4bf2294fe60f21d1bb31ad6f36">More...</a><br /></td></tr>
-<tr class="separator:ae6f4ee4bf2294fe60f21d1bb31ad6f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa549b01ad0482b9b5f7522ca30e39abc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aa549b01ad0482b9b5f7522ca30e39abc">arm_nn_write_q7x4_ia</a> (<a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> **in, <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> value)</td></tr>
-<tr class="memdesc:aa549b01ad0482b9b5f7522ca30e39abc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write four q7 to q7 pointer and increment pointer afterwards.  <a href="arm__nnsupportfunctions_8h.html#aa549b01ad0482b9b5f7522ca30e39abc">More...</a><br /></td></tr>
-<tr class="separator:aa549b01ad0482b9b5f7522ca30e39abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e5699f304556bd65a83bd57e75ec7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a18e5699f304556bd65a83bd57e75ec7a">arm_memset_q7</a> (<a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *dst, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> val, uint32_t block_size)</td></tr>
-<tr class="memdesc:a18e5699f304556bd65a83bd57e75ec7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">memset optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#a18e5699f304556bd65a83bd57e75ec7a">More...</a><br /></td></tr>
-<tr class="separator:a18e5699f304556bd65a83bd57e75ec7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2040b03e85717f57f8fcaf83db838e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab2040b03e85717f57f8fcaf83db838e4">arm_nn_mat_mult_kernel_s8_s16</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *input_a, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out_0)</td></tr>
-<tr class="memdesc:ab2040b03e85717f57f8fcaf83db838e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#ab2040b03e85717f57f8fcaf83db838e4">More...</a><br /></td></tr>
-<tr class="separator:ab2040b03e85717f57f8fcaf83db838e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3715f0ec7480d59f061f886395e6fe1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gab3715f0ec7480d59f061f886395e6fe1">arm_nn_mat_mult_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int8_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max)</td></tr>
+<tr class="memdesc:gab3715f0ec7480d59f061f886395e6fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <a href="group__supportConvolution.html#gab3715f0ec7480d59f061f886395e6fe1">More...</a><br /></td></tr>
+<tr class="separator:gab3715f0ec7480d59f061f886395e6fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5009fd30f6cb5c678aa2798a21bbbbab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga5009fd30f6cb5c678aa2798a21bbbbab">arm_nn_vec_mat_mult_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int8_t *dst, const int32_t lhs_offset, const int32_t rhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset)</td></tr>
+<tr class="memdesc:ga5009fd30f6cb5c678aa2798a21bbbbab"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication  <a href="group__supportFC.html#ga5009fd30f6cb5c678aa2798a21bbbbab">More...</a><br /></td></tr>
+<tr class="separator:ga5009fd30f6cb5c678aa2798a21bbbbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10758802e8392839a207eb21620f60c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga10758802e8392839a207eb21620f60c3">arm_nn_vec_mat_mult_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const int64_t *bias, int16_t *dst, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
+<tr class="memdesc:ga10758802e8392839a207eb21620f60c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 Vector by Matrix (transposed) multiplication  <a href="group__supportFC.html#ga10758802e8392839a207eb21620f60c3">More...</a><br /></td></tr>
+<tr class="separator:ga10758802e8392839a207eb21620f60c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75f6568336674ce296e36d77ad775e10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga75f6568336674ce296e36d77ad775e10">arm_nn_vec_mat_mult_t_svdf_s8</a> (const int8_t *lhs, const int8_t *rhs, int16_t *dst, const int32_t lhs_offset, const int32_t rhs_offset, const int32_t scatter_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
+<tr class="memdesc:ga75f6568336674ce296e36d77ad775e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication with s16 output  <a href="group__supportFC.html#ga75f6568336674ce296e36d77ad775e10">More...</a><br /></td></tr>
+<tr class="separator:ga75f6568336674ce296e36d77ad775e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga89d46677ad9046bee67cee7add8e9c04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04">arm_nn_depthwise_conv_nt_t_padded_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:ga89d46677ad9046bee67cee7add8e9c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in padded cases where the padding is -lhs_offset(Range: int8). Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04">More...</a><br /></td></tr>
+<tr class="separator:ga89d46677ad9046bee67cee7add8e9c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nn_depthwise_conv_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:ga00f617f8c04f9dafcb48a08a4339284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">More...</a><br /></td></tr>
+<tr class="separator:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
+<tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">More...</a><br /></td></tr>
+<tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15d6caf10a575be78604db2c2c532d5a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a15d6caf10a575be78604db2c2c532d5a">arm_nn_read_q15x2_ia</a> (const int16_t **in_q15)</td></tr>
+<tr class="memdesc:a15d6caf10a575be78604db2c2c532d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 s16 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a15d6caf10a575be78604db2c2c532d5a">More...</a><br /></td></tr>
+<tr class="separator:a15d6caf10a575be78604db2c2c532d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a8d2e1ebf155540ef9298ecac843f8e9b">arm_nn_read_s8x4_ia</a> (const int8_t **in_s8)</td></tr>
+<tr class="memdesc:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 s8 from s8 pointer and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a8d2e1ebf155540ef9298ecac843f8e9b">More...</a><br /></td></tr>
+<tr class="separator:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd951becb6711b7c98c20684b4b347b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a0dd951becb6711b7c98c20684b4b347b">arm_nn_read_s16x2</a> (const int16_t *in)</td></tr>
+<tr class="memdesc:a0dd951becb6711b7c98c20684b4b347b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 int16 values from int16 pointer.  <a href="arm__nnsupportfunctions_8h.html#a0dd951becb6711b7c98c20684b4b347b">More...</a><br /></td></tr>
+<tr class="separator:a0dd951becb6711b7c98c20684b4b347b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c590105760cf5b930b8300a350bfe58"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a1c590105760cf5b930b8300a350bfe58">arm_nn_read_s8x4</a> (const int8_t *in_s8)</td></tr>
+<tr class="memdesc:a1c590105760cf5b930b8300a350bfe58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 s8 values.  <a href="arm__nnsupportfunctions_8h.html#a1c590105760cf5b930b8300a350bfe58">More...</a><br /></td></tr>
+<tr class="separator:a1c590105760cf5b930b8300a350bfe58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee420155863cb873908fc9307bfb0098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aee420155863cb873908fc9307bfb0098">arm_nn_write_s8x4_ia</a> (int8_t **in, int32_t value)</td></tr>
+<tr class="memdesc:aee420155863cb873908fc9307bfb0098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write four s8 to s8 pointer and increment pointer afterwards.  <a href="arm__nnsupportfunctions_8h.html#aee420155863cb873908fc9307bfb0098">More...</a><br /></td></tr>
+<tr class="separator:aee420155863cb873908fc9307bfb0098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#adb7cd84ac2aa7fa27448b52c55b6fb75">arm_memset_s8</a> (int8_t *dst, const int8_t val, uint32_t block_size)</td></tr>
+<tr class="memdesc:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="mdescLeft">&#160;</td><td class="mdescRight">memset optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#adb7cd84ac2aa7fa27448b52c55b6fb75">More...</a><br /></td></tr>
+<tr class="separator:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
+<tr class="memdesc:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">More...</a><br /></td></tr>
+<tr class="separator:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">arm_nn_softmax_common_s8</a> (const int8_t *input, const int32_t num_rows, const int32_t row_size, const int32_t mult, const int32_t shift, const int32_t diff_min, const bool int16_output, void *output)</td></tr>
 <tr class="memdesc:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common softmax function for s8 input and s8 or s16 output.  <a href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">More...</a><br /></td></tr>
 <tr class="separator:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b380794b5c652ec67511b88c6b9902"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a29b380794b5c652ec67511b88c6b9902">arm_nn_doubling_high_mult</a> (const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> m1, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> m2)</td></tr>
-<tr class="memdesc:a29b380794b5c652ec67511b88c6b9902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturating doubling high multiply. Result matches NEON instruction VQRDMULH.  <a href="arm__nnsupportfunctions_8h.html#a29b380794b5c652ec67511b88c6b9902">More...</a><br /></td></tr>
-<tr class="separator:a29b380794b5c652ec67511b88c6b9902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbabb40c684646e6e28dae2586932dc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#afbabb40c684646e6e28dae2586932dc1">arm_nn_doubling_high_mult_no_sat</a> (const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> m1, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> m2)</td></tr>
-<tr class="memdesc:afbabb40c684646e6e28dae2586932dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doubling high multiply without saturation. This is intended for requantization where the scale is a positive integer.  <a href="arm__nnsupportfunctions_8h.html#afbabb40c684646e6e28dae2586932dc1">More...</a><br /></td></tr>
-<tr class="separator:afbabb40c684646e6e28dae2586932dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1abc37b23b6c64c06686dbc9cefd9c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ad1abc37b23b6c64c06686dbc9cefd9c2">arm_nn_divide_by_power_of_two</a> (const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> dividend, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> exponent)</td></tr>
-<tr class="memdesc:ad1abc37b23b6c64c06686dbc9cefd9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounding divide by power of two.  <a href="arm__nnsupportfunctions_8h.html#ad1abc37b23b6c64c06686dbc9cefd9c2">More...</a><br /></td></tr>
-<tr class="separator:ad1abc37b23b6c64c06686dbc9cefd9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb053b10b455b6357ad7023f562a0956"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#abb053b10b455b6357ad7023f562a0956">arm_nn_requantize</a> (const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> val, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> multiplier, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> shift)</td></tr>
-<tr class="memdesc:abb053b10b455b6357ad7023f562a0956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given value.  <a href="arm__nnsupportfunctions_8h.html#abb053b10b455b6357ad7023f562a0956">More...</a><br /></td></tr>
-<tr class="separator:abb053b10b455b6357ad7023f562a0956"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83c53cd42783df116d14df870969c46b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a83c53cd42783df116d14df870969c46b">arm_nn_requantize_s64</a> (const <a class="el" href="arm__nn__math__types_8h.html#a5aea1cb12fc02d9d44c8abf217eaa5c6">q63_t</a> val, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> reduced_multiplier, const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> shift)</td></tr>
-<tr class="memdesc:a83c53cd42783df116d14df870969c46b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given 64 bit value.  <a href="arm__nnsupportfunctions_8h.html#a83c53cd42783df116d14df870969c46b">More...</a><br /></td></tr>
-<tr class="separator:a83c53cd42783df116d14df870969c46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a534f3c9aab131e58657c1cea72b1904c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a534f3c9aab131e58657c1cea72b1904c">arm_memcpy_q7</a> (<a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *__RESTRICT dst, const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *__RESTRICT src, uint32_t block_size)</td></tr>
-<tr class="memdesc:a534f3c9aab131e58657c1cea72b1904c"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#a534f3c9aab131e58657c1cea72b1904c">More...</a><br /></td></tr>
-<tr class="separator:a534f3c9aab131e58657c1cea72b1904c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3c478024cc1e2b6d2b9b5d5f842bb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#acf3c478024cc1e2b6d2b9b5d5f842bb4">arm_memcpy_q15</a> (<a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *__RESTRICT dst, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *__RESTRICT src, uint32_t block_size)</td></tr>
-<tr class="memdesc:acf3c478024cc1e2b6d2b9b5d5f842bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy wrapper for int16  <a href="arm__nnsupportfunctions_8h.html#acf3c478024cc1e2b6d2b9b5d5f842bb4">More...</a><br /></td></tr>
-<tr class="separator:acf3c478024cc1e2b6d2b9b5d5f842bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae446422a8f0c520a5e20b4a512c4246d"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a> (const int32_t m1, const int32_t m2)</td></tr>
+<tr class="memdesc:ae446422a8f0c520a5e20b4a512c4246d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturating doubling high multiply. Result matches NEON instruction VQRDMULH.  <a href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">More...</a><br /></td></tr>
+<tr class="separator:ae446422a8f0c520a5e20b4a512c4246d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d42ef2098c049b79a02d207054d8e43"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7d42ef2098c049b79a02d207054d8e43">arm_nn_doubling_high_mult_no_sat</a> (const int32_t m1, const int32_t m2)</td></tr>
+<tr class="memdesc:a7d42ef2098c049b79a02d207054d8e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doubling high multiply without saturation. This is intended for requantization where the scale is a positive integer.  <a href="arm__nnsupportfunctions_8h.html#a7d42ef2098c049b79a02d207054d8e43">More...</a><br /></td></tr>
+<tr class="separator:a7d42ef2098c049b79a02d207054d8e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430aa55faa94d1ee347915d211b2ad34"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a> (const int32_t dividend, const int32_t exponent)</td></tr>
+<tr class="memdesc:a430aa55faa94d1ee347915d211b2ad34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounding divide by power of two.  <a href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">More...</a><br /></td></tr>
+<tr class="separator:a430aa55faa94d1ee347915d211b2ad34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a819ba8bdcb6b0e26e5d49c196d1f1a65">arm_nn_requantize</a> (const int32_t val, const int32_t multiplier, const int32_t shift)</td></tr>
+<tr class="memdesc:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given value.  <a href="arm__nnsupportfunctions_8h.html#a819ba8bdcb6b0e26e5d49c196d1f1a65">More...</a><br /></td></tr>
+<tr class="separator:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7dc3fb2d364d4a56f3d2c6cacde2178e">arm_nn_requantize_s64</a> (const int64_t val, const int32_t reduced_multiplier, const int32_t shift)</td></tr>
+<tr class="memdesc:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given 64 bit value.  <a href="arm__nnsupportfunctions_8h.html#a7dc3fb2d364d4a56f3d2c6cacde2178e">More...</a><br /></td></tr>
+<tr class="separator:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4beb1077adaa0593f838834678ad3885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4beb1077adaa0593f838834678ad3885">arm_memcpy_s8</a> (int8_t *__RESTRICT dst, const int8_t *__RESTRICT src, uint32_t block_size)</td></tr>
+<tr class="memdesc:a4beb1077adaa0593f838834678ad3885"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#a4beb1077adaa0593f838834678ad3885">More...</a><br /></td></tr>
+<tr class="separator:a4beb1077adaa0593f838834678ad3885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a39cfb85c2a9de8f8a1843a40c3f443ed">arm_memcpy_q15</a> (int16_t *__RESTRICT dst, const int16_t *__RESTRICT src, uint32_t block_size)</td></tr>
+<tr class="memdesc:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy wrapper for int16  <a href="arm__nnsupportfunctions_8h.html#a39cfb85c2a9de8f8a1843a40c3f443ed">More...</a><br /></td></tr>
+<tr class="separator:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a461c45518bb5e6d09772b68647d8e992"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a461c45518bb5e6d09772b68647d8e992">arm_nn_exp_on_negative_values</a> (int32_t val)</td></tr>
 <tr class="separator:a461c45518bb5e6d09772b68647d8e992"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a913b7d4950637f0c47cf7ae5daef974f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a913b7d4950637f0c47cf7ae5daef974f">arm_nn_mult_by_power_of_two</a> (const int32_t val, const int32_t exp)</td></tr>
-<tr class="separator:a913b7d4950637f0c47cf7ae5daef974f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ddcb3e6597b681884fb37b8859e8355"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a> (const int32_t val, const int32_t exp)</td></tr>
+<tr class="separator:a5ddcb3e6597b681884fb37b8859e8355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af17849a542a99eceb9f1b6f168ec721f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#af17849a542a99eceb9f1b6f168ec721f">arm_nn_one_over_one_plus_x_for_x_in_0_1</a> (int32_t val)</td></tr>
 <tr class="separator:af17849a542a99eceb9f1b6f168ec721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a490747c52bf8e80ee1f3c591e8f384ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a490747c52bf8e80ee1f3c591e8f384ee">arm_nn_write_q15x2_ia</a> (<a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> **dest_q15, <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> src_q31)</td></tr>
-<tr class="memdesc:a490747c52bf8e80ee1f3c591e8f384ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write 2 q15 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a490747c52bf8e80ee1f3c591e8f384ee">More...</a><br /></td></tr>
-<tr class="separator:a490747c52bf8e80ee1f3c591e8f384ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a74d9ec2af94d1e36b171c4eebee7eba4">arm_nn_write_q15x2_ia</a> (int16_t **dest_q15, int32_t src_q31)</td></tr>
+<tr class="memdesc:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write 2 s16 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a74d9ec2af94d1e36b171c4eebee7eba4">More...</a><br /></td></tr>
+<tr class="separator:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ace380daf8e374d9ab4aa50095d1b39b1" name="ace380daf8e374d9ab4aa50095d1b39b1"></a>
@@ -360,7 +357,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ad1abc37b23b6c64c06686dbc9cefd9c2">arm_nn_divide_by_power_of_two</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a>((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -544,7 +541,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a913b7d4950637f0c47cf7ae5daef974f">arm_nn_mult_by_power_of_two</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a>((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -572,7 +569,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a29b380794b5c652ec67511b88c6b9902">arm_nn_doubling_high_mult</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a>((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -671,14 +668,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f8d7623a6fd3492efd9b38f45da38a6" name="a7f8d7623a6fd3492efd9b38f45da38a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f8d7623a6fd3492efd9b38f45da38a6">&#9670;&#160;</a></span>PACK_Q7x4_32x1</h2>
+<a id="a4bde61046c9d2729f56054cafba589c6" name="a4bde61046c9d2729f56054cafba589c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bde61046c9d2729f56054cafba589c6">&#9670;&#160;</a></span>PACK_S8x4_32x1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PACK_Q7x4_32x1</td>
+          <td class="memname">#define PACK_S8x4_32x1</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">v0, </td>
@@ -806,8 +803,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="acf3c478024cc1e2b6d2b9b5d5f842bb4" name="acf3c478024cc1e2b6d2b9b5d5f842bb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf3c478024cc1e2b6d2b9b5d5f842bb4">&#9670;&#160;</a></span>arm_memcpy_q15()</h2>
+<a id="a39cfb85c2a9de8f8a1843a40c3f443ed" name="a39cfb85c2a9de8f8a1843a40c3f443ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39cfb85c2a9de8f8a1843a40c3f443ed">&#9670;&#160;</a></span>arm_memcpy_q15()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -815,13 +812,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void arm_memcpy_q15 </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *__RESTRICT&#160;</td>
+          <td class="paramtype">int16_t *__RESTRICT&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *__RESTRICT&#160;</td>
+          <td class="paramtype">const int16_t *__RESTRICT&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
@@ -848,22 +845,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a534f3c9aab131e58657c1cea72b1904c" name="a534f3c9aab131e58657c1cea72b1904c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a534f3c9aab131e58657c1cea72b1904c">&#9670;&#160;</a></span>arm_memcpy_q7()</h2>
+<a id="a4beb1077adaa0593f838834678ad3885" name="a4beb1077adaa0593f838834678ad3885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4beb1077adaa0593f838834678ad3885">&#9670;&#160;</a></span>arm_memcpy_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void arm_memcpy_q7 </td>
+          <td class="memname">void arm_memcpy_s8 </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *__RESTRICT&#160;</td>
+          <td class="paramtype">int8_t *__RESTRICT&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *__RESTRICT&#160;</td>
+          <td class="paramtype">const int8_t *__RESTRICT&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
@@ -890,22 +887,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a18e5699f304556bd65a83bd57e75ec7a" name="a18e5699f304556bd65a83bd57e75ec7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18e5699f304556bd65a83bd57e75ec7a">&#9670;&#160;</a></span>arm_memset_q7()</h2>
+<a id="adb7cd84ac2aa7fa27448b52c55b6fb75" name="adb7cd84ac2aa7fa27448b52c55b6fb75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb7cd84ac2aa7fa27448b52c55b6fb75">&#9670;&#160;</a></span>arm_memset_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void arm_memset_q7 </td>
+          <td class="memname">void arm_memset_s8 </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a>&#160;</td>
+          <td class="paramtype">const int8_t&#160;</td>
           <td class="paramname"><em>val</em>, </td>
         </tr>
         <tr>
@@ -932,22 +929,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5b8cf6bccf4fe71f59aa30bf8d460e12" name="a5b8cf6bccf4fe71f59aa30bf8d460e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b8cf6bccf4fe71f59aa30bf8d460e12">&#9670;&#160;</a></span>arm_nn_depthwise_conv_s8_core()</h2>
+<a id="a5ef2ef65ceb56c4252c519d36eae3caa" name="a5ef2ef65ceb56c4252c519d36eae3caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef2ef65ceb56c4252c519d36eae3caa">&#9670;&#160;</a></span>arm_nn_depthwise_conv_s8_core()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_depthwise_conv_s8_core </td>
+          <td class="memname">int8_t * arm_nn_depthwise_conv_s8_core </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>row</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
+          <td class="paramtype">const int16_t *&#160;</td>
           <td class="paramname"><em>col</em>, </td>
         </tr>
         <tr>
@@ -1001,7 +998,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -1037,22 +1034,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad1abc37b23b6c64c06686dbc9cefd9c2" name="ad1abc37b23b6c64c06686dbc9cefd9c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1abc37b23b6c64c06686dbc9cefd9c2">&#9670;&#160;</a></span>arm_nn_divide_by_power_of_two()</h2>
+<a id="a430aa55faa94d1ee347915d211b2ad34" name="a430aa55faa94d1ee347915d211b2ad34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a430aa55faa94d1ee347915d211b2ad34">&#9670;&#160;</a></span>arm_nn_divide_by_power_of_two()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_divide_by_power_of_two </td>
+          <td class="memname">int32_t arm_nn_divide_by_power_of_two </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>dividend</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>exponent</em>&#160;</td>
         </tr>
         <tr>
@@ -1073,22 +1070,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a29b380794b5c652ec67511b88c6b9902" name="a29b380794b5c652ec67511b88c6b9902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29b380794b5c652ec67511b88c6b9902">&#9670;&#160;</a></span>arm_nn_doubling_high_mult()</h2>
+<a id="ae446422a8f0c520a5e20b4a512c4246d" name="ae446422a8f0c520a5e20b4a512c4246d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae446422a8f0c520a5e20b4a512c4246d">&#9670;&#160;</a></span>arm_nn_doubling_high_mult()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_doubling_high_mult </td>
+          <td class="memname">int32_t arm_nn_doubling_high_mult </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>m1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>m2</em>&#160;</td>
         </tr>
         <tr>
@@ -1109,22 +1106,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afbabb40c684646e6e28dae2586932dc1" name="afbabb40c684646e6e28dae2586932dc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbabb40c684646e6e28dae2586932dc1">&#9670;&#160;</a></span>arm_nn_doubling_high_mult_no_sat()</h2>
+<a id="a7d42ef2098c049b79a02d207054d8e43" name="a7d42ef2098c049b79a02d207054d8e43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d42ef2098c049b79a02d207054d8e43">&#9670;&#160;</a></span>arm_nn_doubling_high_mult_no_sat()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_doubling_high_mult_no_sat </td>
+          <td class="memname">int32_t arm_nn_doubling_high_mult_no_sat </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>m1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>m2</em>&#160;</td>
         </tr>
         <tr>
@@ -1164,101 +1161,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab5f83b3cde0b227506aefa0cf8cd1aa6" name="ab5f83b3cde0b227506aefa0cf8cd1aa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f83b3cde0b227506aefa0cf8cd1aa6">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_q7_q15_reordered()</h2>
+<a id="ab63ddef5e87d026c6577b1d5dc9d3519" name="ab63ddef5e87d026c6577b1d5dc9d3519"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63ddef5e87d026c6577b1d5dc9d3519">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_mat_mult_kernel_q7_q15_reordered </td>
+          <td class="memname">int8_t * arm_nn_mat_mult_kernel_s8_s16 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
-          <td class="paramname"><em>pA</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
-          <td class="paramname"><em>pInBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
-          <td class="paramname"><em>ch_im_out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
-          <td class="paramname"><em>numCol_A</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
-          <td class="paramname"><em>bias_shift</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
-          <td class="paramname"><em>out_shift</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
-          <td class="paramname"><em>bias</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
-          <td class="paramname"><em>pOut</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pA</td><td>pointer to operand A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pInBuffer</td><td>pointer to operand B, always conssists of 2 vectors </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ch_im_out</td><td>numRow of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">numCol_A</td><td>numCol of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bias_shift</td><td>amount of left-shift for bias </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">out_shift</td><td>amount of right-shift for output </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>the bias </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">pOut</td><td>pointer to output </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The function returns the incremented output pointer</dd></dl>
-<p>This function assumes that data in pInBuffer are reordered </p>
-
-</div>
-</div>
-<a id="ab2040b03e85717f57f8fcaf83db838e4" name="ab2040b03e85717f57f8fcaf83db838e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2040b03e85717f57f8fcaf83db838e4">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_mat_mult_kernel_s8_s16 </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>input_a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
+          <td class="paramtype">const int16_t *&#160;</td>
           <td class="paramname"><em>input_b</em>, </td>
         </tr>
         <tr>
@@ -1312,7 +1230,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>out_0</em>&#160;</td>
         </tr>
         <tr>
@@ -1348,22 +1266,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac565ebd47c1e10d160cdbc6186841a35" name="ac565ebd47c1e10d160cdbc6186841a35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac565ebd47c1e10d160cdbc6186841a35">&#9670;&#160;</a></span>arm_nn_mat_mult_s8()</h2>
+<a id="a195279926b8d39ef8a1ff9131832a40f" name="a195279926b8d39ef8a1ff9131832a40f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195279926b8d39ef8a1ff9131832a40f">&#9670;&#160;</a></span>arm_nn_mat_mult_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_mat_mult_s8 </td>
+          <td class="memname">int8_t * arm_nn_mat_mult_s8 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>input_row</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>input_col</em>, </td>
         </tr>
         <tr>
@@ -1435,7 +1353,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -1474,14 +1392,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a913b7d4950637f0c47cf7ae5daef974f" name="a913b7d4950637f0c47cf7ae5daef974f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a913b7d4950637f0c47cf7ae5daef974f">&#9670;&#160;</a></span>arm_nn_mult_by_power_of_two()</h2>
+<a id="a5ddcb3e6597b681884fb37b8859e8355" name="a5ddcb3e6597b681884fb37b8859e8355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ddcb3e6597b681884fb37b8859e8355">&#9670;&#160;</a></span>arm_nn_mult_by_power_of_two()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_mult_by_power_of_two </td>
+          <td class="memname">int32_t arm_nn_mult_by_power_of_two </td>
           <td>(</td>
           <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>val</em>, </td>
@@ -1520,41 +1438,16 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac5780e1b79e07ae236fb92bb85f9e9c6" name="ac5780e1b79e07ae236fb92bb85f9e9c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5780e1b79e07ae236fb92bb85f9e9c6">&#9670;&#160;</a></span>arm_nn_read_q15x2()</h2>
+<a id="a15d6caf10a575be78604db2c2c532d5a" name="a15d6caf10a575be78604db2c2c532d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15d6caf10a575be78604db2c2c532d5a">&#9670;&#160;</a></span>arm_nn_read_q15x2_ia()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_read_q15x2 </td>
+          <td class="memname">int32_t arm_nn_read_q15x2_ia </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
-          <td class="paramname"><em>in_q15</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_q15</td><td>pointer to address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>q31 value </dd></dl>
-
-</div>
-</div>
-<a id="a748dcfbafdd6fe582b3903bcf400a777" name="a748dcfbafdd6fe582b3903bcf400a777"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a748dcfbafdd6fe582b3903bcf400a777">&#9670;&#160;</a></span>arm_nn_read_q15x2_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_read_q15x2_ia </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> **&#160;</td>
+          <td class="paramtype">const int16_t **&#160;</td>
           <td class="paramname"><em>in_q15</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1570,24 +1463,74 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae6f4ee4bf2294fe60f21d1bb31ad6f36" name="ae6f4ee4bf2294fe60f21d1bb31ad6f36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6f4ee4bf2294fe60f21d1bb31ad6f36">&#9670;&#160;</a></span>arm_nn_read_q7x4()</h2>
+<a id="a0dd951becb6711b7c98c20684b4b347b" name="a0dd951becb6711b7c98c20684b4b347b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd951becb6711b7c98c20684b4b347b">&#9670;&#160;</a></span>arm_nn_read_s16x2()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_read_q7x4 </td>
+          <td class="memname">int32_t arm_nn_read_s16x2 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
-          <td class="paramname"><em>in_q7</em></td><td>)</td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_q7</td><td>pointer to address of input. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>pointer to address of input. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>s32 value </dd></dl>
+
+</div>
+</div>
+<a id="a1c590105760cf5b930b8300a350bfe58" name="a1c590105760cf5b930b8300a350bfe58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c590105760cf5b930b8300a350bfe58">&#9670;&#160;</a></span>arm_nn_read_s8x4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_nn_read_s8x4 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>in_s8</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_s8</td><td>pointer to address of input. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>s32 value </dd></dl>
+
+</div>
+</div>
+<a id="a8d2e1ebf155540ef9298ecac843f8e9b" name="a8d2e1ebf155540ef9298ecac843f8e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d2e1ebf155540ef9298ecac843f8e9b">&#9670;&#160;</a></span>arm_nn_read_s8x4_ia()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_nn_read_s8x4_ia </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t **&#160;</td>
+          <td class="paramname"><em>in_s8</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_s8</td><td>Pointer to pointer that holds address of input. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1595,53 +1538,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8b6b32c0f93f6e060d65cbaab94eb963" name="a8b6b32c0f93f6e060d65cbaab94eb963"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b6b32c0f93f6e060d65cbaab94eb963">&#9670;&#160;</a></span>arm_nn_read_q7x4_ia()</h2>
+<a id="a819ba8bdcb6b0e26e5d49c196d1f1a65" name="a819ba8bdcb6b0e26e5d49c196d1f1a65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a819ba8bdcb6b0e26e5d49c196d1f1a65">&#9670;&#160;</a></span>arm_nn_requantize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_read_q7x4_ia </td>
+          <td class="memname">int32_t arm_nn_requantize </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> **&#160;</td>
-          <td class="paramname"><em>in_q7</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_q7</td><td>Pointer to pointer that holds address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>q31 value </dd></dl>
-
-</div>
-</div>
-<a id="abb053b10b455b6357ad7023f562a0956" name="abb053b10b455b6357ad7023f562a0956"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb053b10b455b6357ad7023f562a0956">&#9670;&#160;</a></span>arm_nn_requantize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_requantize </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>val</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>multiplier</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>shift</em>&#160;</td>
         </tr>
         <tr>
@@ -1663,28 +1581,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a83c53cd42783df116d14df870969c46b" name="a83c53cd42783df116d14df870969c46b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83c53cd42783df116d14df870969c46b">&#9670;&#160;</a></span>arm_nn_requantize_s64()</h2>
+<a id="a7dc3fb2d364d4a56f3d2c6cacde2178e" name="a7dc3fb2d364d4a56f3d2c6cacde2178e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dc3fb2d364d4a56f3d2c6cacde2178e">&#9670;&#160;</a></span>arm_nn_requantize_s64()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a> arm_nn_requantize_s64 </td>
+          <td class="memname">int32_t arm_nn_requantize_s64 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#a5aea1cb12fc02d9d44c8abf217eaa5c6">q63_t</a>&#160;</td>
+          <td class="paramtype">const int64_t&#160;</td>
           <td class="paramname"><em>val</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>reduced_multiplier</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>shift</em>&#160;</td>
         </tr>
         <tr>
@@ -1706,8 +1624,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a490747c52bf8e80ee1f3c591e8f384ee" name="a490747c52bf8e80ee1f3c591e8f384ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a490747c52bf8e80ee1f3c591e8f384ee">&#9670;&#160;</a></span>arm_nn_write_q15x2_ia()</h2>
+<a id="a74d9ec2af94d1e36b171c4eebee7eba4" name="a74d9ec2af94d1e36b171c4eebee7eba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d9ec2af94d1e36b171c4eebee7eba4">&#9670;&#160;</a></span>arm_nn_write_q15x2_ia()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1715,13 +1633,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void arm_nn_write_q15x2_ia </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> **&#160;</td>
+          <td class="paramtype">int16_t **&#160;</td>
           <td class="paramname"><em>dest_q15</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">int32_t&#160;</td>
           <td class="paramname"><em>src_q31</em>&#160;</td>
         </tr>
         <tr>
@@ -1741,22 +1659,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa549b01ad0482b9b5f7522ca30e39abc" name="aa549b01ad0482b9b5f7522ca30e39abc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa549b01ad0482b9b5f7522ca30e39abc">&#9670;&#160;</a></span>arm_nn_write_q7x4_ia()</h2>
+<a id="aee420155863cb873908fc9307bfb0098" name="aee420155863cb873908fc9307bfb0098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee420155863cb873908fc9307bfb0098">&#9670;&#160;</a></span>arm_nn_write_s8x4_ia()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void arm_nn_write_q7x4_ia </td>
+          <td class="memname">void arm_nn_write_s8x4_ia </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> **&#160;</td>
+          <td class="paramtype">int8_t **&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0">q31_t</a>&#160;</td>
+          <td class="paramtype">int32_t&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>

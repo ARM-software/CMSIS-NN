@@ -1,6 +1,6 @@
 var group__Acti =
 [
-    [ "arm_relu6_s8", "group__Acti.html#ga01a7a7c17f0cd544e29c4752daeecdc3", null ],
-    [ "arm_relu_q15", "group__Acti.html#ga53bcc00e54b802919bb3c89c143ee5ba", null ],
-    [ "arm_relu_q7", "group__Acti.html#ga638e803b4fe00426f401783a6255ca30", null ]
+    [ "arm_relu6_s8", "group__Acti.html#ga0544841b10230a12d685074767e39787", null ],
+    [ "arm_relu_q15", "group__Acti.html#gafc6c8b5546413c46e25f3bfbf99cb15b", null ],
+    [ "arm_relu_q7", "group__Acti.html#ga7048d8facd52dcefb14f6a2a87718cfb", null ]
 ];

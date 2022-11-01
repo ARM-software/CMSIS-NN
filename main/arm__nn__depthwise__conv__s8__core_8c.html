@@ -132,27 +132,27 @@ $(document).ready(function(){initNavTree('arm__nn__depthwise__conv__s8__core_8c.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__depthwise__conv__s8__core_8c.html#a5b8cf6bccf4fe71f59aa30bf8d460e12">arm_nn_depthwise_conv_s8_core</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *row, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *col, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t kernel_size, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out)</td></tr>
-<tr class="memdesc:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise conv on an im2col buffer where the input channel equals output channel.  <a href="arm__nn__depthwise__conv__s8__core_8c.html#a5b8cf6bccf4fe71f59aa30bf8d460e12">More...</a><br /></td></tr>
-<tr class="separator:a5b8cf6bccf4fe71f59aa30bf8d460e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__depthwise__conv__s8__core_8c.html#a5ef2ef65ceb56c4252c519d36eae3caa">arm_nn_depthwise_conv_s8_core</a> (const int8_t *row, const int16_t *col, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t kernel_size, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise conv on an im2col buffer where the input channel equals output channel.  <a href="arm__nn__depthwise__conv__s8__core_8c.html#a5ef2ef65ceb56c4252c519d36eae3caa">More...</a><br /></td></tr>
+<tr class="separator:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5b8cf6bccf4fe71f59aa30bf8d460e12" name="a5b8cf6bccf4fe71f59aa30bf8d460e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b8cf6bccf4fe71f59aa30bf8d460e12">&#9670;&#160;</a></span>arm_nn_depthwise_conv_s8_core()</h2>
+<a id="a5ef2ef65ceb56c4252c519d36eae3caa" name="a5ef2ef65ceb56c4252c519d36eae3caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef2ef65ceb56c4252c519d36eae3caa">&#9670;&#160;</a></span>arm_nn_depthwise_conv_s8_core()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_depthwise_conv_s8_core </td>
+          <td class="memname">int8_t * arm_nn_depthwise_conv_s8_core </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>row</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
+          <td class="paramtype">const int16_t *&#160;</td>
           <td class="paramname"><em>col</em>, </td>
         </tr>
         <tr>
@@ -206,7 +206,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>

@@ -132,27 +132,27 @@ $(document).ready(function(){initNavTree('arm__nn__mat__mult__kernel__s8__s16_8c
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab2040b03e85717f57f8fcaf83db838e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s8__s16_8c.html#ab2040b03e85717f57f8fcaf83db838e4">arm_nn_mat_mult_kernel_s8_s16</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *input_a, const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *out_0)</td></tr>
-<tr class="memdesc:ab2040b03e85717f57f8fcaf83db838e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nn__mat__mult__kernel__s8__s16_8c.html#ab2040b03e85717f57f8fcaf83db838e4">More...</a><br /></td></tr>
-<tr class="separator:ab2040b03e85717f57f8fcaf83db838e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s8__s16_8c.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
+<tr class="memdesc:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nn__mat__mult__kernel__s8__s16_8c.html#ab63ddef5e87d026c6577b1d5dc9d3519">More...</a><br /></td></tr>
+<tr class="separator:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab2040b03e85717f57f8fcaf83db838e4" name="ab2040b03e85717f57f8fcaf83db838e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2040b03e85717f57f8fcaf83db838e4">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
+<a id="ab63ddef5e87d026c6577b1d5dc9d3519" name="ab63ddef5e87d026c6577b1d5dc9d3519"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63ddef5e87d026c6577b1d5dc9d3519">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> * arm_nn_mat_mult_kernel_s8_s16 </td>
+          <td class="memname">int8_t * arm_nn_mat_mult_kernel_s8_s16 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>input_a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
+          <td class="paramtype">const int16_t *&#160;</td>
           <td class="paramname"><em>input_b</em>, </td>
         </tr>
         <tr>
@@ -206,7 +206,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">int8_t *&#160;</td>
           <td class="paramname"><em>out_0</em>&#160;</td>
         </tr>
         <tr>

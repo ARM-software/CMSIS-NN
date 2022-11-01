@@ -132,15 +132,15 @@ $(document).ready(function(){initNavTree('group__supportConversion.html',''); in
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab2d48529ae05b350a015f8f1e6596a31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#gab2d48529ae05b350a015f8f1e6596a31">arm_q7_to_q15_with_offset</a> (const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *src, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *dst, uint32_t block_size, <a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> offset)</td></tr>
-<tr class="memdesc:gab2d48529ae05b350a015f8f1e6596a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a q7 vector to a q15 vector with an added offset.  <a href="group__supportConversion.html#gab2d48529ae05b350a015f8f1e6596a31">More...</a><br /></td></tr>
-<tr class="separator:gab2d48529ae05b350a015f8f1e6596a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, uint32_t block_size, int16_t offset)</td></tr>
+<tr class="memdesc:ga788c777ed24cce8d63f48173b93e4ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <a href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">More...</a><br /></td></tr>
+<tr class="separator:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p >Perform data type conversion in-between neural network operations </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gab2d48529ae05b350a015f8f1e6596a31" name="gab2d48529ae05b350a015f8f1e6596a31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab2d48529ae05b350a015f8f1e6596a31">&#9670;&#160;</a></span>arm_q7_to_q15_with_offset()</h2>
+<a id="ga788c777ed24cce8d63f48173b93e4ea6" name="ga788c777ed24cce8d63f48173b93e4ea6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga788c777ed24cce8d63f48173b93e4ea6">&#9670;&#160;</a></span>arm_q7_to_q15_with_offset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,13 +148,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void arm_q7_to_q15_with_offset </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263">q7_t</a> *&#160;</td>
+          <td class="paramtype">const int8_t *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a> *&#160;</td>
+          <td class="paramtype">int16_t *&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
@@ -166,7 +166,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea">q15_t</a>&#160;</td>
+          <td class="paramtype">int16_t&#160;</td>
           <td class="paramname"><em>offset</em>&#160;</td>
         </tr>
         <tr>
@@ -178,17 +178,17 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>pointer to the q7 input vector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>pointer to the q15 output vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>pointer to the s8 input vector </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>pointer to the s16 output vector </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>length of the input vector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>q7 offset to be added to each input vector element.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>s8 offset to be added to each input vector element.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section user"><dt>Description:</dt><dd></dd></dl>
 <p>The equation used for the conversion process is:</p>
 <pre>
- dst[n] = (q15_t) src[n] + offset;   0 &lt;= n &lt; block_size.
+ dst[n] = (int16_t) src[n] + offset;   0 &lt;= n &lt; block_size.
 </pre> 
 </div>
 </div>

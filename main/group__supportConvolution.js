@@ -1,10 +1,10 @@
 var group__supportConvolution =
 [
-    [ "arm_nn_depthwise_conv_nt_t_padded_s8", "group__supportConvolution.html#ga24c66d123320bd578d0d393a07f61ae4", null ],
-    [ "arm_nn_depthwise_conv_nt_t_s16", "group__supportConvolution.html#ga0fcef8891929c7cb59f187cfed0b910d", null ],
-    [ "arm_nn_depthwise_conv_nt_t_s8", "group__supportConvolution.html#gab055229b0c5322a6682e0b995d316716", null ],
+    [ "arm_nn_depthwise_conv_nt_t_padded_s8", "group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04", null ],
+    [ "arm_nn_depthwise_conv_nt_t_s16", "group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb", null ],
+    [ "arm_nn_depthwise_conv_nt_t_s8", "group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f", null ],
     [ "arm_nn_mat_mul_core_1x_s8", "group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785", null ],
     [ "arm_nn_mat_mul_core_4x_s8", "group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae", null ],
-    [ "arm_nn_mat_mult_kernel_s16", "group__supportConvolution.html#ga45ec7e9cd96398ac06c51a3ed658bb2a", null ],
-    [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#ga59ab655606dd4f7a90f573b7479c6dbf", null ]
+    [ "arm_nn_mat_mult_kernel_s16", "group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74", null ],
+    [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#gab3715f0ec7480d59f061f886395e6fe1", null ]
 ];

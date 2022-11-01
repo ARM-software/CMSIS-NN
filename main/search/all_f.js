@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['rank_0',['rank',['../structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813',1,'cmsis_nn_svdf_params']]],
-  ['reduce_5fmultiplier_1',['REDUCE_MULTIPLIER',['../arm__nnsupportfunctions_8h.html#a19343832dbe881d527496171f69dc0c3',1,'arm_nnsupportfunctions.h']]],
-  ['reshape_20functions_2',['Reshape Functions',['../group__Reshape.html',1,'']]],
-  ['revision_20history_3',['Revision History',['../rev_hist.html',1,'']]],
-  ['right_5fshift_4',['RIGHT_SHIFT',['../arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4',1,'arm_nnsupportfunctions.h']]]
+  ['select_5fif_5fnon_5fzero_0',['SELECT_IF_NON_ZERO',['../arm__nnsupportfunctions_8h.html#a4b3b6a6ed8cb224c5bcabd9ad1c94fde',1,'arm_nnsupportfunctions.h']]],
+  ['select_5fusing_5fmask_1',['SELECT_USING_MASK',['../arm__nnsupportfunctions_8h.html#a6f69b7e95b80e10a5f5d2ddbbfbc301f',1,'arm_nnsupportfunctions.h']]],
+  ['shift_2',['shift',['../structcmsis__nn__per__channel__quant__params.html#a37330ddd659e21d8a4cf88f31164efb8',1,'cmsis_nn_per_channel_quant_params::shift()'],['../structcmsis__nn__per__tensor__quant__params.html#aa6938a602935fbbccbe0e9125ff01421',1,'cmsis_nn_per_tensor_quant_params::shift()']]],
+  ['size_3',['size',['../structcmsis__nn__context.html#af8fd9ce16b371c8a3bf5e0b37a69419f',1,'cmsis_nn_context']]],
+  ['softmax_4',['Softmax',['../group__supportSoftmax.html',1,'']]],
+  ['softmax_20functions_5',['Softmax Functions',['../group__Softmax.html',1,'']]],
+  ['stride_6',['stride',['../structcmsis__nn__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_conv_params::stride()'],['../structcmsis__nn__dw__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_dw_conv_params::stride()'],['../structcmsis__nn__pool__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_pool_params::stride()']]],
+  ['svdf_20functions_7',['SVDF Functions',['../group__SVDF.html',1,'']]]
 ];

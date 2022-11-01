@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['q15_5ft_0',['q15_t',['../arm__nn__math__types_8h.html#ab5a8fb21a5b3b983d5f54f31614052ea',1,'arm_nn_math_types.h']]],
-  ['q31_5ft_1',['q31_t',['../arm__nn__math__types_8h.html#adc89a3547f5324b7b3b95adec3806bc0',1,'arm_nn_math_types.h']]],
-  ['q63_5ft_2',['q63_t',['../arm__nn__math__types_8h.html#a5aea1cb12fc02d9d44c8abf217eaa5c6',1,'arm_nn_math_types.h']]],
-  ['q7_5ft_3',['q7_t',['../arm__nn__math__types_8h.html#ae541b6f232c305361e9b416fc9eed263',1,'arm_nn_math_types.h']]]
+  ['rank_0',['rank',['../structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813',1,'cmsis_nn_svdf_params']]],
+  ['reduce_5fmultiplier_1',['REDUCE_MULTIPLIER',['../arm__nnsupportfunctions_8h.html#a19343832dbe881d527496171f69dc0c3',1,'arm_nnsupportfunctions.h']]],
+  ['reshape_20functions_2',['Reshape Functions',['../group__Reshape.html',1,'']]],
+  ['revision_20history_3',['Revision History',['../rev_hist.html',1,'']]],
+  ['right_5fshift_4',['RIGHT_SHIFT',['../arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4',1,'arm_nnsupportfunctions.h']]]
 ];
