@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_mul_s16
  * Description:  Element wise multiplication
  *
- * $Date:        10 May 2022
- * $Revision:    V.2.1.0
+ * $Date:        24 October 2022
+ * $Revision:    V.2.2.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -61,12 +61,41 @@ arm_cmsis_nn_status arm_elementwise_mul_s16(const int16_t *input_1_vect,
     (void)input_1_offset;
     (void)input_2_offset;
     (void)out_offset;
+    int32_t loop_count;
+
+#if defined(ARM_MATH_MVEI)
+
+    loop_count = block_size;
+
+    while (loop_count > 0)
+    {
+        mve_pred16_t pred = vctp32q(loop_count);
+
+        int32x4_t input_1 = vldrhq_z_s32(input_1_vect, pred);
+        int32x4_t input_2 = vldrhq_z_s32(input_2_vect, pred);
+
+        int32x4_t res_0 = vmulq_s32(input_1, input_2);
+
+        res_0 = arm_requantize_mve_32x4(res_0, vdupq_n_s32(out_mult), vdupq_n_s32(out_shift));
+
+        res_0 = vmaxq_s32(res_0, vdupq_n_s32(out_activation_min));
+        res_0 = vminq_s32(res_0, vdupq_n_s32(out_activation_max));
+
+        vstrhq_p_s32(output, res_0, pred);
+        input_1_vect += 4;
+        input_2_vect += 4;
+
+        output += 4;
+        loop_count -= 4;
+    }
+
+#else
     int32_t input_1;
     int32_t input_2;
     int32_t mul_res;
     int32_t two_halfword_1, two_halfword_2;
     int16_t mul_1, mul_2;
-    int32_t loop_count = block_size / 2;
+    loop_count = block_size / 2;
 
     while (loop_count > 0)
     {
@@ -113,7 +142,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s16(const int16_t *input_1_vect,
         /* Decrement loop counter */
         loop_count--;
     }
-
+#endif // #if defined(ARM_MATH_MVEI)
     return ARM_CMSIS_NN_SUCCESS;
 }
 
