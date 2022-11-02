@@ -21,8 +21,8 @@
  * Title:        arm_svdf_s8.c
  * Description:  S8 basic SVDF layer function
  *
- * $Date:        26 October 2022
- * $Revision:    V.4.0.2
+ * $Date:        8 November 2022
+ * $Revision:    V.4.1.0
  *
  * Target Processor:  Cortex-M processors
  *
@@ -116,7 +116,6 @@ arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *input_ctx,
                                                            NULL,
                                                            res_ptr,
                                                            -zp_in,
-                                                           0,
                                                            0,
                                                            multiplier_in,
                                                            shift_in,

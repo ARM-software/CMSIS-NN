@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        07 November 2022
- * $Revision:    V.13.1.0
+ * $Date:        9 November 2022
+ * $Revision:    V.14.0.0
  *
  * Target Processor:  Arm Cortex-M CPUs
  * -------------------------------------------------------------------- */
@@ -348,7 +348,6 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  * @param[out]     dst             Output vector
  * @param[in]      lhs_offset      Offset to be added to the input values of the left-hand side vector.
  *                                 Range: -127 to 128
- * @param[in]      rhs_offset      Not used
  * @param[in]      dst_offset      Offset to be added to the output values. Range: -127 to 128
  * @param[in]      dst_multiplier  Output multiplier
  * @param[in]      dst_shift       Output shift
@@ -367,7 +366,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                                              const int32_t *bias,
                                              int8_t *dst,
                                              const int32_t lhs_offset,
-                                             const int32_t rhs_offset,
                                              const int32_t dst_offset,
                                              const int32_t dst_multiplier,
                                              const int32_t dst_shift,
@@ -413,7 +411,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
  * @param[out]     dst             Output vector
  * @param[in]      lhs_offset      Offset to be added to the input values of the left-hand side
  *                                 vector. Range: -127 to 128
- * @param[in]      rhs_offset      Not used
  * @param[in]      scatter_offset  Address offset for dst. First output is stored at 'dst', the
  *                                 second at 'dst + scatter_offset' and so on.
  * @param[in]      dst_multiplier  Output multiplier
@@ -430,7 +427,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
                                                   const int8_t *rhs,
                                                   int16_t *dst,
                                                   const int32_t lhs_offset,
-                                                  const int32_t rhs_offset,
                                                   const int32_t scatter_offset,
                                                   const int32_t dst_multiplier,
                                                   const int32_t dst_shift,

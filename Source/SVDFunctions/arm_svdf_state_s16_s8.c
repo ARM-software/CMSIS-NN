@@ -21,8 +21,8 @@
  * Title:        arm_svdf_s8.c
  * Description:  S8 basic SVDF layer function with s16 state tensor
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.2
+ * $Date:        8 November 2022
+ * $Revision:    V.2.1.0
  *
  * Target Processor:  Cortex-M processors
  *
@@ -115,7 +115,6 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
                                                                 weight,
                                                                 res_ptr,
                                                                 -zp_in,
-                                                                0,
                                                                 time_batches,
                                                                 multiplier_in,
                                                                 shift_in,

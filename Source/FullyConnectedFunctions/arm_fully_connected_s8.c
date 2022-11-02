@@ -21,8 +21,8 @@
  * Title:        arm_fully_connected_s8
  * Description:  Fully connected function compatible with TF Lite.
  *
- * $Date:        26 October 2022
- * $Revision:    V.4.0.1
+ * $Date:        8 November 2022
+ * $Revision:    V.4.1.0
  *
  * Target Processor:  Cortex-M and Cortex-A cores
  *
@@ -72,7 +72,6 @@ arm_cmsis_nn_status arm_fully_connected_s8(const cmsis_nn_context *ctx,
                                  bias,
                                  output,
                                  fc_params->input_offset,
-                                 0,
                                  fc_params->output_offset,
                                  quant_params->multiplier,
                                  quant_params->shift,
