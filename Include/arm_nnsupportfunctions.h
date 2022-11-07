@@ -21,10 +21,10 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        26 October 2022
- * $Revision:    V.12.0.0
+ * $Date:        03 November 2022
+ * $Revision:    V.13.0.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target Processor:  Arm Cortex-M CPUs
  * -------------------------------------------------------------------- */
 
 #ifndef _ARM_NNSUPPORTFUNCTIONS_H_
@@ -318,6 +318,8 @@ int8_t *arm_nn_mat_mul_core_4x_s8(const int32_t row_elements,
  * @param[in]  dst_offset         Offset to be applied the output result
  * @param[in]  activation_min     Minimum value to clamp down the output. Range : int8
  * @param[in]  activation_max     Maximum value to clamp up the output. Range : int8
+ * @param[in]  rhs_cols_offset    Offset between input columns. Used to handle non-unity strides
+ *                                Expected value : x * rhs_cols, where x >= 1
  *
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
@@ -334,7 +336,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t lhs_offset,
                                             const int32_t dst_offset,
                                             const int32_t activation_min,
-                                            const int32_t activation_max);
+                                            const int32_t activation_max,
+                                            const int32_t rhs_cols_offset);
 
 /**
  * @brief s8 Vector by Matrix (transposed) multiplication
