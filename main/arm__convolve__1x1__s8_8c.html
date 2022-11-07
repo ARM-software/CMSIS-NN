@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: arm_nn_mat_mult_nt_t_s8.c File Reference</title>
+<title>CMSIS-NN: arm_convolve_1x1_s8.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('arm__nn__mat__mult__nt__t__s8_8c.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__convolve__1x1__s8_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -126,22 +126,22 @@ $(document).ready(function(){initNavTree('arm__nn__mat__mult__nt__t__s8_8c.html'
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">arm_nn_mat_mult_nt_t_s8.c File Reference</div></div>
+  <div class="headertitle"><div class="title">arm_convolve_1x1_s8.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga465767c571062342a8d5f6677905ae1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga465767c571062342a8d5f6677905ae1f">arm_nn_mat_mult_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int8_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max, const int32_t rhs_cols_offset)</td></tr>
-<tr class="memdesc:ga465767c571062342a8d5f6677905ae1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <a href="group__supportConvolution.html#ga465767c571062342a8d5f6677905ae1f">More...</a><br /></td></tr>
-<tr class="separator:ga465767c571062342a8d5f6677905ae1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fb372d6cb69754bd47d99516d52ff80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">arm_convolve_1x1_s8</a> (const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *ctx, const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *quant_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const int8_t *filter_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *bias_dims, const int32_t *bias_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
+<tr class="memdesc:ga0fb372d6cb69754bd47d99516d52ff80"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 version for 1x1 convolution with support for non-unity stride values  <a href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">More...</a><br /></td></tr>
+<tr class="separator:ga0fb372d6cb69754bd47d99516d52ff80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__nn__mat__mult__nt__t__s8_8c.html">arm_nn_mat_mult_nt_t_s8.c</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_cbb0ff5ef5083120757c84adcfd6d59e.html">ConvolutionFunctions</a></li><li class="navelem"><a class="el" href="arm__convolve__1x1__s8_8c.html">arm_convolve_1x1_s8.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

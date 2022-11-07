@@ -6,5 +6,5 @@ var group__supportConvolution =
     [ "arm_nn_mat_mul_core_1x_s8", "group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785", null ],
     [ "arm_nn_mat_mul_core_4x_s8", "group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae", null ],
     [ "arm_nn_mat_mult_kernel_s16", "group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74", null ],
-    [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#gab3715f0ec7480d59f061f886395e6fe1", null ]
+    [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#ga465767c571062342a8d5f6677905ae1f", null ]
 ];

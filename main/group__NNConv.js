@@ -3,6 +3,7 @@ var group__NNConv =
     [ "__attribute__", "group__NNConv.html#ga4779f7318779682e7789f1888d37e56b", null ],
     [ "arm_convolve_1_x_n_s8", "group__NNConv.html#gad1b14c79a862285824945d6685c1fbca", null ],
     [ "arm_convolve_1_x_n_s8_get_buffer_size", "group__NNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e", null ],
+    [ "arm_convolve_1x1_s8", "group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80", null ],
     [ "arm_convolve_1x1_s8_fast", "group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0", null ],
     [ "arm_convolve_1x1_s8_fast_get_buffer_size", "group__NNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8", null ],
     [ "arm_convolve_fast_s16", "group__NNConv.html#gae0d16d7055030ba5955a0e30310e99b5", null ],

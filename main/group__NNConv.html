@@ -138,6 +138,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf87f133e81ee6c1fbde89fe44c35352e"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__NNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">arm_convolve_1_x_n_s8_get_buffer_size</a> (const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims)</td></tr>
 <tr class="memdesc:gaf87f133e81ee6c1fbde89fe44c35352e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required additional buffer size for 1xn convolution.  <a href="group__NNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">More...</a><br /></td></tr>
 <tr class="separator:gaf87f133e81ee6c1fbde89fe44c35352e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fb372d6cb69754bd47d99516d52ff80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">arm_convolve_1x1_s8</a> (const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *ctx, const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *quant_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const int8_t *filter_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *bias_dims, const int32_t *bias_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
+<tr class="memdesc:ga0fb372d6cb69754bd47d99516d52ff80"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 version for 1x1 convolution with support for non-unity stride values  <a href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">More...</a><br /></td></tr>
+<tr class="separator:ga0fb372d6cb69754bd47d99516d52ff80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff720df237ae836e7c6c3044a9bbf8d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0">arm_convolve_1x1_s8_fast</a> (const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *ctx, const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *quant_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const int8_t *filter_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *bias_dims, const int32_t *bias_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
 <tr class="memdesc:gaff720df237ae836e7c6c3044a9bbf8d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast s8 version for 1x1 convolution (non-square shape)  <a href="group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0">More...</a><br /></td></tr>
 <tr class="separator:gaff720df237ae836e7c6c3044a9bbf8d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -376,6 +379,112 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns required buffer size(bytes) </dd></dl>
+
+</div>
+</div>
+<a id="ga0fb372d6cb69754bd47d99516d52ff80" name="ga0fb372d6cb69754bd47d99516d52ff80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fb372d6cb69754bd47d99516d52ff80">&#9670;&#160;</a></span>arm_convolve_1x1_s8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_convolve_1x1_s8 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__conv__params.html">cmsis_nn_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a> *&#160;</td>
+          <td class="paramname"><em>quant_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>input_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>filter_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>bias_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>bias_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>output_data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that contains the additional buffer if required by the function. None is required by this function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">conv_params</td><td>Convolution parameters (e.g. strides, dilations, pads,...). Range of conv_params-&gt;input_offset : [-127, 128] Range of conv_params-&gt;output_offset : [-128, 127] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">quant_params</td><td>Per-channel quantization info. It contains the multiplier and shift values to be applied to each output channel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [N, H, W, C_IN] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_data</td><td>Input (activation) data pointer. Data type: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, 1, 1, C_IN] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_data</td><td>Filter data pointer. Data type: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias_dims</td><td>Bias tensor dimensions. Format: [C_OUT] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias_data</td><td>Optional bias data pointer. Data type: int32 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. Format: [N, H, W, C_OUT] </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output_data</td><td>Output data pointer. Data type: int8</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns either <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or, <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.</dd></dl>
+<ul>
+<li>Supported framework : TensorFlow Lite Micro</li>
+<li>The following constrains on the arguments apply<ol type="1">
+<li>conv_params-&gt;padding.w = conv_params-&gt;padding.h = 0 </li>
+</ol>
+</li>
+</ul>
 
 </div>
 </div>
