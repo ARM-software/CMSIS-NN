@@ -22,7 +22,7 @@
  * Description:  Public header file for CMSIS NN Library
  *
  * $Date:        7 November 2022
- * $Revision:    V.11.1.1
+ * $Revision:    V.11.2.0
  *
  * Target Processor:  Arm Cortex-M Processors
  * -------------------------------------------------------------------- */
