@@ -32,6 +32,7 @@
         <file category="header" name="Include/arm_nnfunctions.h"/>
         <file category="header" name="Include/arm_nnsupportfunctions.h"/>
         <file category="header" name="Include/arm_nn_tables.h"/>
+        <file category="header" name="Include/arm_nn_math_types.h"/>
 
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c"/>
@@ -65,19 +66,16 @@
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16_s8.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu6_s8.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu_q15.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu_q7.c"/>
-        <!-- file category="source" name="Source/ActivationFunctions/arm_nn_activations_q15.c"/ -->
-        <!-- file category="source" name="Source/ActivationFunctions/arm_nn_activations_q7.c"/ -->
+        <file category="source" name="Source/ActivationFunctions/arm_nn_activation_s16.c"/>
         <file category="source" name="Source/ReshapeFunctions/arm_reshape_s8.c"/>
-        <!-- file category="source" name="Source/NNSupportFunctions/arm_nn_mult_q7.c"/ -->
-        <!-- file category="source" name="Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c"/ -->
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c"/>
-        <!-- file category="source" name="Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c"/ -->
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c"/>
@@ -86,8 +84,14 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nntables.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_update_output_s8_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s8_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_update_cell_state_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
+        <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s8_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>

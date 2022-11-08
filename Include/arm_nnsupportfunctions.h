@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        03 November 2022
- * $Revision:    V.13.0.0
+ * $Date:        07 November 2022
+ * $Revision:    V.13.1.0
  *
  * Target Processor:  Arm Cortex-M CPUs
  * -------------------------------------------------------------------- */
@@ -1138,6 +1138,172 @@ __STATIC_FORCEINLINE void arm_nn_write_q15x2_ia(int16_t **dest_q15, int32_t src_
     memcpy(*dest_q15, &val, 4);
     *dest_q15 += 2;
 }
+
+// Support functions for LSTM
+/**
+ * @brief Update LSTM function for an iteration step
+ *
+ * param[in]    input                           Input data
+ * param[in]    input_to_input_weight           Input to input gate weights
+ * param[in]    input_to_forget_weight          Input to forget gate weights
+ * param[in]    input_to_cell_weight            Input to cell gate weights
+ * param[in]    input_to_output_weight          Input to output weights
+ * param[in]    recurrent_to_input_weight       Recurrent signal to input weights
+ * param[in]    recurrent_to_forget_weight      Recurrent signal to forget gate weights
+ * param[in]    recurrent_to_cell_weight        Recurrent signal to cell gate weighst
+ * param[in]    recurrent_to_output_weight      Recurrent signal to output weights
+ * param[in]    lstm                            LSTM parameters
+ * param[in]    n_batch                         Batch size
+ * param[in]    n_cell                          Cell size
+ * param[in]    n_input                         Input size
+ * param[in]    n_output                        Output size
+ * param[out]   output_state                    Output state
+ * param[out]   cell_state                      Internal state
+ * param[out]   output                          Output signal
+ * param[in] *scratch_buffers                   Struct containing scratch buffers
+ */
+arm_cmsis_nn_status arm_nn_lstm_step_s8_s16(const int8_t *input,
+                                            const int8_t *input_to_input_weight,
+                                            const int8_t *input_to_forget_weight,
+                                            const int8_t *input_to_cell_weight,
+                                            const int8_t *input_to_output_weight,
+                                            const int8_t *recurrent_to_input_weight,
+                                            const int8_t *recurrent_to_forget_weight,
+                                            const int8_t *recurrent_to_cell_weight,
+                                            const int8_t *recurrent_to_output_weight,
+                                            const cmsis_nn_lstm_params *lstm,
+                                            const int n_batch,
+                                            const int n_cell,
+                                            const int n_input,
+                                            const int n_output,
+                                            int8_t *output_state,
+                                            int16_t *cell_state,
+                                            int8_t *output,
+                                            cmsis_nn_lstm_context *scratch_buffers);
+
+/**
+ * @brief         Updates a LSTM gate for an iteration step of LSTM function, int8x8_16 version.
+ *
+ * param[in]    input                           Input data
+ * param[in]    input_to_gate_weights           Input to gate weights
+ * param[in]    input_to_gate_bias              Input to gate weights
+ * param[in]    input_to_gate_scaling           Input to gate scaling
+ * param[in]    activation                      Actival min and max values
+ * param[in]    output_state                    Output state
+ * param[in]    recurrent_to_gate_weights       Recurrent to gate weights
+ * param[in]    recurrent_to_gate_bias          Recurrent to gate bias
+ * param[in]    recurrent_to_gate_scaling       Recurrent to gate scaling
+ * param[in]    n_batch                         Batch size
+ * param[in]    n_input                         Input size
+ * param[out]   n_output                        Output size
+ * param[in]    activation_type                 Activation type (sigmoid or tanh)
+ * param[out]   n_cell                          Cell size
+ */
+void arm_nn_lstm_calculate_gate_s8_s16(const int8_t *input,
+                                       const int8_t *input_to_gate_weights,
+                                       const int32_t *input_to_gate_bias,
+                                       const cmsis_nn_scaling input_to_gate_scaling,
+                                       const int8_t *output_state,
+                                       const int8_t *recurrent_to_gate_weights,
+                                       const int32_t *recurrent_to_gate_bias,
+                                       const cmsis_nn_scaling recurrent_to_gate_scaling,
+                                       const int32_t n_batch,
+                                       const int32_t n_input,
+                                       const int32_t n_output,
+                                       const int32_t n_cell,
+                                       const arm_nn_activation_type activation_type,
+                                       int16_t *gate);
+
+/**
+ * @brief       Update cell state for a single LSTM iteration step, int8x8_16 version.
+ * @param[in]   n_block             total number of cells for all batches
+ * @param[in]   cell_state_scale    Scaling factor of cell state
+ * @param[in]   cell_state          Input/output vector, size n_batch*n_cell
+ * @param[in]   input_gate          Input vector of size n_block
+ * @param[in]   forget_gate         Input/scratch vector of size n_block, always modified
+ * @param[in]   cell_gate           Input vector of size, n_block
+ */
+void arm_nn_lstm_update_cell_state_s16(const int32_t n_block,
+                                       const int32_t cell_state_scale,
+                                       int16_t *cell_state,
+                                       const int16_t *input_gate,
+                                       const int16_t *forget_gate,
+                                       const int16_t *cell_gate);
+
+/**
+ * @brief       Calculate the output state tensor of an LSTM step, s8 input/output and s16 weight version.
+ *
+ * @param[in]       n_batch                     The number of distinct vectors in each array
+ * @param[in]       n_cell                      Number of cells
+ * @param[in]       n_output                    Number of outputs
+ * @param[in,out]   cell_state                  Cell state, size n_batch*n_cell
+ * @param[in]       cell_state_scale            Scaling of cell_state
+ * @param[in]       output_gate                 Output gate
+ * @param[in]       hidden_scale                Effective scaling of cell_state .* output_gate
+ * @param[in]       hidden_offset               Zero point for cell_state .* output_gate
+ * @param[out]      output_state                Output state
+ * @param[in]       scratch0                    Scratch buffer
+ * @param[in]       scratch1                    Scratch buffer
+ */
+void arm_nn_lstm_update_output_s8_s16(const int n_batch,
+                                      const int n_cell,
+                                      const int n_output,
+                                      int16_t *cell_state,
+                                      const int32_t cell_state_scale,
+                                      const int16_t *output_gate,
+                                      const cmsis_nn_scaling hidden_scale,
+                                      const int32_t hidden_offset,
+                                      int8_t *output_state,
+                                      int16_t *scratch0,
+                                      int8_t *scratch1);
+
+/**
+ * @brief The result of the multiplication is accumulated to the passed result buffer.
+ * Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent
+ * from each other).
+ *
+ * @param[in]   lhs          Batched vector
+ * @param[in]   rhs          Weights input
+ * @param[in]   bias         Bias vector
+ * @param[out]  dst          Output
+ * @param[in]   dst_offset   Output offset
+ * @param[in]   multiplier   Multiplier for quantization
+ * @param[in]   shift        Shift for quantization
+ * @param[in]   rhs_cols     Input size (for each batch)
+ * @param[in]   rhs_rows     Output size (for each batch)
+ * @param[in]   batch        Batch size
+ */
+void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs,
+                                      const int8_t *rhs,
+                                      const int32_t *bias,
+                                      int16_t *dst,
+                                      const int32_t dst_offset,
+                                      const int32_t multiplier,
+                                      const int32_t shift,
+                                      const int32_t rhs_cols,
+                                      const int32_t rhs_rows,
+                                      const int32_t batch);
+
+/**
+ * @brief s16 elementwise multiplication with s8 output
+ * @param[in]       input_1_vect        pointer to input vector 1
+ * @param[in]       input_2_vect        pointer to input vector 2
+ * @param[in,out]   output              pointer to output vector
+ * @param[in]       out_offset          output offset
+ * @param[in]       out_mult            output multiplier
+ * @param[in]       out_shift           output shift
+ * @param[in]       block_size          number of samples
+ * @return          The function returns ARM_CMSIS_NN_SUCCESS
+ *
+ * @details   Supported framework: TensorFlow Lite micro
+ */
+arm_cmsis_nn_status arm_elementwise_mul_s16_s8(const int16_t *input_1_vect,
+                                               const int16_t *input_2_vect,
+                                               int8_t *output,
+                                               const int32_t out_offset,
+                                               const int32_t out_mult,
+                                               const int32_t out_shift,
+                                               const int32_t block_size);
 
 #ifdef __cplusplus
 }

@@ -118,6 +118,7 @@ The script use a concept of test data sets, i.e. it need a test set data name as
 When adding a new test data set, new c files should be added or existing c files should be updated to use the new data set. See overview of the folders on how/where to add new c files.
 
 As it is now, when adding a new test data set, you would first have to go and edit the script to configure the parameters as you want.
+A new test data set (a unit test) can added by just running the script with a new name for the test data setTODO
 Once you are happy with the new test data set, it should be added in the load_all_testdatasets() function.
 
 ## Overview of the Folders
