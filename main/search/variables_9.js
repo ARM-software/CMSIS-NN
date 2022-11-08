@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['max_0',['max',['../structcmsis__nn__activation.html#accad1cdcd73e714badc388c3471bf33b',1,'cmsis_nn_activation']]],
-  ['min_1',['min',['../structcmsis__nn__activation.html#a0022b5ad7e496a802c64e3f6e0c2d8e1',1,'cmsis_nn_activation']]],
-  ['multiplier_2',['multiplier',['../structcmsis__nn__per__channel__quant__params.html#ad2d7bcdc66772400d073f101bd6a0ca9',1,'cmsis_nn_per_channel_quant_params::multiplier()'],['../structcmsis__nn__per__tensor__quant__params.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_per_tensor_quant_params::multiplier()']]]
+  ['layer_5fnorm_0',['layer_norm',['../structcmsis__nn__lstm__params.html#a540693a159ec5c6d738337c31afb9d22',1,'cmsis_nn_lstm_params']]],
+  ['layer_5fnorm_5fcell_5fscaling_1',['layer_norm_cell_scaling',['../structcmsis__nn__lstm__params.html#a174d1da7cf5c43f0d54e027e46eb9836',1,'cmsis_nn_lstm_params']]],
+  ['layer_5fnorm_5fforget_5fscaling_2',['layer_norm_forget_scaling',['../structcmsis__nn__lstm__params.html#ad2ab652d91ffa889465614bc512fbc0c',1,'cmsis_nn_lstm_params']]],
+  ['layer_5fnorm_5finput_5fscaling_3',['layer_norm_input_scaling',['../structcmsis__nn__lstm__params.html#a298a5746f4f8380cea313858e271afac',1,'cmsis_nn_lstm_params']]],
+  ['layer_5fnorm_5foutput_5fscaling_4',['layer_norm_output_scaling',['../structcmsis__nn__lstm__params.html#a9a99c40ff68de8590b4760b36d450d5d',1,'cmsis_nn_lstm_params']]],
+  ['long_5flong_5',['long_long',['../unionarm__nn__long__long.html#a01ad5de26c5e1392702d48a6f1f31aff',1,'arm_nn_long_long']]],
+  ['low_6',['low',['../structarm__nn__double.html#a864f755b7008df85b29726891bdd4fbd',1,'arm_nn_double']]]
 ];

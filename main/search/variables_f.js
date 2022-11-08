@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['w_0',['w',['../structcmsis__nn__tile.html#a10eaf5bb734b696e5bcb6fd5b7033b60',1,'cmsis_nn_tile::w()'],['../structcmsis__nn__dims.html#a10eaf5bb734b696e5bcb6fd5b7033b60',1,'cmsis_nn_dims::w()']]],
-  ['word_1',['word',['../unionarm__nnword.html#ae57b65654d880b33f95bddbd0a9fe78d',1,'arm_nnword::word()'],['../unionarm__nn__long__long.html#a9cefd3ba306754dbe064a6123a4d51bc',1,'arm_nn_long_long::word()']]]
+  ['scratch_0',['scratch',['../structcmsis__nn__lstm__context.html#abb60b7f94247841b7969c70148bf202c',1,'cmsis_nn_lstm_context']]],
+  ['shift_1',['shift',['../structcmsis__nn__per__channel__quant__params.html#a37330ddd659e21d8a4cf88f31164efb8',1,'cmsis_nn_per_channel_quant_params::shift()'],['../structcmsis__nn__per__tensor__quant__params.html#aa6938a602935fbbccbe0e9125ff01421',1,'cmsis_nn_per_tensor_quant_params::shift()'],['../structcmsis__nn__scaling.html#aa6938a602935fbbccbe0e9125ff01421',1,'cmsis_nn_scaling::shift()']]],
+  ['sigmoid_5ftable_5fuint16_2',['sigmoid_table_uint16',['../arm__nn__tables_8h.html#a4075af8dcbeddbe86c708c9212f7778e',1,'sigmoid_table_uint16():&#160;arm_nntables.c'],['../arm__nntables_8c.html#a4075af8dcbeddbe86c708c9212f7778e',1,'sigmoid_table_uint16():&#160;arm_nntables.c']]],
+  ['size_3',['size',['../structcmsis__nn__context.html#af8fd9ce16b371c8a3bf5e0b37a69419f',1,'cmsis_nn_context']]],
+  ['stride_4',['stride',['../structcmsis__nn__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_conv_params::stride()'],['../structcmsis__nn__dw__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_dw_conv_params::stride()'],['../structcmsis__nn__pool__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_pool_params::stride()']]]
 ];

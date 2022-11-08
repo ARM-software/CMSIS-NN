@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['one_5fby_5fone_5flut_0',['one_by_one_lut',['../structcmsis__nn__softmax__lut__s16.html#a93be118b369f801f5d90e51fa7cb563d',1,'cmsis_nn_softmax_lut_s16']]],
-  ['output_5factivation_1',['output_activation',['../structcmsis__nn__svdf__params.html#a6bbdc4a23e1c03b41b66f34f50d85352',1,'cmsis_nn_svdf_params']]],
-  ['output_5foffset_2',['output_offset',['../structcmsis__nn__conv__params.html#ab1dde269b1116cc98371e23a97740a58',1,'cmsis_nn_conv_params::output_offset()'],['../structcmsis__nn__dw__conv__params.html#ab1dde269b1116cc98371e23a97740a58',1,'cmsis_nn_dw_conv_params::output_offset()'],['../structcmsis__nn__fc__params.html#ab1dde269b1116cc98371e23a97740a58',1,'cmsis_nn_fc_params::output_offset()'],['../structcmsis__nn__svdf__params.html#ab1dde269b1116cc98371e23a97740a58',1,'cmsis_nn_svdf_params::output_offset()']]]
+  ['n_0',['n',['../structcmsis__nn__dims.html#a4e34aefb3cc5403a07c020131077100a',1,'cmsis_nn_dims']]],
+  ['num_5fbatches_1',['num_batches',['../structcmsis__nn__lstm__dims.html#a05623f7d6acf5344f2d6596ec22fb926',1,'cmsis_nn_lstm_dims']]],
+  ['num_5finputs_2',['num_inputs',['../structcmsis__nn__lstm__dims.html#a9268585658223810aabb899898d06bcd',1,'cmsis_nn_lstm_dims']]],
+  ['num_5foutputs_3',['num_outputs',['../structcmsis__nn__lstm__dims.html#a23ba5409f3d68aa9dfb9118f2574aec6',1,'cmsis_nn_lstm_dims']]]
 ];

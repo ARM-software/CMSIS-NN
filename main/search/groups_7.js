@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['softmax_0',['Softmax',['../group__supportSoftmax.html',1,'']]],
-  ['softmax_20functions_1',['Softmax Functions',['../group__Softmax.html',1,'']]],
-  ['svdf_20functions_2',['SVDF Functions',['../group__SVDF.html',1,'']]]
+  ['pooling_20functions_0',['Pooling Functions',['../group__Pooling.html',1,'']]],
+  ['private_1',['Private',['../group__groupSupport.html',1,'']]],
+  ['public_2',['Public',['../group__Public.html',1,'']]]
 ];

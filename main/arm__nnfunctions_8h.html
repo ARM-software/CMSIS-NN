@@ -126,7 +126,6 @@ $(document).ready(function(){initNavTree('arm__nnfunctions_8h.html',''); initRes
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">arm_nnfunctions.h File Reference</div></div>
 </div><!--header-->
@@ -136,17 +135,6 @@ $(document).ready(function(){initNavTree('arm__nnfunctions_8h.html',''); initRes
 Macros</h2></td></tr>
 <tr class="memitem:a710b6e009261290c6151f329cf409530"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnfunctions_8h.html#a710b6e009261290c6151f329cf409530">USE_INTRINSIC</a></td></tr>
 <tr class="separator:a710b6e009261290c6151f329cf409530"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a7f41aa78cd9a0552fae9b348ee4831a0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnfunctions_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> { <br />
-&#160;&#160;<a class="el" href="arm__nnfunctions_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54">ARM_SIGMOID</a> = 0
-, <br />
-&#160;&#160;<a class="el" href="arm__nnfunctions_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5">ARM_TANH</a> = 1
-<br />
- }</td></tr>
-<tr class="memdesc:a7f41aa78cd9a0552fae9b348ee4831a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct for specifying activation function types.  <a href="arm__nnfunctions_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">More...</a><br /></td></tr>
-<tr class="separator:a7f41aa78cd9a0552fae9b348ee4831a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -261,6 +249,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gafc6c8b5546413c46e25f3bfbf99cb15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#gafc6c8b5546413c46e25f3bfbf99cb15b">arm_relu_q15</a> (int16_t *data, uint16_t size)</td></tr>
 <tr class="memdesc:gafc6c8b5546413c46e25f3bfbf99cb15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Q15 RELU function.  <a href="group__Acti.html#gafc6c8b5546413c46e25f3bfbf99cb15b">More...</a><br /></td></tr>
 <tr class="separator:gafc6c8b5546413c46e25f3bfbf99cb15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga8ea8ed180e18fc1a8e7420df9aad6711">arm_nn_activation_s16</a> (const int16_t *input, int16_t *output, const uint16_t size, const uint16_t left_shift, const <a class="el" href="arm__nn__types_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> type)</td></tr>
+<tr class="memdesc:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 neural network activation function using direct table look-up  <a href="group__Acti.html#ga8ea8ed180e18fc1a8e7420df9aad6711">More...</a><br /></td></tr>
+<tr class="separator:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0c62a0d440fe6d79aaae77c75b55459d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Pooling.html#ga0c62a0d440fe6d79aaae77c75b55459d">arm_avgpool_s8</a> (const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *ctx, const <a class="el" href="structcmsis__nn__pool__params.html">cmsis_nn_pool_params</a> *pool_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
 <tr class="memdesc:ga0c62a0d440fe6d79aaae77c75b55459d"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 average pooling function.  <a href="group__Pooling.html#ga0c62a0d440fe6d79aaae77c75b55459d">More...</a><br /></td></tr>
 <tr class="separator:ga0c62a0d440fe6d79aaae77c75b55459d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -312,6 +303,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8323ad6c8823727608cfaed24c7f3430"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SVDF.html#ga8323ad6c8823727608cfaed24c7f3430">arm_svdf_state_s16_s8</a> (const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *input_ctx, const <a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a> *output_ctx, const <a class="el" href="structcmsis__nn__svdf__params.html">cmsis_nn_svdf_params</a> *svdf_params, const <a class="el" href="structcmsis__nn__per__tensor__quant__params.html">cmsis_nn_per_tensor_quant_params</a> *input_quant_params, const <a class="el" href="structcmsis__nn__per__tensor__quant__params.html">cmsis_nn_per_tensor_quant_params</a> *output_quant_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *state_dims, int16_t *state_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *weights_feature_dims, const int8_t *weights_feature_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *weights_time_dims, const int16_t *weights_time_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *bias_dims, const int32_t *bias_data, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
 <tr class="memdesc:ga8323ad6c8823727608cfaed24c7f3430"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 SVDF function with 16 bit state tensor and 16 bit time weights  <a href="group__SVDF.html#ga8323ad6c8823727608cfaed24c7f3430">More...</a><br /></td></tr>
 <tr class="separator:ga8323ad6c8823727608cfaed24c7f3430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga051bd1309882b30a446d9023390f16b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#ga051bd1309882b30a446d9023390f16b7">arm_lstm_unidirectional_s16_s8</a> (<a class="el" href="structcmsis__nn__lstm__context.html">cmsis_nn_lstm_context</a> *scratch_buffers, const int8_t *input_data, const <a class="el" href="structcmsis__nn__lstm__dims.html">cmsis_nn_lstm_dims</a> *lstm_dims, const int8_t *input_to_input_weights, const int8_t *input_to_forget_weights, const int8_t *input_to_cell_weights, const int8_t *input_to_output_weights, const int8_t *recurrent_to_input_weights, const int8_t *recurrent_to_forget_weights, const int8_t *recurrent_to_cell_weights, const int8_t *recurrent_to_output_weights, const int16_t *cell_to_input_weights, const int16_t *cell_to_forget_weights, const int16_t *cell_to_output_weights, const int8_t *projection_weights, const <a class="el" href="structcmsis__nn__lstm__params.html">cmsis_nn_lstm_params</a> *lstm, int8_t *output_state, int16_t *cell_state, int8_t *output_data)</td></tr>
+<tr class="memdesc:ga051bd1309882b30a446d9023390f16b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 8 bit input and output and 16 bit gate output Peephole connections, projection, clipping, combined input/forget gate and layer normalization are not supported.  <a href="group__LSTM.html#ga051bd1309882b30a446d9023390f16b7">More...</a><br /></td></tr>
+<tr class="separator:ga051bd1309882b30a446d9023390f16b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a710b6e009261290c6151f329cf409530" name="a710b6e009261290c6151f329cf409530"></a>
@@ -325,27 +319,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a7f41aa78cd9a0552fae9b348ee4831a0" name="a7f41aa78cd9a0552fae9b348ee4831a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f41aa78cd9a0552fae9b348ee4831a0">&#9670;&#160;</a></span>arm_nn_activation_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="arm__nnfunctions_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54" name="a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54"></a>ARM_SIGMOID&#160;</td><td class="fielddoc"><p >Sigmoid activation function </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5" name="a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5"></a>ARM_TANH&#160;</td><td class="fielddoc"><p >Tanh activation function </p>
-</td></tr>
-</table>
 
 </div>
 </div>

@@ -125,7 +125,8 @@ $(document).ready(function(){initNavTree('arm__nn__types_8h.html',''); initResiz
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">arm_nn_types.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -137,6 +138,8 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__context.html">cmsis_nn_context</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__lstm__dims.html">cmsis_nn_lstm_dims</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__per__channel__quant__params.html">cmsis_nn_per_channel_quant_params</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,7 +159,51 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__softmax__lut__s16.html">cmsis_nn_softmax_lut_s16</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__lstm__guard__params.html">cmsis_nn_lstm_guard_params</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__lstm__context.html">cmsis_nn_lstm_context</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__lstm__clip__params.html">cmsis_nn_lstm_clip_params</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__scaling.html">cmsis_nn_scaling</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__layer__norm.html">cmsis_nn_layer_norm</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmsis__nn__lstm__params.html">cmsis_nn_lstm_params</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a7f41aa78cd9a0552fae9b348ee4831a0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__types_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> { <br />
+&#160;&#160;<a class="el" href="arm__nn__types_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54">ARM_SIGMOID</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="arm__nn__types_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5">ARM_TANH</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:a7f41aa78cd9a0552fae9b348ee4831a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a7f41aa78cd9a0552fae9b348ee4831a0" name="a7f41aa78cd9a0552fae9b348ee4831a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f41aa78cd9a0552fae9b348ee4831a0">&#9670;&#160;</a></span>arm_nn_activation_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="arm__nn__types_8h.html#a7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Enum for specifying activation function types </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54" name="a7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54"></a>ARM_SIGMOID&#160;</td><td class="fielddoc"><p >Sigmoid activation function </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5" name="a7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5"></a>ARM_TANH&#160;</td><td class="fielddoc"><p >Tanh activation function </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
