@@ -37,7 +37,7 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @addtogroup supportLSTM
  * @{
  */
 
@@ -84,5 +84,5 @@ void arm_nn_lstm_update_output_s8_s16(const int n_batch,
     }
 }
 /**
- * @} end of NNBasicMath group
+ * @} end of supportLSTM group
  */

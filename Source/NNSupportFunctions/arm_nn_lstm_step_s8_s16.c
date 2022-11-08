@@ -33,7 +33,7 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @addtogroup supportLSTM
  * @{
  */
 
@@ -152,5 +152,5 @@ arm_cmsis_nn_status arm_nn_lstm_step_s8_s16(const int8_t *input,
     return ARM_CMSIS_NN_SUCCESS;
 }
 /**
- * @} end of NNBasicMath group
+ * @} end of supportLSTM group
  */

@@ -34,7 +34,7 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @addtogroup supportLSTM
  * @{
  */
 
@@ -63,5 +63,5 @@ void arm_nn_lstm_update_cell_state_s16(const int32_t n_block,
     }
 }
 /**
- * @} end of NNBasicMath group
+ * @} end of supportLSTM group
  */

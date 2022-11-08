@@ -35,7 +35,7 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @addtogroup supportLSTM
  * @{
  */
 
@@ -75,5 +75,5 @@ void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs,
 }
 
 /**
- * @} end of NNBasicMath group
+ * @} end of supportLSTM group
  */

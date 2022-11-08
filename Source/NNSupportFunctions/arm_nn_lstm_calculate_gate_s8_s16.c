@@ -37,7 +37,14 @@
  */
 
 /**
- * @addtogroup NNBasicMath
+ * @defgroup supportLSTM LSTM
+ *
+ * Support functions for LSTM
+ *
+ */
+
+/**
+ * @addtogroup supportLSTM
  * @{
  */
 
@@ -88,5 +95,5 @@ void arm_nn_lstm_calculate_gate_s8_s16(const int8_t *input,
     arm_nn_activation_s16(gate, gate, n_block, 0, activation_type);
 }
 /**
- * @} end of NNBasicMath group
+ * @} end of supportLSTM group
  */
