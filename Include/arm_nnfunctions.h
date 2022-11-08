@@ -1775,20 +1775,15 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
  *
  * @param[in]   scratch_buffers                 Struct containing scratch buffers
  * @param[in]   input_data                      Pointer to input data
- * @param[in]   input_dims                      Input data dimensions.  If input tensor is 2D, n denotes first
- *                                              dimension, w denotes second dimension, and h must be zero.
- *                                              If input tensor is 3D: same as above, but also h > 0 and c
- *                                              must be zero.
+ * @param[in]   lstm_dims                       LSTM input parameters related to dimensions
  * @param[in]   input_to_input_weights          Input to input weights
  * @param[in]   input_to_forget_weights         Input to forget weights
  * @param[in]   input_to_cell_weights           Input to cell weights
  * @param[in]   input_to_output_weights         Input to output weights
- * @param[in]   input_to_output_dims            Input to output dimensions
  * @param[in]   recurrent_to_input_weights      Recurrent to input weights
  * @param[in]   recurrent_to_forget_weights     Recurrent to forget weights
  * @param[in]   recurrent_to_cell_weights       Recurrent to cell weights
  * @param[in]   recurrent_to_output_weights     Recurrent to output weights
- * @param[in]   recurrent_to_output_dims        Recurrent to output dimensions
  * @param[in]   cell_to_input_weights           Cell to input weights. Not used.
  * @param[in]   cell_to_forget_weights          Cell to forget weights. Not used.
  * @param[in]   cell_to_output_weights          Cell to output weights. Not used.
@@ -1797,7 +1792,6 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
  * @param[in]   output_state                    Pointer to (recurrent) output state
  * @param[in]   cell_state                      Pointer to cell state
  * @param[in]   output_data                     Pointer to output state
- * @param[out]  output_dims                     Dimensions of output
  *
  * @note Following assumptions are done based on LSTM functionality as supported by
  *       Keras version 2.9.0 at the time of development. As stated here,
