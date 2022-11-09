@@ -24,17 +24,17 @@ Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
  
-| Operator        |   C <br> int8 |C<br>int16 | DSP<br>int8 |DSP<br>int16 | MVE<br>int8 |MVE<br>int16
-|-----------------|--------|------------------|---------------|-------|-------------|-------|
-| Conv2D          | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| DepthwiseConv2D | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| Fully Connected | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| Add             | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| Mul             | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| MaxPooling      | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| AvgPooling      | Yes    | Yes              | Yes           | Yes   | Yes         | Yes   |
-| Softmax         | Yes    | Yes              | Yes           | Yes   | No          | No   |
-| LSTM            | No     | No               | No            | No    | No          | No   |
+| Operator        | C <br> int8 | C<br>int16 | DSP<br>int8 | DSP<br>int16 | MVE<br>int8 | MVE<br>int16 |
+| --------------- | ----------- | ---------- | ----------- | ------------ | ----------- | ------------ |
+| Conv2D          | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| DepthwiseConv2D | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| Fully Connected | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| Add             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| Mul             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| MaxPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| AvgPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| Softmax         | Yes         | Yes        | Yes         | Yes          | No          | No           |
+| LSTM            | No          | No         | No          | No           | No          | No           |
 
 
 ## Contribution Guideline
@@ -95,8 +95,8 @@ you may need to specify '-fomit-frame-pointer'.
 The compiler option *'-fno-builtin'* does not utilize optimized implementations of e.g. memcpy and memset, which are heavily used by CMSIS-NN. It can significantly downgrade performance. So this should be avoided. The compiler option *'-ffreestanding'* should also be avoided as it enables '-fno-builtin' implicitly.
 
 ## Inclusive Language
-CMSIS-NN uses inclusive language and is awarded the Inclusive Language at Arm certificate.<br>
-![image](/DoxyGen/images/CMSIS_NN_ILaA_Mark_128.png)
+This product confirms to Arm’s inclusive language policy and, to the best of our knowledge, does not contain any non-inclusive language. If you find something that concerns you, email terms@arm.com.
+
 ## Support / Contact
 
 For any questions or to reach the CMSIS-NN team, please create a new issue in https://github.com/ARM-software/CMSIS-NN/issues
