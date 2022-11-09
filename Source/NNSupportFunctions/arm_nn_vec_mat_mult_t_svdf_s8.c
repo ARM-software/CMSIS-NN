@@ -23,7 +23,7 @@
  *               s16 output. Targetted at SVDF operator.
  *
  * $Date:        8 November 2022
- * $Revision:    V.2.1.0
+ * $Revision:    V.3.0.0
  *
  * Target Processor:  Cortex-M
  *

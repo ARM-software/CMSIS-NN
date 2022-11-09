@@ -22,7 +22,7 @@
  * Description:  S8 basic SVDF layer function with s16 state tensor
  *
  * $Date:        8 November 2022
- * $Revision:    V.2.1.0
+ * $Revision:    V.3.0.0
  *
  * Target Processor:  Cortex-M processors
  *

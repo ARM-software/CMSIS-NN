@@ -22,7 +22,7 @@
  * Description:  Fully connected function compatible with TF Lite.
  *
  * $Date:        8 November 2022
- * $Revision:    V.4.1.0
+ * $Revision:    V.5.0.0
  *
  * Target Processor:  Cortex-M and Cortex-A cores
  *
