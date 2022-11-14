@@ -33,8 +33,9 @@ except Exception as e:
     print(e)
     sys.exit(1)
 
-REQUIRED_MINIMUM_TENSORFLOW_VERSION = version.parse("2.5")
-CLANG_FORMAT = 'clang-format-12 -i'
+REQUIRED_MINIMUM_TENSORFLOW_VERSION = version.parse("2.10")
+
+CLANG_FORMAT = 'clang-format-12 -i'  # For formatting generated headers.
 
 INT32_MAX = 2147483647
 INT32_MIN = -2147483648
@@ -176,8 +177,15 @@ class TestSettings(ABC):
             self.regenerate_new_input = True
 
         self.headers_dir = self.OUTDIR + self.testdataset + '/'
+        os.makedirs(self.headers_dir, exist_ok=True)
+
         self.model_path = "{}model_{}".format(self.headers_dir, self.testdataset)
         self.model_path_tflite = self.model_path + '.tflite'
+
+        self.input_data_file_prefix = "input"
+        self.weight_data_file_prefix = "weights"
+        self.bias_data_file_prefix = "biases"
+        self.output_data_file_prefix = "output_ref"
 
     def save_multiple_dim_array_in_txt(self, file, data):
         header = ','.join(map(str, data.shape))
@@ -328,10 +336,14 @@ class TestSettings(ABC):
                 f.write("#define {}_INPUT_BATCHES {}\n".format(prefix, self.batches))
         self.format_output_file(filepath)
 
-    def generate_c_array(self, name, array, datatype="int8_t", const="const "):
-        os.makedirs(self.headers_dir, exist_ok=True)
+    def get_data_file_name_info(self, name_prefix) -> (str, str):
+        filename = name_prefix + "_data.h"
+        filepath = self.headers_dir + filename
+        return filename, filepath
 
+    def generate_c_array(self, name, array, datatype="int8_t", const="const ") -> None:
         w = None
+
         if type(array) is list:
             w = array
             size = len(array)
@@ -344,9 +356,7 @@ class TestSettings(ABC):
             w = w.ravel()
             size = tf.size(array)
 
-        filename = name + "_data.h"
-        filepath = self.headers_dir + filename
-
+        filename, filepath = self.get_data_file_name_info(name)
         self.generated_header_files.append(filename)
 
         print("Generating C header {}...".format(filepath))
@@ -614,27 +624,28 @@ class ConvSettings(TestSettings):
         interpreter = self.convert_and_interpret(model, inttype, input_data)
 
         all_layers_details = interpreter.get_tensor_details()
-        filter_layer = all_layers_details[1]
-        bias_layer = all_layers_details[2]
+        filter_layer = all_layers_details[2]
+        bias_layer = all_layers_details[1]
         if weights.numpy().size != interpreter.get_tensor(filter_layer['index']).size or \
            (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
-            raise RuntimeError("Dimension mismatch")
+            raise RuntimeError(f"Dimension mismatch for {self.testdataset}")
 
         output_details = interpreter.get_output_details()
         self.set_output_dims_and_padding(output_details[0]['shape'][2], output_details[0]['shape'][1])
 
-        self.generate_c_array("input", input_data, datatype=datatype)
-        self.generate_c_array("weights", interpreter.get_tensor(filter_layer['index']))
+        self.generate_c_array(self.input_data_file_prefix, input_data, datatype=datatype)
+        self.generate_c_array(self.weight_data_file_prefix, interpreter.get_tensor(filter_layer['index']))
 
         self.scaling_factors = filter_layer['quantization_parameters']['scales']
         self.generate_quantize_per_channel_multiplier()
 
-        self.generate_c_array("biases", interpreter.get_tensor(bias_layer['index']), bias_datatype)
+        self.generate_c_array(self.bias_data_file_prefix, interpreter.get_tensor(bias_layer['index']), bias_datatype)
 
         # Generate reference
         interpreter.invoke()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        self.generate_c_array("output_ref", np.clip(output_data, self.out_activation_min, self.out_activation_max),
+        self.generate_c_array(self.output_data_file_prefix,
+                              np.clip(output_data, self.out_activation_min, self.out_activation_max),
                               datatype=datatype)
 
         self.write_c_config_header()
@@ -659,7 +670,7 @@ class PoolingSettings(TestSettings):
             inttype = tf.int8
 
         input_data = self.get_randomized_input_data(input_data)
-        self.generate_c_array("input", input_data, datatype=datatype)
+        self.generate_c_array(self.input_data_file_prefix, input_data, datatype=datatype)
 
         input_data = tf.cast(input_data, tf.float32)
 
@@ -687,7 +698,8 @@ class PoolingSettings(TestSettings):
         # Generate reference
         interpreter.invoke()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        self.generate_c_array("output_ref", np.clip(output_data, self.out_activation_min, self.out_activation_max),
+        self.generate_c_array(self.output_data_file_prefix,
+                              np.clip(output_data, self.out_activation_min, self.out_activation_max),
                               datatype=datatype)
 
         self.write_c_config_header()
@@ -773,15 +785,14 @@ class FullyConnectedSettings(TestSettings):
         interpreter = self.convert_and_interpret(model, inttype, input_data)
 
         all_layers_details = interpreter.get_tensor_details()
-        if self.is_int16xint8:
+        if self.generate_bias:
             filter_layer = all_layers_details[2]
             bias_layer = all_layers_details[1]
         else:
             filter_layer = all_layers_details[1]
-            bias_layer = all_layers_details[2]
         if weights.numpy().size != interpreter.get_tensor(filter_layer['index']).size or \
            (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
-            raise RuntimeError("Dimension mismatch")
+            raise RuntimeError(f"Dimension mismatch for {self.testdataset}")
 
         # The generic destination size calculation for these tests are: self.x_output * self.y_output * self.output_ch
         # * self.batches.
@@ -794,18 +805,20 @@ class FullyConnectedSettings(TestSettings):
         self.weights_scale = filter_layer['quantization_parameters']['scales'][0]
         self.quantize_multiplier()
 
-        self.generate_c_array("input", input_data, datatype=datatype)
-        self.generate_c_array("weights", interpreter.get_tensor(filter_layer['index']))
+        self.generate_c_array(self.input_data_file_prefix, input_data, datatype=datatype)
+        self.generate_c_array(self.weight_data_file_prefix, interpreter.get_tensor(filter_layer['index']))
 
         if self.generate_bias:
-            self.generate_c_array("biases", interpreter.get_tensor(bias_layer['index']), bias_datatype)
+            self.generate_c_array(self.bias_data_file_prefix, interpreter.get_tensor(bias_layer['index']),
+                                  bias_datatype)
         else:
-            self.generate_c_array("biases", biases, bias_datatype)
+            self.generate_c_array(self.bias_data_file_prefix, biases, bias_datatype)
 
         # Generate reference
         interpreter.invoke()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        self.generate_c_array("output_ref", np.clip(output_data, self.out_activation_min, self.out_activation_max),
+        self.generate_c_array(self.output_data_file_prefix,
+                              np.clip(output_data, self.out_activation_min, self.out_activation_max),
                               datatype=datatype)
 
         self.write_c_config_header()
@@ -884,7 +897,7 @@ class SoftmaxSettings(TestSettings):
             inttype = tf.int8
             datatype = "int8_t"
 
-        self.generate_c_array("input", input_data, datatype=datatype)
+        self.generate_c_array(self.input_data_file_prefix, input_data, datatype=datatype)
 
         # Generate reference.
         if self.inInt8outInt16:
@@ -918,7 +931,7 @@ class SoftmaxSettings(TestSettings):
             output_data = interpreter.get_tensor(output_details[0]["index"])
 
         self.calc_softmax_params()
-        self.generate_c_array("output_ref", output_data, datatype=datatype)
+        self.generate_c_array(self.output_data_file_prefix, output_data, datatype=datatype)
 
         self.write_c_config_header()
         self.write_c_header_wrapper()
@@ -1059,7 +1072,7 @@ class SVDFSettings(TestSettings):
         # Generate unit test C headers
         self.generate_c_array("weights_feature", interpreter.get_tensor(weights_1_layer['index']))
         self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='int16_t')
-        self.generate_c_array("biases", interpreter.get_tensor(bias_layer['index']), "int32_t")
+        self.generate_c_array(self.bias_data_file_prefix, interpreter.get_tensor(bias_layer['index']), "int32_t")
         self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "int16_t")
 
         # Generate reference output
@@ -1072,7 +1085,7 @@ class SVDFSettings(TestSettings):
             interpreter.set_tensor(input_layer["index"], tf.cast(input_sequence, tf.int8))
             interpreter.invoke()
             svdf_ref = interpreter.get_tensor(output_layer["index"])
-        self.generate_c_array("output_ref", svdf_ref)
+        self.generate_c_array(self.output_data_file_prefix, svdf_ref)
 
         self.write_c_config_header()
         self.write_c_header_wrapper()
@@ -1154,7 +1167,7 @@ class AddMulSettings(TestSettings):
         output_data = interpreter.get_tensor(output_details[0]["index"])
         self.generate_c_array("input1", input_data1, datatype=inttype)
         self.generate_c_array("input2", input_data2, datatype=inttype)
-        self.generate_c_array("output_ref", np.clip(output_data, self.out_activation_min, self.out_activation_max),
+        self.generate_c_array(self.output_data_file_prefix, np.clip(output_data, self.out_activation_min, self.out_activation_max),
                               datatype=inttype)
 
         self.write_c_config_header()
@@ -1244,7 +1257,7 @@ class LSTMSettings(TestSettings):
         else:
             biases = self.get_randomized_data([number_cells * number_w_b],
                                               self.bias_table_file,
-                                              regenerate=self.regenerate_new_weights,
+                                              regenerate=self.regenerate_new_bias,
                                               decimals=8,minrange=-1.0, maxrange=1.0)
 
         # Create a Keras based LSTM model.
@@ -1320,7 +1333,7 @@ class LSTMSettings(TestSettings):
            not ((input_data.numpy().astype(int) == actual_input_data).all().astype(int)):
             raise RuntimeError("Input data mismatch")
 
-        self.generate_c_array("input", interpreter.get_tensor(input_data_for_index['index']))
+        self.generate_c_array(self.input_data_file_prefix, interpreter.get_tensor(input_data_for_index['index']))
         self.generate_c_array("input_to_input_w", interpreter.get_tensor(input_to_input_w['index']))
         self.generate_c_array("input_to_forget_w", interpreter.get_tensor(input_to_forget_w['index']))
         self.generate_c_array("input_to_cell_w", interpreter.get_tensor(input_to_cell_w['index']))
@@ -1411,7 +1424,7 @@ class LSTMSettings(TestSettings):
         # Generate reference
         interpreter.invoke()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        self.generate_c_array("output_ref", output_data, datatype='int8_t')
+        self.generate_c_array(self.output_data_file_prefix, output_data, datatype='int8_t')
 
         self.write_c_config_header()
         self.write_c_header_wrapper()
@@ -1534,23 +1547,23 @@ def load_testdata_sets() -> dict:
     testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=1, out_ch=1, x_in=7,
                                           y_in=7, w_x=3, w_y=3, stride_x=2, stride_y=2, pad=True)
     dataset = 'kernel1x1'
-    TESTDATA_SETS[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=19, out_ch=7, x_in=7,
+    testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=19, out_ch=7, x_in=7,
                                           y_in=5, w_x=1, w_y=1, stride_x=1, stride_y=1, pad=False,
                                           out_activation_min=-126, out_activation_max=127, batches=2)
     dataset = 'kernel1x1_stride_x'
-    TESTDATA_SETS[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=9, out_ch=5, x_in=7,
+    testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=9, out_ch=5, x_in=7,
                                           y_in=4, w_x=1, w_y=1, stride_x=3, stride_y=1, pad=False,
                                           out_activation_min=-126, out_activation_max=127, batches=2)
     dataset = 'kernel1x1_stride_x_y'
-    TESTDATA_SETS[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=23, out_ch=15, x_in=7,
+    testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=23, out_ch=15, x_in=7,
                                           y_in=6, w_x=1, w_y=1, stride_x=2, stride_y=2, pad=False,
                                           out_activation_min=-126, out_activation_max=127, batches=3)
     dataset = 'kernel1x1_stride_x_y_1'
-    TESTDATA_SETS[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=5, out_ch=5, x_in=4,
+    testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=5, out_ch=5, x_in=4,
                                           y_in=4, w_x=1, w_y=1, stride_x=2, stride_y=2, pad=False,
                                           out_activation_min=-126, out_activation_max=127, batches=2)
     dataset = 'kernel1x1_stride_x_y_2'
-    TESTDATA_SETS[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=5, out_ch=5, x_in=4,
+    testdata_sets[dataset] = ConvSettings(dataset, type_of_test, args, in_ch=5, out_ch=5, x_in=4,
                                           y_in=4, w_x=1, w_y=1, stride_x=3, stride_y=3, pad=False,
                                           out_activation_min=-126, out_activation_max=127, batches=2)
     dataset = 'conv_3'
