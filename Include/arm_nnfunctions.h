@@ -39,14 +39,14 @@
    * performance and minimize the memory footprint of neural networks on Arm Cortex-M processors.
    *
    * The library is divided into a number of functions each covering a specific category:
-   * - \ref NNConv Convolution Functions
-   * - \ref Acti "Activation Functions"
-   * - \ref FC Fully-connected Layer Functions
-   * - \ref SVDF Layer Functions
-   * - \ref Pooling Functions
-   * - \ref Softmax Functions
-   * - \ref groupElementwise Basic math Functions
-   *
+   * - \ref NNConv
+   * - \ref Acti
+   * - \ref FC
+   * - \ref SVDF
+   * - \ref Pooling
+   * - \ref Softmax
+   * - \ref groupElementwise
+   * - \ref LSTM
    *
    * \section Processors Supported Processors
    *
