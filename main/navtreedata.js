@@ -40,13 +40,18 @@ var NAVTREE =
     ] ],
     [ "Revision History", "rev_hist.html", null ],
     [ "Todo List", "todo.html", null ],
-    [ " API Reference", "modules.html", "modules" ]
+    [ " API Reference", "modules.html", "modules" ],
+    [ "Data Structures", "annotated.html", "annotated" ],
+    [ "Data Fields", "functions.html", [
+      [ "All", "functions.html", null ],
+      [ "Variables", "functions_vars.html", null ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"group__Acti.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
