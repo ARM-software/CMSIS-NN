@@ -91,9 +91,8 @@
    *  assembly. This has to be explicitly set at compile time.
    *
    * \section Inclusive Inclusive Language
-   * CMSIS-NN uses inclusive language and is awarded the Inclusive Language at Arm certificate.
-   *
-   * \image html CMSIS_NN_ILaA_Mark_128.png
+   * This product confirms to Arm’s inclusive language policy and, to the best of our knowledge,
+   * does not contain any non-inclusive language. If you find something that concerns you, email terms@arm.com.
    *
    * \section Copyright Copyright Notice
    *
