@@ -32,7 +32,6 @@
         <file category="header" name="Include/arm_nnfunctions.h"/>
         <file category="header" name="Include/arm_nnsupportfunctions.h"/>
         <file category="header" name="Include/arm_nn_tables.h"/>
-        <file category="header" name="Include/arm_nn_math_types.h"/>
 
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c"/>
