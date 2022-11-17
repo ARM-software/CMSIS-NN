@@ -80,9 +80,9 @@
    * For a CMSIS-NN file compiled as *armclang -mcpu=cortex-m4 --target=arm-arm-none-eabi -I<CMSIS Core Include>
    * -Ofast -O file.c* , ARM_MATH_DSP is enabled as Cortex-M4 has the DSP extension as a feature.
    *
-   * - `ARM_MATH_DSP`  - Selects code for processors with DSP extension.
+   * - `ARM_MATH_DSP`  - Selects code for processors with DSP extension
    *
-   * - `ARM_MATH_MVEI`  - Selects code for processors which supports MVE instructions.
+   * - `ARM_MATH_MVEI`  - Selects code for processors which supports MVE instructions
    *
    * \subsection MiscFlags User Set
    * - `ARM_MATH_AUTOVECTORIZE`
