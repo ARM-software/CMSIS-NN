@@ -432,7 +432,6 @@ int32_t arm_convolve_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, c
  * @details
  *   - Supported framework : TensorFlow Lite Micro
  *   - The following constrains on the arguments apply
- *      -# input_dims->c is a multiple of 4
  *      -# conv_params->padding.w = conv_params->padding.h = 0
  *      -# conv_params->stride.w = conv_params->stride.h = 1
  *
