@@ -127,8 +127,6 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
-<td>v4.0.0-dev </td><td>Merge branch 'from_cmsis_5' into main   </td></tr>
-<tr>
 <td>v4.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS_5/releases/tag/5.9.0">CMSIS 5.9.0</a></p>
 <p class="intertd">The return type of all API's that returned a status is now changed. CMSIS-NN used error codes from CMSIS-DSP in the form of enum 'arm_status'. This is now replaced by enum 'arm_cmsis_nn_status'. The status values are still the same. It is reccomended that users change the return type in their applications.</p>
 <p class="intertd">Neural Network(NN) operators which do not follow the quantization specification of TensorFlow Lite for Microcontrollers is removed. Existing users can use CMSIS 5.9.0 release to continue using it. As a consequence of this, the data type aliases q7_t, q15_t, q31_t and q63_t are replaced by int8_t, int16_t, int32_t, int64_t respectively.</p>
