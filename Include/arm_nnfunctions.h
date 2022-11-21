@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        7 November 2022
- * $Revision:    V.11.2.0
+ * $Date:        21 November 2022
+ * $Revision:    V.11.2.1
  *
  * Target Processor:  Arm Cortex-M Processors
  * -------------------------------------------------------------------- */
