@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        7 November 2022
- * $Revision:    V.11.2.0
+ * $Date:        21 November 2022
+ * $Revision:    V.11.2.1
  *
  * Target Processor:  Arm Cortex-M Processors
  * -------------------------------------------------------------------- */
@@ -432,7 +432,6 @@ int32_t arm_convolve_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, c
  * @details
  *   - Supported framework : TensorFlow Lite Micro
  *   - The following constrains on the arguments apply
- *      -# input_dims->c is a multiple of 4
  *      -# conv_params->padding.w = conv_params->padding.h = 0
  *      -# conv_params->stride.w = conv_params->stride.h = 1
  *
