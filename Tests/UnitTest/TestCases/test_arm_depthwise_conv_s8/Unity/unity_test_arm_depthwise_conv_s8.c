@@ -44,20 +44,10 @@ void setUp(void)
  */
 void tearDown(void) {}
 
-void test_basic_arm_depthwise_conv_s8(void) { basic_arm_depthwise_conv_s8(); }
-
-void test_stride2pad1_arm_depthwise_conv_s8(void) { stride2pad1_arm_depthwise_conv_s8(); }
-
 void test_depthwise_2_arm_depthwise_conv_s8(void) { depthwise_2_arm_depthwise_conv_s8(); }
 
-void test_depthwise_out_activation_arm_depthwise_conv_s8(void) { depthwise_out_activation_arm_depthwise_conv_s8(); }
-
 void test_depthwise_mult_batches_arm_depthwise_conv_s8(void) { depthwise_mult_batches_arm_depthwise_conv_s8(); }
-
-void test_depthwise_null_bias_0_arm_depthwise_conv_s8(void) { depthwise_null_bias_0_arm_depthwise_conv_s8(); }
 
 void test_depthwise_null_bias_1_arm_depthwise_conv_s8(void) { depthwise_null_bias_1_arm_depthwise_conv_s8(); }
 
 void test_depthwise_dilation_arm_depthwise_conv_s8(void) { depthwise_dilation_arm_depthwise_conv_s8(); }
-
-void test_depthwise_x_stride_arm_depthwise_conv_s8(void) { depthwise_x_stride_arm_depthwise_conv_s8(); }

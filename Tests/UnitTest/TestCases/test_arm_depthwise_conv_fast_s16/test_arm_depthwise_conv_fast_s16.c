@@ -28,21 +28,8 @@
 #include "../TestData/dw_int16xint8_fast_stride/test_data.h"
 #include "../TestData/dw_int16xint8_fast_stride_null_bias/test_data.h"
 #include "../TestData/dw_int16xint8_fast_test_bias/test_data.h"
+#include "../Utils/utils.h"
 #include "../Utils/validate.h"
-
-const int64_t *get_bias_s64_address(const int64_t *bias, int32_t size)
-{
-    const int64_t *return_bias = NULL;
-    for (int i = 0; i < size; i++)
-    {
-        if (bias[i] != 0)
-        {
-            return_bias = bias;
-            break;
-        }
-    }
-    return return_bias;
-}
 
 void dw_int16xint8_fast_arm_depthwise_conv_fast_s16(void)
 {
@@ -114,7 +101,10 @@ void dw_int16xint8_fast_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -207,7 +197,10 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -300,7 +293,10 @@ void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -394,7 +390,10 @@ void dw_int16xint8_fast_null_bias_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -488,7 +487,10 @@ void dw_int16xint8_fast_stride_null_bias_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -582,7 +584,10 @@ void dw_int16xint8_fast_spill_null_bias_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -676,7 +681,10 @@ void dw_int16xint8_fast_test_bias_arm_depthwise_conv_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -770,7 +778,10 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_arm_depthwise_conv_fast_
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,
@@ -865,7 +876,10 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_arm_depthwise_
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
 
-    buf_size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    TEST_ASSERT_EQUAL(
+        buf_size,
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims));
+
     ctx.buf = malloc(buf_size);
 
     result = arm_depthwise_conv_wrapper_s16(&ctx,

@@ -22,21 +22,9 @@
 
 #include "../TestData/depthwise_kernel_3x3/test_data.h"
 #include "../TestData/depthwise_kernel_3x3_null_bias/test_data.h"
+#include "../TestData/stride2pad1/test_data.h"
+#include "../Utils/utils.h"
 #include "../Utils/validate.h"
-
-const int32_t *get_bias_address(const int32_t *bias, int32_t size)
-{
-    const int32_t *return_bias = NULL;
-    for (int i = 0; i < size; i++)
-    {
-        if (bias[i] != 0)
-        {
-            return_bias = bias;
-            break;
-        }
-    }
-    return return_bias;
-}
 
 void depthwise_kernel_3x3_arm_depthwise_conv_3x3_s8(void)
 {
@@ -109,8 +97,16 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_s8(void)
 
     const int32_t buf_size =
         arm_depthwise_conv_wrapper_s8_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+#if defined(ARM_MATH_MVEI)
+    TEST_ASSERT_TRUE(buf_size > 0);
+#else
+    TEST_ASSERT_EQUAL(buf_size, 0);
+#endif
+
     ctx.buf = malloc(buf_size);
-    ctx.size = 0;
+    ctx.size = buf_size;
+
     result = arm_depthwise_conv_wrapper_s8(&ctx,
                                            &dw_conv_params,
                                            &quant_params,
@@ -201,8 +197,16 @@ void depthwise_kernel_3x3_arm_depthwise_conv_3x3_1_s8(void)
     const arm_cmsis_nn_status expected_wrapper = ARM_CMSIS_NN_SUCCESS;
     const int32_t buf_size =
         arm_depthwise_conv_wrapper_s8_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+    // Not 3x3 variant since negative test.
+#if defined(ARM_MATH_DSP)
+    TEST_ASSERT_TRUE(buf_size > 0);
+#else
+    TEST_ASSERT_EQUAL(buf_size, 0);
+#endif
+
     ctx.buf = malloc(buf_size);
-    ctx.size = 0;
+    ctx.size = buf_size;
 
     result = arm_depthwise_conv_wrapper_s8(&ctx,
                                            &dw_conv_params,
@@ -296,8 +300,15 @@ void depthwise_kernel_3x3_null_bias_arm_depthwise_conv_3x3_null_bias_s8(void)
     const arm_cmsis_nn_status expected_wrapper = ARM_CMSIS_NN_SUCCESS;
     const int32_t buf_size =
         arm_depthwise_conv_wrapper_s8_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+#if defined(ARM_MATH_MVEI)
+    TEST_ASSERT_TRUE(buf_size > 0);
+#else
+    TEST_ASSERT_EQUAL(buf_size, 0);
+#endif
+
     ctx.buf = malloc(buf_size);
-    ctx.size = 0;
+    ctx.size = buf_size;
 
     result = arm_depthwise_conv_wrapper_s8(&ctx,
                                            &dw_conv_params,
@@ -318,4 +329,106 @@ void depthwise_kernel_3x3_null_bias_arm_depthwise_conv_3x3_null_bias_s8(void)
     }
     TEST_ASSERT_EQUAL(expected_wrapper, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_kernel_3x3_null_bias_output_ref, output_ref_size));
+}
+
+void stride2pad1_arm_depthwise_conv_3x3_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[STRIDE2PAD1_DST_SIZE] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_dw_conv_params dw_conv_params;
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims bias_dims = {};
+    cmsis_nn_dims output_dims;
+
+    const int32_t output_ref_size = STRIDE2PAD1_DST_SIZE;
+    const int32_t *bias_data = get_bias_address(stride2pad1_biases, STRIDE2PAD1_OUT_CH);
+    const int8_t *kernel_data = stride2pad1_weights;
+    const int8_t *input_data = stride2pad1_input;
+
+    input_dims.n = STRIDE2PAD1_INPUT_BATCHES;
+    input_dims.w = STRIDE2PAD1_INPUT_W;
+    input_dims.h = STRIDE2PAD1_INPUT_H;
+    input_dims.c = STRIDE2PAD1_IN_CH;
+    filter_dims.w = STRIDE2PAD1_FILTER_X;
+    filter_dims.h = STRIDE2PAD1_FILTER_Y;
+    output_dims.w = STRIDE2PAD1_OUTPUT_W;
+    output_dims.h = STRIDE2PAD1_OUTPUT_H;
+    output_dims.c = STRIDE2PAD1_OUT_CH;
+
+    dw_conv_params.padding.w = STRIDE2PAD1_PAD_X;
+    dw_conv_params.padding.h = STRIDE2PAD1_PAD_Y;
+    dw_conv_params.stride.w = STRIDE2PAD1_STRIDE_X;
+    dw_conv_params.stride.h = STRIDE2PAD1_STRIDE_Y;
+    dw_conv_params.dilation.w = STRIDE2PAD1_DILATION_X;
+    dw_conv_params.dilation.h = STRIDE2PAD1_DILATION_Y;
+
+    dw_conv_params.ch_mult = 1;
+
+    dw_conv_params.input_offset = STRIDE2PAD1_INPUT_OFFSET;
+    dw_conv_params.output_offset = STRIDE2PAD1_OUTPUT_OFFSET;
+    dw_conv_params.activation.min = STRIDE2PAD1_OUT_ACTIVATION_MIN;
+    dw_conv_params.activation.max = STRIDE2PAD1_OUT_ACTIVATION_MAX;
+    quant_params.multiplier = (int32_t *)stride2pad1_output_mult;
+    quant_params.shift = (int32_t *)stride2pad1_output_shift;
+
+    ctx.buf = NULL;
+    ctx.size = 0;
+
+    arm_cmsis_nn_status result = arm_depthwise_conv_3x3_s8(&ctx,
+                                                           &dw_conv_params,
+                                                           &quant_params,
+                                                           &input_dims,
+                                                           input_data,
+                                                           &filter_dims,
+                                                           kernel_data,
+                                                           &bias_dims,
+                                                           bias_data,
+                                                           &output_dims,
+                                                           output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, ctx.size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, stride2pad1_output_ref, output_ref_size));
+
+    memset(output, 0, sizeof(output));
+
+    const int32_t buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+#if defined(ARM_MATH_MVEI)
+    TEST_ASSERT_TRUE(buf_size > 0);
+#else
+    TEST_ASSERT_EQUAL(buf_size, 0);
+#endif
+
+    ctx.buf = malloc(buf_size);
+    ctx.size = buf_size;
+
+    result = arm_depthwise_conv_wrapper_s8(&ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           bias_data,
+                                           &output_dims,
+                                           output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, stride2pad1_output_ref, output_ref_size));
 }
