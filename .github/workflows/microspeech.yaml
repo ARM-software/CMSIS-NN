@@ -34,15 +34,35 @@ env:
   AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
 
 jobs:
-  arm_virtual_hardware:
+  set_pending_status_to_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set a pending status to the PR
+        if: github.event.workflow_run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl --request POST \
+            --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
+            --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            --header 'content-type: application/json' \
+            --data '{
+              "state": "pending",
+              "context": "Microspeech",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id	}}"
+              }' \
+            --fail
+
+  build_and_run:
     name: Build and run projects on AVH
     runs-on: ubuntu-latest
+    needs: set_pending_status_to_pr
     permissions:
+      id-token: write
       contents: read
       issues: read
       checks: write
       pull-requests: write
-    if: github.event.workflow_run.conclusion != 'skipped'
 
     steps:
       - uses: actions/checkout@v3
@@ -78,7 +98,7 @@ jobs:
           cp ARM.CMSIS-NN.*.pack ../Platform_FVP_Corstone_SSE-300_Ethos-U55/
 
       - name: Download latest release pack
-        if: github.event.workflow_dispatch
+        if: not github.event.workflow_run
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
@@ -146,3 +166,43 @@ jobs:
            eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Reference.EventRecorder.log
            eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.SIMD.EventRecorder.log
            eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Helium.EventRecorder.log
+
+  set_success_status_to_pr:
+    runs-on: ubuntu-latest
+    needs: build_and_run
+    if: github.event.workflow_run && success()
+    steps:
+      - name: Set success status to the PR
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          curl --request POST \
+            --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
+            --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            --header 'content-type: application/json' \
+            --data '{
+              "state": "success",
+              "context": "Microspeech",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id	}}"
+              }' \
+            --fail
+
+  set_failure_status_to_pr:
+    runs-on: ubuntu-latest
+    needs: build_and_run
+    if: github.event.workflow_run && failure()
+    steps:
+      - name: Set failure status to the PR
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          curl --request POST \
+            --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
+            --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            --header 'content-type: application/json' \
+            --data '{
+              "state": "failure",
+              "context": "Microspeech",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id	}}"
+              }' \
+            --fail
