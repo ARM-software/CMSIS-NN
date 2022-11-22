@@ -1,0 +1,145 @@
+# SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the License); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: TFL Microspeech Example on Arm Virtual Hardware
+on:
+  workflow_run:
+    workflows: ["Build documentation and pack"]
+    types:
+      - completed
+  workflow_dispatch:
+
+env:
+  AWS_ASSUME_ROLE: ${{ secrets.AWS_ASSUME_ROLE }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+  AWS_IAM_PROFILE: ${{ secrets.AWS_IAM_PROFILE }}
+  AWS_SECURITY_GROUP_ID: ${{ secrets.AWS_SECURITY_GROUP_ID }}
+  AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
+
+jobs:
+  arm_virtual_hardware:
+    name: Build and run projects on AVH
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    if: github.event.workflow_run.conclusion != 'skipped'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ARM-software/AVH-TFLmicrospeech
+          ref: main
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install AVH Client for Python
+        run: |
+          pip install arm-avhclient
+
+      - name: Download pack from upstream workflow
+        if: github.event.workflow_run
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          mkdir -p artifacts && cd artifacts
+
+          artifacts_url=${{ github.event.workflow_run.artifacts_url }}
+
+          gh api "$artifacts_url" -q '.artifacts[] | select(.name=="artifact") | [.name, .archive_download_url] | @tsv' | \
+          while read artifact; do
+            IFS=$'\t' read name url <<< "$artifact"
+            gh api $url > "$name.zip"
+            unzip -d "$name" "$name.zip"
+          done
+
+          cp ARM.CMSIS-NN.*.pack ../Platform_FVP_Corstone_SSE-300_Ethos-U55/
+
+      - name: Download latest release pack
+        if: github.event.workflow_dispatch
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          gh release download -p "*.pack" -D Platform_FVP_Corstone_SSE-300_Ethos-U55
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: Apply patch
+        run: |
+          VERSION=$(\
+            basename $(ls Platform_FVP_Corstone_SSE-300_Ethos-U55/ARM.CMSIS-NN.*.pack) | \
+            cut -d. -f 3-5 | cut -d+ -f 1 \
+          )
+          patch -p0 <<EOF
+          --- Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Reference.cprj
+          +++ Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Reference.cprj
+          @@ -11,2 +11,3 @@
+            <packages>
+          +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
+               <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
+
+          --- Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.SIMD.cprj
+          +++ Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.SIMD.cprj
+          @@ -11,2 +11,3 @@
+            <packages>
+          +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
+               <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
+
+          --- Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Helium.cprj
+          +++ Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Helium.cprj
+          @@ -11,2 +11,3 @@
+            <packages>
+          +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
+               <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
+
+          --- avh.yml	Tue Nov 22 12:01:56 2022
+          +++ avh.yml	Tue Nov 22 12:02:08 2022
+          @@ -12,2 +12,5 @@
+           steps:
+          +  - run: |
+          +      cd Platform_FVP_Corstone_SSE-300_Ethos-U55
+          +      cpackget add ARM.CMSIS-NN.*.pack
+            - run: |
+          EOF
+
+      - name: Execute test suite on Arm Virtual Hardware at AWS
+        run: |
+          avhclient -b aws execute --specfile ./avh.yml
+
+      - name: Fetch results from Arm Virtual Hardware
+        run: |
+           cat ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Reference.log
+           cat ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.SIMD.log
+           cat ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Helium.log
+
+      - name: Decode EventRecorder logs
+        run: |
+           wget https://github.com/ARM-software/CMSIS-View/releases/download/tools%2Feventlist%2F1.0.10/eventlist-linux64.tar.gz
+           tar -xvf eventlist-linux64.tar.gz
+           chmod +x eventlist-linux64/eventlist
+           eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Reference.EventRecorder.log
+           eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.SIMD.EventRecorder.log
+           eventlist-linux64/eventlist -s ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Helium.EventRecorder.log
