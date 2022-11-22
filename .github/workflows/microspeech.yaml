@@ -102,7 +102,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          gh release download -p "*.pack" -D Platform_FVP_Corstone_SSE-300_Ethos-U55
+          gh -R ${{ github.repository }} release download -p "*.pack" -D Platform_FVP_Corstone_SSE-300_Ethos-U55
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
