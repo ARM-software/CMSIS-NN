@@ -123,21 +123,30 @@ jobs:
             <packages>
           +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
                <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
-
+          @@ -130,3 +131,2 @@
+                 <file category="sourceCpp" name="../micro_speech/src/recognize_commands.cc"/>
+          -      <file category="sourceC" name="../micro_speech/src/arm_nn_softmax_common_s8.c"/>
+               </group>
           --- Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.SIMD.cprj
           +++ Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.SIMD.cprj
           @@ -11,2 +11,3 @@
             <packages>
           +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
                <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
-
+          @@ -130,3 +131,2 @@
+                 <file category="sourceCpp" name="../micro_speech/src/recognize_commands.cc"/>
+          -      <file category="sourceC" name="../micro_speech/src/arm_nn_softmax_common_s8.c"/>
+               </group>
           --- Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Helium.cprj
           +++ Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.Helium.cprj
           @@ -11,2 +11,3 @@
             <packages>
           +    <package name="CMSIS-NN" vendor="ARM" version="${VERSION}:${VERSION}"/>
                <package name="CMSIS" vendor="ARM" version="5.9.0:5.9.0"/>
-
+          @@ -130,3 +131,2 @@
+                 <file category="sourceCpp" name="../micro_speech/src/recognize_commands.cc"/>
+          -      <file category="sourceC" name="../micro_speech/src/arm_nn_softmax_common_s8.c"/>
+               </group>
           --- avh.yml	Tue Nov 22 12:01:56 2022
           +++ avh.yml	Tue Nov 22 12:02:08 2022
           @@ -12,2 +12,5 @@
