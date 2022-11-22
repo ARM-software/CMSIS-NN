@@ -98,7 +98,7 @@ jobs:
           cp ARM.CMSIS-NN.*.pack ../Platform_FVP_Corstone_SSE-300_Ethos-U55/
 
       - name: Download latest release pack
-        if: not github.event.workflow_run
+        if: ${{ ! github.event.workflow_run }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
