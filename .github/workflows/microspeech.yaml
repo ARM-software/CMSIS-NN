@@ -16,6 +16,9 @@
 
 name: TFL Microspeech Example on Arm Virtual Hardware
 on:
+  push:
+    branches:
+      - microspeech
   workflow_run:
     workflows: ["Build documentation and pack"]
     types:
