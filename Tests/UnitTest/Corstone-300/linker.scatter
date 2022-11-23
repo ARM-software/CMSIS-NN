@@ -1,7 +1,7 @@
 #! cpp
 
 /*
- * Copyright (c) 2019-2021 Arm Limited. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2019-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -86,5 +86,6 @@ LOAD_REGION_1 DDR_START DDR_SIZE
     ; 2GB DDR4 available
     rom_dram DDR_START
     {
+        unity_test_arm_ds_cnn_l_s8.o
     }
 }
