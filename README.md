@@ -6,7 +6,7 @@ performance and minimize the memory footprint of neural networks on Arm Cortex-M
 The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16 quantization specification of TensorFlow Lite for Microcontrollers.
 
 ## Branches and Tags
-There is a single branch called 'main'. 
+There is a single branch called 'main'.
 Tags are created during a release. Two releases are planned to be done in a year. The releases can be found
 [here](https://github.com/ARM-software/CMSIS-NN/releases) .
 
@@ -16,8 +16,8 @@ Based on feature flags for a processor or architecture provided to the compiler,
 ### Pure C
  There is always a pure C implementation for an operator. This is used for processors like Arm Cortex-M0 or Cortex-M3.
 ### DSP Extension
-Processors with DSP extension uses Single Instruction Multiple Data(SIMD) instructions for optimization. Examples of 
-processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP extension. 
+Processors with DSP extension uses Single Instruction Multiple Data(SIMD) instructions for optimization. Examples of
+processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP extension.
 
 ### MVE Extension
 Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE) instructions for optimization.
@@ -55,13 +55,13 @@ Function prototypes must have a detailed comment header in Doxygen format. You c
 script in the Doxygen folder to check that no errors are introduced.
 
 ### Unit Tests
-For any new features and bug fixes, new unit tests are needed. Improvements have to be veriifed by unit tests. If you do
+For any new features and bug fixes, new unit tests are needed. Improvements have to be verifed by unit tests. If you do
 not have the means to execute the tests, you can still make the PR and comment that you need help in completing/executing
 the unit tests.
 
 ### Version & Date
 Each File has a version number and a date field that must be updated when making any change to that file. The versioning
-follows Semantic Versioning 2.0.0 format. 
+follows Semantic Versioning 2.0.0 format.
 
 ## Building CMSIS-NN as a library
 It is recommended to use toolchain files from [Arm Ethos-U Core Platform](https://review.mlplatform.org/admin/repos/ml/ethos-u/ethos-u-core-platform) project. These are supporting TARGET_CPU, which is a required argument. Note that if not specifying TARGET_CPU, these toolchains will set some default. The format must be TARGET_CPU=cortex-mXX, see examples below.
@@ -86,7 +86,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=~/ethos-u-core-platform/cmake/toolchain/armclang
 
 ### Compiler Options
 Default optimization level is set at Ofast. Please change according to project needs. Just bear in mind this can impact
-performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium 
+performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium
 Technology.
 
 The compiler option *'-fomit-frame-pointer'* is enabled by default at -O and higher. When no optimization level is specified,
