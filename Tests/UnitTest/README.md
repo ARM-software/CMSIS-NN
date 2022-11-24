@@ -7,9 +7,9 @@ The [Unity test framework](http://www.throwtheswitch.org/unity) is used for runn
 ## Requirements
 
 Python3 is required.
-It has been tested with Python 3.6 and it has been tested on Ubuntu 16 and 18.
+It has been tested with Python 3.6 and it has been tested on Ubuntu 16, 18 and 20.
 
-Make sure to use a `pip` version > 19.0 (or >20.3 for macOS), otherwise tensorflow 2 packages are not available.
+Make sure to use the latest pip version before starting.
 If in a virtual environment just start by upgrading pip.
 
 ```
@@ -53,6 +53,9 @@ Remember to add the built flatc binary to the path.
 
 For schema file download [schema.fbs](https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/lite/schema/schema.fbs).
 
+#### Using tflite_runtime
+Python package tensorflow is always needed however the script has the option to use tflite_runtime for the interpreter, which will generate the actual reference output. Python package tflite_runtime can be installed with pip and it can also be built locally. Check this [link](https://www.tensorflow.org/lite/guide/build_cmake_pip) on how to do that.
+
 ## Getting started
 
 Note that CMSIS-NN has a dependency to [CMSIS](https://github.com/ARM-software/CMSIS_5) project.
@@ -87,8 +90,6 @@ This will build all unit tests. You can also just build a specific unit test onl
 make test_arm_depthwise_conv_s8_opt
 ```
 
-
-
 Then you need to download and install the FVP based Arm Corstone-300 software, for example:
 
 ```
@@ -117,9 +118,18 @@ Generating new test data is done with the following script. Use the -h flag to g
 The script use a concept of test data sets, i.e. it need a test set data name as input. It will then generate files with that name as prefix. Multiple header files of different test sets can then be included in the actual unit test files.
 When adding a new test data set, new c files should be added or existing c files should be updated to use the new data set. See overview of the folders on how/where to add new c files.
 
-As it is now, when adding a new test data set, you would first have to go and edit the script to configure the parameters as you want.
-A new test data set (a unit test) can added by just running the script with a new name for the test data setTODO
-Once you are happy with the new test data set, it should be added in the load_all_testdatasets() function.
+The steps to add a new unit test are as follows. Add a new test test in the load_all_testdatasets() function. Run the generate script with that new test set as input. Add the new generated header files to an existing or new unit test.
+
+### Tests depending on specific TFL versions or patched TFL version
+
+#### LSTM
+
+The LSTM tests are using the tflite_runtime as interpreter.
+See [Using tflite_runtime](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/NN/Tests/UnitTest####) for more info.
+This patch is needed for needed for the tflite_runtime (or tensorflow if using that).
+https://github.com/tensorflow/tflite-micro/pull/1253 - Note that this PR is for [TFLM](https://github.com/tensorflow/tflite-micro) so it has to be ported to [TFL](https://github.com/tensorflow/tensorflow) before building the tflite_runtime.
+The issue related to this is: https://github.com/tensorflow/tflite-micro/issues/1455
+
 
 ## Overview of the Folders
 
