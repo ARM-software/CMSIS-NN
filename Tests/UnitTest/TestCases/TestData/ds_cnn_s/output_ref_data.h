@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t ds_cnn_l_layer_14_fc_output_mult[1] = {1837787805};
+const int8_t ds_cnn_s_output_ref[12] = {-128, -128, -128, -128, -128, -128, -128, -128, 53, -128, -128, -53};
