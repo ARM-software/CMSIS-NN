@@ -31,6 +31,7 @@
 #define MAX_NUM_WORDS_IN_OUT ((MAX_DIM_SIZE_BYTE_0 + MAX_DIM_SIZE_BYTE_1 + 3) / 4)
 #define IN_OUT_BUFER_0_BYTE_OFFSET (0)
 #define IN_OUT_BUFER_1_BYTE_OFFSET (MAX_SIZE_BYTES + MAX_SIZE_BYTES % 4)
+
 static int32_t in_out_buf_main[MAX_NUM_WORDS_IN_OUT];
 
 /* Get size of additional buffers required by library/framework */
@@ -418,7 +419,7 @@ void ds_cnn_s_s8_inference(void)
                                      ds_cnn_s_layer_12_fc_bias,
                                      &in_out_dim_1,
                                      in_out_buf_0);
-#if 1
+
     /***************************** Softmax *************** */
 
     arm_softmax_s8(in_out_buf_0,
@@ -428,10 +429,8 @@ void ds_cnn_s_s8_inference(void)
                    SOFTMAX_12_SHIFT,
                    SOFTMAX_12_DIFF_MIN,
                    in_out_buf_0);
-#endif
     free(ctx.buf);
 
     TEST_ASSERT_EQUAL(expected, status);
-
     TEST_ASSERT_TRUE(validate(in_out_buf_0, ds_cnn_s_output_ref, sizeof(ds_cnn_s_output_ref)));
 }

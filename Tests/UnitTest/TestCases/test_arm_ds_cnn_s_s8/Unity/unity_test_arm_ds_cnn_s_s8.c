@@ -44,4 +44,4 @@ void setUp(void)
  */
 void tearDown(void) {}
 
-void test_arm_ds_cnn_s_s8(void) {}
+void test_arm_ds_cnn_s_s8(void) { ds_cnn_s_s8_inference(); }
