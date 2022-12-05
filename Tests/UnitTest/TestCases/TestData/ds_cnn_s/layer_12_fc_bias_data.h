@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t ds_cnn_l_layer_14_fc_output_shift[1] = {-10};
+const int32_t ds_cnn_s_layer_12_fc_bias[12] = {93, 131, -99, -72, 175, -19, 2, -77, -6, -51, -3, 22};

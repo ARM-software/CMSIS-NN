@@ -87,5 +87,6 @@ LOAD_REGION_1 DDR_START DDR_SIZE
     rom_dram DDR_START
     {
         unity_test_arm_ds_cnn_l_s8.o
+        unity_test_arm_ds_cnn_s_s8.o
     }
 }

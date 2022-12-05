@@ -19,8 +19,8 @@
 #include "arm_nnfunctions.h"
 #include "unity.h"
 
+#include "../TestData/ds_cnn_l/test_data.h"
 #include "../Utils/validate.h"
-#include "test_arm_ds_cnn_l_s8_config.h"
 
 #define MAX_DIM_SIZE_BYTE_0 (CONV_0_OUTPUT_W * CONV_0_OUTPUT_H * CONV_0_OUT_CH)
 #define MAX_DIM_SIZE_BYTE_1 (DW_CONV_1_OUTPUT_H * DW_CONV_1_OUTPUT_W * DW_CONV_1_OUT_CH)
@@ -108,8 +108,8 @@ int ds_cnn_l_s8_get_buffer_size(void)
     input_dims.w = DW_CONV_3_INPUT_W;
     input_dims.c = DW_CONV_3_IN_CH;
 
-    filter_dims.h = 3;
-    filter_dims.w = 3;
+    filter_dims.h = DW_CONV_3_FILTER_H;
+    filter_dims.w = DW_CONV_3_FILTER_W;
 
     output_dims.n = 1;
     output_dims.h = 1;
@@ -443,15 +443,15 @@ void ds_cnn_l_s8_inference(void)
 
     /***************************** Fully Connected ****************/
     cmsis_nn_fc_params fc_params;
-    fc_params.activation.max = FULLY_CONNECTED_12_ACTIVATION_MAX;
-    fc_params.activation.min = FULLY_CONNECTED_12_ACTIVATION_MIN;
+    fc_params.activation.max = FULLY_CONNECTED_13_OUT_ACTIVATION_MAX;
+    fc_params.activation.min = FULLY_CONNECTED_13_OUT_ACTIVATION_MIN;
     fc_params.filter_offset = 0;
-    fc_params.input_offset = FULLY_CONNECTED_12_INPUT_OFFSET;
-    fc_params.output_offset = FULLY_CONNECTED_12_OUTPUT_OFFSET;
+    fc_params.input_offset = FULLY_CONNECTED_13_INPUT_OFFSET;
+    fc_params.output_offset = FULLY_CONNECTED_13_OUTPUT_OFFSET;
 
     cmsis_nn_per_tensor_quant_params per_tensor_quant_params;
-    per_tensor_quant_params.multiplier = FULLY_CONNECTED_12_MULT;
-    per_tensor_quant_params.shift = FULLY_CONNECTED_12_SHIFT;
+    per_tensor_quant_params.multiplier = FULLY_CONNECTED_13_OUTPUT_MULTIPLIER;
+    per_tensor_quant_params.shift = FULLY_CONNECTED_13_OUTPUT_SHIFT;
 
     in_out_dim_0.c = in_out_dim_0.c * in_out_dim_0.h * in_out_dim_0.w;
     in_out_dim_0.h = 1;
@@ -460,12 +460,12 @@ void ds_cnn_l_s8_inference(void)
     conv_filter_dims.n = in_out_dim_0.c;
     conv_filter_dims.h = 1;
     conv_filter_dims.w = 1;
-    conv_filter_dims.c = FULLY_CONNECTED_12_OUTPUT_WIDTH;
+    conv_filter_dims.c = FULLY_CONNECTED_13_OUTPUT_W;
 
     in_out_dim_1.n = 1;
     in_out_dim_1.h = 1;
     in_out_dim_1.w = 1;
-    in_out_dim_1.c = FULLY_CONNECTED_12_OUTPUT_WIDTH;
+    in_out_dim_1.c = FULLY_CONNECTED_13_OUTPUT_W;
 
     bias_dims.c = in_out_dim_1.c;
 
@@ -484,11 +484,11 @@ void ds_cnn_l_s8_inference(void)
     /***************************** Softmax *************** */
 
     arm_softmax_s8(in_out_buf_0,
-                   SOFTMAX_13_NUM_ROWS,
-                   SOFTMAX_13_ROW_SIZE,
-                   SOFTMAX_13_MULT,
-                   SOFTMAX_13_SHIFT,
-                   SOFTMAX_13_DIFF_MIN,
+                   SOFTMAX_14_NUM_ROWS,
+                   SOFTMAX_14_ROW_SIZE,
+                   SOFTMAX_14_MULT,
+                   SOFTMAX_14_SHIFT,
+                   SOFTMAX_14_DIFF_MIN,
                    in_out_buf_0);
 
     free(ctx.buf);
