@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.2
+ * $Date:        13 December 2022
+ * $Revision:    V.2.0.3
  *
  * Target Processor:  Arm Cortex-M Processors
  *
@@ -99,19 +99,20 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 acc_n3 += ip_row_3[j] * col;
             }
 #else
-            __ASM volatile("   vldrb.8         q0, [%[col]], #16     \n"
+            __ASM volatile(" .p2align 2                             \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
                            "2:                                      \n"
                            "   vaddva.s8      %[sum], q0            \n"
-                           "   vldrb.8         q1, [%[row0]], #16    \n"
+                           "   vldrb.8         q1, [%[row0]], #16   \n"
                            "   vmladava.s8    %[out0], q0, q1       \n"
-                           "   vldrb.8         q2, [%[row1]], #16    \n"
+                           "   vldrb.8         q2, [%[row1]], #16   \n"
                            "   vmladava.s8     %[out1], q0, q2      \n"
-                           "   vldrb.8         q3, [%[row2]], #16    \n"
+                           "   vldrb.8         q3, [%[row2]], #16   \n"
                            "   vmladava.s8     %[out2], q0, q3      \n"
-                           "   vldrb.8         q4, [%[row3]], #16    \n"
+                           "   vldrb.8         q4, [%[row3]], #16   \n"
                            "   vmladava.s8     %[out3], q0, q4      \n"
-                           "   vldrb.8         q0, [%[col]], #16     \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   letp            lr, 2b               \n"
                            "1:                                      \n"
                            : [col] "+r"(col_base),
@@ -169,13 +170,14 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 acc_n0 += lhs_vec[j] * col;
             }
 #else
-            __ASM volatile("   vldrb.8         q0, [%[col]], #16     \n"
+            __ASM volatile(" .p2align 2                             \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
                            "2:                                      \n"
                            "   vaddva.s8      %[sum], q0            \n"
-                           "   vldrb.8         q1, [%[row0]], #16    \n"
+                           "   vldrb.8         q1, [%[row0]], #16   \n"
                            "   vmladava.s8    %[out0], q0, q1       \n"
-                           "   vldrb.8         q0, [%[col]], #16     \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   letp            lr, 2b               \n"
                            "1:                                      \n"
                            : [col] "+r"(col_base), [sum] "+Te"(sum_tmp), [row0] "+r"(lhs_vec), [out0] "+Te"(acc_n0)
