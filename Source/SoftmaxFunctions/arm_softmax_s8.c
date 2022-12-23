@@ -21,8 +21,8 @@
  * Title:        arm_softmax_s8.c
  * Description:  S8 softmax function
  *
- * $Date:        9 March 2022
- * $Revision:    V.2.1.0
+ * $Date:        23 December 2022
+ * $Revision:    V.2.1.1
  *
  * Target Processor:  Cortex-M cores
  *
