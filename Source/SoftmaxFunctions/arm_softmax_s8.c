@@ -33,7 +33,7 @@
 
 #define ACCUM_BITS 12
 
-#ifdef ARM_MATH_MVEI
+#if defined(ARM_MATH_MVEI) && !defined(ARM_GCC_12_2_ICE)
 static int32x4_t arm_exp_on_negative_values_mve_32x4(int32x4_t val)
 {
 #define SHIFT_START (24)
@@ -91,7 +91,7 @@ void arm_softmax_s8(const int8_t *input,
                     const int32_t diff_min,
                     int8_t *output)
 {
-#ifdef ARM_MATH_MVEI
+#if defined(ARM_MATH_MVEI) && !defined(ARM_GCC_12_2_ICE)
 
 #define ACT_MIN ((int8_t)NN_Q7_MIN)
 #define ACT_MAX ((int8_t)NN_Q7_MAX)

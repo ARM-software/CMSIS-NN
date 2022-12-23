@@ -16,13 +16,16 @@
  * limitations under the License.
  */
 
-/******************************************************************************
- * @file     arm_nn_math_types.h
- * @brief    Compiler include and basic types
- * @version  V1.2.1
- * @date     26 October 2022
- * Target Processor: Cortex-M
- ******************************************************************************/
+/* ----------------------------------------------------------------------
+ * Project:      CMSIS NN Library
+ * Title:        arm_nn_math_types.h
+ * Description:  Compiler include and basic types
+ *
+ * $Date:        23 December 2022
+ * $Revision:    V.1.2.2
+ *
+ * Target Processor:  Arm Cortex-M CPUs
+ * -------------------------------------------------------------------- */
 
 /**
    Copied from CMSIS/DSP/arm_math_types.h and modified
@@ -110,7 +113,12 @@ extern "C" {
 #elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
 
 #elif defined(__GNUC__)
-// #pragma GCC diagnostic pop
+
+#if (__GNUC__ == 12 && (__GNUC_MINOR__ <= 2))
+// Workaround for Internal Compiler Error for GCC 12.2.x
+// https://gcc.gnu.org/pipermail/gcc-patches/2022-December/607963.html
+#define ARM_GCC_12_2_ICE
+#endif
 
 #elif defined(__ICCARM__)
 
