@@ -21,8 +21,8 @@
  * Title:        arm_nn_math_types.h
  * Description:  Compiler include and basic types
  *
- * $Date:        23 December 2022
- * $Revision:    V.1.2.2
+ * $Date:        28 December 2022
+ * $Revision:    V.1.3.2
  *
  * Target Processor:  Arm Cortex-M CPUs
  * -------------------------------------------------------------------- */
@@ -112,6 +112,9 @@ extern "C" {
 
 #elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
 
+#define ACLE_SMULBB __smulbb
+#define ACLE_SMULTT __smultt
+
 #elif defined(__GNUC__)
 
 #if (__GNUC__ == 12 && (__GNUC_MINOR__ <= 2))
@@ -120,8 +123,30 @@ extern "C" {
 #define ARM_GCC_12_2_ICE
 #endif
 
-#elif defined(__ICCARM__)
+#if defined(ARM_MATH_DSP)
 
+// Inline assembly routines for ACLE intrinsics that are not defined by GCC toolchain
+__STATIC_FORCEINLINE uint32_t ACLE_SMULBB(uint32_t op1, uint32_t op2)
+{
+    uint32_t result;
+
+    __ASM volatile("smulbb %0, %1, %2" : "=r"(result) : "r"(op1), "r"(op2));
+    return (result);
+}
+
+__STATIC_FORCEINLINE uint32_t ACLE_SMULTT(uint32_t op1, uint32_t op2)
+{
+    uint32_t result;
+
+    __ASM volatile("smultt %0, %1, %2" : "=r"(result) : "r"(op1), "r"(op2));
+    return (result);
+}
+
+#endif
+
+#elif defined(__ICCARM__)
+#define ACLE_SMULBB __smulbb
+#define ACLE_SMULTT __smultt
 #elif defined(__TI_ARM__)
 
 #elif defined(__CSMC__)

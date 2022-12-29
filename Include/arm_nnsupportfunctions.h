@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        9 November 2022
- * $Revision:    V.14.0.0
+ * $Date:        10 January 2023
+ * $Revision:    V.14.1.0
  *
- * Target Processor:  Arm Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
 #ifndef _ARM_NNSUPPORTFUNCTIONS_H_
@@ -1135,6 +1135,17 @@ __STATIC_FORCEINLINE void arm_nn_write_q15x2_ia(int16_t **dest_q15, int32_t src_
     *dest_q15 += 2;
 }
 
+/**
+  @brief         Write 2 s8 elements and post increment pointer.
+  @param[in]     dst  Pointer to pointer that holds address of destination.
+  @param[in]     src  Input value to be written.
+ */
+__STATIC_FORCEINLINE void arm_nn_write_s8x2_ia(int8_t **dst, int16_t src)
+{
+    memcpy(*dst, &src, 2);
+    *dst += 2;
+}
+
 // Support functions for LSTM
 /**
  * @brief Update LSTM function for an iteration step
@@ -1258,24 +1269,24 @@ void arm_nn_lstm_update_output_s8_s16(const int n_batch,
  * Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent
  * from each other).
  *
- * @param[in]   lhs          Batched vector
- * @param[in]   rhs          Weights input
- * @param[in]   bias         Bias vector
- * @param[out]  dst          Output
- * @param[in]   dst_offset   Output offset
- * @param[in]   multiplier   Multiplier for quantization
- * @param[in]   shift        Shift for quantization
- * @param[in]   rhs_cols     Input size (for each batch)
- * @param[in]   rhs_rows     Output size (for each batch)
- * @param[in]   batch        Batch size
+ * @param[in]   lhs_in           Batched vector
+ * @param[in]   rhs_in           Weights - input matrix (H(Rows)xW(Columns))
+ * @param[in]   bias             Bias vector
+ * @param[out]  dst              Output
+ * @param[in]   dst_offset       Output offset
+ * @param[in]   dst_multiplier   Multiplier for quantization
+ * @param[in]   dst_shift        Shift for quantization
+ * @param[in]   rhs_cols         Vector/matarix column length
+ * @param[in]   rhs_rows         Row count of matrix
+ * @param[in]   batch            Batch size
  */
-void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs,
-                                      const int8_t *rhs,
+void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs_in,
+                                      const int8_t *rhs_in,
                                       const int32_t *bias,
                                       int16_t *dst,
                                       const int32_t dst_offset,
-                                      const int32_t multiplier,
-                                      const int32_t shift,
+                                      const int32_t dst_multiplier,
+                                      const int32_t dst_shift,
                                       const int32_t rhs_cols,
                                       const int32_t rhs_rows,
                                       const int32_t batch);
