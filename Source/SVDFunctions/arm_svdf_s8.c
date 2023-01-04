@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_svdf_s8.c
  * Description:  S8 basic SVDF layer function
  *
- * $Date:        8 November 2022
- * $Revision:    V.5.0.0
+ * $Date:        5 January 2023
+ * $Revision:    V.5.1.0
  *
- * Target Processor:  Cortex-M processors
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -154,8 +154,8 @@ arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *input_ctx,
                     int32_t r1_1, r1_2, r2_1, r2_2;
                     v1 = read_and_pad_reordered(v1, &r1_1, &r1_2);
                     v2 = read_and_pad_reordered(v2, &r2_1, &r2_2);
-                    sum = __SMLAD(r1_1, r2_1, sum);
-                    sum = __SMLAD(r1_2, r2_2, sum);
+                    sum = SMLAD(r1_1, r2_1, sum);
+                    sum = SMLAD(r1_2, r2_2, sum);
                 }
 
                 // Process the remaining data

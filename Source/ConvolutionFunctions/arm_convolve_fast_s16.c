@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_convolve_fast_s16.c
  * Description:  Optimized s16 version of convolution.
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.1
+ * $Date:        5 January 2023
+ * $Revision:    V.2.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -168,9 +168,9 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                     ker_a = read_and_pad(ker_a, &ker_a1, &ker_a2);
 
                     ip_b1 = arm_nn_read_q15x2_ia(&ip_as_col);
-                    sum = __SMLAD(ker_a1, ip_b1, sum);
+                    sum = SMLAD(ker_a1, ip_b1, sum);
                     ip_b2 = arm_nn_read_q15x2_ia(&ip_as_col);
-                    sum = __SMLAD(ker_a2, ip_b2, sum);
+                    sum = SMLAD(ker_a2, ip_b2, sum);
 
                     col_count--;
                 }

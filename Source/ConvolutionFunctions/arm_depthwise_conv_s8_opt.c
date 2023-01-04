@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  Optimized s8 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.1.1
+ * $Date:        5 January 2023
+ * $Revision:    V.3.2.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -94,7 +94,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
     const int32_t output_activation_max = dw_conv_params->activation.max;
     int16_t *buffer_a = (int16_t *)ctx->buf;
 
-#ifdef ARM_MATH_MVEI
+    #ifdef ARM_MATH_MVEI
     /* Generate two columns from the input tensor */
     int8_t *lhs_buffer = (int8_t *)buffer_a;
     int8_t *out = output;
@@ -228,7 +228,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
         remaining_ch -= CH_IN_BLOCK_MVE;
     }
 
-#else // ARM_MATH_DSP
+    #else // ARM_MATH_DSP
     /* Run the following code in cores using DSP extension */
     int16_t *const col_buffer_start = buffer_a;
     int16_t *col_buffer = col_buffer_start;
@@ -323,30 +323,30 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                     op_a = arm_nn_read_s16x2(col_pos);
                     op_b = arm_nn_read_s16x2(col_pos + input_ch);
 
-                    ip_a2 = __SXTB16(ip_b1);
-                    ip_b1 = __SXTB16(__ROR(ip_b1, 8));
+                    ip_a2 = SXTB16(ip_b1);
+                    ip_b1 = SXTB16(ROR(ip_b1, 8));
 
-                    ip_b2 = __SXTB16(ip_a1);
-                    ip_a1 = __SXTB16(__ROR(ip_a1, 8));
+                    ip_b2 = SXTB16(ip_a1);
+                    ip_a1 = SXTB16(ROR(ip_a1, 8));
 
-                    op_c = __PKHBT(op_b, op_a, 16);
-                    op_a = __PKHTB(op_b, op_a, 16);
-                    op_b = __PKHBT(ip_b2, ip_a2, 16);
-                    sum = __SMLAD(op_c, op_b, sum);
+                    op_c = PKHBT(op_b, op_a, 16);
+                    op_a = PKHTB(op_b, op_a, 16);
+                    op_b = PKHBT(ip_b2, ip_a2, 16);
+                    sum = SMLAD(op_c, op_b, sum);
 
-                    op_b = __PKHBT(ip_b1, ip_a1, 16);
-                    sum_2 = __SMLAD(op_a, op_b, sum_2);
+                    op_b = PKHBT(ip_b1, ip_a1, 16);
+                    sum_2 = SMLAD(op_a, op_b, sum_2);
 
                     op_a = arm_nn_read_s16x2(col_pos + 2);
                     op_b = arm_nn_read_s16x2(col_pos + input_ch + 2);
 
-                    op_c = __PKHBT(op_b, op_a, 16);
-                    op_a = __PKHTB(op_b, op_a, 16);
-                    op_b = __PKHTB(ip_a2, ip_b2, 16);
-                    sum_3 = __SMLAD(op_c, op_b, sum_3);
+                    op_c = PKHBT(op_b, op_a, 16);
+                    op_a = PKHTB(op_b, op_a, 16);
+                    op_b = PKHTB(ip_a2, ip_b2, 16);
+                    sum_3 = SMLAD(op_c, op_b, sum_3);
 
-                    op_b = __PKHTB(ip_a1, ip_b1, 16);
-                    sum_4 = __SMLAD(op_a, op_b, sum_4);
+                    op_b = PKHTB(ip_a1, ip_b1, 16);
+                    sum_4 = SMLAD(op_a, op_b, sum_4);
 
                     row_pos += input_ch << 1;
                     col_pos += input_ch << 1;
@@ -422,7 +422,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
             col_buffer = col_buffer_start;
         }
     }
-#endif
+    #endif
 #else
     /* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
     return arm_depthwise_conv_s8(ctx,

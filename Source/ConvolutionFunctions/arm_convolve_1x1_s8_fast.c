@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,16 +21,15 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        03 November 2022
- * $Revision:    V.3.0.3
+ * $Date:        20 January 2023
+ * $Revision:    V.3.0.4
  *
- * Target Processor:  Arm Cortex-M Processors
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
-#include <stdio.h>
 
 /**
  *  @ingroup Public

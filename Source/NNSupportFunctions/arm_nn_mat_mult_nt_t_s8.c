@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        13 December 2022
- * $Revision:    V.2.0.3
+ * $Date:        5 January 2023
+ * $Revision:    V.2.1.0
  *
- * Target Processor:  Arm Cortex-M Processors
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -88,7 +88,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             const int8_t *col_base = rhs + i * rhs_cols;
             int32_t sum_tmp = 0;
 
-#if defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_AUTOVECTORIZE)
             for (int j = 0; j < rhs_cols; j++)
             {
                 int32_t col = col_base[j];
@@ -98,7 +98,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 acc_n2 += ip_row_2[j] * col;
                 acc_n3 += ip_row_3[j] * col;
             }
-#else
+    #else
             __ASM volatile(" .p2align 2                             \n"
                            "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
@@ -127,7 +127,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                              [out3] "+Te"(acc_n3)
                            : [cnt] "r"(rhs_cols)
                            : "q0", "q1", "q2", "q3", "q4", "memory", "r14");
-#endif
+    #endif
             int32x4_t res = {acc_n0, acc_n1, acc_n2, acc_n3};
             sum_tmp *= lhs_offset;
             if (bias)
@@ -162,14 +162,14 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             const int8_t *col_base = rhs + i * rhs_cols;
             int32_t sum_tmp = 0;
 
-#if defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_AUTOVECTORIZE)
             for (int j = 0; j < rhs_cols; j++)
             {
                 int32_t col = col_base[j];
                 sum_tmp += col;
                 acc_n0 += lhs_vec[j] * col;
             }
-#else
+    #else
             __ASM volatile(" .p2align 2                             \n"
                            "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
@@ -183,7 +183,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                            : [col] "+r"(col_base), [sum] "+Te"(sum_tmp), [row0] "+r"(lhs_vec), [out0] "+Te"(acc_n0)
                            : [cnt] "r"(rhs_cols)
                            : "q0", "q1", "memory", "r14");
-#endif
+    #endif
             sum_tmp *= lhs_offset;
             sum_tmp += acc_n0;
             if (bias)
@@ -263,132 +263,132 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             for (; rhs_cols_idx <= (rhs_cols - 16); rhs_cols_idx += 16)
             {
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val2 = __SXTB16(val1);
+                val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
+                val3 = SXTB16(val0);
                 val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
-                val1 = __SXTB16_RORn(val1, 8);
-                val0 = __SXTB16_RORn(val0, 8);
+                val1 = SXTB16_RORn(val1, 8);
+                val0 = SXTB16_RORn(val0, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val3, val2, res00);
-                val5 = __SXTB16(val4);
-                res00 = __SMLAD(val0, val1, res00);
-                val4 = __SXTB16_RORn(val4, 8);
-                res01 = __SMLAD(val3, val5, res01);
-                res01 = __SMLAD(val0, val4, res01);
+                res00 = SMLAD(val3, val2, res00);
+                val5 = SXTB16(val4);
+                res00 = SMLAD(val0, val1, res00);
+                val4 = SXTB16_RORn(val4, 8);
+                res01 = SMLAD(val3, val5, res01);
+                res01 = SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
                 val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
-                val3 = __SXTB16(val0);
-                val0 = __SXTB16_RORn(val0, 8);
-                res10 = __SMLAD(val3, val2, res10);
-                res11 = __SMLAD(val3, val5, res11);
-                res10 = __SMLAD(val0, val1, res10);
+                val3 = SXTB16(val0);
+                val0 = SXTB16_RORn(val0, 8);
+                res10 = SMLAD(val3, val2, res10);
+                res11 = SMLAD(val3, val5, res11);
+                res10 = SMLAD(val0, val1, res10);
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                res11 = __SMLAD(val0, val4, res11);
+                res11 = SMLAD(val0, val4, res11);
 
                 val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
-                val2 = __SXTB16(val1);
+                val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val1 = __SXTB16_RORn(val1, 8);
-                val0 = __SXTB16_RORn(val0, 8);
+                val3 = SXTB16(val0);
+                val1 = SXTB16_RORn(val1, 8);
+                val0 = SXTB16_RORn(val0, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val3, val2, res00);
-                val5 = __SXTB16(val4);
-                res00 = __SMLAD(val0, val1, res00);
-                val4 = __SXTB16_RORn(val4, 8);
-                res01 = __SMLAD(val3, val5, res01);
-                res01 = __SMLAD(val0, val4, res01);
+                res00 = SMLAD(val3, val2, res00);
+                val5 = SXTB16(val4);
+                res00 = SMLAD(val0, val1, res00);
+                val4 = SXTB16_RORn(val4, 8);
+                res01 = SMLAD(val3, val5, res01);
+                res01 = SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
                 val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
-                val3 = __SXTB16(val0);
-                val0 = __SXTB16_RORn(val0, 8);
-                res10 = __SMLAD(val3, val2, res10);
-                res11 = __SMLAD(val3, val5, res11);
-                res10 = __SMLAD(val0, val1, res10);
+                val3 = SXTB16(val0);
+                val0 = SXTB16_RORn(val0, 8);
+                res10 = SMLAD(val3, val2, res10);
+                res11 = SMLAD(val3, val5, res11);
+                res10 = SMLAD(val0, val1, res10);
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                res11 = __SMLAD(val0, val4, res11);
+                res11 = SMLAD(val0, val4, res11);
 
                 val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
-                val2 = __SXTB16(val1);
+                val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val1 = __SXTB16_RORn(val1, 8);
-                val0 = __SXTB16_RORn(val0, 8);
+                val3 = SXTB16(val0);
+                val1 = SXTB16_RORn(val1, 8);
+                val0 = SXTB16_RORn(val0, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val3, val2, res00);
-                val5 = __SXTB16(val4);
-                res00 = __SMLAD(val0, val1, res00);
-                val4 = __SXTB16_RORn(val4, 8);
-                res01 = __SMLAD(val3, val5, res01);
-                res01 = __SMLAD(val0, val4, res01);
+                res00 = SMLAD(val3, val2, res00);
+                val5 = SXTB16(val4);
+                res00 = SMLAD(val0, val1, res00);
+                val4 = SXTB16_RORn(val4, 8);
+                res01 = SMLAD(val3, val5, res01);
+                res01 = SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
                 val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
-                val3 = __SXTB16(val0);
-                val0 = __SXTB16_RORn(val0, 8);
-                res10 = __SMLAD(val3, val2, res10);
-                res11 = __SMLAD(val3, val5, res11);
-                res10 = __SMLAD(val0, val1, res10);
+                val3 = SXTB16(val0);
+                val0 = SXTB16_RORn(val0, 8);
+                res10 = SMLAD(val3, val2, res10);
+                res11 = SMLAD(val3, val5, res11);
+                res10 = SMLAD(val0, val1, res10);
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                res11 = __SMLAD(val0, val4, res11);
+                res11 = SMLAD(val0, val4, res11);
 
                 val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
-                val2 = __SXTB16(val1);
+                val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val1 = __SXTB16_RORn(val1, 8);
-                val0 = __SXTB16_RORn(val0, 8);
+                val3 = SXTB16(val0);
+                val1 = SXTB16_RORn(val1, 8);
+                val0 = SXTB16_RORn(val0, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val3, val2, res00);
-                val5 = __SXTB16(val4);
-                res00 = __SMLAD(val0, val1, res00);
-                val4 = __SXTB16_RORn(val4, 8);
-                res01 = __SMLAD(val3, val5, res01);
-                res01 = __SMLAD(val0, val4, res01);
+                res00 = SMLAD(val3, val2, res00);
+                val5 = SXTB16(val4);
+                res00 = SMLAD(val0, val1, res00);
+                val4 = SXTB16_RORn(val4, 8);
+                res01 = SMLAD(val3, val5, res01);
+                res01 = SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
                 val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
-                val3 = __SXTB16(val0);
-                val0 = __SXTB16_RORn(val0, 8);
-                res10 = __SMLAD(val3, val2, res10);
-                res11 = __SMLAD(val3, val5, res11);
-                res10 = __SMLAD(val0, val1, res10);
-                res11 = __SMLAD(val0, val4, res11);
+                val3 = SXTB16(val0);
+                val0 = SXTB16_RORn(val0, 8);
+                res10 = SMLAD(val3, val2, res10);
+                res11 = SMLAD(val3, val5, res11);
+                res10 = SMLAD(val0, val1, res10);
+                res11 = SMLAD(val0, val4, res11);
             }
 
             for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
             {
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val2 = __SXTB16(val1);
+                val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
+                val3 = SXTB16(val0);
                 val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
-                val1 = __SXTB16_RORn(val1, 8);
-                val0 = __SXTB16_RORn(val0, 8);
+                val1 = SXTB16_RORn(val1, 8);
+                val0 = SXTB16_RORn(val0, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val3, val2, res00);
-                val5 = __SXTB16(val4);
-                res00 = __SMLAD(val0, val1, res00);
-                val4 = __SXTB16_RORn(val4, 8);
-                res01 = __SMLAD(val3, val5, res01);
-                res01 = __SMLAD(val0, val4, res01);
+                res00 = SMLAD(val3, val2, res00);
+                val5 = SXTB16(val4);
+                res00 = SMLAD(val0, val1, res00);
+                val4 = SXTB16_RORn(val4, 8);
+                res01 = SMLAD(val3, val5, res01);
+                res01 = SMLAD(val0, val4, res01);
 
                 // 4 x MAC res10, res11
                 val0 = arm_nn_read_s8x4((const int8_t *)&lhs_ptr[lhs_off0]);
-                val3 = __SXTB16(val0);
-                val0 = __SXTB16_RORn(val0, 8);
-                res10 = __SMLAD(val3, val2, res10);
-                res11 = __SMLAD(val3, val5, res11);
-                res10 = __SMLAD(val0, val1, res10);
-                res11 = __SMLAD(val0, val4, res11);
+                val3 = SXTB16(val0);
+                val0 = SXTB16_RORn(val0, 8);
+                res10 = SMLAD(val3, val2, res10);
+                res11 = SMLAD(val3, val5, res11);
+                res10 = SMLAD(val0, val1, res10);
+                res11 = SMLAD(val0, val4, res11);
             }
 
             for (; rhs_cols_idx < rhs_cols; ++rhs_cols_idx)
@@ -459,66 +459,66 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val5 = __SXTB16(val2);
-                val4 = __SXTB16(val1);
-                val0 = __SXTB16_RORn(val0, 8);
-                val2 = __SXTB16_RORn(val2, 8);
-                val1 = __SXTB16_RORn(val1, 8);
+                val3 = SXTB16(val0);
+                val5 = SXTB16(val2);
+                val4 = SXTB16(val1);
+                val0 = SXTB16_RORn(val0, 8);
+                val2 = SXTB16_RORn(val2, 8);
+                val1 = SXTB16_RORn(val1, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val5, val3, res00);
-                res00 = __SMLAD(val2, val0, res00);
-                res01 = __SMLAD(val5, val4, res01);
-                res01 = __SMLAD(val2, val1, res01);
+                res00 = SMLAD(val5, val3, res00);
+                res00 = SMLAD(val2, val0, res00);
+                res01 = SMLAD(val5, val4, res01);
+                res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val5 = __SXTB16(val2);
-                val4 = __SXTB16(val1);
-                val0 = __SXTB16_RORn(val0, 8);
-                val2 = __SXTB16_RORn(val2, 8);
-                val1 = __SXTB16_RORn(val1, 8);
+                val3 = SXTB16(val0);
+                val5 = SXTB16(val2);
+                val4 = SXTB16(val1);
+                val0 = SXTB16_RORn(val0, 8);
+                val2 = SXTB16_RORn(val2, 8);
+                val1 = SXTB16_RORn(val1, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val5, val3, res00);
-                res00 = __SMLAD(val2, val0, res00);
-                res01 = __SMLAD(val5, val4, res01);
-                res01 = __SMLAD(val2, val1, res01);
+                res00 = SMLAD(val5, val3, res00);
+                res00 = SMLAD(val2, val0, res00);
+                res01 = SMLAD(val5, val4, res01);
+                res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val5 = __SXTB16(val2);
-                val4 = __SXTB16(val1);
-                val0 = __SXTB16_RORn(val0, 8);
-                val2 = __SXTB16_RORn(val2, 8);
-                val1 = __SXTB16_RORn(val1, 8);
+                val3 = SXTB16(val0);
+                val5 = SXTB16(val2);
+                val4 = SXTB16(val1);
+                val0 = SXTB16_RORn(val0, 8);
+                val2 = SXTB16_RORn(val2, 8);
+                val1 = SXTB16_RORn(val1, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val5, val3, res00);
-                res00 = __SMLAD(val2, val0, res00);
-                res01 = __SMLAD(val5, val4, res01);
-                res01 = __SMLAD(val2, val1, res01);
+                res00 = SMLAD(val5, val3, res00);
+                res00 = SMLAD(val2, val0, res00);
+                res01 = SMLAD(val5, val4, res01);
+                res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val5 = __SXTB16(val2);
-                val4 = __SXTB16(val1);
-                val0 = __SXTB16_RORn(val0, 8);
-                val2 = __SXTB16_RORn(val2, 8);
-                val1 = __SXTB16_RORn(val1, 8);
+                val3 = SXTB16(val0);
+                val5 = SXTB16(val2);
+                val4 = SXTB16(val1);
+                val0 = SXTB16_RORn(val0, 8);
+                val2 = SXTB16_RORn(val2, 8);
+                val1 = SXTB16_RORn(val1, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val5, val3, res00);
-                res00 = __SMLAD(val2, val0, res00);
-                res01 = __SMLAD(val5, val4, res01);
-                res01 = __SMLAD(val2, val1, res01);
+                res00 = SMLAD(val5, val3, res00);
+                res00 = SMLAD(val2, val0, res00);
+                res01 = SMLAD(val5, val4, res01);
+                res01 = SMLAD(val2, val1, res01);
             }
 
             for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
@@ -526,18 +526,18 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
-                val3 = __SXTB16(val0);
-                val5 = __SXTB16(val2);
-                val4 = __SXTB16(val1);
-                val0 = __SXTB16_RORn(val0, 8);
-                val2 = __SXTB16_RORn(val2, 8);
-                val1 = __SXTB16_RORn(val1, 8);
+                val3 = SXTB16(val0);
+                val5 = SXTB16(val2);
+                val4 = SXTB16(val1);
+                val0 = SXTB16_RORn(val0, 8);
+                val2 = SXTB16_RORn(val2, 8);
+                val1 = SXTB16_RORn(val1, 8);
 
                 // 4 x MAC res00, res01
-                res00 = __SMLAD(val5, val3, res00);
-                res00 = __SMLAD(val2, val0, res00);
-                res01 = __SMLAD(val5, val4, res01);
-                res01 = __SMLAD(val2, val1, res01);
+                res00 = SMLAD(val5, val3, res00);
+                res00 = SMLAD(val2, val0, res00);
+                res01 = SMLAD(val5, val4, res01);
+                res01 = SMLAD(val2, val1, res01);
             }
 
             // Left-over accumulations

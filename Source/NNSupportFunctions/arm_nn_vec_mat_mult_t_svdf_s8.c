@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2021-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2021-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  s8 vector by matrix (transposed) multiplication with
  *               s16 output. Targetted at SVDF operator.
  *
- * $Date:        8 November 2022
- * $Revision:    V.3.0.0
+ * $Date:        5 January 2023
+ * $Revision:    V.3.1.0
  *
- * Target Processor:  Cortex-M
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -150,7 +150,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
         rhs += rhs_cols;
 
         const int32_t offsets = rhs_sum_0 * lhs_offset;
-        acc_0 = __QADD(acc_0, offsets);
+        acc_0 = QADD(acc_0, offsets);
         acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
 
         // Clamp the result
@@ -164,7 +164,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
 
     const int16_t lhs_offset_s16 = lhs_offset;
 
-    const uint32_t lhs_offset_s16x2 = __PKHBT(lhs_offset_s16, lhs_offset_s16, 16);
+    const uint32_t lhs_offset_s16x2 = PKHBT(lhs_offset_s16, lhs_offset_s16, 16);
     for (int32_t i = 0; i < row_loop_cnt; i++)
     {
         int32_t acc_0 = 0;
@@ -179,100 +179,100 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
 
         int32_t vec_0, vec_1, ker_0, ker_1;
 
-#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#pragma clang loop unroll(disable)
-#endif
+    #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+        #pragma clang loop unroll(disable)
+    #endif
         for (; rhs_cols_idx <= (rhs_cols - 16); rhs_cols_idx += 16)
         {
             // 4 x MAC acc_0, acc1
             vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
 
             // 4 x MAC acc_0, acc1
             vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
 
             // 4 x MAC acc_0, acc1
             vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
 
             // 4 x MAC acc_0, acc1
             vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
         }
 
-#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#pragma clang loop unroll(disable)
-#endif
+    #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+        #pragma clang loop unroll(disable)
+    #endif
         for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
         {
             vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
 
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
 
             ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
 
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
         }
 
-#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#pragma clang loop unroll(disable)
-#endif
+    #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+        #pragma clang loop unroll(disable)
+    #endif
         for (; rhs_cols_idx < rhs_cols; ++rhs_cols_idx)
         {
             const int32_t lhs_temp = (*lhs_vec + lhs_offset);
@@ -304,15 +304,15 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
         for (int i = col_loop_cnt; i != 0; i--)
         {
             int32_t vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            int32_t vec_1 = __SXTAB16(lhs_offset_s16x2, __ROR((uint32_t)vec_0, 8));
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            int32_t vec_1 = SXTAB16(lhs_offset_s16x2, ROR((uint32_t)vec_0, 8));
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
 
             int32_t ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            int32_t ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            int32_t ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
         }
         for (int j = col_loop_cnt * 4; j < rhs_cols; j++)
         {

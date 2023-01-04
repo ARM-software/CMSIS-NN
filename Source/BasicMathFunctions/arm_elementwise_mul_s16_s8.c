@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_mul_s16_s8.c
  * Description:  Elementwise multiplication of 16 bit input with 8 bit output
  *
- * $Date:        10 January 2023
- * $Revision:    V.1.1.0
+ * $Date:        20 January 2023
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -81,19 +81,19 @@ arm_cmsis_nn_status arm_elementwise_mul_s16_s8(const int16_t *input_1_vect,
     }
 
 #else
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
 
     while (loop_count > 1)
     {
         int32_t input_1 = arm_nn_read_q15x2_ia(&input_1_vect);
         int32_t input_2 = arm_nn_read_q15x2_ia(&input_2_vect);
 
-        int32_t mul_res = ACLE_SMULBB(input_1, input_2);
+        int32_t mul_res = SMULBB(input_1, input_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = CLAMP(mul_res, NN_Q7_MAX, NN_Q7_MIN);
         int32_t mul = (int16_t)(mul_res & 0xFF);
 
-        mul_res = ACLE_SMULTT(input_1, input_2);
+        mul_res = SMULTT(input_1, input_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = CLAMP(mul_res, NN_Q7_MAX, NN_Q7_MIN);
         mul |= (int16_t)mul_res << 8;
@@ -101,7 +101,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s16_s8(const int16_t *input_1_vect,
         arm_nn_write_s8x2_ia(&output, mul);
         loop_count -= 2;
     }
-#endif
+    #endif
     for (int i = 0; i < loop_count; i++)
     {
         /* C = A * B */

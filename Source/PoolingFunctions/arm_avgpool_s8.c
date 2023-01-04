@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_avgpool_s8.c
  * Description:  Pooling function implementations
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.0.3
+ * $Date:        5 January 2023
+ * $Revision:    V.3.1.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -245,7 +245,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
     }
     int32_t *buffer = (int32_t *)ctx->buf;
 
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
 
     /* Run the following code for CPU's with DSP extension
      */
@@ -282,7 +282,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                     {
                         for (int i = 0; i < ch_src; i++)
                         {
-                            buffer[i] = __QADD(start[i], buffer[i]);
+                            buffer[i] = QADD(start[i], buffer[i]);
                         }
                     }
                     count++;
@@ -299,7 +299,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
             dst += ch_src;
         }
     }
-#else
+    #else
 
     /* Reference C code adapted from CMSIS-NN arm_avepool_q7_HWC.
      */
@@ -340,7 +340,7 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
         }
     }
 
-#endif
+    #endif
     return ARM_CMSIS_NN_SUCCESS;
 }
 

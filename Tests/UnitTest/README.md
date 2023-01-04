@@ -59,7 +59,7 @@ To use the tflite_runtime the script currently has to be modified.
 
 ## Getting started
 
-Note that CMSIS-NN has a dependency to [CMSIS](https://github.com/ARM-software/CMSIS_5) project.
+
 
 ### Using Arm Mbed OS supported hardware
 
@@ -73,8 +73,10 @@ Use the -h flag to get more info.
 
 ### Using FVP based on Arm Corstone-300 software
 
-The unit tests are built in the same as the CMSIS-NN library although in another location.
-Here is an example:
+The build for unit tests differs from the build of CMSIS-NN as a [standalone library](https://github.com/ARM-software/CMSIS-NN/blob/main/README.md#building-cmsis-nn-as-a-library) in that, there is a dependency to [CMSIS](https://github.com/ARM-software/CMSIS_5) project for the startup files from CMSIS-Core. This is specified by the mandatory CMSIS_PATH CMake argument.
+
+
+Here is an example for testing on Arm Cortex-M55:
 
 ```
 cd </path/to/CMSIS_NN/Tests/Unittest>
@@ -83,7 +85,6 @@ cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain/arm-none-eabi-gcc.cmake -DTARGET_CPU=cortex-m55 -DCMSIS_PATH=</path/to/CMSIS>
 make
 ```
-Some more examples under: [Building CMSIS-NN as a library](https://github.com/ARM-software/CMSIS-NN/blob/main/README.md#building-cmsis-nn-as-a-library).
 
 This will build all unit tests. You can also just build a specific unit test only, for example:
 

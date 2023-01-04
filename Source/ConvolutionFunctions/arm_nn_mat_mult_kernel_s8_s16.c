@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nn_mat_mult_kernel_s8_s16.c
  * Description:  Matrix-multiplication function for convolution
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.1.1
+ * $Date:        5 Januray 2023
+ * $Revision:    V.1.2.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
@@ -79,7 +79,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
             ch_1_out_1 = *bias++;
         }
 
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
         uint16_t col_count = num_col_a / 4;
         /* accumulate over the vector */
         while (col_count)
@@ -91,25 +91,25 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
             ip_a0 = read_and_pad(ip_a0, &a01, &a02);
             ip_a1 = read_and_pad(ip_a1, &a11, &a12);
 
-            ch_0_out_0 = __SMLAD(a01, b0, ch_0_out_0);
-            ch_0_out_1 = __SMLAD(a01, b1, ch_0_out_1);
-            ch_1_out_0 = __SMLAD(a11, b0, ch_1_out_0);
-            ch_1_out_1 = __SMLAD(a11, b1, ch_1_out_1);
+            ch_0_out_0 = SMLAD(a01, b0, ch_0_out_0);
+            ch_0_out_1 = SMLAD(a01, b1, ch_0_out_1);
+            ch_1_out_0 = SMLAD(a11, b0, ch_1_out_0);
+            ch_1_out_1 = SMLAD(a11, b1, ch_1_out_1);
 
             b0 = arm_nn_read_q15x2_ia(&ip_b0);
             b1 = arm_nn_read_q15x2_ia(&ip_b1);
 
-            ch_0_out_0 = __SMLAD(a02, b0, ch_0_out_0);
-            ch_0_out_1 = __SMLAD(a02, b1, ch_0_out_1);
-            ch_1_out_0 = __SMLAD(a12, b0, ch_1_out_0);
-            ch_1_out_1 = __SMLAD(a12, b1, ch_1_out_1);
+            ch_0_out_0 = SMLAD(a02, b0, ch_0_out_0);
+            ch_0_out_1 = SMLAD(a02, b1, ch_0_out_1);
+            ch_1_out_0 = SMLAD(a12, b0, ch_1_out_0);
+            ch_1_out_1 = SMLAD(a12, b1, ch_1_out_1);
 
             col_count--;
         } /* while over col_count */
         col_count = num_col_a & 0x3;
-#else
+    #else
         uint16_t col_count = num_col_a;
-#endif
+    #endif
         while (col_count)
         {
             int8_t a0 = *ip_a0++;
@@ -174,7 +174,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
             ch_0_out_1 = *bias++;
         }
 
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
         uint16_t col_count = num_col_a >> 2;
         while (col_count)
         {
@@ -184,20 +184,20 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
 
             ip_a0 = read_and_pad(ip_a0, &a01, &a02);
 
-            ch_0_out_0 = __SMLAD(a01, b0, ch_0_out_0);
-            ch_0_out_1 = __SMLAD(a01, b1, ch_0_out_1);
+            ch_0_out_0 = SMLAD(a01, b0, ch_0_out_0);
+            ch_0_out_1 = SMLAD(a01, b1, ch_0_out_1);
 
             b0 = arm_nn_read_q15x2_ia(&ip_b0);
             b1 = arm_nn_read_q15x2_ia(&ip_b1);
-            ch_0_out_0 = __SMLAD(a02, b0, ch_0_out_0);
-            ch_0_out_1 = __SMLAD(a02, b1, ch_0_out_1);
+            ch_0_out_0 = SMLAD(a02, b0, ch_0_out_0);
+            ch_0_out_1 = SMLAD(a02, b1, ch_0_out_1);
 
             col_count--;
         }
         col_count = num_col_a & 0x3;
-#else
+    #else
         uint16_t col_count = num_col_a;
-#endif
+    #endif
         while (col_count)
         {
             int8_t a0 = *ip_a0++;

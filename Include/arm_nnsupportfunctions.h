@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        10 January 2023
- * $Revision:    V.14.1.0
+ * $Date:        20 January 2023
+ * $Revision:    V.14.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -30,6 +30,7 @@
 #ifndef _ARM_NNSUPPORTFUNCTIONS_H_
 #define _ARM_NNSUPPORTFUNCTIONS_H_
 
+#include "Internal/arm_nn_compiler.h"
 #include "arm_nn_math_types.h"
 #include "arm_nn_types.h"
 
@@ -657,16 +658,16 @@ __STATIC_FORCEINLINE void arm_memset_s8(int8_t *dst, const int8_t val, uint32_t 
 __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *out1, int32_t *out2)
 {
     int32_t inA = arm_nn_read_s8x4_ia(&source);
-    int32_t inAbuf1 = __SXTB16_RORn((uint32_t)inA, 8);
-    int32_t inAbuf2 = __SXTB16(inA);
+    int32_t inAbuf1 = SXTB16_RORn((uint32_t)inA, 8);
+    int32_t inAbuf2 = SXTB16(inA);
 
-#ifndef ARM_MATH_BIG_ENDIAN
-    *out2 = (int32_t)(__PKHTB(inAbuf1, inAbuf2, 16));
-    *out1 = (int32_t)(__PKHBT(inAbuf2, inAbuf1, 16));
-#else
-    *out1 = (int32_t)(__PKHTB(inAbuf1, inAbuf2, 16));
-    *out2 = (int32_t)(__PKHBT(inAbuf2, inAbuf1, 16));
-#endif
+    #ifndef ARM_MATH_BIG_ENDIAN
+    *out2 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out1 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #else
+    *out1 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out2 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #endif
 
     return source;
 }
@@ -678,34 +679,13 @@ __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *o
 __STATIC_FORCEINLINE const int8_t *read_and_pad_reordered(const int8_t *source, int32_t *out1, int32_t *out2)
 {
     int32_t inA = arm_nn_read_s8x4_ia(&source);
-#ifndef ARM_MATH_BIG_ENDIAN
-    *out2 = __SXTB16(__ROR((uint32_t)inA, 8));
-    *out1 = __SXTB16(inA);
-#else
-    *out1 = __SXTB16(__ROR((uint32_t)inA, 8));
-    *out2 = __SXTB16(inA);
-#endif
-
-    return source;
-}
-
-/**
- * @brief read and expand one s8 word into two s16 words with reordering and add an offset
- */
-__STATIC_FORCEINLINE const int8_t *
-read_and_pad_reordered_with_offset(const int8_t *source, int32_t *out1, int32_t *out2, int32_t offset)
-{
-    int32_t inA = arm_nn_read_s8x4_ia(&source);
-
-#ifndef ARM_MATH_BIG_ENDIAN
-    *out2 = __SXTB16(__ROR((uint32_t)inA, 8));
-    *out1 = __SXTB16(inA);
-#else
-    *out1 = __SXTB16(__ROR((uint32_t)inA, 8));
-    *out2 = __SXTB16(inA);
-#endif
-    *out1 = __QADD16(*out1, offset);
-    *out2 = __QADD16(*out2, offset);
+    #ifndef ARM_MATH_BIG_ENDIAN
+    *out2 = SXTB16(ROR((uint32_t)inA, 8));
+    *out1 = SXTB16(inA);
+    #else
+    *out1 = SXTB16(ROR((uint32_t)inA, 8));
+    *out2 = SXTB16(inA);
+    #endif
 
     return source;
 }
@@ -774,9 +754,9 @@ void arm_nn_softmax_common_s8(const int8_t *input,
  * @brief macro for adding rounding offset
  */
 #ifndef ARM_NN_TRUNCATE
-#define NN_ROUND(out_shift) ((0x1 << out_shift) >> 1)
+    #define NN_ROUND(out_shift) ((0x1 << out_shift) >> 1)
 #else
-#define NN_ROUND(out_shift) 0
+    #define NN_ROUND(out_shift) 0
 #endif
 
 // Macros for shortening quantization functions' names and avoid long lines
@@ -1009,7 +989,7 @@ __STATIC_FORCEINLINE int32x4_t arm_divide_by_power_of_two_mve(const int32x4_t di
  */
 __STATIC_FORCEINLINE int32x4_t arm_requantize_mve(const int32x4_t val, const int32_t multiplier, const int32_t shift)
 {
-#ifdef CMSIS_NN_USE_SINGLE_ROUNDING
+    #ifdef CMSIS_NN_USE_SINGLE_ROUNDING
     const int right_shift = MIN(-1, shift);
     const int left_shift = shift - right_shift;
 
@@ -1020,10 +1000,10 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve(const int32x4_t val, const int
     result = vrshlq_s32(result, right_shift_dup);
 
     return result;
-#else
+    #else
     return arm_divide_by_power_of_two_mve(
         arm_doubling_high_mult_mve(vshlq_s32(val, vdupq_n_s32(LEFT_SHIFT(shift))), multiplier), RIGHT_SHIFT(shift));
-#endif
+    #endif
 }
 
 __STATIC_FORCEINLINE int32x4_t arm_doubling_high_mult_mve_32x4(const int32x4_t m1, const int32x4_t m2)
@@ -1043,7 +1023,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve_32x4(const int32x4_t val,
                                                        const int32x4_t multiplier,
                                                        const int32x4_t shift)
 {
-#ifdef CMSIS_NN_USE_SINGLE_ROUNDING
+    #ifdef CMSIS_NN_USE_SINGLE_ROUNDING
     const int32x4_t right_shift = vminq_s32(vdupq_n_s32(-1), shift);
     const int32x4_t left_shift = vqsubq_s32(shift, right_shift);
 
@@ -1051,7 +1031,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve_32x4(const int32x4_t val,
     result = vrshlq_s32(result, right_shift);
 
     return result;
-#else
+    #else
     const int32x4_t zz = vdupq_n_s32(0);
     const mve_pred16_t p = vcmpgtq_n_s32(shift, 0);
 
@@ -1060,7 +1040,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve_32x4(const int32x4_t val,
 
     return arm_divide_by_power_of_two_mve_32x4(arm_doubling_high_mult_mve_32x4(vshlq_s32(val, left_shift), multiplier),
                                                right_shift);
-#endif
+    #endif
 }
 #endif
 

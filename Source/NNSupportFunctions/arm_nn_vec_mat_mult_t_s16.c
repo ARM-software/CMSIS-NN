@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,14 +21,15 @@
  * Title:        arm_nn_vec_mat_mult_t_s16
  * Description:  s16 vector by matrix (transposed) multiplication
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.1.1
+ * $Date:        5 January 2023
+ * $Revision:    V.2.2.0
  *
- * Target Processor:  Cortex-M
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnsupportfunctions.h"
+
 #define MAX_COL_COUNT (512)
 
 /**
@@ -66,7 +67,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
         rhs_cols_fast = MAX_COL_COUNT;
     }
 
-#if defined(ARM_MATH_MVEI)
+    #if defined(ARM_MATH_MVEI)
     int32_t row_loop_cnt = rhs_rows / 4;
     int32_t col_loop_cnt = (rhs_cols_fast + 7) / 8;
 
@@ -214,7 +215,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
         rhs += rhs_cols;
     }
 
-#else // ARM_MATH_MVEI
+    #else // ARM_MATH_MVEI
 
     const int32_t row_loop_cnt = rhs_rows / 2;
 
@@ -242,13 +243,13 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
 
             rhs_0 = read_and_pad(rhs_0, &ker_0, &ker_1);
 
-            acc_0 = __SMLAD(ker_0, vec_part_0, acc_0);
-            acc_0 = __SMLAD(ker_1, vec_part_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_part_0, acc_0);
+            acc_0 = SMLAD(ker_1, vec_part_1, acc_0);
 
             rhs_1 = read_and_pad(rhs_1, &ker_0, &ker_1);
 
-            acc_1 = __SMLAD(ker_0, vec_part_0, acc_1);
-            acc_1 = __SMLAD(ker_1, vec_part_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_part_0, acc_1);
+            acc_1 = SMLAD(ker_1, vec_part_1, acc_1);
         }
 
         acc_64_0 += acc_0;
@@ -297,10 +298,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
             rhs_0 = read_and_pad(rhs_0, &ker_0, &ker_1);
 
             vec = arm_nn_read_q15x2_ia(&lhs_vec);
-            acc_0 = __SMLAD(ker_0, vec, acc_0);
+            acc_0 = SMLAD(ker_0, vec, acc_0);
 
             vec = arm_nn_read_q15x2_ia(&lhs_vec);
-            acc_0 = __SMLAD(ker_1, vec, acc_0);
+            acc_0 = SMLAD(ker_1, vec, acc_0);
         }
 
         acc_64_0 += acc_0;
@@ -324,8 +325,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
         *dst++ = (int16_t)tmp;
     }
 
-#endif // ARM_MATH_MVEI
-#else  // ARM_MATH_DSP
+    #endif // ARM_MATH_MVEI
+#else      // ARM_MATH_DSP
     for (int i_row_loop_cnt = 0; i_row_loop_cnt < rhs_rows; i_row_loop_cnt++)
     {
         const int16_t *lhs_ptr = lhs;
@@ -358,7 +359,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s16(const int16_t *lhs,
         *dst++ = (int16_t)result;
         rhs += rhs_cols;
     }
-#endif // ARM_MATH_DSP
+#endif     // ARM_MATH_DSP
 
     return ARM_CMSIS_NN_SUCCESS;
 }

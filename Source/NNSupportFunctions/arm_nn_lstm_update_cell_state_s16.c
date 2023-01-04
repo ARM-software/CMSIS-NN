@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nn_lstm_update_cell_state_s16.c
  * Description:  Update cell state for an incremental step of LSTM function.
  *
- * $Date:        28 December 2022
- * $Revision:    V.1.1.0
+ * $Date:        20 January 2023
+ * $Revision:    V.1.2.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -77,22 +77,22 @@ void arm_nn_lstm_update_cell_state_s16(const int32_t n_block,
         cell_state += 4;
     }
 #else
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
     while (loop_count > 1)
     {
         int32_t cell_state_01 = arm_nn_read_s16x2(cell_state);
         int32_t forget_gate_01 = arm_nn_read_q15x2_ia(&forget_gate);
 
-        int32_t value_00 = ACLE_SMULBB(cell_state_01, forget_gate_01);
-        int32_t value_01 = ACLE_SMULTT(cell_state_01, forget_gate_01);
+        int32_t value_00 = SMULBB(cell_state_01, forget_gate_01);
+        int32_t value_01 = SMULTT(cell_state_01, forget_gate_01);
         value_00 = arm_nn_divide_by_power_of_two(value_00, 15);
         value_01 = arm_nn_divide_by_power_of_two(value_01, 15);
 
         int32_t input_gate_01 = arm_nn_read_q15x2_ia(&input_gate);
         int32_t cell_gate_01 = arm_nn_read_q15x2_ia(&cell_gate);
 
-        int32_t value_10 = ACLE_SMULBB(input_gate_01, cell_gate_01);
-        int32_t value_11 = ACLE_SMULTT(input_gate_01, cell_gate_01);
+        int32_t value_10 = SMULBB(input_gate_01, cell_gate_01);
+        int32_t value_11 = SMULTT(input_gate_01, cell_gate_01);
 
         value_10 = arm_nn_divide_by_power_of_two(value_10, cell_scale);
         value_11 = arm_nn_divide_by_power_of_two(value_11, cell_scale);
@@ -106,7 +106,7 @@ void arm_nn_lstm_update_cell_state_s16(const int32_t n_block,
         arm_nn_write_q15x2_ia(&cell_state, PACK_Q15x2_32x1(value_00, value_01));
         loop_count -= 2;
     }
-#endif
+    #endif
     for (int i = 0; i < loop_count; i++)
     {
         int32_t value = cell_state[i] * forget_gate[i];

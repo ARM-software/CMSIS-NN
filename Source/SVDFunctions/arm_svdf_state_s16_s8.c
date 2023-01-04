@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_svdf_s8.c
  * Description:  S8 basic SVDF layer function with s16 state tensor
  *
- * $Date:        8 November 2022
- * $Revision:    V.3.0.0
+ * $Date:        5 January 2023
+ * $Revision:    V.3.1.0
  *
- * Target Processor:  Cortex-M processors
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -151,7 +151,7 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
                     int32_t r1 = arm_nn_read_q15x2_ia(&v1);
                     int32_t r2 = arm_nn_read_q15x2_ia(&v2);
 
-                    sum = __SMLAD(r1, r2, sum);
+                    sum = SMLAD(r1, r2, sum);
                 }
 
                 // Process the remaining data

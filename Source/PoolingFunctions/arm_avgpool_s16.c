@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_avgpool_s16.c
  * Description:  Pooling function implementations
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.2.1
+ * $Date:        5 January 2023
+ * $Revision:    V.2.3.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -222,7 +222,7 @@ arm_cmsis_nn_status arm_avgpool_s16(const cmsis_nn_context *ctx,
                     {
                         for (int i = 0; i < ch_src; i++)
                         {
-                            buffer[i] = __QADD(start[i], buffer[i]);
+                            buffer[i] = QADD(start[i], buffer[i]);
                         }
                     }
                     count++;

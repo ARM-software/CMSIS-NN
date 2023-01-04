@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_elementwise_add_s8
  * Description:  Elementwise add
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.0.2
+ * $Date:        5 January 2023
+ * $Revision:    V.3.1.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -109,7 +109,7 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
     int32_t input_2;
     int32_t sum;
 
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
     int32_t a_1, b_1, a_2, b_2;
 
     int32_t offset_1_packed, offset_2_packed;
@@ -128,11 +128,11 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
         input_1_vect = read_and_pad_reordered(input_1_vect, &b_1, &a_1);
         input_2_vect = read_and_pad_reordered(input_2_vect, &b_2, &a_2);
 
-        a_1 = __SADD16(a_1, offset_1_packed);
-        b_1 = __SADD16(b_1, offset_1_packed);
+        a_1 = SADD16(a_1, offset_1_packed);
+        b_1 = SADD16(b_1, offset_1_packed);
 
-        a_2 = __SADD16(a_2, offset_2_packed);
-        b_2 = __SADD16(b_2, offset_2_packed);
+        a_2 = SADD16(a_2, offset_2_packed);
+        b_2 = SADD16(b_2, offset_2_packed);
 
         /* Sum 1 */
         input_1 = (b_1 & 0x0FFFF) << left_shift;
@@ -197,9 +197,9 @@ arm_cmsis_nn_status arm_elementwise_add_s8(const int8_t *input_1_vect,
     }
 
     loop_count = block_size & 0x3;
-#else
+    #else
     loop_count = block_size;
-#endif
+    #endif
 
     while (loop_count > 0)
     {

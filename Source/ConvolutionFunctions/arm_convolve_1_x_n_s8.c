@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_convolve_1_x_n_s8.c
  * Description:  s8 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.1.1
+ * $Date:        23 January 2023
+ * $Revision:    V.3.2.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -101,15 +101,15 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                 for (int i = 0; i < 4; i++)
                 {
                     const int32_t actual_kernel_len = ker_end_idx[i] - ker_begin_idx[i];
-                    arm_nn_mat_mul_core_1x_s8(actual_kernel_len * input_ch,
-                                              (kernel_x - actual_kernel_len) * input_ch,
-                                              input_data + input_begin_idx[i] * input_ch,
-                                              filter_data + (ker_begin_idx[i] * input_ch),
-                                              output_ch,
-                                              conv_params,
-                                              quant_params,
-                                              bias_data,
-                                              output_data);
+                    status = arm_nn_mat_mul_core_1x_s8(actual_kernel_len * input_ch,
+                                                       (kernel_x - actual_kernel_len) * input_ch,
+                                                       input_data + input_begin_idx[i] * input_ch,
+                                                       filter_data + (ker_begin_idx[i] * input_ch),
+                                                       output_ch,
+                                                       conv_params,
+                                                       quant_params,
+                                                       bias_data,
+                                                       output_data);
                     output_data += output_ch;
                 }
             }
@@ -125,7 +125,13 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                                                         bias_data,
                                                         output_data);
             }
+
+            if (status != ARM_CMSIS_NN_SUCCESS || output_data == NULL)
+            {
+                return ARM_CMSIS_NN_NO_IMPL_ERROR;
+            }
         }
+
         /* Advance to the next batch */
         input_data += (input_x * input_ch);
     }

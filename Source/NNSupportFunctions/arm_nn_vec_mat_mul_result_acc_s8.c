@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mul_result_acc_s8.c
  * Description:  Multiplies a matrix by a vector and accumulate with output.
  *
- * $Date:        10 January 2023
- * $Revision:    V.1.1.0
+ * $Date:        20 January 2023
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -171,23 +171,23 @@ void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs_in,
             for (int j = col_loop_cnt; j != 0; j--)
             {
                 int32_t vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-                int32_t vec_1 = __SXTB16_RORn((uint32_t)vec_0, 8);
+                int32_t vec_1 = SXTB16_RORn((uint32_t)vec_0, 8);
 
-                vec_0 = __SXTB16(vec_0);
+                vec_0 = SXTB16(vec_0);
 
                 int32_t ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-                int32_t ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-                acc_0 = __SMLAD(ker_1, vec_1, acc_0);
+                int32_t ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+                acc_0 = SMLAD(ker_1, vec_1, acc_0);
 
-                ker_0 = __SXTB16(ker_0);
-                acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+                ker_0 = SXTB16(ker_0);
+                acc_0 = SMLAD(ker_0, vec_0, acc_0);
 
                 ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-                ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-                acc_1 = __SMLAD(ker_1, vec_1, acc_1);
+                ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+                acc_1 = SMLAD(ker_1, vec_1, acc_1);
 
-                ker_0 = __SXTB16(ker_0);
-                acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+                ker_0 = SXTB16(ker_0);
+                acc_1 = SMLAD(ker_0, vec_0, acc_1);
             }
 
             for (int k = col_loop_cnt * 4; k < rhs_cols; k++)
@@ -226,15 +226,15 @@ void arm_nn_vec_mat_mul_result_acc_s8(const int8_t *lhs_in,
             for (int i = col_loop_cnt; i != 0; i--)
             {
                 int32_t vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-                int32_t vec_1 = __SXTB16_RORn((uint32_t)vec_0, 8);
-                vec_0 = __SXTB16(vec_0);
+                int32_t vec_1 = SXTB16_RORn((uint32_t)vec_0, 8);
+                vec_0 = SXTB16(vec_0);
 
                 int32_t ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-                int32_t ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-                ker_0 = __SXTB16(ker_0);
+                int32_t ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+                ker_0 = SXTB16(ker_0);
 
-                acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-                acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+                acc_0 = SMLAD(ker_1, vec_1, acc_0);
+                acc_0 = SMLAD(ker_0, vec_0, acc_0);
             }
 
             for (int j = col_loop_cnt * 4; j < rhs_cols; j++)
