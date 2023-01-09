@@ -1518,6 +1518,27 @@ class LSTMSettings(TestSettings):
 
         self.lstm_scales = []
 
+        # Layer indexes. Works with tensorflow 2.10 and 2.11.
+        self.output_gate_bias_index = 1
+        self.cell_gate_bias_index = 2
+        self.forget_gate_bias_index = 3
+        self.input_gate_bias_index = 4
+        self.recurrent_input_to_output_w_index = 5
+        self.recurrent_input_to_cell_w_index = 6
+        self.recurrent_input_to_forget_w_index = 7
+        self.recurrent_input_to_input_w_index = 8
+        self.input_to_output_w_index = 9
+        self.input_to_cell_w_index = 10
+        self.input_to_forget_w_index = 11
+        self.input_to_input_w_index = 12
+        self.output_state_index = 13
+        self.cell_state_index = 14
+        self.input_norm_coeff_index = 15
+        self.forget_norm_coeff_index = 16
+        self.cell_norm_coeff_index = 17
+        self.output_norm_coeff_index = 18
+        self.effective_hidden_scale_intermediate_index = 20
+
     def generate_data(self, input_data=None, weights=None, hidden_weights=None, biases=None) -> None:
 
         input_dims = [self.batches, self.time_steps, self.number_inputs]
@@ -1604,34 +1625,35 @@ class LSTMSettings(TestSettings):
 
         input_data_for_index = all_layers_details[0]
 
-        input_gate_bias = all_layers_details[1 + time_major_offset]
-        forget_gate_bias = all_layers_details[2 + time_major_offset]
-        cell_gate_bias = all_layers_details[3 + time_major_offset]
-        output_gate_bias = all_layers_details[4 + time_major_offset]
+        input_gate_bias = all_layers_details[self.input_gate_bias_index + time_major_offset]
+        forget_gate_bias = all_layers_details[self.forget_gate_bias_index + time_major_offset]
+        cell_gate_bias = all_layers_details[self.cell_gate_bias_index + time_major_offset]
+        output_gate_bias = all_layers_details[self.output_gate_bias_index + time_major_offset]
 
-        input_to_input_w = all_layers_details[5 + time_major_offset]
-        input_to_forget_w = all_layers_details[6 + time_major_offset]
-        input_to_cell_w = all_layers_details[7 + time_major_offset]
-        input_to_output_w = all_layers_details[8 + time_major_offset]
+        input_to_input_w = all_layers_details[self.input_to_input_w_index + time_major_offset]
+        input_to_forget_w = all_layers_details[self.input_to_forget_w_index + time_major_offset]
+        input_to_cell_w = all_layers_details[self.input_to_cell_w_index + time_major_offset]
+        input_to_output_w = all_layers_details[self.input_to_output_w_index + time_major_offset]
 
-        recurrent_input_to_input_w = all_layers_details[9 + time_major_offset]
-        recurrent_input_to_forget_w = all_layers_details[10 + time_major_offset]
-        recurrent_input_to_cell_w = all_layers_details[11 + time_major_offset]
-        recurrent_input_to_output_w = all_layers_details[12 + time_major_offset]
+        recurrent_input_to_input_w = all_layers_details[self.recurrent_input_to_input_w_index + time_major_offset]
+        recurrent_input_to_forget_w = all_layers_details[self.recurrent_input_to_forget_w_index + time_major_offset]
+        recurrent_input_to_cell_w = all_layers_details[self.recurrent_input_to_cell_w_index + time_major_offset]
+        recurrent_input_to_output_w = all_layers_details[self.recurrent_input_to_output_w_index + time_major_offset]
 
         if self.time_major:
             time_major_offset = 2
 
-        output_state = all_layers_details[13 + time_major_offset]
-        cell_state = all_layers_details[14 + time_major_offset]
+        output_state = all_layers_details[self.output_state_index + time_major_offset]
+        cell_state = all_layers_details[self.cell_state_index + time_major_offset]
 
-        input_norm_coeff = all_layers_details[15 + time_major_offset]
-        forget_norm_coeff = all_layers_details[16 + time_major_offset]
-        cell_norm_coeff = all_layers_details[17 + time_major_offset]
-        output_norm_coeff = all_layers_details[18 + time_major_offset]
+        input_norm_coeff = all_layers_details[self.input_norm_coeff_index + time_major_offset]
+        forget_norm_coeff = all_layers_details[self.forget_norm_coeff_index + time_major_offset]
+        cell_norm_coeff = all_layers_details[self.cell_norm_coeff_index + time_major_offset]
+        output_norm_coeff = all_layers_details[self.output_norm_coeff_index + time_major_offset]
 
         # For scale and zero point.
-        effective_hidden_scale_intermediate = all_layers_details[20 + time_major_offset]
+        effective_hidden_scale_intermediate = all_layers_details[self.effective_hidden_scale_intermediate_index +
+                                                                 time_major_offset]
 
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
@@ -1733,15 +1755,23 @@ class LSTMSettings(TestSettings):
 
         self.effective_hidden_scale = pow(2, -15) / output_state_scale * pow(2, -15)
 
-        self.i2i_effective_scale = input_scale * self.lstm_scales[5 + time_major_offset][0] / intermediate_scale
-        self.i2f_effective_scale = input_scale * self.lstm_scales[6 + time_major_offset][0] / intermediate_scale
-        self.i2c_effective_scale = input_scale * self.lstm_scales[7 + time_major_offset][0] / intermediate_scale
-        self.i2o_effective_scale = input_scale * self.lstm_scales[8 + time_major_offset][0] / intermediate_scale
+        self.i2i_effective_scale = input_scale * self.lstm_scales[self.input_to_input_w_index + time_major_offset][0] \
+            / intermediate_scale
+        self.i2f_effective_scale = input_scale * self.lstm_scales[self.input_to_forget_w_index + time_major_offset][0] \
+            / intermediate_scale
+        self.i2c_effective_scale = input_scale * self.lstm_scales[self.input_to_cell_w_index + time_major_offset][0] \
+            / intermediate_scale
+        self.i2o_effective_scale = input_scale * self.lstm_scales[self.input_to_output_w_index + time_major_offset][0] \
+            / intermediate_scale
 
-        self.r2i_effective_scale = output_state_scale * self.lstm_scales[9 + time_major_offset][0] / intermediate_scale
-        self.r2f_effective_scale = output_state_scale * self.lstm_scales[10 + time_major_offset][0] / intermediate_scale
-        self.r2c_effective_scale = output_state_scale * self.lstm_scales[11 + time_major_offset][0] / intermediate_scale
-        self.r2o_effective_scale = output_state_scale * self.lstm_scales[12 + time_major_offset][0] / intermediate_scale
+        self.r2i_effective_scale = output_state_scale * self.lstm_scales[self.recurrent_input_to_input_w_index +
+                                                                         time_major_offset][0] / intermediate_scale
+        self.r2f_effective_scale = output_state_scale * self.lstm_scales[self.recurrent_input_to_forget_w_index +
+                                                                         time_major_offset][0] / intermediate_scale
+        self.r2c_effective_scale = output_state_scale * self.lstm_scales[self.recurrent_input_to_cell_w_index +
+                                                                         time_major_offset][0] / intermediate_scale
+        self.r2o_effective_scale = output_state_scale * self.lstm_scales[self.recurrent_input_to_output_w_index +
+                                                                         time_major_offset][0] / intermediate_scale
 
     def calc_effective_bias(self, interpreter, zero_point, weight_tensor, bias_tensor, has_bias=True) -> list:
 
@@ -1770,11 +1800,6 @@ class LSTMSettings(TestSettings):
         filename = self.config_data
         filepath = self.headers_dir + filename
         prefix = self.testdataset.upper()
-
-        if self.time_major:
-            time_major_offset = 1
-        else:
-            time_major_offset = 0
 
         with open(filepath, "a") as f:
             f.write("#define {}_BUFFER_SIZE {}\n".format(prefix, self.batches * self.number_units))
@@ -3453,8 +3478,8 @@ def load_testdata_sets() -> dict:
                                           schema_file,
                                           batches=1,
                                           time_steps=10,
-                                          number_inputs=5,
-                                          number_units=3,
+                                          number_inputs=22,
+                                          number_units=11,
                                           time_major=True)
     dataset = 'lstm_2'
     testdata_sets[dataset] = LSTMSettings(dataset,
@@ -3466,7 +3491,7 @@ def load_testdata_sets() -> dict:
                                           batches=2,
                                           time_steps=9,
                                           number_inputs=6,
-                                          number_units=5,
+                                          number_units=7,
                                           time_major=False)
     dataset = 'lstm_one_time_step'
     testdata_sets[dataset] = LSTMSettings(dataset,
@@ -3475,10 +3500,10 @@ def load_testdata_sets() -> dict:
                                           regenerate_input,
                                           regenerate_biases,
                                           schema_file,
-                                          batches=2,
+                                          batches=3,
                                           time_steps=1,
-                                          number_inputs=4,
-                                          number_units=4,
+                                          number_inputs=22,
+                                          number_units=3,
                                           time_major=False)
 
     return testdata_sets
