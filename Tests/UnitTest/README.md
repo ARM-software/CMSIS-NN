@@ -126,8 +126,8 @@ The steps to add a new unit test are as follows. Add a new test test in the load
 #### LSTM
 
 The LSTM tests are using the tflite_runtime as interpreter.
-See [Using tflite_runtime](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/NN/Tests/UnitTest####) for more info.
-This patch is needed for needed for the tflite_runtime (or tensorflow if using that).
+See [Using tflite_runtime](https://github.com/ARM-software/CMSIS-NN/blob/main/Tests/UnitTest/README.md#using-tflite_runtime) for more info.
+This patch is needed for the tflite_runtime (or tensorflow if using that):
 https://github.com/tensorflow/tflite-micro/pull/1253 - Note that this PR is for [TFLM](https://github.com/tensorflow/tflite-micro) so it has to be ported to [TFL](https://github.com/tensorflow/tensorflow) before building the tflite_runtime.
 The issue related to this is: https://github.com/tensorflow/tflite-micro/issues/1455
 
