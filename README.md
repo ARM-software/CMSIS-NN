@@ -33,8 +33,8 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | Mul             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
 | MaxPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
 | AvgPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| Softmax         | Yes         | Yes        | Yes         | Yes          | No          | No           |
-| LSTM            | No          | No         | No          | No           | No          | No           |
+| Softmax         | Yes         | Yes        | Yes         | Yes          | Yes         | No           |
+| LSTM            | Yes         | NA         | Yes         | NA           | Yes         | NA           |
 
 
 ## Contribution Guideline
