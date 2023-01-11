@@ -140,9 +140,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga332c49e8ab431463b84b603954eb69df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#ga332c49e8ab431463b84b603954eb69df">arm_nn_lstm_update_output_s8_s16</a> (const int n_batch, const int n_cell, const int n_output, int16_t *cell_state, const int32_t cell_state_scale, const int16_t *output_gate, const <a class="el" href="structcmsis__nn__scaling.html">cmsis_nn_scaling</a> hidden_scaling, const int32_t hidden_offset, int8_t *output_state, int16_t *cell_gate_scratch, int8_t *scratch)</td></tr>
 <tr class="memdesc:ga332c49e8ab431463b84b603954eb69df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the output state tensor of an LSTM step, s8 input/output and s16 weight version.  <a href="group__supportLSTM.html#ga332c49e8ab431463b84b603954eb69df">More...</a><br /></td></tr>
 <tr class="separator:ga332c49e8ab431463b84b603954eb69df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae03d33a6cdf3fdbcdc4b78a88bee5e64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gae03d33a6cdf3fdbcdc4b78a88bee5e64">arm_nn_vec_mat_mul_result_acc_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int16_t *dst, const int32_t output_offset, const int32_t multiplier, const int32_t shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t batch)</td></tr>
-<tr class="memdesc:gae03d33a6cdf3fdbcdc4b78a88bee5e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the multiplication is accumulated to the passed result buffer. Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent from each other).  <a href="group__supportLSTM.html#gae03d33a6cdf3fdbcdc4b78a88bee5e64">More...</a><br /></td></tr>
-<tr class="separator:gae03d33a6cdf3fdbcdc4b78a88bee5e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga277bf0f67ccf7c5d7c21e7d87e8f986b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#ga277bf0f67ccf7c5d7c21e7d87e8f986b">arm_nn_vec_mat_mul_result_acc_s8</a> (const int8_t *lhs_in, const int8_t *rhs_in, const int32_t *bias, int16_t *dst, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t batch)</td></tr>
+<tr class="memdesc:ga277bf0f67ccf7c5d7c21e7d87e8f986b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the multiplication is accumulated to the passed result buffer. Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent from each other).  <a href="group__supportLSTM.html#ga277bf0f67ccf7c5d7c21e7d87e8f986b">More...</a><br /></td></tr>
+<tr class="separator:ga277bf0f67ccf7c5d7c21e7d87e8f986b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p >Support functions for LSTM </p>
@@ -534,8 +534,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gae03d33a6cdf3fdbcdc4b78a88bee5e64" name="gae03d33a6cdf3fdbcdc4b78a88bee5e64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae03d33a6cdf3fdbcdc4b78a88bee5e64">&#9670;&nbsp;</a></span>arm_nn_vec_mat_mul_result_acc_s8()</h2>
+<a id="ga277bf0f67ccf7c5d7c21e7d87e8f986b" name="ga277bf0f67ccf7c5d7c21e7d87e8f986b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga277bf0f67ccf7c5d7c21e7d87e8f986b">&#9670;&nbsp;</a></span>arm_nn_vec_mat_mul_result_acc_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,13 +544,13 @@ Functions</h2></td></tr>
           <td class="memname">void arm_nn_vec_mat_mul_result_acc_s8 </td>
           <td>(</td>
           <td class="paramtype">const int8_t *&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
+          <td class="paramname"><em>lhs_in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int8_t *&#160;</td>
-          <td class="paramname"><em>rhs</em>, </td>
+          <td class="paramname"><em>rhs_in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -574,13 +574,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>multiplier</em>, </td>
+          <td class="paramname"><em>dst_multiplier</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>shift</em>, </td>
+          <td class="paramname"><em>dst_shift</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -609,15 +609,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Batched vector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Weights input </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_in</td><td>Batched vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_in</td><td>Weights - input matrix (H(Rows)xW(Columns)) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Bias vector </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">dst_offset</td><td>Output offset </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">multiplier</td><td>Multiplier for quantization </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">shift</td><td>Shift for quantization </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Input size (for each batch) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Output size (for each batch) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_multiplier</td><td>Multiplier for quantization </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_shift</td><td>Shift for quantization </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Vector/matarix column length </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Row count of matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">batch</td><td>Batch size </td></tr>
   </table>
   </dd>
