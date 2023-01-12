@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_elementwise_mul_s8
  * Description:  Element wise multiplication
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.2
+ * $Date:        16 January 2023
+ * $Revision:    V.2.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -123,10 +123,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         b_2 = __SADD16(b_2, offset_2_packed);
 
         /* Mul 1 */
-        input_1 = (int16_t)(b_1 & 0x0FFFFL);
-        input_2 = (int16_t)(b_2 & 0x0FFFFL);
-
-        mul_res = input_1 * input_2;
+        mul_res = ACLE_SMULBB(b_1, b_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
 
         mul_res = MAX(mul_res, out_activation_min);
@@ -134,30 +131,21 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         r1 = (int8_t)mul_res;
 
         /* Mul 3 */
-        input_1 = (int16_t)((b_1 >> 16U) & 0x0FFFFL);
-        input_2 = (int16_t)((b_2 >> 16U) & 0x0FFFFL);
-
-        mul_res = input_1 * input_2;
+        mul_res = ACLE_SMULTT(b_1, b_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
         r3 = (int8_t)mul_res;
 
         /* Mul 2 */
-        input_1 = (int16_t)(a_1 & 0x0FFFFL);
-        input_2 = (int16_t)(a_2 & 0x0FFFFL);
-
-        mul_res = input_1 * input_2;
+        mul_res = ACLE_SMULBB(a_1, a_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
         r2 = (int8_t)mul_res;
 
         /* Mul 4 */
-        input_1 = (int16_t)((a_1 >> 16U) & 0x0FFFFL);
-        input_2 = (int16_t)((a_2 >> 16U) & 0x0FFFFL);
-
-        mul_res = input_1 * input_2;
+        mul_res = ACLE_SMULTT(a_1, a_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
