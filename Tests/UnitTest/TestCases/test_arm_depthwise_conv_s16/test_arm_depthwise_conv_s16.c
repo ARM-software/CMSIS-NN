@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -313,4 +313,50 @@ void dw_int16xint8_mult4_arm_depthwise_conv_s16(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+}
+
+void arm_depthwise_conv_wrapper_s16_buffer(void)
+{
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    cmsis_nn_dw_conv_params dw_conv_params;
+    input_dims.n = DW_INT16XINT8_MULT4_INPUT_BATCHES;
+    input_dims.w = DW_INT16XINT8_MULT4_INPUT_W;
+    input_dims.h = DW_INT16XINT8_MULT4_INPUT_H;
+    input_dims.c = DW_INT16XINT8_MULT4_IN_CH;
+    filter_dims.w = DW_INT16XINT8_MULT4_FILTER_X;
+    filter_dims.h = DW_INT16XINT8_MULT4_FILTER_Y;
+
+    output_dims.w = DW_INT16XINT8_MULT4_OUTPUT_W;
+    output_dims.h = DW_INT16XINT8_MULT4_OUTPUT_H;
+    output_dims.c = input_dims.c;
+
+    dw_conv_params.padding.w = DW_INT16XINT8_MULT4_PAD_X;
+    dw_conv_params.padding.h = DW_INT16XINT8_MULT4_PAD_Y;
+    dw_conv_params.stride.w = DW_INT16XINT8_MULT4_STRIDE_X;
+    dw_conv_params.stride.h = DW_INT16XINT8_MULT4_STRIDE_Y;
+    dw_conv_params.dilation.w = DW_INT16XINT8_MULT4_DILATION_X;
+    dw_conv_params.dilation.h = DW_INT16XINT8_MULT4_DILATION_Y;
+    dw_conv_params.ch_mult = output_dims.c / input_dims.c;
+
+    int32_t size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+#if defined(ARM_MATH_DSP)
+    TEST_ASSERT_TRUE(size > 0);
+#else
+    TEST_ASSERT_TRUE(size == 0);
+#endif
+    input_dims.c = 513;
+    output_dims.c = input_dims.c;
+    dw_conv_params.ch_mult = output_dims.c / input_dims.c;
+    size = arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+
+#if defined(ARM_MATH_DSP)
+    TEST_ASSERT_TRUE(size > 0);
+#else
+    TEST_ASSERT_TRUE(size == 0);
+#endif
 }
