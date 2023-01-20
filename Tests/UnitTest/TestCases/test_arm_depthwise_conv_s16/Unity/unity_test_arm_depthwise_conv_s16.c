@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * Copyright (C) 2010-2023 Arm Limited or its affiliates.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -47,3 +47,4 @@ void tearDown(void) {}
 void test_dw_int16xint8_arm_depthwise_conv_s16(void) { dw_int16xint8_arm_depthwise_conv_s16(); }
 void test_dw_int16xint8_dilation_arm_depthwise_conv_s16(void) { dw_int16xint8_dilation_arm_depthwise_conv_s16(); }
 void test_dw_int16xint8_mult4_arm_depthwise_conv_s16(void) { dw_int16xint8_mult4_arm_depthwise_conv_s16(); }
+void test_arm_depthwise_conv_wrapper_s16_buffer(void) { arm_depthwise_conv_wrapper_s16_buffer(); }

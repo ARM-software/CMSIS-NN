@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Wrapper API to select appropriate depthwise conv API based
  *               on dimensions.
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.0.2
+ * $Date:        18 January 2023
+ * $Revision:    V.1.0.3
  *
  * Target Processor:  Cortex-M CPUs
  *
@@ -33,7 +33,7 @@
 
 #define USE_FAST_DW_CONV_FUNCTION(dw_conv_params, filter_dims, input_dims)                                             \
     (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
-     filter_dims->w * filter_dims->h * input_dims->c < 512)
+     filter_dims->w * filter_dims->h < 512)
 
 /**
  *  @ingroup Public
@@ -102,9 +102,6 @@ int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size(const cmsis_nn_dw_conv_pa
                                                        const cmsis_nn_dims *filter_dims,
                                                        const cmsis_nn_dims *output_dims)
 {
-    (void)dw_conv_params;
-    (void)input_dims;
-    (void)filter_dims;
     (void)output_dims;
     int32_t size = 0;
 
