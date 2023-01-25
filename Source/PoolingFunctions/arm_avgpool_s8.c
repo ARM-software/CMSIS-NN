@@ -21,7 +21,7 @@
  * Title:        arm_avgpool_s8.c
  * Description:  Pooling function implementations
  *
- * $Date:        5 January 2023
+ * $Date:        30 January 2023
  * $Revision:    V.3.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
@@ -346,17 +346,6 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
 
 #endif /* ARM_MATH_MVEI */
 
-int32_t arm_avgpool_s8_get_buffer_size(const int output_x, const int ch_src)
-{
-    (void)output_x;
-
-#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    return (ch_src * sizeof(int32_t));
-#else
-    (void)ch_src;
-    return 0;
-#endif
-}
 /**
  * @} end of Pooling group
  */

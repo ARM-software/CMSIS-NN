@@ -40,6 +40,10 @@
 extern "C" {
 #endif
 
+#define USE_FAST_DW_CONV_S16_FUNCTION(dw_conv_params, filter_dims, input_dims)                                         \
+    (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
+     filter_dims->w * filter_dims->h < 512)
+
 #define LEFT_SHIFT(_shift) (_shift > 0 ? _shift : 0)
 #define RIGHT_SHIFT(_shift) (_shift > 0 ? 0 : -_shift)
 #define MASK_IF_ZERO(x) (x) == 0 ? ~0 : 0

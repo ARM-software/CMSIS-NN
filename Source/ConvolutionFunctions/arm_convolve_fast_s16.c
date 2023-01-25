@@ -21,7 +21,7 @@
  * Title:        arm_convolve_fast_s16.c
  * Description:  Optimized s16 version of convolution.
  *
- * $Date:        5 January 2023
+ * $Date:        30 January 2023
  * $Revision:    V.2.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
@@ -223,17 +223,6 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
-}
-
-int32_t arm_convolve_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
-{
-#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    return (2 * input_dims->c * filter_dims->w * filter_dims->h) * (int32_t)sizeof(int16_t);
-#else
-    (void)input_dims;
-    (void)filter_dims;
-    return 0;
-#endif
 }
 
 /**

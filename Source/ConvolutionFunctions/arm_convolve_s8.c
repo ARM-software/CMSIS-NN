@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        5 January 2023
- * $Revision:    V.3.1.0
+ * $Date:        30 January 2023
+ * $Revision:    V.3.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -318,20 +318,6 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
-}
-
-int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
-{
-#if defined(ARM_MATH_MVEI)
-    int32_t col_length = input_dims->c * filter_dims->w * filter_dims->h;
-    // Get number of complete int16 lanes(multiple of 8) for given col_length. This is dependent on
-    // implementation of  arm_nn_mat_mult_s8
-    col_length = (col_length + 7) / 8;
-    // 4 -> number of im2col buffers, 8 -> 8 elements per Q register
-    return 4 * col_length * 8 * (int32_t)sizeof(int8_t);
-#else
-    return (2 * input_dims->c * filter_dims->w * filter_dims->h) * (int32_t)sizeof(int16_t);
-#endif
 }
 
 /**

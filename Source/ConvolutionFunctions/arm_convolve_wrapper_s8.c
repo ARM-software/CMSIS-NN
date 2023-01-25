@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  s8 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  * cmsis-nn to perform the convolution.
  *
- * $Date:        3 November 2022
- * $Revision:    V.2.2.0
+ * $Date:        11 January 2023
+ * $Revision:    V.2.3.0
  *
- * Target Processor:  Arm Cortex-M Processors
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -118,34 +118,6 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
                                bias_data,
                                output_dims,
                                output_data);
-    }
-}
-
-int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv_params,
-                                                const cmsis_nn_dims *input_dims,
-                                                const cmsis_nn_dims *filter_dims,
-                                                const cmsis_nn_dims *output_dims)
-{
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
-        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
-    {
-        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
-        {
-            return arm_convolve_1x1_s8_fast_get_buffer_size(input_dims);
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    else if ((input_dims->h == 1) && (output_dims->w % 4 == 0) && (conv_params->dilation.w == 1) &&
-             (filter_dims->h == 1))
-    {
-        return arm_convolve_1_x_n_s8_get_buffer_size(input_dims, filter_dims);
-    }
-    else
-    {
-        return arm_convolve_s8_get_buffer_size(input_dims, filter_dims);
     }
 }
 

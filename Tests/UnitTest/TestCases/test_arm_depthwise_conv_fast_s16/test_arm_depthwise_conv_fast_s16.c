@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -901,4 +901,120 @@ void dw_int16xint8_fast_multiple_batches_uneven_buffers_null_bias_arm_depthwise_
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+}
+
+void buffer_size_arm_depthwise_conv_fast_s16(void)
+{
+    cmsis_nn_dw_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_BATCHES;
+    input_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_W;
+    input_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_H;
+    input_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_IN_CH;
+    filter_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_X;
+    filter_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_Y;
+    output_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_W;
+    output_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_H;
+    output_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_CH;
+
+    conv_params.padding.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_X;
+    conv_params.padding.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_Y;
+    conv_params.stride.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_X;
+    conv_params.stride.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_Y;
+    conv_params.dilation.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_X;
+    conv_params.dilation.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_Y;
+    conv_params.ch_mult = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_CH_MULT;
+    conv_params.input_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_OFFSET;
+    conv_params.output_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_OFFSET;
+    conv_params.activation.min = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MAX;
+
+    const int32_t buf_size = arm_depthwise_conv_fast_s16_get_buffer_size(&input_dims, &filter_dims);
+    const int32_t wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, buf_size);
+}
+
+void buffer_size_mve_arm_depthwise_conv_fast_s16(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_dw_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_BATCHES;
+    input_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_W;
+    input_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_H;
+    input_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_IN_CH;
+    filter_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_X;
+    filter_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_Y;
+    output_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_W;
+    output_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_H;
+    output_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_CH;
+
+    conv_params.padding.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_X;
+    conv_params.padding.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_Y;
+    conv_params.stride.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_X;
+    conv_params.stride.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_Y;
+    conv_params.dilation.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_X;
+    conv_params.dilation.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_Y;
+    conv_params.ch_mult = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_CH_MULT;
+    conv_params.input_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_OFFSET;
+    conv_params.output_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_OFFSET;
+    conv_params.activation.min = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_depthwise_conv_fast_s16(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_dw_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_BATCHES;
+    input_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_W;
+    input_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_H;
+    input_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_IN_CH;
+    filter_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_X;
+    filter_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_FILTER_Y;
+    output_dims.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_W;
+    output_dims.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_H;
+    output_dims.c = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_CH;
+
+    conv_params.padding.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_X;
+    conv_params.padding.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_PAD_Y;
+    conv_params.stride.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_X;
+    conv_params.stride.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_STRIDE_Y;
+    conv_params.dilation.w = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_X;
+    conv_params.dilation.h = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_DILATION_Y;
+
+    conv_params.ch_mult = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_CH_MULT;
+
+    conv_params.input_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_INPUT_OFFSET;
+    conv_params.output_offset = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUTPUT_OFFSET;
+    conv_params.activation.min = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = DW_INT16XINT8_FAST_MULTIPLE_BATCHES_UNEVEN_BUFFERS_NULL_BIAS_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
 }

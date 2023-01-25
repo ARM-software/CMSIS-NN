@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com> All rights
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com> All rights
  * reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -210,5 +210,119 @@ void requantize_s64_arm_convolve_fast_s16(void)
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
 #else
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, result);
+#endif
+}
+
+void buffer_size_arm_convolve_fast_s16(void)
+{
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = REQUANTIZE_S64_INPUT_BATCHES;
+    input_dims.w = REQUANTIZE_S64_INPUT_W;
+    input_dims.h = REQUANTIZE_S64_INPUT_H;
+    input_dims.c = REQUANTIZE_S64_IN_CH;
+    filter_dims.w = REQUANTIZE_S64_FILTER_X;
+    filter_dims.h = REQUANTIZE_S64_FILTER_Y;
+    output_dims.w = REQUANTIZE_S64_OUTPUT_W;
+    output_dims.h = REQUANTIZE_S64_OUTPUT_H;
+    output_dims.c = REQUANTIZE_S64_OUT_CH;
+
+    conv_params.padding.w = REQUANTIZE_S64_PAD_X;
+    conv_params.padding.h = REQUANTIZE_S64_PAD_Y;
+    conv_params.stride.w = REQUANTIZE_S64_STRIDE_X;
+    conv_params.stride.h = REQUANTIZE_S64_STRIDE_Y;
+    conv_params.dilation.w = REQUANTIZE_S64_DILATION_X;
+    conv_params.dilation.h = REQUANTIZE_S64_DILATION_Y;
+
+    conv_params.input_offset = REQUANTIZE_S64_INPUT_OFFSET;
+    conv_params.output_offset = REQUANTIZE_S64_OUTPUT_OFFSET;
+    conv_params.activation.min = REQUANTIZE_S64_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = REQUANTIZE_S64_OUT_ACTIVATION_MAX;
+
+    const int32_t buf_size = arm_convolve_fast_s16_get_buffer_size(&input_dims, &filter_dims);
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, buf_size);
+}
+
+void buffer_size_mve_arm_convolve_fast_s16(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = REQUANTIZE_S64_INPUT_BATCHES;
+    input_dims.w = REQUANTIZE_S64_INPUT_W;
+    input_dims.h = REQUANTIZE_S64_INPUT_H;
+    input_dims.c = REQUANTIZE_S64_IN_CH;
+    filter_dims.w = REQUANTIZE_S64_FILTER_X;
+    filter_dims.h = REQUANTIZE_S64_FILTER_Y;
+    output_dims.w = REQUANTIZE_S64_OUTPUT_W;
+    output_dims.h = REQUANTIZE_S64_OUTPUT_H;
+    output_dims.c = REQUANTIZE_S64_OUT_CH;
+
+    conv_params.padding.w = REQUANTIZE_S64_PAD_X;
+    conv_params.padding.h = REQUANTIZE_S64_PAD_Y;
+    conv_params.stride.w = REQUANTIZE_S64_STRIDE_X;
+    conv_params.stride.h = REQUANTIZE_S64_STRIDE_Y;
+    conv_params.dilation.w = REQUANTIZE_S64_DILATION_X;
+    conv_params.dilation.h = REQUANTIZE_S64_DILATION_Y;
+
+    conv_params.input_offset = REQUANTIZE_S64_INPUT_OFFSET;
+    conv_params.output_offset = REQUANTIZE_S64_OUTPUT_OFFSET;
+    conv_params.activation.min = REQUANTIZE_S64_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = REQUANTIZE_S64_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_convolve_fast_s16(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = REQUANTIZE_S64_INPUT_BATCHES;
+    input_dims.w = REQUANTIZE_S64_INPUT_W;
+    input_dims.h = REQUANTIZE_S64_INPUT_H;
+    input_dims.c = REQUANTIZE_S64_IN_CH;
+    filter_dims.w = REQUANTIZE_S64_FILTER_X;
+    filter_dims.h = REQUANTIZE_S64_FILTER_Y;
+    output_dims.w = REQUANTIZE_S64_OUTPUT_W;
+    output_dims.h = REQUANTIZE_S64_OUTPUT_H;
+    output_dims.c = REQUANTIZE_S64_OUT_CH;
+
+    conv_params.padding.w = REQUANTIZE_S64_PAD_X;
+    conv_params.padding.h = REQUANTIZE_S64_PAD_Y;
+    conv_params.stride.w = REQUANTIZE_S64_STRIDE_X;
+    conv_params.stride.h = REQUANTIZE_S64_STRIDE_Y;
+    conv_params.dilation.w = REQUANTIZE_S64_DILATION_X;
+    conv_params.dilation.h = REQUANTIZE_S64_DILATION_Y;
+
+    conv_params.input_offset = REQUANTIZE_S64_INPUT_OFFSET;
+    conv_params.output_offset = REQUANTIZE_S64_OUTPUT_OFFSET;
+    conv_params.activation.min = REQUANTIZE_S64_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = REQUANTIZE_S64_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
 #endif
 }

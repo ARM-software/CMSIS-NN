@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2020, 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -54,3 +54,7 @@ void test_depthwise_kernel_3x3_arm_depthwise_conv_3x3_null_bias_s8(void)
 }
 
 void test_stride2pad1_arm_depthwise_conv_3x3_s8(void) { stride2pad1_arm_depthwise_conv_3x3_s8(); }
+
+void test_buffer_size_mve_arm_depthwise_conv_3x3_s8(void) { buffer_size_mve_arm_depthwise_conv_3x3_s8(); }
+
+void test_buffer_size_dsp_arm_depthwise_conv_3x3_s8(void) { buffer_size_dsp_arm_depthwise_conv_3x3_s8(); }
