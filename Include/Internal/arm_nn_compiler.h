@@ -54,24 +54,6 @@
         #define __RESTRICT __restrict
     #endif
 
-#elif defined(__GNUC__)
-
-    #ifndef __ASM
-        #define __ASM __asm
-    #endif
-    #ifndef __INLINE
-        #define __INLINE inline
-    #endif
-    #ifndef __STATIC_INLINE
-        #define __STATIC_INLINE static inline
-    #endif
-    #ifndef __STATIC_FORCEINLINE
-        #define __STATIC_FORCEINLINE __attribute__((always_inline)) static inline
-    #endif
-    #ifndef __RESTRICT
-        #define __RESTRICT __restrict
-    #endif
-
 #elif defined(__ICCARM__)
 
     #warning IAR support is not tested
@@ -104,6 +86,24 @@
     #endif
     #ifndef __ALIGNED
         #define __ALIGNED(x) __declspec(align(x))
+    #endif
+
+#elif defined(__GNUC__)
+
+    #ifndef __ASM
+        #define __ASM __asm
+    #endif
+    #ifndef __INLINE
+        #define __INLINE inline
+    #endif
+    #ifndef __STATIC_INLINE
+        #define __STATIC_INLINE static inline
+    #endif
+    #ifndef __STATIC_FORCEINLINE
+        #define __STATIC_FORCEINLINE __attribute__((always_inline)) static inline
+    #endif
+    #ifndef __RESTRICT
+        #define __RESTRICT __restrict
     #endif
 
 #else
