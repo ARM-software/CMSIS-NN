@@ -13,6 +13,15 @@
     </release>
   </releases>
 
+  <!-- conditions are dependency rules that can apply to a component or an individual file -->
+  <conditions>
+    <!-- CMSIS-NN -->
+    <condition id="CMSIS-NN">
+      <description>No additional components required for CMSIS-NN</description>
+    </condition>
+  </conditions>
+
+
   <components>
     <!-- CMSIS-NN component -->
     <component Cclass="CMSIS" Cgroup="NN Lib" Cversion="0.0.0" condition="CMSIS-NN">
