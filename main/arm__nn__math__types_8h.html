@@ -121,8 +121,7 @@ $(document).ready(function(){initNavTree('arm__nn__math__types_8h.html',''); ini
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">arm_nn_math_types.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -130,7 +129,7 @@ $(document).ready(function(){initNavTree('arm__nn__math__types_8h.html',''); ini
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a602e8d32c870d50039bbd651fd9b4544"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__math__types_8h.html#a602e8d32c870d50039bbd651fd9b4544">NN_Q31_MAX</a>&#160;&#160;&#160;((int32_t)(0x7FFFFFFFL))</td></tr>
-<tr class="memdesc:a602e8d32c870d50039bbd651fd9b4544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add necessary typedefs.  <a href="arm__nn__math__types_8h.html#a602e8d32c870d50039bbd651fd9b4544">More...</a><br /></td></tr>
+<tr class="memdesc:a602e8d32c870d50039bbd651fd9b4544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate architecture feature flags to CMSIS-NN defines.  <a href="arm__nn__math__types_8h.html#a602e8d32c870d50039bbd651fd9b4544">More...</a><br /></td></tr>
 <tr class="separator:a602e8d32c870d50039bbd651fd9b4544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30fe8775d9c28c72fb7c336ab4751269"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__math__types_8h.html#a30fe8775d9c28c72fb7c336ab4751269">NN_Q15_MAX</a>&#160;&#160;&#160;((int16_t)(0x7FFF))</td></tr>
 <tr class="separator:a30fe8775d9c28c72fb7c336ab4751269"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,19 +141,6 @@ Macros</h2></td></tr>
 <tr class="separator:a51e8177e289decc5ccf94be9c160064d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a342199b16a4abf4da4a7607a3a552b4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__math__types_8h.html#a342199b16a4abf4da4a7607a3a552b4f">NN_Q7_MIN</a>&#160;&#160;&#160;((int8_t)(0x80))</td></tr>
 <tr class="separator:a342199b16a4abf4da4a7607a3a552b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a67ac3e1e650a7040b0f706fb83ea6184"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> { <br />
-&#160;&#160;<a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184a3ba593df6b92214112a5e752c95ae016">ARM_CMSIS_NN_SUCCESS</a> = 0
-, <br />
-&#160;&#160;<a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184a36cebf184635d8a5c74c0057fa64e042">ARM_CMSIS_NN_ARG_ERROR</a> = -1
-, <br />
-&#160;&#160;<a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184a4b6c02556982295a76f113e1cbed9400">ARM_CMSIS_NN_NO_IMPL_ERROR</a> = -2
-<br />
- }</td></tr>
-<tr class="memdesc:a67ac3e1e650a7040b0f706fb83ea6184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error status returned by some functions in the library.  <a href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">More...</a><br /></td></tr>
-<tr class="separator:a67ac3e1e650a7040b0f706fb83ea6184"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a30fe8775d9c28c72fb7c336ab4751269" name="a30fe8775d9c28c72fb7c336ab4751269"></a>
@@ -196,7 +182,7 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Copied from CMSIS/DSP/arm_math_types.h and modified </p>
+<p >Limits macros </p>
 
 </div>
 </div>
@@ -239,29 +225,6 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a67ac3e1e650a7040b0f706fb83ea6184" name="a67ac3e1e650a7040b0f706fb83ea6184"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67ac3e1e650a7040b0f706fb83ea6184">&#9670;&nbsp;</a></span>arm_cmsis_nn_status</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="arm__nn__math__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a67ac3e1e650a7040b0f706fb83ea6184a3ba593df6b92214112a5e752c95ae016" name="a67ac3e1e650a7040b0f706fb83ea6184a3ba593df6b92214112a5e752c95ae016"></a>ARM_CMSIS_NN_SUCCESS&#160;</td><td class="fielddoc"><p >No error </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a67ac3e1e650a7040b0f706fb83ea6184a36cebf184635d8a5c74c0057fa64e042" name="a67ac3e1e650a7040b0f706fb83ea6184a36cebf184635d8a5c74c0057fa64e042"></a>ARM_CMSIS_NN_ARG_ERROR&#160;</td><td class="fielddoc"><p >One or more arguments are incorrect </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a67ac3e1e650a7040b0f706fb83ea6184a4b6c02556982295a76f113e1cbed9400" name="a67ac3e1e650a7040b0f706fb83ea6184a4b6c02556982295a76f113e1cbed9400"></a>ARM_CMSIS_NN_NO_IMPL_ERROR&#160;</td><td class="fielddoc"><p >No implementation available </p>
-</td></tr>
-</table>
 
 </div>
 </div>
