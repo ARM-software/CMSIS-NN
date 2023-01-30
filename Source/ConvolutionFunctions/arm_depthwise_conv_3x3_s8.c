@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  Optimized s8 depthwise convolution function for channel
  *               multiplier of 1 and 3x3 kernel size.
  *
- * $Date:        27 October 2022
- * $Revision:    V.3.1.2
+ * $Date:        5 January 2023
+ * $Revision:    V.3.2.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -117,7 +117,7 @@ arm_cmsis_nn_status arm_depthwise_conv_3x3_s8(const cmsis_nn_context *ctx,
                 const int8_t *input_ptr = input + (in_h + ker_h_start) * (input_ch * input_x) + in_w * input_ch + in_ch;
                 const int8_t *kernel_ptr = kernel + ker_h_start * (input_ch * 3) + in_ch;
 #if defined(ARM_MATH_DSP)
-                const uint32_t lhs_offset_s16x2 = __PKHBT(input_offset, input_offset, 16);
+                const uint32_t lhs_offset_s16x2 = PKHBT(input_offset, input_offset, 16);
 
                 for (int32_t ker_h = ker_h_start; ker_h < MIN(3, input_y - in_h); ++ker_h)
                 {
@@ -131,42 +131,42 @@ arm_cmsis_nn_status arm_depthwise_conv_3x3_s8(const cmsis_nn_context *ctx,
                         in_val = arm_nn_read_s8x4(input_ptr);
                         ker_val = arm_nn_read_s8x4(kernel_ptr);
 
-                        in_val_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
-                        ker_val_1 = __SXTB16_RORn((uint32_t)ker_val, 8);
+                        in_val_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
+                        ker_val_1 = SXTB16_RORn((uint32_t)ker_val, 8);
 
-                        out_buff1 = ACLE_SMLABB(in_val_1, ker_val_1, out_buff1);
-                        in_val = __SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
-                        out_buff3 = ACLE_SMLATT(in_val_1, ker_val_1, out_buff3);
-                        ker_val = __SXTB16((uint32_t)ker_val);
-                        out_buff0 = ACLE_SMLABB(in_val, ker_val, out_buff0);
-                        out_buff2 = ACLE_SMLATT(in_val, ker_val, out_buff2);
+                        out_buff1 = SMLABB(in_val_1, ker_val_1, out_buff1);
+                        in_val = SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
+                        out_buff3 = SMLATT(in_val_1, ker_val_1, out_buff3);
+                        ker_val = SXTB16((uint32_t)ker_val);
+                        out_buff0 = SMLABB(in_val, ker_val, out_buff0);
+                        out_buff2 = SMLATT(in_val, ker_val, out_buff2);
                     }
 
                     in_val = arm_nn_read_s8x4(input_ptr + input_ch);
                     ker_val = arm_nn_read_s8x4(kernel_ptr + input_ch);
-                    in_val_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
-                    ker_val_1 = __SXTB16_RORn((uint32_t)ker_val, 8);
+                    in_val_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
+                    ker_val_1 = SXTB16_RORn((uint32_t)ker_val, 8);
 
-                    out_buff1 = ACLE_SMLABB(in_val_1, ker_val_1, out_buff1);
-                    in_val = __SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
-                    out_buff3 = ACLE_SMLATT(in_val_1, ker_val_1, out_buff3);
-                    ker_val = __SXTB16((uint32_t)ker_val);
-                    out_buff0 = ACLE_SMLABB(in_val, ker_val, out_buff0);
-                    out_buff2 = ACLE_SMLATT(in_val, ker_val, out_buff2);
+                    out_buff1 = SMLABB(in_val_1, ker_val_1, out_buff1);
+                    in_val = SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
+                    out_buff3 = SMLATT(in_val_1, ker_val_1, out_buff3);
+                    ker_val = SXTB16((uint32_t)ker_val);
+                    out_buff0 = SMLABB(in_val, ker_val, out_buff0);
+                    out_buff2 = SMLATT(in_val, ker_val, out_buff2);
 
                     if ((input_x - in_w) >= 3)
                     {
                         in_val = arm_nn_read_s8x4(input_ptr + (input_ch << 1));
                         ker_val = arm_nn_read_s8x4(kernel_ptr + (input_ch << 1));
-                        in_val_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
-                        ker_val_1 = __SXTB16_RORn((uint32_t)ker_val, 8);
+                        in_val_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)in_val, 8);
+                        ker_val_1 = SXTB16_RORn((uint32_t)ker_val, 8);
 
-                        out_buff1 = ACLE_SMLABB(in_val_1, ker_val_1, out_buff1);
-                        in_val = __SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
-                        out_buff3 = ACLE_SMLATT(in_val_1, ker_val_1, out_buff3);
-                        ker_val = __SXTB16((uint32_t)ker_val);
-                        out_buff0 = ACLE_SMLABB(in_val, ker_val, out_buff0);
-                        out_buff2 = ACLE_SMLATT(in_val, ker_val, out_buff2);
+                        out_buff1 = SMLABB(in_val_1, ker_val_1, out_buff1);
+                        in_val = SXTAB16(lhs_offset_s16x2, (uint32_t)in_val);
+                        out_buff3 = SMLATT(in_val_1, ker_val_1, out_buff3);
+                        ker_val = SXTB16((uint32_t)ker_val);
+                        out_buff0 = SMLABB(in_val, ker_val, out_buff0);
+                        out_buff2 = SMLATT(in_val, ker_val, out_buff2);
                     }
 
                     input_ptr += (input_ch * input_x);

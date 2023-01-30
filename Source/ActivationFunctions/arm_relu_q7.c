@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_relu_q7.c
  * Description:  Q7 version of ReLU
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.1.5
+ * $Date:        5 January 2023
+ * $Revision:    V.1.2.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -65,7 +65,7 @@ void arm_relu_q7(int8_t *data, uint16_t size)
         in = arm_nn_read_s8x4_ia((const int8_t **)&input);
 
         /* extract the first bit */
-        buf = (int32_t)__ROR((uint32_t)in & 0x80808080, 7);
+        buf = (int32_t)ROR((uint32_t)in & 0x80808080, 7);
 
         /* if MSB=1, mask will be 0xFF, 0x0 otherwise */
         mask = __QSUB8(0x00000000, buf);

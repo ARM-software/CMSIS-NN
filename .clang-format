@@ -1,5 +1,5 @@
 
-# Copyright (C) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+# SPDX-FileCopyrightText: Copyright 2010-2021, 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -27,6 +27,7 @@ AlignOperands:   false
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
 BinPackArguments: false
+IndentPPDirectives: BeforeHash
 BinPackParameters: false
 BraceWrapping:
   AfterClass:      false

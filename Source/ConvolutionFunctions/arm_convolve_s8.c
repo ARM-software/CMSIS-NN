@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        26 October 2022
- * $Revision:    V.3.0.1
+ * $Date:        5 January 2023
+ * $Revision:    V.3.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -170,6 +170,10 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                     padded = 0;
                 }
             }
+            if (out == NULL)
+            {
+                return ARM_CMSIS_NN_NO_IMPL_ERROR;
+            }
         }
         /* Handle left over columns */
         if (buffer_fill_cnt != 0)
@@ -269,7 +273,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                 const int16_t *ip_as_col = buffer_a;
 
                 /* 4 multiply and accumulates are done in one loop. */
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
                 uint16_t col_count = (input_ch * kernel_y * kernel_x) >> 2;
 
                 while (col_count)
@@ -280,17 +284,17 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                     ker_a = read_and_pad(ker_a, &ker_a1, &ker_a2);
 
                     ip_b1 = arm_nn_read_q15x2_ia(&ip_as_col);
-                    sum = __SMLAD(ker_a1, ip_b1, sum);
+                    sum = SMLAD(ker_a1, ip_b1, sum);
                     ip_b2 = arm_nn_read_q15x2_ia(&ip_as_col);
-                    sum = __SMLAD(ker_a2, ip_b2, sum);
+                    sum = SMLAD(ker_a2, ip_b2, sum);
 
                     col_count--;
                 }
                 /* Handle left over mac */
                 col_count = input_ch * kernel_y * kernel_x & 0x3;
-#else
+    #else
                 uint16_t col_count = input_ch * kernel_y * kernel_x;
-#endif
+    #endif
                 while (col_count)
                 {
                     int8_t ker_a1 = *ker_a++;

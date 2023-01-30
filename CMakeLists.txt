@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -19,12 +19,6 @@
 cmake_minimum_required(VERSION 3.15.6)
 
 project(CMSISNN)
-
-set(CMSIS_PATH "</path/to/CMSIS>" CACHE PATH "Path to CMSIS.")
-
-if (${CMSIS_PATH} STREQUAL "</path/to/CMSIS>")
-  message(FATAL_ERROR "CMSIS_PATH not set. Did you provide -DCMSIS_PATH=<path/to/CMSIS>?")
-endif()
 
 add_library(cmsis-nn STATIC)
 

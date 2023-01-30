@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_mul_s8
  * Description:  Element wise multiplication
  *
- * $Date:        16 January 2023
- * $Revision:    V.2.1.0
+ * $Date:        20 January 2023
+ * $Revision:    V.2.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -97,7 +97,7 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
     int32_t input_2;
     int32_t mul_res;
 
-#if defined(ARM_MATH_DSP)
+    #if defined(ARM_MATH_DSP)
     int32_t a_1, b_1, a_2, b_2;
 
     int32_t offset_1_packed, offset_2_packed;
@@ -116,14 +116,14 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         input_1_vect = read_and_pad_reordered(input_1_vect, &b_1, &a_1);
         input_2_vect = read_and_pad_reordered(input_2_vect, &b_2, &a_2);
 
-        a_1 = __SADD16(a_1, offset_1_packed);
-        b_1 = __SADD16(b_1, offset_1_packed);
+        a_1 = SADD16(a_1, offset_1_packed);
+        b_1 = SADD16(b_1, offset_1_packed);
 
-        a_2 = __SADD16(a_2, offset_2_packed);
-        b_2 = __SADD16(b_2, offset_2_packed);
+        a_2 = SADD16(a_2, offset_2_packed);
+        b_2 = SADD16(b_2, offset_2_packed);
 
         /* Mul 1 */
-        mul_res = ACLE_SMULBB(b_1, b_2);
+        mul_res = SMULBB(b_1, b_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
 
         mul_res = MAX(mul_res, out_activation_min);
@@ -131,21 +131,21 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
         r1 = (int8_t)mul_res;
 
         /* Mul 3 */
-        mul_res = ACLE_SMULTT(b_1, b_2);
+        mul_res = SMULTT(b_1, b_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
         r3 = (int8_t)mul_res;
 
         /* Mul 2 */
-        mul_res = ACLE_SMULBB(a_1, a_2);
+        mul_res = SMULBB(a_1, a_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
         r2 = (int8_t)mul_res;
 
         /* Mul 4 */
-        mul_res = ACLE_SMULTT(a_1, a_2);
+        mul_res = SMULTT(a_1, a_2);
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift) + out_offset;
         mul_res = MAX(mul_res, out_activation_min);
         mul_res = MIN(mul_res, out_activation_max);
@@ -157,9 +157,9 @@ arm_cmsis_nn_status arm_elementwise_mul_s8(const int8_t *input_1_vect,
     }
 
     loop_count = block_size & 0x3;
-#else
+    #else
     loop_count = block_size;
-#endif
+    #endif
 
     while (loop_count > 0)
     {

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_relu_q15.c
  * Description:  Q15 version of ReLU
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.0.4
+ * $Date:        5 January 2023
+ * $Revision:    V.1.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -65,7 +65,7 @@ void arm_relu_q15(int16_t *data, uint16_t size)
         in = arm_nn_read_q15x2_ia((const int16_t **)&input);
 
         /* extract the first bit */
-        buf = __ROR(in & 0x80008000, 15);
+        buf = ROR(in & 0x80008000, 15);
 
         /* if MSB=1, mask will be 0xFF, 0x0 otherwise */
         mask = __QSUB16(0x00000000, buf);

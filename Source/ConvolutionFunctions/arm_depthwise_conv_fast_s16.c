@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  Optimized s16 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.1.1
+ * $Date:        5 January 2023
+ * $Revision:    V.1.2.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -98,7 +98,7 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
     const int32_t output_activation_max = dw_conv_params->activation.max;
     int16_t *buffer_a = (int16_t *)ctx->buf;
 
-#if defined(ARM_MATH_MVEI)
+    #if defined(ARM_MATH_MVEI)
     int16_t *lhs_buffer = buffer_a;
     int16_t *out = output;
     int buffer_count = 0;
@@ -214,7 +214,7 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
         }
     }
 
-#else // ARM_MATH_DSP
+    #else // ARM_MATH_DSP
 
     /* Run the following code in cores using DSP extension */
     int16_t *const col_buffer_start = buffer_a;
@@ -312,30 +312,30 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
                         col_a = arm_nn_read_s16x2(col_pos);
                         col_b = arm_nn_read_s16x2(col_pos + input_ch);
 
-                        row_a2 = __SXTB16(row_b1);
-                        row_b1 = __SXTB16(__ROR(row_b1, 8));
+                        row_a2 = SXTB16(row_b1);
+                        row_b1 = SXTB16(ROR(row_b1, 8));
 
-                        row_b2 = __SXTB16(row_a1);
-                        row_a1 = __SXTB16(__ROR(row_a1, 8));
+                        row_b2 = SXTB16(row_a1);
+                        row_a1 = SXTB16(ROR(row_a1, 8));
 
-                        col_c = __PKHBT(col_b, col_a, 16);
-                        col_a = __PKHTB(col_b, col_a, 16);
-                        row_c = __PKHBT(row_b2, row_a2, 16);
-                        sum_1 = __SMLAD(col_c, row_c, sum_1);
+                        col_c = PKHBT(col_b, col_a, 16);
+                        col_a = PKHTB(col_b, col_a, 16);
+                        row_c = PKHBT(row_b2, row_a2, 16);
+                        sum_1 = SMLAD(col_c, row_c, sum_1);
 
-                        row_c = __PKHBT(row_b1, row_a1, 16);
-                        sum_2 = __SMLAD(col_a, row_c, sum_2);
+                        row_c = PKHBT(row_b1, row_a1, 16);
+                        sum_2 = SMLAD(col_a, row_c, sum_2);
 
                         col_a = arm_nn_read_s16x2(col_pos + 2);
                         col_b = arm_nn_read_s16x2(col_pos + input_ch + 2);
 
-                        col_c = __PKHBT(col_b, col_a, 16);
-                        col_a = __PKHTB(col_b, col_a, 16);
-                        row_c = __PKHTB(row_a2, row_b2, 16);
-                        sum_3 = __SMLAD(col_c, row_c, sum_3);
+                        col_c = PKHBT(col_b, col_a, 16);
+                        col_a = PKHTB(col_b, col_a, 16);
+                        row_c = PKHTB(row_a2, row_b2, 16);
+                        sum_3 = SMLAD(col_c, row_c, sum_3);
 
-                        row_c = __PKHTB(row_a1, row_b1, 16);
-                        sum_4 = __SMLAD(col_a, row_c, sum_4);
+                        row_c = PKHTB(row_a1, row_b1, 16);
+                        sum_4 = SMLAD(col_a, row_c, sum_4);
 
                         row_pos += input_ch << 1;
                         col_pos += input_ch << 1;
@@ -426,7 +426,7 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
         /* Advance to the next batch */
         input += (input_x * input_y * input_ch);
     }
-#endif
+    #endif
 #else
     /* Run the following code as reference implementation for Cortex-M0 and Cortex-M3 */
     return arm_depthwise_conv_s16(ctx,
@@ -449,12 +449,12 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
 int32_t arm_depthwise_conv_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
 {
 #if defined(ARM_MATH_DSP)
-#if defined(ARM_MATH_MVEI)
+    #if defined(ARM_MATH_MVEI)
     /* The + 8 accounts for a worst case out of bounds read of the lhs buffers in the *_nt_t_* function.  */
     return 4 * input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t) + 8;
-#else // ARM_MATH_DSP
+    #else // ARM_MATH_DSP
     return input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t);
-#endif
+    #endif
 #else
     (void)input_dims;
     (void)filter_dims;

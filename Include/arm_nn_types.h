@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +22,10 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        4 November 2022
- * $Revision:    V.2.2.0
+ * $Date:        18 January 2023
+ * $Revision:    V.2.3.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
 #ifndef _ARM_NN_TYPES_H
@@ -39,6 +39,14 @@ typedef enum
     ARM_SIGMOID = 0, /**< Sigmoid activation function */
     ARM_TANH = 1,    /**< Tanh activation function */
 } arm_nn_activation_type;
+
+/** Function return codes */
+typedef enum
+{
+    ARM_CMSIS_NN_SUCCESS = 0,        /**< No error */
+    ARM_CMSIS_NN_ARG_ERROR = -1,     /**< One or more arguments are incorrect */
+    ARM_CMSIS_NN_NO_IMPL_ERROR = -2, /**<  No implementation available */
+} arm_cmsis_nn_status;
 
 /** CMSIS-NN object to contain the width and height of a tile */
 typedef struct

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nn_vec_mat_mult_t_s8
  * Description:  s8 vector by matrix (transposed) multiplication
  *
- * $Date:        10 November 2022
- * $Revision:    V.5.1.0
+ * $Date:        5 January 2023
+ * $Revision:    V.5.2.0
  *
- * Target Processor:  Cortex-M
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -186,7 +186,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
 #elif defined(ARM_MATH_DSP)
     const int32_t row_loop_cnt = rhs_rows / 2;
     const int16_t lhs_offset_s16 = (int16_t)lhs_offset;
-    const uint32_t lhs_offset_s16x2 = __PKHBT(lhs_offset_s16, lhs_offset_s16, 16);
+    const uint32_t lhs_offset_s16x2 = PKHBT(lhs_offset_s16, lhs_offset_s16, 16);
 
     for (int32_t i = 0; i < row_loop_cnt; i++)
     {
@@ -208,23 +208,23 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
         for (int j = col_loop_cnt; j != 0; j--)
         {
             int32_t vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            int32_t vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            int32_t vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
 
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
 
             int32_t ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            int32_t ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            int32_t ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
 
             ker_0 = arm_nn_read_s8x4_ia(&rhs_1);
-            ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_1 = __SMLAD(ker_1, vec_1, acc_1);
-            acc_1 = __SMLAD(ker_0, vec_0, acc_1);
+            acc_1 = SMLAD(ker_1, vec_1, acc_1);
+            acc_1 = SMLAD(ker_0, vec_0, acc_1);
         }
 
         for (int k = col_loop_cnt * 4; k < rhs_cols; k++)
@@ -268,15 +268,15 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
         for (int i = col_loop_cnt; i != 0; i--)
         {
             int32_t vec_0 = arm_nn_read_s8x4_ia(&lhs_vec);
-            int32_t vec_1 = __SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
-            vec_0 = __SXTAB16(lhs_offset_s16x2, vec_0);
+            int32_t vec_1 = SXTAB16_RORn(lhs_offset_s16x2, (uint32_t)vec_0, 8);
+            vec_0 = SXTAB16(lhs_offset_s16x2, vec_0);
 
             int32_t ker_0 = arm_nn_read_s8x4_ia(&rhs_0);
-            int32_t ker_1 = __SXTB16_RORn((uint32_t)ker_0, 8);
-            ker_0 = __SXTB16(ker_0);
+            int32_t ker_1 = SXTB16_RORn((uint32_t)ker_0, 8);
+            ker_0 = SXTB16(ker_0);
 
-            acc_0 = __SMLAD(ker_1, vec_1, acc_0);
-            acc_0 = __SMLAD(ker_0, vec_0, acc_0);
+            acc_0 = SMLAD(ker_1, vec_1, acc_0);
+            acc_0 = SMLAD(ker_0, vec_0, acc_0);
         }
 
         for (int j = col_loop_cnt * 4; j < rhs_cols; j++)

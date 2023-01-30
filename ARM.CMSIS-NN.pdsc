@@ -17,10 +17,10 @@
   <conditions>
     <!-- CMSIS-NN -->
     <condition id="CMSIS-NN">
-      <description>Components required for CMSIS-NN</description>
-      <require Cclass="CMSIS" Cgroup="CORE"/>
+      <description>No additional components required for CMSIS-NN</description>
     </condition>
   </conditions>
+
 
   <components>
     <!-- CMSIS-NN component -->
