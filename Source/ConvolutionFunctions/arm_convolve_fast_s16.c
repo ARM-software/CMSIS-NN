@@ -22,7 +22,7 @@
  * Description:  Optimized s16 version of convolution.
  *
  * $Date:        30 January 2023
- * $Revision:    V.2.1.0
+ * $Revision:    V.2.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *

@@ -97,7 +97,7 @@
    * \section Copyright Copyright Notice
    *
    *
-   * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+   * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
    *
    *
    */

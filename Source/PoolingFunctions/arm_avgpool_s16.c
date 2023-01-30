@@ -22,7 +22,7 @@
  * Description:  Pooling function implementations
  *
  * $Date:        30 January 2023
- * $Revision:    V.2.3.0
+ * $Revision:    V.2.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *

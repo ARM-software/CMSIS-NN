@@ -22,7 +22,7 @@
  * Description:  s16 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  * cmsis-nn to perform the convolution.
  *
- * $Date:        12 January 2023
+ * $Date:        30 January 2023
  * $Revision:    V.2.1.0
  *
  * Target :  Arm(R) M-Profile Architecture

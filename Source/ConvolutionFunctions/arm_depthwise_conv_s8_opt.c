@@ -23,7 +23,7 @@
  *               channel multiplier of 1.
  *
  * $Date:        30 January 2023
- * $Revision:    V.3.2.0
+ * $Revision:    V.3.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *

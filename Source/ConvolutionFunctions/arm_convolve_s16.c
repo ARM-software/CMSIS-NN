@@ -21,7 +21,7 @@
  * Title:        arm_convolve_s16.c
  * Description:  s16 version of convolution using symmetric quantization.
  *
- * $Date:        12 January 2023
+ * $Date:        30 January 2023
  * $Revision:    V.2.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
