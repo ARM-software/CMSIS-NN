@@ -21,14 +21,14 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        30 January 2023
+ * $Date:        31 January 2023
  * $Revision:    V.1.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
-#include "InternalNNConv/arm_nn_compiler.h"
+#include "Internal/arm_nn_compiler.h"
 #include "arm_nnfunctions.h"
 
 /**
@@ -36,7 +36,7 @@
  */
 
 /**
- * @addtogroup InternalNNConv
+ * @addtogroup GetBufferSizeNNConv
  * @{
  */
 
@@ -160,5 +160,5 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *
 }
 
 /**
- * @} end of InternalNNConv group
+ * @} end of GetBufferSizeNNConv group
  */

@@ -35,7 +35,7 @@
  */
 
 /**
- * @addtogroup InternalPooling
+ * @addtogroup GetBufferSizePooling
  * @{
  */
 
@@ -67,5 +67,5 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int output_x, const int ch_src)
 }
 
 /**
- * @} end of InternalPooling group
+ * @} end of GetBufferSizePooling group
  */

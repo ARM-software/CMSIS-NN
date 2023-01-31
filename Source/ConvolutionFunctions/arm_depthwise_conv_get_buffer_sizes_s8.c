@@ -36,11 +36,11 @@
  */
 
 /**
- * @addtogroup InternalNNConv
+ * @addtogroup GetBufferSizeNNConv
  * @{
  */
 
-static inline int32_t arm_depthwise_conv_s8_opt_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
+__STATIC_INLINE int32_t arm_depthwise_conv_s8_opt_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
                                                                       const cmsis_nn_dims *filter_dims)
 {
     (void)input_dims;
@@ -127,5 +127,5 @@ int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size_mve(const cmsis_nn_dw_conv
 }
 
 /**
- * @} end of InternalNNConv group
+ * @} end of GetBufferSizeNNConv group
  */

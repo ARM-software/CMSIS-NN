@@ -36,7 +36,7 @@
  */
 
 /**
- * @addtogroup InternalNNConv
+ * @addtogroup GetBufferSizeNNConv
  * @{
  */
 
@@ -116,5 +116,5 @@ int32_t arm_convolve_wrapper_s16_get_buffer_size_mve(const cmsis_nn_conv_params 
 }
 
 /**
- * @} end of InternalNNConv group
+ * @} end of GetBufferSizeNNConv group
  */
