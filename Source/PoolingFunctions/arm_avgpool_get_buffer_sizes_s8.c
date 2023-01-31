@@ -31,11 +31,11 @@
 #include "arm_nnfunctions.h"
 
 /**
- *  @ingroup Public
+ *  @ingroup Pooling
  */
 
 /**
- * @addtogroup NNConv
+ * @addtogroup InternalPooling
  * @{
  */
 
@@ -67,5 +67,5 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int output_x, const int ch_src)
 }
 
 /**
- * @} end of NNConv group
+ * @} end of InternalPooling group
  */

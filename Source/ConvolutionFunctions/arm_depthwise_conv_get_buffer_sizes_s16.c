@@ -32,11 +32,11 @@
 #include "arm_nnsupportfunctions.h"
 
 /**
- *  @ingroup Public
+ *  @ingroup NNconv
  */
 
 /**
- * @addtogroup NNConv
+ * @addtogroup InternalNNConv
  * @{
  */
 __STATIC_INLINE int32_t arm_depthwise_conv_fast_s16_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
@@ -119,5 +119,5 @@ int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp(const cmsis_nn_dw_con
 }
 
 /**
- * @} end of NNConv group
+ * @} end of InternalNNConv group
  */

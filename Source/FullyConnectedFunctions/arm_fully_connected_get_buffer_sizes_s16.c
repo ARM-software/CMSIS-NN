@@ -31,11 +31,11 @@
 #include "arm_nnfunctions.h"
 
 /**
- *  @ingroup Public
+ *  @ingroup FC
  */
 
 /**
- * @addtogroup NNConv
+ * @addtogroup InternalFC
  * @{
  */
 
@@ -56,5 +56,5 @@ int32_t arm_fully_connected_s16_get_buffer_size_mve(const cmsis_nn_dims *filter_
 }
 
 /**
- * @} end of NNConv group
+ * @} end of InternalFC group
  */

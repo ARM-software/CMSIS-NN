@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -2315,7 +2315,7 @@ INCLUDE_FILE_PATTERNS  =
 # recursively expanded use the := operator instead of the = operator.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-PREDEFINED             = ARM_MATH_NEON=1 ARM_FLOAT16_SUPPORTED=1 __STATIC_FORCEINLINE= __ALIGNED(x)=
+PREDEFINED             = ARM_MATH_NEON=1 ARM_FLOAT16_SUPPORTED=1 __STATIC_FORCEINLINE=static __STATIC_INLINE=static __ALIGNED(x)=
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
