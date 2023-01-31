@@ -21,8 +21,8 @@
  * Title:        arm_nn_compiler.h
  * Description:  Generic compiler header
  *
- * $Date:        4 January 2023
- * $Revision:    V.1.0.0
+ * $Date:        31 January 2023
+ * $Revision:    V.1.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -183,6 +183,8 @@ __STATIC_FORCEINLINE uint8_t CLZ(uint32_t value)
     #define SMLABB __smlabb
     #define SMLATT __smlatt
     #define QADD __qadd
+    #define QSUB8 __qsub8
+    #define QSUB16 __qsub16
     #define SADD16 __sadd16
 
     // Compiler specifc variants of intrinsics. Create a new section or file for IAR if needed
