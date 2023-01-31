@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mult_t_s8
  * Description:  s8 vector by matrix (transposed) multiplication
  *
- * $Date:        5 January 2023
- * $Revision:    V.5.2.0
+ * $Date:        26 January 2023
+ * $Revision:    V.5.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -52,6 +52,9 @@
  * Refer header file for details.
  *
  */
+#if defined(ARM_MATH_DSP) && !defined(__ARMCC_VERSION) && !defined(__ICCARM__)
+    #pragma GCC optimize("unroll-loops")
+#endif
 arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                                              const int8_t *rhs,
                                              const int32_t *bias,
