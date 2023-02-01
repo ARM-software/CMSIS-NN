@@ -21,7 +21,7 @@
  * Title:        arm_fully_connected_get_buffer_sizes_s16.c
  * Description:  Collection of get buffer size functions for fully connected s16 layer function.
  *
- * $Date:        13 January 2023
+ * $Date:        30 January 2023
  * $Revision:    V.1.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
@@ -35,7 +35,7 @@
  */
 
 /**
- * @addtogroup InternalFC
+ * @addtogroup GetBufferSizeFC
  * @{
  */
 
@@ -56,5 +56,5 @@ int32_t arm_fully_connected_s16_get_buffer_size_mve(const cmsis_nn_dims *filter_
 }
 
 /**
- * @} end of InternalFC group
+ * @} end of GetBufferSizeFC group
  */
