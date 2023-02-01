@@ -141,6 +141,8 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:aba6296ad262255bbd40e6467b643060a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aba6296ad262255bbd40e6467b643060a">USE_FAST_DW_CONV_S16_FUNCTION</a>(dw_conv_params,  filter_dims,  input_dims)</td></tr>
+<tr class="separator:aba6296ad262255bbd40e6467b643060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2953f124ae444ebdd2b2a0873ac36b7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a2953f124ae444ebdd2b2a0873ac36b7e">LEFT_SHIFT</a>(_shift)&#160;&#160;&#160;(_shift &gt; 0 ? _shift : 0)</td></tr>
 <tr class="separator:a2953f124ae444ebdd2b2a0873ac36b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26af54489c1401b91595bf0c92ef87c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4">RIGHT_SHIFT</a>(_shift)&#160;&#160;&#160;(_shift &gt; 0 ? 0 : -_shift)</td></tr>
@@ -170,19 +172,19 @@ Macros</h2></td></tr>
 <tr class="memitem:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4cbd428a2b4a4f6b2a6e4219520c7ce0">NN_ROUND</a>(out_shift)&#160;&#160;&#160;((0x1 &lt;&lt; out_shift) &gt;&gt; 1)</td></tr>
 <tr class="memdesc:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">macro for adding rounding offset  <a href="arm__nnsupportfunctions_8h.html#a4cbd428a2b4a4f6b2a6e4219520c7ce0">More...</a><br /></td></tr>
 <tr class="separator:a4cbd428a2b4a4f6b2a6e4219520c7ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a518f7e0db18bea6b61a2b88f266aef20"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a518f7e0db18bea6b61a2b88f266aef20">MUL_SAT</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a>((a), (b))</td></tr>
+<tr class="memitem:a518f7e0db18bea6b61a2b88f266aef20"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a518f7e0db18bea6b61a2b88f266aef20">MUL_SAT</a>(a,  b)&#160;&#160;&#160;arm_nn_doubling_high_mult((a), (b))</td></tr>
 <tr class="separator:a518f7e0db18bea6b61a2b88f266aef20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6349818fec8167dff87c3fb7ca81fc1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a6349818fec8167dff87c3fb7ca81fc1c">MUL_SAT_MVE</a>(a,  b)&#160;&#160;&#160;arm_doubling_high_mult_mve_32x4((a), (b))</td></tr>
 <tr class="separator:a6349818fec8167dff87c3fb7ca81fc1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a9d7332bc4331d55ada7ea19407e2a8c3">MUL_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a>((a), (b))</td></tr>
+<tr class="memitem:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a9d7332bc4331d55ada7ea19407e2a8c3">MUL_POW2</a>(a,  b)&#160;&#160;&#160;arm_nn_mult_by_power_of_two((a), (b))</td></tr>
 <tr class="separator:a9d7332bc4331d55ada7ea19407e2a8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7ce5ee6d8839bf541fb4bbdf4ef80eb1">DIV_POW2</a>(a,  b)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a>((a), (b))</td></tr>
+<tr class="memitem:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7ce5ee6d8839bf541fb4bbdf4ef80eb1">DIV_POW2</a>(a,  b)&#160;&#160;&#160;arm_nn_divide_by_power_of_two((a), (b))</td></tr>
 <tr class="separator:a7ce5ee6d8839bf541fb4bbdf4ef80eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e4379e9eef514ce88d02b5dfbff256d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a0e4379e9eef514ce88d02b5dfbff256d">DIV_POW2_MVE</a>(a,  b)&#160;&#160;&#160;arm_divide_by_power_of_two_mve((a), (b))</td></tr>
 <tr class="separator:a0e4379e9eef514ce88d02b5dfbff256d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97055bb1e8a21ead129caecdfb24cfb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a97055bb1e8a21ead129caecdfb24cfb1">EXP_ON_NEG</a>(x)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a461c45518bb5e6d09772b68647d8e992">arm_nn_exp_on_negative_values</a>((x))</td></tr>
+<tr class="memitem:a97055bb1e8a21ead129caecdfb24cfb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a97055bb1e8a21ead129caecdfb24cfb1">EXP_ON_NEG</a>(x)&#160;&#160;&#160;arm_nn_exp_on_negative_values((x))</td></tr>
 <tr class="separator:a97055bb1e8a21ead129caecdfb24cfb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82ac477c930f5b05e8f71f6f61e405a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a82ac477c930f5b05e8f71f6f61e405a8">ONE_OVER1</a>(x)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#af17849a542a99eceb9f1b6f168ec721f">arm_nn_one_over_one_plus_x_for_x_in_0_1</a>((x))</td></tr>
+<tr class="memitem:a82ac477c930f5b05e8f71f6f61e405a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a82ac477c930f5b05e8f71f6f61e405a8">ONE_OVER1</a>(x)&#160;&#160;&#160;arm_nn_one_over_one_plus_x_for_x_in_0_1((x))</td></tr>
 <tr class="separator:a82ac477c930f5b05e8f71f6f61e405a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b3b6a6ed8cb224c5bcabd9ad1c94fde"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4b3b6a6ed8cb224c5bcabd9ad1c94fde">SELECT_IF_NON_ZERO</a>(x)</td></tr>
 <tr class="separator:a4b3b6a6ed8cb224c5bcabd9ad1c94fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,63 +230,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
 <tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">More...</a><br /></td></tr>
 <tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15d6caf10a575be78604db2c2c532d5a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a15d6caf10a575be78604db2c2c532d5a">arm_nn_read_q15x2_ia</a> (const int16_t **in_q15)</td></tr>
-<tr class="memdesc:a15d6caf10a575be78604db2c2c532d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 s16 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a15d6caf10a575be78604db2c2c532d5a">More...</a><br /></td></tr>
-<tr class="separator:a15d6caf10a575be78604db2c2c532d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a8d2e1ebf155540ef9298ecac843f8e9b">arm_nn_read_s8x4_ia</a> (const int8_t **in_s8)</td></tr>
-<tr class="memdesc:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 s8 from s8 pointer and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a8d2e1ebf155540ef9298ecac843f8e9b">More...</a><br /></td></tr>
-<tr class="separator:a8d2e1ebf155540ef9298ecac843f8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dd951becb6711b7c98c20684b4b347b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a0dd951becb6711b7c98c20684b4b347b">arm_nn_read_s16x2</a> (const int16_t *in)</td></tr>
-<tr class="memdesc:a0dd951becb6711b7c98c20684b4b347b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 2 int16 values from int16 pointer.  <a href="arm__nnsupportfunctions_8h.html#a0dd951becb6711b7c98c20684b4b347b">More...</a><br /></td></tr>
-<tr class="separator:a0dd951becb6711b7c98c20684b4b347b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c590105760cf5b930b8300a350bfe58"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a1c590105760cf5b930b8300a350bfe58">arm_nn_read_s8x4</a> (const int8_t *in_s8)</td></tr>
-<tr class="memdesc:a1c590105760cf5b930b8300a350bfe58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 s8 values.  <a href="arm__nnsupportfunctions_8h.html#a1c590105760cf5b930b8300a350bfe58">More...</a><br /></td></tr>
-<tr class="separator:a1c590105760cf5b930b8300a350bfe58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee420155863cb873908fc9307bfb0098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aee420155863cb873908fc9307bfb0098">arm_nn_write_s8x4_ia</a> (int8_t **in, int32_t value)</td></tr>
-<tr class="memdesc:aee420155863cb873908fc9307bfb0098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write four s8 to s8 pointer and increment pointer afterwards.  <a href="arm__nnsupportfunctions_8h.html#aee420155863cb873908fc9307bfb0098">More...</a><br /></td></tr>
-<tr class="separator:aee420155863cb873908fc9307bfb0098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#adb7cd84ac2aa7fa27448b52c55b6fb75">arm_memset_s8</a> (int8_t *dst, const int8_t val, uint32_t block_size)</td></tr>
-<tr class="memdesc:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="mdescLeft">&#160;</td><td class="mdescRight">memset optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#adb7cd84ac2aa7fa27448b52c55b6fb75">More...</a><br /></td></tr>
-<tr class="separator:adb7cd84ac2aa7fa27448b52c55b6fb75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
 <tr class="memdesc:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">More...</a><br /></td></tr>
 <tr class="separator:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">arm_nn_softmax_common_s8</a> (const int8_t *input, const int32_t num_rows, const int32_t row_size, const int32_t mult, const int32_t shift, const int32_t diff_min, const bool int16_output, void *output)</td></tr>
 <tr class="memdesc:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common softmax function for s8 input and s8 or s16 output.  <a href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">More...</a><br /></td></tr>
 <tr class="separator:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae446422a8f0c520a5e20b4a512c4246d"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a> (const int32_t m1, const int32_t m2)</td></tr>
-<tr class="memdesc:ae446422a8f0c520a5e20b4a512c4246d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturating doubling high multiply. Result matches NEON instruction VQRDMULH.  <a href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">More...</a><br /></td></tr>
-<tr class="separator:ae446422a8f0c520a5e20b4a512c4246d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d42ef2098c049b79a02d207054d8e43"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7d42ef2098c049b79a02d207054d8e43">arm_nn_doubling_high_mult_no_sat</a> (const int32_t m1, const int32_t m2)</td></tr>
-<tr class="memdesc:a7d42ef2098c049b79a02d207054d8e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doubling high multiply without saturation. This is intended for requantization where the scale is a positive integer.  <a href="arm__nnsupportfunctions_8h.html#a7d42ef2098c049b79a02d207054d8e43">More...</a><br /></td></tr>
-<tr class="separator:a7d42ef2098c049b79a02d207054d8e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a430aa55faa94d1ee347915d211b2ad34"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a> (const int32_t dividend, const int32_t exponent)</td></tr>
-<tr class="memdesc:a430aa55faa94d1ee347915d211b2ad34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounding divide by power of two.  <a href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">More...</a><br /></td></tr>
-<tr class="separator:a430aa55faa94d1ee347915d211b2ad34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a819ba8bdcb6b0e26e5d49c196d1f1a65">arm_nn_requantize</a> (const int32_t val, const int32_t multiplier, const int32_t shift)</td></tr>
-<tr class="memdesc:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given value.  <a href="arm__nnsupportfunctions_8h.html#a819ba8bdcb6b0e26e5d49c196d1f1a65">More...</a><br /></td></tr>
-<tr class="separator:a819ba8bdcb6b0e26e5d49c196d1f1a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7dc3fb2d364d4a56f3d2c6cacde2178e">arm_nn_requantize_s64</a> (const int64_t val, const int32_t reduced_multiplier, const int32_t shift)</td></tr>
-<tr class="memdesc:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requantize a given 64 bit value.  <a href="arm__nnsupportfunctions_8h.html#a7dc3fb2d364d4a56f3d2c6cacde2178e">More...</a><br /></td></tr>
-<tr class="separator:a7dc3fb2d364d4a56f3d2c6cacde2178e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4beb1077adaa0593f838834678ad3885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4beb1077adaa0593f838834678ad3885">arm_memcpy_s8</a> (int8_t *__RESTRICT dst, const int8_t *__RESTRICT src, uint32_t block_size)</td></tr>
-<tr class="memdesc:a4beb1077adaa0593f838834678ad3885"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy optimized for MVE  <a href="arm__nnsupportfunctions_8h.html#a4beb1077adaa0593f838834678ad3885">More...</a><br /></td></tr>
-<tr class="separator:a4beb1077adaa0593f838834678ad3885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a39cfb85c2a9de8f8a1843a40c3f443ed">arm_memcpy_q15</a> (int16_t *__RESTRICT dst, const int16_t *__RESTRICT src, uint32_t block_size)</td></tr>
-<tr class="memdesc:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcpy wrapper for int16  <a href="arm__nnsupportfunctions_8h.html#a39cfb85c2a9de8f8a1843a40c3f443ed">More...</a><br /></td></tr>
-<tr class="separator:a39cfb85c2a9de8f8a1843a40c3f443ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a461c45518bb5e6d09772b68647d8e992"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a461c45518bb5e6d09772b68647d8e992">arm_nn_exp_on_negative_values</a> (int32_t val)</td></tr>
-<tr class="separator:a461c45518bb5e6d09772b68647d8e992"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ddcb3e6597b681884fb37b8859e8355"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a> (const int32_t val, const int32_t exp)</td></tr>
-<tr class="separator:a5ddcb3e6597b681884fb37b8859e8355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af17849a542a99eceb9f1b6f168ec721f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#af17849a542a99eceb9f1b6f168ec721f">arm_nn_one_over_one_plus_x_for_x_in_0_1</a> (int32_t val)</td></tr>
-<tr class="separator:af17849a542a99eceb9f1b6f168ec721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a74d9ec2af94d1e36b171c4eebee7eba4">arm_nn_write_q15x2_ia</a> (int16_t **dest_q15, int32_t src_q31)</td></tr>
-<tr class="memdesc:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write 2 s16 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#a74d9ec2af94d1e36b171c4eebee7eba4">More...</a><br /></td></tr>
-<tr class="separator:a74d9ec2af94d1e36b171c4eebee7eba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7cd7e37c80614208f56c67dd1e8e58d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aa7cd7e37c80614208f56c67dd1e8e58d">arm_nn_write_s8x2_ia</a> (int8_t **dst, int16_t src)</td></tr>
-<tr class="memdesc:aa7cd7e37c80614208f56c67dd1e8e58d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write 2 s8 elements and post increment pointer.  <a href="arm__nnsupportfunctions_8h.html#aa7cd7e37c80614208f56c67dd1e8e58d">More...</a><br /></td></tr>
-<tr class="separator:aa7cd7e37c80614208f56c67dd1e8e58d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa2469a94c32d7b858d5d76dc6ab4ec7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gaa2469a94c32d7b858d5d76dc6ab4ec7e">arm_nn_lstm_step_s8_s16</a> (const int8_t *input, const int8_t *input_to_input_weight, const int8_t *input_to_forget_weight, const int8_t *input_to_cell_weight, const int8_t *input_to_output_weight, const int8_t *recurrent_to_input_weight, const int8_t *recurrent_to_forget_weight, const int8_t *recurrent_to_cell_weight, const int8_t *recurrent_to_output_weight, const <a class="el" href="structcmsis__nn__lstm__params.html">cmsis_nn_lstm_params</a> *lstm, const int n_batch, const int n_cell, const int n_input, const int n_output, int8_t *output_state, int16_t *cell_state, int8_t *output, <a class="el" href="structcmsis__nn__lstm__context.html">cmsis_nn_lstm_context</a> *scratch_buffers)</td></tr>
 <tr class="memdesc:gaa2469a94c32d7b858d5d76dc6ab4ec7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step.  <a href="group__supportLSTM.html#gaa2469a94c32d7b858d5d76dc6ab4ec7e">More...</a><br /></td></tr>
 <tr class="separator:gaa2469a94c32d7b858d5d76dc6ab4ec7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -374,7 +325,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nn_divide_by_power_of_two</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;arm_nn_divide_by_power_of_two((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -420,7 +371,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a461c45518bb5e6d09772b68647d8e992">arm_nn_exp_on_negative_values</a>((x))</td>
+          <td>&#160;&#160;&#160;arm_nn_exp_on_negative_values((x))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -558,7 +509,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nn_mult_by_power_of_two</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;arm_nn_mult_by_power_of_two((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -586,7 +537,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nn_doubling_high_mult</a>((a), (b))</td>
+          <td></td><td>&#160;&#160;&#160;arm_nn_doubling_high_mult((a), (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -650,7 +601,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#af17849a542a99eceb9f1b6f168ec721f">arm_nn_one_over_one_plus_x_for_x_in_0_1</a>((x))</td>
+          <td>&#160;&#160;&#160;arm_nn_one_over_one_plus_x_for_x_in_0_1((x))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -819,133 +770,43 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aba6296ad262255bbd40e6467b643060a" name="aba6296ad262255bbd40e6467b643060a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6296ad262255bbd40e6467b643060a">&#9670;&nbsp;</a></span>USE_FAST_DW_CONV_S16_FUNCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USE_FAST_DW_CONV_S16_FUNCTION</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">dw_conv_params, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">filter_dims, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">input_dims&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    (dw_conv_params-&gt;ch_mult == 1 &amp;&amp; dw_conv_params-&gt;dilation.w == 1 &amp;&amp; dw_conv_params-&gt;dilation.h == 1 &amp;&amp;             \</div>
+<div class="line">     filter_dims-&gt;w * filter_dims-&gt;h &lt; 512)</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a39cfb85c2a9de8f8a1843a40c3f443ed" name="a39cfb85c2a9de8f8a1843a40c3f443ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39cfb85c2a9de8f8a1843a40c3f443ed">&#9670;&nbsp;</a></span>arm_memcpy_q15()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_memcpy_q15 </td>
-          <td>(</td>
-          <td class="paramtype">int16_t *__RESTRICT&#160;</td>
-          <td class="paramname"><em>dst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int16_t *__RESTRICT&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>block_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">dst</td><td>Destination pointer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Source pointer. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>Number of bytes to copy. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4beb1077adaa0593f838834678ad3885" name="a4beb1077adaa0593f838834678ad3885"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4beb1077adaa0593f838834678ad3885">&#9670;&nbsp;</a></span>arm_memcpy_s8()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_memcpy_s8 </td>
-          <td>(</td>
-          <td class="paramtype">int8_t *__RESTRICT&#160;</td>
-          <td class="paramname"><em>dst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int8_t *__RESTRICT&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>block_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">dst</td><td>Destination pointer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Source pointer. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>Number of bytes to copy. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="adb7cd84ac2aa7fa27448b52c55b6fb75" name="adb7cd84ac2aa7fa27448b52c55b6fb75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb7cd84ac2aa7fa27448b52c55b6fb75">&#9670;&nbsp;</a></span>arm_memset_s8()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_memset_s8 </td>
-          <td>(</td>
-          <td class="paramtype">int8_t *&#160;</td>
-          <td class="paramname"><em>dst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int8_t&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>block_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">dst</td><td>Destination pointer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">val</td><td>Value to set </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>Number of bytes to copy. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a5ef2ef65ceb56c4252c519d36eae3caa" name="a5ef2ef65ceb56c4252c519d36eae3caa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ef2ef65ceb56c4252c519d36eae3caa">&#9670;&nbsp;</a></span>arm_nn_depthwise_conv_s8_core()</h2>
 
@@ -1048,133 +909,6 @@ Functions</h2></td></tr>
 </li>
 </ol>
 </dd></dl>
-
-</div>
-</div>
-<a id="a430aa55faa94d1ee347915d211b2ad34" name="a430aa55faa94d1ee347915d211b2ad34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a430aa55faa94d1ee347915d211b2ad34">&#9670;&nbsp;</a></span>arm_nn_divide_by_power_of_two()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_divide_by_power_of_two </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>dividend</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>exponent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">dividend</td><td>- Dividend </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">exponent</td><td>- Divisor = power(2, exponent) Range: [0, 31] </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Rounded result of division. Midpoint is rounded away from zero. </dd></dl>
-
-</div>
-</div>
-<a id="ae446422a8f0c520a5e20b4a512c4246d" name="ae446422a8f0c520a5e20b4a512c4246d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae446422a8f0c520a5e20b4a512c4246d">&#9670;&nbsp;</a></span>arm_nn_doubling_high_mult()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_doubling_high_mult </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>m1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>m2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">m1</td><td>Multiplicand. Range: {NN_Q31_MIN, NN_Q31_MAX} </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">m2</td><td>Multiplier. Range: {NN_Q31_MIN, NN_Q31_MAX} </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Result of multiplication. </dd></dl>
-
-</div>
-</div>
-<a id="a7d42ef2098c049b79a02d207054d8e43" name="a7d42ef2098c049b79a02d207054d8e43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d42ef2098c049b79a02d207054d8e43">&#9670;&nbsp;</a></span>arm_nn_doubling_high_mult_no_sat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_doubling_high_mult_no_sat </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>m1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>m2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">m1</td><td>Multiplicand. Range: {NN_Q31_MIN, NN_Q31_MAX} </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">m2</td><td>Multiplier Range: {NN_Q31_MIN, NN_Q31_MAX} </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Result of multiplication. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result of this matches that of neon instruction VQRDMULH for m1 in range {NN_Q31_MIN, NN_Q31_MAX} and m2 in range {NN_Q31_MIN + 1, NN_Q31_MAX}. Saturation occurs when m1 equals m2 equals NN_Q31_MIN and that is not handled by this function. </dd></dl>
-
-</div>
-</div>
-<a id="a461c45518bb5e6d09772b68647d8e992" name="a461c45518bb5e6d09772b68647d8e992"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a461c45518bb5e6d09772b68647d8e992">&#9670;&nbsp;</a></span>arm_nn_exp_on_negative_values()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_exp_on_negative_values </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1406,343 +1140,6 @@ Functions</h2></td></tr>
 </li>
 </ol>
 </dd></dl>
-
-</div>
-</div>
-<a id="a5ddcb3e6597b681884fb37b8859e8355" name="a5ddcb3e6597b681884fb37b8859e8355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ddcb3e6597b681884fb37b8859e8355">&#9670;&nbsp;</a></span>arm_nn_mult_by_power_of_two()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_mult_by_power_of_two </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>exp</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af17849a542a99eceb9f1b6f168ec721f" name="af17849a542a99eceb9f1b6f168ec721f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af17849a542a99eceb9f1b6f168ec721f">&#9670;&nbsp;</a></span>arm_nn_one_over_one_plus_x_for_x_in_0_1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_one_over_one_plus_x_for_x_in_0_1 </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a15d6caf10a575be78604db2c2c532d5a" name="a15d6caf10a575be78604db2c2c532d5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15d6caf10a575be78604db2c2c532d5a">&#9670;&nbsp;</a></span>arm_nn_read_q15x2_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_read_q15x2_ia </td>
-          <td>(</td>
-          <td class="paramtype">const int16_t **&#160;</td>
-          <td class="paramname"><em>in_q15</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_q15</td><td>Pointer to pointer that holds address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>q31 value </dd></dl>
-
-</div>
-</div>
-<a id="a0dd951becb6711b7c98c20684b4b347b" name="a0dd951becb6711b7c98c20684b4b347b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dd951becb6711b7c98c20684b4b347b">&#9670;&nbsp;</a></span>arm_nn_read_s16x2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_read_s16x2 </td>
-          <td>(</td>
-          <td class="paramtype">const int16_t *&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>pointer to address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>s32 value </dd></dl>
-
-</div>
-</div>
-<a id="a1c590105760cf5b930b8300a350bfe58" name="a1c590105760cf5b930b8300a350bfe58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c590105760cf5b930b8300a350bfe58">&#9670;&nbsp;</a></span>arm_nn_read_s8x4()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_read_s8x4 </td>
-          <td>(</td>
-          <td class="paramtype">const int8_t *&#160;</td>
-          <td class="paramname"><em>in_s8</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_s8</td><td>pointer to address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>s32 value </dd></dl>
-
-</div>
-</div>
-<a id="a8d2e1ebf155540ef9298ecac843f8e9b" name="a8d2e1ebf155540ef9298ecac843f8e9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d2e1ebf155540ef9298ecac843f8e9b">&#9670;&nbsp;</a></span>arm_nn_read_s8x4_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_read_s8x4_ia </td>
-          <td>(</td>
-          <td class="paramtype">const int8_t **&#160;</td>
-          <td class="paramname"><em>in_s8</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_s8</td><td>Pointer to pointer that holds address of input. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>q31 value </dd></dl>
-
-</div>
-</div>
-<a id="a819ba8bdcb6b0e26e5d49c196d1f1a65" name="a819ba8bdcb6b0e26e5d49c196d1f1a65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a819ba8bdcb6b0e26e5d49c196d1f1a65">&#9670;&nbsp;</a></span>arm_nn_requantize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_requantize </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>multiplier</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>shift</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">val</td><td>Value to be requantized </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">multiplier</td><td>multiplier. Range {NN_Q31_MIN + 1, Q32_MAX} </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">shift</td><td>left or right shift for 'val * multiplier'</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns (val * multiplier)/(2 ^ shift) </dd></dl>
-
-</div>
-</div>
-<a id="a7dc3fb2d364d4a56f3d2c6cacde2178e" name="a7dc3fb2d364d4a56f3d2c6cacde2178e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dc3fb2d364d4a56f3d2c6cacde2178e">&#9670;&nbsp;</a></span>arm_nn_requantize_s64()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_nn_requantize_s64 </td>
-          <td>(</td>
-          <td class="paramtype">const int64_t&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>reduced_multiplier</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>shift</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">val</td><td>Value to be requantized in the range {-(1&lt;&lt;47)} to {(1&lt;&lt;47) - 1} </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">reduced_multiplier</td><td>Reduced multiplier in the range {NN_Q31_MIN + 1, Q32_MAX} to {Q16_MIN + 1, Q16_MAX} </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">shift</td><td>Left or right shift for 'val * multiplier' in the range {-31} to {7}</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns (val * multiplier)/(2 ^ shift) </dd></dl>
-
-</div>
-</div>
-<a id="a74d9ec2af94d1e36b171c4eebee7eba4" name="a74d9ec2af94d1e36b171c4eebee7eba4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74d9ec2af94d1e36b171c4eebee7eba4">&#9670;&nbsp;</a></span>arm_nn_write_q15x2_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_nn_write_q15x2_ia </td>
-          <td>(</td>
-          <td class="paramtype">int16_t **&#160;</td>
-          <td class="paramname"><em>dest_q15</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>src_q31</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">dest_q15</td><td>Pointer to pointer that holds address of destination. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">src_q31</td><td>Input value to be written. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa7cd7e37c80614208f56c67dd1e8e58d" name="aa7cd7e37c80614208f56c67dd1e8e58d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7cd7e37c80614208f56c67dd1e8e58d">&#9670;&nbsp;</a></span>arm_nn_write_s8x2_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_nn_write_s8x2_ia </td>
-          <td>(</td>
-          <td class="paramtype">int8_t **&#160;</td>
-          <td class="paramname"><em>dst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t&#160;</td>
-          <td class="paramname"><em>src</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">dst</td><td>Pointer to pointer that holds address of destination. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Input value to be written. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aee420155863cb873908fc9307bfb0098" name="aee420155863cb873908fc9307bfb0098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee420155863cb873908fc9307bfb0098">&#9670;&nbsp;</a></span>arm_nn_write_s8x4_ia()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_nn_write_s8x4_ia </td>
-          <td>(</td>
-          <td class="paramtype">int8_t **&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>Double pointer to input value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>Four bytes to copy </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

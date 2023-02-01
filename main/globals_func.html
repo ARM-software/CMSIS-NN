@@ -109,21 +109,12 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
       <li><a href="#index_f"><span>fully</span></a></li>
       <li><a href="#index_l"><span>lstm_</span></a></li>
       <li><a href="#index_m"><span>max_p</span></a></li>
-      <li><a href="#index_m"><span>memcp</span></a></li>
-      <li><a href="#index_m"><span>memse</span></a></li>
       <li><a href="#index_n"><span>nn_ac</span></a></li>
       <li><a href="#index_n"><span>nn_de</span></a></li>
-      <li><a href="#index_n"><span>nn_di</span></a></li>
-      <li><a href="#index_n"><span>nn_do</span></a></li>
-      <li><a href="#index_n"><span>nn_ex</span></a></li>
       <li><a href="#index_n"><span>nn_ls</span></a></li>
       <li><a href="#index_n"><span>nn_ma</span></a></li>
-      <li><a href="#index_n"><span>nn_mu</span></a></li>
-      <li><a href="#index_n"><span>nn_on</span></a></li>
-      <li><a href="#index_n"><span>nn_re</span></a></li>
       <li><a href="#index_n"><span>nn_so</span></a></li>
       <li><a href="#index_n"><span>nn_ve</span></a></li>
-      <li><a href="#index_n"><span>nn_wr</span></a></li>
       <li><a href="#index_q"><span>q7_to</span></a></li>
       <li><a href="#index_r"><span>relu6</span></a></li>
       <li><a href="#index_r"><span>relu_</span></a></li>
@@ -173,9 +164,13 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 
 <h3><a id="index_a" name="index_a"></a>- avgpo -</h3><ul>
 <li>arm_avgpool_s16()&#160;:&#160;<a class="el" href="group__Pooling.html#gaef71369175ef4058ba098e96ea988068">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#gaef71369175ef4058ba098e96ea988068">arm_avgpool_s16.c</a></li>
-<li>arm_avgpool_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__Pooling.html#gac5f8a447fac56e1c48f353a746ec411a">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#gac5f8a447fac56e1c48f353a746ec411a">arm_avgpool_s16.c</a></li>
+<li>arm_avgpool_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#gac5f8a447fac56e1c48f353a746ec411a">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#gac5f8a447fac56e1c48f353a746ec411a">arm_avgpool_get_buffer_sizes_s16.c</a></li>
+<li>arm_avgpool_s16_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#gaa39ef5937a6a35da5674fa20615cff9a">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#gaa39ef5937a6a35da5674fa20615cff9a">arm_avgpool_get_buffer_sizes_s16.c</a></li>
+<li>arm_avgpool_s16_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#ga818b3f2926a4abb2ec017c146397ebd8">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#ga818b3f2926a4abb2ec017c146397ebd8">arm_avgpool_get_buffer_sizes_s16.c</a></li>
 <li>arm_avgpool_s8()&#160;:&#160;<a class="el" href="group__Pooling.html#ga0c62a0d440fe6d79aaae77c75b55459d">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#ga0c62a0d440fe6d79aaae77c75b55459d">arm_avgpool_s8.c</a></li>
-<li>arm_avgpool_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__Pooling.html#ga08263590a94c39b4c1c199501ca166e4">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#ga08263590a94c39b4c1c199501ca166e4">arm_avgpool_s8.c</a></li>
+<li>arm_avgpool_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#ga08263590a94c39b4c1c199501ca166e4">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#ga08263590a94c39b4c1c199501ca166e4">arm_avgpool_get_buffer_sizes_s8.c</a></li>
+<li>arm_avgpool_s8_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#ga510eddda1be0c18c5715e486dced693d">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#ga510eddda1be0c18c5715e486dced693d">arm_avgpool_get_buffer_sizes_s8.c</a></li>
+<li>arm_avgpool_s8_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizePooling.html#ga22d4b7701855c62ae9e684901f9463de">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizePooling.html#ga22d4b7701855c62ae9e684901f9463de">arm_avgpool_get_buffer_sizes_s8.c</a></li>
 </ul>
 
 
@@ -185,35 +180,43 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 <li>arm_concatenation_s8_y()&#160;:&#160;<a class="el" href="group__Concatenation.html#gaf0b76b039f66f34ec99503193a015ff6">arm_nnfunctions.h</a>, <a class="el" href="group__Concatenation.html#gaf0b76b039f66f34ec99503193a015ff6">arm_concatenation_s8_y.c</a></li>
 <li>arm_concatenation_s8_z()&#160;:&#160;<a class="el" href="group__Concatenation.html#ga9ae180a44e18ee58936dba1e0564560b">arm_nnfunctions.h</a>, <a class="el" href="group__Concatenation.html#ga9ae180a44e18ee58936dba1e0564560b">arm_concatenation_s8_z.c</a></li>
 <li>arm_convolve_1_x_n_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#gad1b14c79a862285824945d6685c1fbca">arm_convolve_1_x_n_s8.c</a>, <a class="el" href="group__NNConv.html#gad1b14c79a862285824945d6685c1fbca">arm_nnfunctions.h</a></li>
-<li>arm_convolve_1_x_n_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">arm_convolve_1_x_n_s8.c</a></li>
+<li>arm_convolve_1_x_n_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">arm_convolve_get_buffer_sizes_s8.c</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e">arm_nnfunctions.h</a></li>
 <li>arm_convolve_1x1_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80">arm_convolve_1x1_s8.c</a></li>
 <li>arm_convolve_1x1_s8_fast()&#160;:&#160;<a class="el" href="group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0">arm_convolve_1x1_s8_fast.c</a></li>
-<li>arm_convolve_1x1_s8_fast_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8">arm_convolve_1x1_s8_fast.c</a></li>
+<li>arm_convolve_1x1_s8_fast_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8">arm_convolve_get_buffer_sizes_s8.c</a></li>
 <li>arm_convolve_fast_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#gae0d16d7055030ba5955a0e30310e99b5">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gae0d16d7055030ba5955a0e30310e99b5">arm_convolve_fast_s16.c</a></li>
-<li>arm_convolve_fast_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga8db7c4be84de273cfba630106d912737">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga8db7c4be84de273cfba630106d912737">arm_convolve_fast_s16.c</a></li>
-<li>arm_convolve_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga2207604ade2580e425aad37f4633abed">arm_convolve_s16.c</a>, <a class="el" href="group__NNConv.html#ga2207604ade2580e425aad37f4633abed">arm_nnfunctions.h</a></li>
-<li>arm_convolve_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#gaf8ee642967e4b1b05465621979de1baa">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gaf8ee642967e4b1b05465621979de1baa">arm_convolve_s16.c</a></li>
-<li>arm_convolve_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#gabe85fc783fbd4f5faa738643828cfaef">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gabe85fc783fbd4f5faa738643828cfaef">arm_convolve_s8.c</a></li>
-<li>arm_convolve_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#gac057b0749e2a6828ae21f762f3fa0c85">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gac057b0749e2a6828ae21f762f3fa0c85">arm_convolve_s8.c</a></li>
+<li>arm_convolve_fast_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga8db7c4be84de273cfba630106d912737">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga8db7c4be84de273cfba630106d912737">arm_convolve_get_buffer_sizes_s16.c</a></li>
+<li>arm_convolve_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga2207604ade2580e425aad37f4633abed">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga2207604ade2580e425aad37f4633abed">arm_convolve_s16.c</a></li>
+<li>arm_convolve_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gaf8ee642967e4b1b05465621979de1baa">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gaf8ee642967e4b1b05465621979de1baa">arm_convolve_get_buffer_sizes_s16.c</a></li>
+<li>arm_convolve_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#gabe85fc783fbd4f5faa738643828cfaef">arm_convolve_s8.c</a>, <a class="el" href="group__NNConv.html#gabe85fc783fbd4f5faa738643828cfaef">arm_nnfunctions.h</a></li>
+<li>arm_convolve_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gac057b0749e2a6828ae21f762f3fa0c85">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gac057b0749e2a6828ae21f762f3fa0c85">arm_convolve_get_buffer_sizes_s8.c</a></li>
 <li>arm_convolve_wrapper_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga3895780affd2911bdb2ccbc9cf3c913e">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga3895780affd2911bdb2ccbc9cf3c913e">arm_convolve_wrapper_s16.c</a></li>
-<li>arm_convolve_wrapper_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga818dfca6a26af7cc8abb91d43fb16930">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga818dfca6a26af7cc8abb91d43fb16930">arm_convolve_wrapper_s16.c</a></li>
+<li>arm_convolve_wrapper_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga818dfca6a26af7cc8abb91d43fb16930">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga818dfca6a26af7cc8abb91d43fb16930">arm_convolve_get_buffer_sizes_s16.c</a></li>
+<li>arm_convolve_wrapper_s16_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga02801066bbac2f02861552963d768fa4">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga02801066bbac2f02861552963d768fa4">arm_convolve_get_buffer_sizes_s16.c</a></li>
+<li>arm_convolve_wrapper_s16_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga7b50bcf770926ce15d70aad0d027d309">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga7b50bcf770926ce15d70aad0d027d309">arm_convolve_get_buffer_sizes_s16.c</a></li>
 <li>arm_convolve_wrapper_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#gac943c23ebd3384b34731c10465f87dd5">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gac943c23ebd3384b34731c10465f87dd5">arm_convolve_wrapper_s8.c</a></li>
-<li>arm_convolve_wrapper_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga60c117b646f95abeb9966eefc4a9da38">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga60c117b646f95abeb9966eefc4a9da38">arm_convolve_wrapper_s8.c</a></li>
+<li>arm_convolve_wrapper_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga60c117b646f95abeb9966eefc4a9da38">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga60c117b646f95abeb9966eefc4a9da38">arm_convolve_get_buffer_sizes_s8.c</a></li>
+<li>arm_convolve_wrapper_s8_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gadc35107dbe1bbe268af2c462cb9413b2">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gadc35107dbe1bbe268af2c462cb9413b2">arm_convolve_get_buffer_sizes_s8.c</a></li>
+<li>arm_convolve_wrapper_s8_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gaa7e6305d9af9716ca8876fc8b6070e85">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gaa7e6305d9af9716ca8876fc8b6070e85">arm_convolve_get_buffer_sizes_s8.c</a></li>
 </ul>
 
 
 <h3><a id="index_d" name="index_d"></a>- depth -</h3><ul>
 <li>arm_depthwise_conv_3x3_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#ga517de01da489d0f3ec9e5c1db0626f48">arm_depthwise_conv_3x3_s8.c</a>, <a class="el" href="group__NNConv.html#ga517de01da489d0f3ec9e5c1db0626f48">arm_nnfunctions.h</a></li>
 <li>arm_depthwise_conv_fast_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga8485fc6b8f8838cb752bc8d9d4f0fc7b">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga8485fc6b8f8838cb752bc8d9d4f0fc7b">arm_depthwise_conv_fast_s16.c</a></li>
-<li>arm_depthwise_conv_fast_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga2b3661946b8466be10d28529a5328ee6">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga2b3661946b8466be10d28529a5328ee6">arm_depthwise_conv_fast_s16.c</a></li>
+<li>arm_depthwise_conv_fast_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga2b3661946b8466be10d28529a5328ee6">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga2b3661946b8466be10d28529a5328ee6">arm_depthwise_conv_get_buffer_sizes_s16.c</a></li>
 <li>arm_depthwise_conv_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga51cfdc6101b25e074c8a4bb86b0ca5c1">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga51cfdc6101b25e074c8a4bb86b0ca5c1">arm_depthwise_conv_s16.c</a></li>
 <li>arm_depthwise_conv_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6">arm_depthwise_conv_s8.c</a></li>
-<li>arm_depthwise_conv_s8_opt()&#160;:&#160;<a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba">arm_depthwise_conv_s8_opt.c</a>, <a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba">arm_nnfunctions.h</a></li>
-<li>arm_depthwise_conv_s8_opt_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">arm_depthwise_conv_s8_opt.c</a></li>
-<li>arm_depthwise_conv_wrapper_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20">arm_depthwise_conv_wrapper_s16.c</a></li>
-<li>arm_depthwise_conv_wrapper_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa">arm_depthwise_conv_wrapper_s16.c</a></li>
+<li>arm_depthwise_conv_s8_opt()&#160;:&#160;<a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba">arm_depthwise_conv_s8_opt.c</a></li>
+<li>arm_depthwise_conv_s8_opt_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">arm_depthwise_conv_get_buffer_sizes_s8.c</a></li>
+<li>arm_depthwise_conv_wrapper_s16()&#160;:&#160;<a class="el" href="group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20">arm_depthwise_conv_wrapper_s16.c</a>, <a class="el" href="group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20">arm_nnfunctions.h</a></li>
+<li>arm_depthwise_conv_wrapper_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa">arm_depthwise_conv_get_buffer_sizes_s16.c</a></li>
+<li>arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gaffa52eb0b4d4894ab8fb98ed81d5f2eb">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gaffa52eb0b4d4894ab8fb98ed81d5f2eb">arm_depthwise_conv_get_buffer_sizes_s16.c</a></li>
+<li>arm_depthwise_conv_wrapper_s16_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga48f035cbe0b112d630f01c4f35d5e5c1">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga48f035cbe0b112d630f01c4f35d5e5c1">arm_depthwise_conv_get_buffer_sizes_s16.c</a></li>
 <li>arm_depthwise_conv_wrapper_s8()&#160;:&#160;<a class="el" href="group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d">arm_depthwise_conv_wrapper_s8.c</a></li>
-<li>arm_depthwise_conv_wrapper_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__NNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb">arm_nnfunctions.h</a>, <a class="el" href="group__NNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb">arm_depthwise_conv_wrapper_s8.c</a></li>
+<li>arm_depthwise_conv_wrapper_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb">arm_depthwise_conv_get_buffer_sizes_s8.c</a></li>
+<li>arm_depthwise_conv_wrapper_s8_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#ga9c60a9f3762d3ce1ab36f118ad74529b">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#ga9c60a9f3762d3ce1ab36f118ad74529b">arm_depthwise_conv_get_buffer_sizes_s8.c</a></li>
+<li>arm_depthwise_conv_wrapper_s8_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274">arm_depthwise_conv_get_buffer_sizes_s8.c</a></li>
 </ul>
 
 
@@ -228,9 +231,13 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 
 <h3><a id="index_f" name="index_f"></a>- fully -</h3><ul>
 <li>arm_fully_connected_s16()&#160;:&#160;<a class="el" href="group__FC.html#ga88e4790441b47324c578d36f8f8346d0">arm_nnfunctions.h</a>, <a class="el" href="group__FC.html#ga88e4790441b47324c578d36f8f8346d0">arm_fully_connected_s16.c</a></li>
-<li>arm_fully_connected_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__FC.html#ga5f0e89482a3ea7ab417630be80ca983d">arm_nnfunctions.h</a>, <a class="el" href="group__FC.html#ga5f0e89482a3ea7ab417630be80ca983d">arm_fully_connected_s16.c</a></li>
+<li>arm_fully_connected_s16_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#ga5f0e89482a3ea7ab417630be80ca983d">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#ga5f0e89482a3ea7ab417630be80ca983d">arm_fully_connected_get_buffer_sizes_s16.c</a></li>
+<li>arm_fully_connected_s16_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#gabf1020c20ae6db09c6d7a9cd09acc8a6">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#gabf1020c20ae6db09c6d7a9cd09acc8a6">arm_fully_connected_get_buffer_sizes_s16.c</a></li>
+<li>arm_fully_connected_s16_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#gaa80676bf6a3b6460991d5a05ffdfb1e6">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#gaa80676bf6a3b6460991d5a05ffdfb1e6">arm_fully_connected_get_buffer_sizes_s16.c</a></li>
 <li>arm_fully_connected_s8()&#160;:&#160;<a class="el" href="group__FC.html#ga3d99c95dccc77351666b4a9baae564bd">arm_nnfunctions.h</a>, <a class="el" href="group__FC.html#ga3d99c95dccc77351666b4a9baae564bd">arm_fully_connected_s8.c</a></li>
-<li>arm_fully_connected_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__FC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e">arm_nnfunctions.h</a>, <a class="el" href="group__FC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e">arm_fully_connected_s8.c</a></li>
+<li>arm_fully_connected_s8_get_buffer_size()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e">arm_fully_connected_get_buffer_sizes_s8.c</a></li>
+<li>arm_fully_connected_s8_get_buffer_size_dsp()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#ga40ce01f2f158976c0a95656dd7660088">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#ga40ce01f2f158976c0a95656dd7660088">arm_fully_connected_get_buffer_sizes_s8.c</a></li>
+<li>arm_fully_connected_s8_get_buffer_size_mve()&#160;:&#160;<a class="el" href="group__GetBufferSizeFC.html#gab8da64f6fb7475d625f476486050938b">arm_nnfunctions.h</a>, <a class="el" href="group__GetBufferSizeFC.html#gab8da64f6fb7475d625f476486050938b">arm_fully_connected_get_buffer_sizes_s8.c</a></li>
 </ul>
 
 
@@ -242,9 +249,6 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 <h3><a id="index_m" name="index_m"></a>- max_p -</h3><ul>
 <li>arm_max_pool_s16()&#160;:&#160;<a class="el" href="group__Pooling.html#ga62bc8df39f9b77ad1bccb5dea081b68a">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#ga62bc8df39f9b77ad1bccb5dea081b68a">arm_max_pool_s16.c</a></li>
 <li>arm_max_pool_s8()&#160;:&#160;<a class="el" href="group__Pooling.html#ga3ee512950bca5676cbf061311910f976">arm_nnfunctions.h</a>, <a class="el" href="group__Pooling.html#ga3ee512950bca5676cbf061311910f976">arm_max_pool_s8.c</a></li>
-<li>arm_memcpy_q15()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a39cfb85c2a9de8f8a1843a40c3f443ed">arm_nnsupportfunctions.h</a></li>
-<li>arm_memcpy_s8()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a4beb1077adaa0593f838834678ad3885">arm_nnsupportfunctions.h</a></li>
-<li>arm_memset_s8()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#adb7cd84ac2aa7fa27448b52c55b6fb75">arm_nnsupportfunctions.h</a></li>
 </ul>
 
 
@@ -254,10 +258,6 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 <li>arm_nn_depthwise_conv_nt_t_s16()&#160;:&#160;<a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16.c</a></li>
 <li>arm_nn_depthwise_conv_nt_t_s8()&#160;:&#160;<a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nn_depthwise_conv_nt_t_s8.c</a></li>
 <li>arm_nn_depthwise_conv_s8_core()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ef2ef65ceb56c4252c519d36eae3caa">arm_nnsupportfunctions.h</a>, <a class="el" href="arm__nn__depthwise__conv__s8__core_8c.html#a5ef2ef65ceb56c4252c519d36eae3caa">arm_nn_depthwise_conv_s8_core.c</a></li>
-<li>arm_nn_divide_by_power_of_two()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a430aa55faa94d1ee347915d211b2ad34">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_doubling_high_mult()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ae446422a8f0c520a5e20b4a512c4246d">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_doubling_high_mult_no_sat()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a7d42ef2098c049b79a02d207054d8e43">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_exp_on_negative_values()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a461c45518bb5e6d09772b68647d8e992">arm_nnsupportfunctions.h</a></li>
 <li>arm_nn_lstm_calculate_gate_s8_s16()&#160;:&#160;<a class="el" href="group__supportLSTM.html#ga47f7edf107019b4588efcdbcd0d8d19a">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportLSTM.html#ga47f7edf107019b4588efcdbcd0d8d19a">arm_nn_lstm_calculate_gate_s8_s16.c</a></li>
 <li>arm_nn_lstm_step_s8_s16()&#160;:&#160;<a class="el" href="group__supportLSTM.html#gaa2469a94c32d7b858d5d76dc6ab4ec7e">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportLSTM.html#gaa2469a94c32d7b858d5d76dc6ab4ec7e">arm_nn_lstm_step_s8_s16.c</a></li>
 <li>arm_nn_lstm_update_cell_state_s16()&#160;:&#160;<a class="el" href="group__supportLSTM.html#ga6e839eaf6c4e2f10b6c9d9557ce30d1d">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportLSTM.html#ga6e839eaf6c4e2f10b6c9d9557ce30d1d">arm_nn_lstm_update_cell_state_s16.c</a></li>
@@ -268,22 +268,11 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 <li>arm_nn_mat_mult_kernel_s8_s16()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nnsupportfunctions.h</a>, <a class="el" href="arm__nn__mat__mult__kernel__s8__s16_8c.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nn_mat_mult_kernel_s8_s16.c</a></li>
 <li>arm_nn_mat_mult_nt_t_s8()&#160;:&#160;<a class="el" href="group__supportConvolution.html#ga465767c571062342a8d5f6677905ae1f">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportConvolution.html#ga465767c571062342a8d5f6677905ae1f">arm_nn_mat_mult_nt_t_s8.c</a></li>
 <li>arm_nn_mat_mult_s8()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a195279926b8d39ef8a1ff9131832a40f">arm_nnsupportfunctions.h</a>, <a class="el" href="arm__nn__mat__mult__s8_8c.html#aede0b8a9bca3515096bba6a008b481a3">arm_nn_mat_mult_s8.c</a></li>
-<li>arm_nn_mult_by_power_of_two()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a5ddcb3e6597b681884fb37b8859e8355">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_one_over_one_plus_x_for_x_in_0_1()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#af17849a542a99eceb9f1b6f168ec721f">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_read_q15x2_ia()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a15d6caf10a575be78604db2c2c532d5a">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_read_s16x2()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a0dd951becb6711b7c98c20684b4b347b">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_read_s8x4()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a1c590105760cf5b930b8300a350bfe58">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_read_s8x4_ia()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a8d2e1ebf155540ef9298ecac843f8e9b">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_requantize()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a819ba8bdcb6b0e26e5d49c196d1f1a65">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_requantize_s64()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a7dc3fb2d364d4a56f3d2c6cacde2178e">arm_nnsupportfunctions.h</a></li>
 <li>arm_nn_softmax_common_s8()&#160;:&#160;<a class="el" href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">arm_nn_softmax_common_s8.c</a></li>
 <li>arm_nn_vec_mat_mul_result_acc_s8()&#160;:&#160;<a class="el" href="group__supportLSTM.html#ga277bf0f67ccf7c5d7c21e7d87e8f986b">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportLSTM.html#ga277bf0f67ccf7c5d7c21e7d87e8f986b">arm_nn_vec_mat_mul_result_acc_s8.c</a></li>
 <li>arm_nn_vec_mat_mult_t_s16()&#160;:&#160;<a class="el" href="group__supportFC.html#ga10758802e8392839a207eb21620f60c3">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportFC.html#ga10758802e8392839a207eb21620f60c3">arm_nn_vec_mat_mult_t_s16.c</a></li>
 <li>arm_nn_vec_mat_mult_t_s8()&#160;:&#160;<a class="el" href="group__supportFC.html#ga412e91544fe3d699bccc68ed564cad74">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportFC.html#ga412e91544fe3d699bccc68ed564cad74">arm_nn_vec_mat_mult_t_s8.c</a></li>
 <li>arm_nn_vec_mat_mult_t_svdf_s8()&#160;:&#160;<a class="el" href="group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac">arm_nnsupportfunctions.h</a>, <a class="el" href="group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac">arm_nn_vec_mat_mult_t_svdf_s8.c</a></li>
-<li>arm_nn_write_q15x2_ia()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a74d9ec2af94d1e36b171c4eebee7eba4">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_write_s8x2_ia()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#aa7cd7e37c80614208f56c67dd1e8e58d">arm_nnsupportfunctions.h</a></li>
-<li>arm_nn_write_s8x4_ia()&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#aee420155863cb873908fc9307bfb0098">arm_nnsupportfunctions.h</a></li>
 </ul>
 
 

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lstm_0',['LSTM',['../group__supportLSTM.html',1,'']]],
-  ['lstm_20layer_20functions_1',['LSTM Layer Functions',['../group__LSTM.html',1,'']]]
+  ['getbuffersizefc_0',['GetBufferSizeFC',['../group__GetBufferSizeFC.html',1,'']]],
+  ['getbuffersizennconv_1',['GetBufferSizeNNConv',['../group__GetBufferSizeNNConv.html',1,'']]],
+  ['getbuffersizepooling_2',['GetBufferSizePooling',['../group__GetBufferSizePooling.html',1,'']]]
 ];
