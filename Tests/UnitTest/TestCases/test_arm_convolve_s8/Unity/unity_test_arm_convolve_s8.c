@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -75,3 +75,9 @@ void test_conv_3x2_dilation_arm_convolve_s8(void) { conv_3x2_dilation_arm_convol
 void test_conv_3x3_dilation_5x5_input_arm_convolve_s8(void) { conv_3x3_dilation_5x5_input_arm_convolve_s8(); }
 
 void test_conv_2x2_dilation_5x5_input_arm_convolve_s8(void) { conv_2x2_dilation_5x5_input_arm_convolve_s8(); }
+
+void test_buffer_size_arm_convolve_s8(void) { buffer_size_arm_convolve_s8(); }
+
+void test_buffer_size_mve_arm_convolve_s8(void) { buffer_size_mve_arm_convolve_s8(); }
+
+void test_buffer_size_dsp_arm_convolve_s8(void) { buffer_size_dsp_arm_convolve_s8(); }

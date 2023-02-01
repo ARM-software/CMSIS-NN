@@ -22,8 +22,8 @@
  * Description:  Optimized s16 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        5 January 2023
- * $Revision:    V.1.2.0
+ * $Date:        30 January 2023
+ * $Revision:    V.1.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -444,22 +444,6 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
-}
-
-int32_t arm_depthwise_conv_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
-{
-#if defined(ARM_MATH_DSP)
-    #if defined(ARM_MATH_MVEI)
-    /* The + 8 accounts for a worst case out of bounds read of the lhs buffers in the *_nt_t_* function.  */
-    return 4 * input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t) + 8;
-    #else // ARM_MATH_DSP
-    return input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t);
-    #endif
-#else
-    (void)input_dims;
-    (void)filter_dims;
-    return 0;
-#endif
 }
 
 /**

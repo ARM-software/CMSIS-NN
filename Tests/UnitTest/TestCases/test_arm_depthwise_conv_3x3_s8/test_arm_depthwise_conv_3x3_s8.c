@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -431,4 +431,84 @@ void stride2pad1_arm_depthwise_conv_3x3_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, stride2pad1_output_ref, output_ref_size));
+}
+
+void buffer_size_mve_arm_depthwise_conv_3x3_s8(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_dw_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_BATCHES;
+    input_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_W;
+    input_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_H;
+    input_dims.c = DEPTHWISE_KERNEL_3X3_NULL_BIAS_IN_CH;
+    filter_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_FILTER_X;
+    filter_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_FILTER_Y;
+    output_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_W;
+    output_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_H;
+    output_dims.c = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_CH;
+
+    conv_params.padding.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_PAD_X;
+    conv_params.padding.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_PAD_Y;
+    conv_params.stride.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_STRIDE_X;
+    conv_params.stride.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_STRIDE_Y;
+    conv_params.dilation.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_DILATION_X;
+    conv_params.dilation.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_DILATION_Y;
+    conv_params.ch_mult = DEPTHWISE_KERNEL_3X3_NULL_BIAS_CH_MULT;
+    conv_params.input_offset = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_OFFSET;
+    conv_params.output_offset = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_OFFSET;
+    conv_params.activation.min = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_depthwise_conv_3x3_s8(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_dw_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_BATCHES;
+    input_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_W;
+    input_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_H;
+    input_dims.c = DEPTHWISE_KERNEL_3X3_NULL_BIAS_IN_CH;
+    filter_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_FILTER_X;
+    filter_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_FILTER_Y;
+    output_dims.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_W;
+    output_dims.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_H;
+    output_dims.c = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_CH;
+
+    conv_params.padding.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_PAD_X;
+    conv_params.padding.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_PAD_Y;
+    conv_params.stride.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_STRIDE_X;
+    conv_params.stride.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_STRIDE_Y;
+    conv_params.dilation.w = DEPTHWISE_KERNEL_3X3_NULL_BIAS_DILATION_X;
+    conv_params.dilation.h = DEPTHWISE_KERNEL_3X3_NULL_BIAS_DILATION_Y;
+
+    conv_params.ch_mult = DEPTHWISE_KERNEL_3X3_NULL_BIAS_CH_MULT;
+
+    conv_params.input_offset = DEPTHWISE_KERNEL_3X3_NULL_BIAS_INPUT_OFFSET;
+    conv_params.output_offset = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUTPUT_OFFSET;
+    conv_params.activation.min = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = DEPTHWISE_KERNEL_3X3_NULL_BIAS_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
 }

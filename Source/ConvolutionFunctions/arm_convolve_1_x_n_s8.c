@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s8.c
  * Description:  s8 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        23 January 2023
- * $Revision:    V.3.2.0
+ * $Date:        30 January 2023
+ * $Revision:    V.3.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -153,17 +153,6 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
 out:
     /* Return to application */
     return status;
-}
-
-int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
-{
-#if !defined(ARM_MATH_MVEI)
-    return arm_convolve_s8_get_buffer_size(input_dims, filter_dims);
-#else
-    (void)input_dims;
-    (void)filter_dims;
-    return 0;
-#endif
 }
 
 /**

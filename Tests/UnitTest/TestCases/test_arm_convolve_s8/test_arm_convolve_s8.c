@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -1480,4 +1480,118 @@ void conv_5_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+}
+
+void buffer_size_arm_convolve_s8(void)
+{
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = CONV_5_INPUT_BATCHES;
+    input_dims.w = CONV_5_INPUT_W;
+    input_dims.h = CONV_5_INPUT_H;
+    input_dims.c = CONV_5_IN_CH;
+    filter_dims.w = CONV_5_FILTER_X;
+    filter_dims.h = CONV_5_FILTER_Y;
+    output_dims.w = CONV_5_OUTPUT_W;
+    output_dims.h = CONV_5_OUTPUT_H;
+    output_dims.c = CONV_5_OUT_CH;
+
+    conv_params.padding.w = CONV_5_PAD_X;
+    conv_params.padding.h = CONV_5_PAD_Y;
+    conv_params.stride.w = CONV_5_STRIDE_X;
+    conv_params.stride.h = CONV_5_STRIDE_Y;
+    conv_params.dilation.w = CONV_5_DILATION_X;
+    conv_params.dilation.h = CONV_5_DILATION_Y;
+
+    conv_params.input_offset = CONV_5_INPUT_OFFSET;
+    conv_params.output_offset = CONV_5_OUTPUT_OFFSET;
+    conv_params.activation.min = CONV_5_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = CONV_5_OUT_ACTIVATION_MAX;
+
+    const int32_t buf_size = arm_convolve_s8_get_buffer_size(&input_dims, &filter_dims);
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, buf_size);
+}
+
+void buffer_size_mve_arm_convolve_s8(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = CONV_5_INPUT_BATCHES;
+    input_dims.w = CONV_5_INPUT_W;
+    input_dims.h = CONV_5_INPUT_H;
+    input_dims.c = CONV_5_IN_CH;
+    filter_dims.w = CONV_5_FILTER_X;
+    filter_dims.h = CONV_5_FILTER_Y;
+    output_dims.w = CONV_5_OUTPUT_W;
+    output_dims.h = CONV_5_OUTPUT_H;
+    output_dims.c = CONV_5_OUT_CH;
+
+    conv_params.padding.w = CONV_5_PAD_X;
+    conv_params.padding.h = CONV_5_PAD_Y;
+    conv_params.stride.w = CONV_5_STRIDE_X;
+    conv_params.stride.h = CONV_5_STRIDE_Y;
+    conv_params.dilation.w = CONV_5_DILATION_X;
+    conv_params.dilation.h = CONV_5_DILATION_Y;
+
+    conv_params.input_offset = CONV_5_INPUT_OFFSET;
+    conv_params.output_offset = CONV_5_OUTPUT_OFFSET;
+    conv_params.activation.min = CONV_5_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = CONV_5_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_convolve_s8(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = CONV_5_INPUT_BATCHES;
+    input_dims.w = CONV_5_INPUT_W;
+    input_dims.h = CONV_5_INPUT_H;
+    input_dims.c = CONV_5_IN_CH;
+    filter_dims.w = CONV_5_FILTER_X;
+    filter_dims.h = CONV_5_FILTER_Y;
+    output_dims.w = CONV_5_OUTPUT_W;
+    output_dims.h = CONV_5_OUTPUT_H;
+    output_dims.c = CONV_5_OUT_CH;
+
+    conv_params.padding.w = CONV_5_PAD_X;
+    conv_params.padding.h = CONV_5_PAD_Y;
+    conv_params.stride.w = CONV_5_STRIDE_X;
+    conv_params.stride.h = CONV_5_STRIDE_Y;
+    conv_params.dilation.w = CONV_5_DILATION_X;
+    conv_params.dilation.h = CONV_5_DILATION_Y;
+
+    conv_params.input_offset = CONV_5_INPUT_OFFSET;
+    conv_params.output_offset = CONV_5_OUTPUT_OFFSET;
+    conv_params.activation.min = CONV_5_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = CONV_5_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
 }

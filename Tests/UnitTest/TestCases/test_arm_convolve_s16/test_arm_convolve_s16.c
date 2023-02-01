@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com> All rights
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com> All rights
  * reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -473,4 +473,118 @@ void int16xint8_dilation_3_arm_convolve_s16(void)
     }
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+}
+
+void buffer_size_arm_convolve_s16(void)
+{
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = INT16XINT8_DILATION_3_INPUT_BATCHES;
+    input_dims.w = INT16XINT8_DILATION_3_INPUT_W;
+    input_dims.h = INT16XINT8_DILATION_3_INPUT_H;
+    input_dims.c = INT16XINT8_DILATION_3_IN_CH;
+    filter_dims.w = INT16XINT8_DILATION_3_FILTER_X;
+    filter_dims.h = INT16XINT8_DILATION_3_FILTER_Y;
+    output_dims.w = INT16XINT8_DILATION_3_OUTPUT_W;
+    output_dims.h = INT16XINT8_DILATION_3_OUTPUT_H;
+    output_dims.c = INT16XINT8_DILATION_3_OUT_CH;
+
+    conv_params.padding.w = INT16XINT8_DILATION_3_PAD_X;
+    conv_params.padding.h = INT16XINT8_DILATION_3_PAD_Y;
+    conv_params.stride.w = INT16XINT8_DILATION_3_STRIDE_X;
+    conv_params.stride.h = INT16XINT8_DILATION_3_STRIDE_Y;
+    conv_params.dilation.w = INT16XINT8_DILATION_3_DILATION_X;
+    conv_params.dilation.h = INT16XINT8_DILATION_3_DILATION_Y;
+
+    conv_params.input_offset = INT16XINT8_DILATION_3_INPUT_OFFSET;
+    conv_params.output_offset = INT16XINT8_DILATION_3_OUTPUT_OFFSET;
+    conv_params.activation.min = INT16XINT8_DILATION_3_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = INT16XINT8_DILATION_3_OUT_ACTIVATION_MAX;
+
+    const int32_t buf_size = arm_convolve_s16_get_buffer_size(&input_dims, &filter_dims);
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, buf_size);
+}
+
+void buffer_size_mve_arm_convolve_s16(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = INT16XINT8_DILATION_3_INPUT_BATCHES;
+    input_dims.w = INT16XINT8_DILATION_3_INPUT_W;
+    input_dims.h = INT16XINT8_DILATION_3_INPUT_H;
+    input_dims.c = INT16XINT8_DILATION_3_IN_CH;
+    filter_dims.w = INT16XINT8_DILATION_3_FILTER_X;
+    filter_dims.h = INT16XINT8_DILATION_3_FILTER_Y;
+    output_dims.w = INT16XINT8_DILATION_3_OUTPUT_W;
+    output_dims.h = INT16XINT8_DILATION_3_OUTPUT_H;
+    output_dims.c = INT16XINT8_DILATION_3_OUT_CH;
+
+    conv_params.padding.w = INT16XINT8_DILATION_3_PAD_X;
+    conv_params.padding.h = INT16XINT8_DILATION_3_PAD_Y;
+    conv_params.stride.w = INT16XINT8_DILATION_3_STRIDE_X;
+    conv_params.stride.h = INT16XINT8_DILATION_3_STRIDE_Y;
+    conv_params.dilation.w = INT16XINT8_DILATION_3_DILATION_X;
+    conv_params.dilation.h = INT16XINT8_DILATION_3_DILATION_Y;
+
+    conv_params.input_offset = INT16XINT8_DILATION_3_INPUT_OFFSET;
+    conv_params.output_offset = INT16XINT8_DILATION_3_OUTPUT_OFFSET;
+    conv_params.activation.min = INT16XINT8_DILATION_3_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = INT16XINT8_DILATION_3_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_convolve_s16(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = INT16XINT8_DILATION_3_INPUT_BATCHES;
+    input_dims.w = INT16XINT8_DILATION_3_INPUT_W;
+    input_dims.h = INT16XINT8_DILATION_3_INPUT_H;
+    input_dims.c = INT16XINT8_DILATION_3_IN_CH;
+    filter_dims.w = INT16XINT8_DILATION_3_FILTER_X;
+    filter_dims.h = INT16XINT8_DILATION_3_FILTER_Y;
+    output_dims.w = INT16XINT8_DILATION_3_OUTPUT_W;
+    output_dims.h = INT16XINT8_DILATION_3_OUTPUT_H;
+    output_dims.c = INT16XINT8_DILATION_3_OUT_CH;
+
+    conv_params.padding.w = INT16XINT8_DILATION_3_PAD_X;
+    conv_params.padding.h = INT16XINT8_DILATION_3_PAD_Y;
+    conv_params.stride.w = INT16XINT8_DILATION_3_STRIDE_X;
+    conv_params.stride.h = INT16XINT8_DILATION_3_STRIDE_Y;
+    conv_params.dilation.w = INT16XINT8_DILATION_3_DILATION_X;
+    conv_params.dilation.h = INT16XINT8_DILATION_3_DILATION_Y;
+
+    conv_params.input_offset = INT16XINT8_DILATION_3_INPUT_OFFSET;
+    conv_params.output_offset = INT16XINT8_DILATION_3_OUTPUT_OFFSET;
+    conv_params.activation.min = INT16XINT8_DILATION_3_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = INT16XINT8_DILATION_3_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_convolve_wrapper_s16_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
 }

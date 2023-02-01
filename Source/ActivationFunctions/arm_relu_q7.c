@@ -21,8 +21,8 @@
  * Title:        arm_relu_q7.c
  * Description:  Q7 version of ReLU
  *
- * $Date:        5 January 2023
- * $Revision:    V.1.2.0
+ * $Date:        31 January 2023
+ * $Revision:    V.1.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -68,7 +68,7 @@ void arm_relu_q7(int8_t *data, uint16_t size)
         buf = (int32_t)ROR((uint32_t)in & 0x80808080, 7);
 
         /* if MSB=1, mask will be 0xFF, 0x0 otherwise */
-        mask = __QSUB8(0x00000000, buf);
+        mask = QSUB8(0x00000000, buf);
 
         arm_nn_write_s8x4_ia(&output, in & (~mask));
 

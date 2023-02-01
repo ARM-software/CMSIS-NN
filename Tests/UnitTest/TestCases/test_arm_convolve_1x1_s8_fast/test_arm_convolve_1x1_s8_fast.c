@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -410,4 +410,118 @@ void kernel1x1_stride_x_y_2_arm_convolve_1x1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
 
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_y_2_output_ref, KERNEL1X1_STRIDE_X_Y_2_DST_SIZE));
+}
+
+void buffer_size_arm_convolve_1x1_s8_fast(void)
+{
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = KERNEL1X1_STRIDE_X_Y_2_INPUT_BATCHES;
+    input_dims.w = KERNEL1X1_STRIDE_X_Y_2_INPUT_W;
+    input_dims.h = KERNEL1X1_STRIDE_X_Y_2_INPUT_H;
+    input_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
+    filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_FILTER_X;
+    filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_FILTER_Y;
+    output_dims.w = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_W;
+    output_dims.h = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_H;
+    output_dims.c = KERNEL1X1_STRIDE_X_Y_2_OUT_CH;
+
+    conv_params.padding.w = KERNEL1X1_STRIDE_X_Y_2_PAD_X;
+    conv_params.padding.h = KERNEL1X1_STRIDE_X_Y_2_PAD_Y;
+    conv_params.stride.w = KERNEL1X1_STRIDE_X_Y_2_STRIDE_X;
+    conv_params.stride.h = KERNEL1X1_STRIDE_X_Y_2_STRIDE_Y;
+    conv_params.dilation.w = KERNEL1X1_STRIDE_X_Y_2_DILATION_X;
+    conv_params.dilation.h = KERNEL1X1_STRIDE_X_Y_2_DILATION_Y;
+
+    conv_params.input_offset = KERNEL1X1_STRIDE_X_Y_2_INPUT_OFFSET;
+    conv_params.output_offset = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_OFFSET;
+    conv_params.activation.min = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MAX;
+
+    const int32_t buf_size = arm_convolve_1x1_s8_fast_get_buffer_size(&input_dims);
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, buf_size);
+}
+
+void buffer_size_mve_arm_convolve_1x1_s8_fast(void)
+{
+#if defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = KERNEL1X1_STRIDE_X_Y_2_INPUT_BATCHES;
+    input_dims.w = KERNEL1X1_STRIDE_X_Y_2_INPUT_W;
+    input_dims.h = KERNEL1X1_STRIDE_X_Y_2_INPUT_H;
+    input_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
+    filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_FILTER_X;
+    filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_FILTER_Y;
+    output_dims.w = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_W;
+    output_dims.h = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_H;
+    output_dims.c = KERNEL1X1_STRIDE_X_Y_2_OUT_CH;
+
+    conv_params.padding.w = KERNEL1X1_STRIDE_X_Y_2_PAD_X;
+    conv_params.padding.h = KERNEL1X1_STRIDE_X_Y_2_PAD_Y;
+    conv_params.stride.w = KERNEL1X1_STRIDE_X_Y_2_STRIDE_X;
+    conv_params.stride.h = KERNEL1X1_STRIDE_X_Y_2_STRIDE_Y;
+    conv_params.dilation.w = KERNEL1X1_STRIDE_X_Y_2_DILATION_X;
+    conv_params.dilation.h = KERNEL1X1_STRIDE_X_Y_2_DILATION_Y;
+
+    conv_params.input_offset = KERNEL1X1_STRIDE_X_Y_2_INPUT_OFFSET;
+    conv_params.output_offset = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_OFFSET;
+    conv_params.activation.min = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t mve_wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size_mve(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, mve_wrapper_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_convolve_1x1_s8_fast(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    cmsis_nn_conv_params conv_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    input_dims.n = KERNEL1X1_STRIDE_X_Y_2_INPUT_BATCHES;
+    input_dims.w = KERNEL1X1_STRIDE_X_Y_2_INPUT_W;
+    input_dims.h = KERNEL1X1_STRIDE_X_Y_2_INPUT_H;
+    input_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
+    filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_FILTER_X;
+    filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_FILTER_Y;
+    output_dims.w = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_W;
+    output_dims.h = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_H;
+    output_dims.c = KERNEL1X1_STRIDE_X_Y_2_OUT_CH;
+
+    conv_params.padding.w = KERNEL1X1_STRIDE_X_Y_2_PAD_X;
+    conv_params.padding.h = KERNEL1X1_STRIDE_X_Y_2_PAD_Y;
+    conv_params.stride.w = KERNEL1X1_STRIDE_X_Y_2_STRIDE_X;
+    conv_params.stride.h = KERNEL1X1_STRIDE_X_Y_2_STRIDE_Y;
+    conv_params.dilation.w = KERNEL1X1_STRIDE_X_Y_2_DILATION_X;
+    conv_params.dilation.h = KERNEL1X1_STRIDE_X_Y_2_DILATION_Y;
+
+    conv_params.input_offset = KERNEL1X1_STRIDE_X_Y_2_INPUT_OFFSET;
+    conv_params.output_offset = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_OFFSET;
+    conv_params.activation.min = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MIN;
+    conv_params.activation.max = KERNEL1X1_STRIDE_X_Y_2_OUT_ACTIVATION_MAX;
+
+    const int32_t wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    const int32_t dsp_wrapper_buf_size =
+        arm_convolve_wrapper_s8_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
+
+    TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
 }

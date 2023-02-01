@@ -22,18 +22,15 @@
  * Description:  Wrapper API to select appropriate depthwise conv API based
  *               on dimensions.
  *
- * $Date:        18 January 2023
- * $Revision:    V.1.0.3
+ * $Date:        20 January 2023
+ * $Revision:    V.1.1.0
  *
- * Target Processor:  Cortex-M CPUs
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
-
-#define USE_FAST_DW_CONV_FUNCTION(dw_conv_params, filter_dims, input_dims)                                             \
-    (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
-     filter_dims->w * filter_dims->h < 512)
+#include "arm_nnsupportfunctions.h"
 
 /**
  *  @ingroup Public
@@ -64,7 +61,7 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s16(const cmsis_nn_context *ctx,
 {
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
 
-    if (USE_FAST_DW_CONV_FUNCTION(dw_conv_params, filter_dims, input_dims))
+    if (USE_FAST_DW_CONV_S16_FUNCTION(dw_conv_params, filter_dims, input_dims))
     {
         status = arm_depthwise_conv_fast_s16(ctx,
                                              dw_conv_params,
@@ -95,22 +92,6 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s16(const cmsis_nn_context *ctx,
 
     /* Return to application */
     return status;
-}
-
-int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size(const cmsis_nn_dw_conv_params *dw_conv_params,
-                                                       const cmsis_nn_dims *input_dims,
-                                                       const cmsis_nn_dims *filter_dims,
-                                                       const cmsis_nn_dims *output_dims)
-{
-    (void)output_dims;
-    int32_t size = 0;
-
-    if (USE_FAST_DW_CONV_FUNCTION(dw_conv_params, filter_dims, input_dims))
-    {
-        size = arm_depthwise_conv_fast_s16_get_buffer_size(input_dims, filter_dims);
-    }
-
-    return size;
 }
 
 /**

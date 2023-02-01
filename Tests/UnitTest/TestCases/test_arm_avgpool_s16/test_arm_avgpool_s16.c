@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -208,4 +208,26 @@ void avgpooling_int16_3_arm_avgpool_s16(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, avgpooling_int16_3_output_ref, AVGPOOLING_INT16_3_DST_SIZE));
+}
+
+void buffer_size_mve_arm_avgpool_s16(void)
+{
+#if defined(ARM_MATH_MVEI)
+    const int32_t buf_size = arm_avgpool_s16_get_buffer_size(AVGPOOLING_INT16_3_OUTPUT_W, AVGPOOLING_INT16_3_IN_CH);
+    const int32_t mve_buf_size =
+        arm_avgpool_s16_get_buffer_size_mve(AVGPOOLING_INT16_3_OUTPUT_W, AVGPOOLING_INT16_3_IN_CH);
+
+    TEST_ASSERT_EQUAL(buf_size, mve_buf_size);
+#endif
+}
+
+void buffer_size_dsp_arm_avgpool_s16(void)
+{
+#if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
+    const int32_t buf_size = arm_avgpool_s16_get_buffer_size(AVGPOOLING_INT16_3_OUTPUT_W, AVGPOOLING_INT16_3_IN_CH);
+    const int32_t dsp_buf_size =
+        arm_avgpool_s16_get_buffer_size_dsp(AVGPOOLING_INT16_3_OUTPUT_W, AVGPOOLING_INT16_3_IN_CH);
+
+    TEST_ASSERT_EQUAL(buf_size, dsp_buf_size);
+#endif
 }

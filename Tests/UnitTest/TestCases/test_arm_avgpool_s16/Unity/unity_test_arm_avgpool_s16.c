@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -49,3 +49,6 @@ void test_avgpooling_int16_arm_avgpool_s16(void) { avgpooling_int16_arm_avgpool_
 void test_avgpooling_1_int16_arm_avgpool_s16(void) { avgpooling_int16_1_arm_avgpool_s16(); }
 void test_avgpooling_2_int16_arm_avgpool_s16(void) { avgpooling_int16_2_arm_avgpool_s16(); }
 void test_avgpooling_3_int16_arm_avgpool_s16(void) { avgpooling_int16_3_arm_avgpool_s16(); }
+
+void test_buffer_size_mve_arm_avgpool_s16(void) { buffer_size_mve_arm_avgpool_s16(); }
+void test_buffer_size_dsp_arm_avgpool_s16(void) { buffer_size_dsp_arm_avgpool_s16(); }

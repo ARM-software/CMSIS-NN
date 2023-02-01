@@ -21,8 +21,8 @@
  * Title:        arm_relu_q15.c
  * Description:  Q15 version of ReLU
  *
- * $Date:        5 January 2023
- * $Revision:    V.1.1.0
+ * $Date:        31 January 2023
+ * $Revision:    V.1.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -68,7 +68,7 @@ void arm_relu_q15(int16_t *data, uint16_t size)
         buf = ROR(in & 0x80008000, 15);
 
         /* if MSB=1, mask will be 0xFF, 0x0 otherwise */
-        mask = __QSUB16(0x00000000, buf);
+        mask = QSUB16(0x00000000, buf);
 
         arm_nn_write_q15x2_ia(&output, in & (~mask));
         i--;

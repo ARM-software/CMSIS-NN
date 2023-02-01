@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        21 November 2022
- * $Revision:    V.11.2.1
+ * $Date:        13 January 2023
+ * $Revision:    V.11.3.0
  *
- * Target Processor:  Arm Cortex-M Processors
+ * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
 /**
@@ -97,7 +97,7 @@
    * \section Copyright Copyright Notice
    *
    *
-   * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+   * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
    *
    *
    */
@@ -187,13 +187,39 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
  *                                filter dimensions
  * @param[in]      output_dims    Output tensor dimensions. Format: [N, H, W, C_OUT]
  *
- * @return         The function returns  required buffer size(bytes)
+ * @return         The function returns required buffer size(bytes)
  *
  */
 int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv_params,
                                                 const cmsis_nn_dims *input_dims,
                                                 const cmsis_nn_dims *filter_dims,
                                                 const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get the required buffer size for arm_convolve_wrapper_s8 for Arm(R) Helium Architecture case.
+ *        Refer to arm_convolve_wrapper_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_convolve_wrapper_s8_get_buffer_size().
+ *
+ */
+int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *conv_params,
+                                                    const cmsis_nn_dims *input_dims,
+                                                    const cmsis_nn_dims *filter_dims,
+                                                    const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get the required buffer size for arm_convolve_wrapper_s8 for processors with DSP extension.
+ *        Refer to arm_convolve_wrapper_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_convolve_wrapper_s8_get_buffer_size().
+ *
+ */
+int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *conv_params,
+                                                    const cmsis_nn_dims *input_dims,
+                                                    const cmsis_nn_dims *filter_dims,
+                                                    const cmsis_nn_dims *output_dims);
 
 /**
  * @brief s16 convolution layer wrapper function with the main purpose to call the optimal kernel available in
@@ -235,7 +261,7 @@ arm_cmsis_nn_status arm_convolve_wrapper_s16(const cmsis_nn_context *ctx,
                                              int16_t *output_data);
 
 /**
- * @brief Get the required buffer size for arm_convolve_wrapper_s16
+ * @brief Get the required buffer size for arm_convolve_wrapper_s16.
  *
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                conv_params->input_offset  : Not used
@@ -245,13 +271,39 @@ arm_cmsis_nn_status arm_convolve_wrapper_s16(const cmsis_nn_context *ctx,
  *                                filter dimensions
  * @param[in]      output_dims    Output tensor dimensions. Format: [N, H, W, C_OUT]
  *
- * @return         The function returns  required buffer size(bytes)
+ * @return         The function returns required buffer size(bytes)
  *
  */
 int32_t arm_convolve_wrapper_s16_get_buffer_size(const cmsis_nn_conv_params *conv_params,
                                                  const cmsis_nn_dims *input_dims,
                                                  const cmsis_nn_dims *filter_dims,
                                                  const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get the required buffer size for arm_convolve_wrapper_s16 for for processors with DSP extension.
+ *        Refer to arm_convolve_wrapper_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_convolve_wrapper_s16_get_buffer_size().
+ *
+ */
+int32_t arm_convolve_wrapper_s16_get_buffer_size_dsp(const cmsis_nn_conv_params *conv_params,
+                                                     const cmsis_nn_dims *input_dims,
+                                                     const cmsis_nn_dims *filter_dims,
+                                                     const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get the required buffer size for arm_convolve_wrapper_s16 for Arm(R) Helium Architecture case.
+ *        Refer to arm_convolve_wrapper_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_convolve_wrapper_s16_get_buffer_size().
+ *
+ */
+int32_t arm_convolve_wrapper_s16_get_buffer_size_mve(const cmsis_nn_conv_params *conv_params,
+                                                     const cmsis_nn_dims *input_dims,
+                                                     const cmsis_nn_dims *filter_dims,
+                                                     const cmsis_nn_dims *output_dims);
 
 /**
  * @brief Basic s8 convolution function
@@ -298,7 +350,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
  * @param[in]       input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims           Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
  * are the spatial filter dimensions
- * @return          The function returns  required buffer size(bytes)
+ * @return          The function returns required buffer size(bytes)
  *
  */
 int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
@@ -389,7 +441,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
  * @param[in]       input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims   Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
  *                                are the spatial filter dimensions
- * @return          The function returns  required buffer size(bytes)
+ * @return          The function returns required buffer size(bytes)
  *
  */
 int32_t arm_convolve_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
@@ -552,7 +604,7 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
  * @param[in]       input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims           Filter tensor dimensions. Format: [C_OUT, 1, WK, C_IN] where WK is the
  *                                        horizontal spatial filter dimension
- * @return          The function returns  required buffer size(bytes)
+ * @return          The function returns required buffer size(bytes)
  *
  */
 int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
@@ -622,6 +674,32 @@ int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size(const cmsis_nn_dw_conv_par
                                                       const cmsis_nn_dims *input_dims,
                                                       const cmsis_nn_dims *filter_dims,
                                                       const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s8() for processors with DSP extension.
+ *        Refer to arm_depthwise_conv_wrapper_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_depthwise_conv_wrapper_s8_get_buffer_size().
+ *
+ */
+int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_dw_conv_params *dw_conv_params,
+                                                          const cmsis_nn_dims *input_dims,
+                                                          const cmsis_nn_dims *filter_dims,
+                                                          const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s8() for Arm(R) Helium Architecture case.
+ *        Refer to arm_depthwise_conv_wrapper_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_depthwise_conv_wrapper_s8_get_buffer_size().
+ *
+ */
+int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size_mve(const cmsis_nn_dw_conv_params *dw_conv_params,
+                                                          const cmsis_nn_dims *input_dims,
+                                                          const cmsis_nn_dims *filter_dims,
+                                                          const cmsis_nn_dims *output_dims);
 
 /**
  * @brief Basic s8 depthwise convolution function that doesn't have any constraints on the input dimensions.
@@ -769,6 +847,32 @@ int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size(const cmsis_nn_dw_conv_pa
                                                        const cmsis_nn_dims *output_dims);
 
 /**
+ * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s16() for processors with DSP extension.
+ *        Refer to arm_depthwise_conv_wrapper_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_depthwise_conv_wrapper_s16_get_buffer_size().
+ *
+ */
+int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp(const cmsis_nn_dw_conv_params *dw_conv_params,
+                                                           const cmsis_nn_dims *input_dims,
+                                                           const cmsis_nn_dims *filter_dims,
+                                                           const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_depthwise_conv_wrapper_s16() for Arm(R) Helium Architecture
+ * case. Refer to arm_depthwise_conv_wrapper_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_depthwise_conv_wrapper_s16_get_buffer_size().
+ *
+ */
+int32_t arm_depthwise_conv_wrapper_s16_get_buffer_size_mve(const cmsis_nn_dw_conv_params *dw_conv_params,
+                                                           const cmsis_nn_dims *input_dims,
+                                                           const cmsis_nn_dims *filter_dims,
+                                                           const cmsis_nn_dims *output_dims);
+
+/**
  * @brief Optimized s16 depthwise convolution function with constraint that in_channel equals out_channel.
  *        Refer arm_depthwise_conv_s16() for function argument details.
  *
@@ -805,7 +909,7 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
  * @param[in]       input_dims   Input (activation) tensor dimensions. Format: [1, H, W, C_IN]
  *                               Batch argument N is not used.
  * @param[in]       filter_dims  Filter tensor dimensions. Format: [1, H, W, C_OUT]
- * @return          The function returns  required buffer size in bytes
+ * @return          The function returns required buffer size in bytes
  *
  */
 int32_t arm_depthwise_conv_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
@@ -880,7 +984,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
  * @param[in]       input_dims   Input (activation) tensor dimensions. Format: [1, H, W, C_IN]
  *                               Batch argument N is not used.
  * @param[in]       filter_dims  Filter tensor dimensions. Format: [1, H, W, C_OUT]
- * @return          The function returns  required buffer size in bytes
+ * @return          The function returns required buffer size in bytes
  *
  */
 int32_t arm_depthwise_conv_s8_opt_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
@@ -946,13 +1050,32 @@ arm_cmsis_nn_status arm_fully_connected_s8(const cmsis_nn_context *ctx,
                                            int8_t *output_data);
 
 /**
- * @brief Get the required buffer size for S8 basic fully-connected and
- * matrix multiplication layer function for TF Lite
+ * @brief Get size of additional buffer required by arm_fully_connected_s8().
  * @param[in]      filter_dims             dimension of filter
  * @return         The function returns    required buffer size in bytes
  *
  */
 int32_t arm_fully_connected_s8_get_buffer_size(const cmsis_nn_dims *filter_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_fully_connected_s8() for processors with DSP extension.
+ *        Refer to arm_fully_connected_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_fully_connected_s8_get_buffer_size().
+ *
+ */
+int32_t arm_fully_connected_s8_get_buffer_size_dsp(const cmsis_nn_dims *filter_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_fully_connected_s8() for Arm(R) Helium Architecture case.
+ *        Refer to arm_fully_connected_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_fully_connected_s8_get_buffer_size().
+ *
+ */
+int32_t arm_fully_connected_s8_get_buffer_size_mve(const cmsis_nn_dims *filter_dims);
 
 /**
  * @brief Basic s16 Fully Connected function.
@@ -1002,13 +1125,32 @@ arm_cmsis_nn_status arm_fully_connected_s16(const cmsis_nn_context *ctx,
                                             int16_t *output_data);
 
 /**
- * @brief Get the required buffer size for S16 basic fully-connected and
- * matrix multiplication layer function for TF Lite
+ * @brief Get size of additional buffer required by arm_fully_connected_s16().
  * @param[in]      filter_dims             dimension of filter
  * @return         The function returns    required buffer size in bytes
  *
  */
 int32_t arm_fully_connected_s16_get_buffer_size(const cmsis_nn_dims *filter_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_fully_connected_s16() for processors with DSP extension.
+ *        Refer to arm_fully_connected_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_fully_connected_s16_get_buffer_size().
+ *
+ */
+int32_t arm_fully_connected_s16_get_buffer_size_dsp(const cmsis_nn_dims *filter_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_fully_connected_s16() for Arm(R) Helium Architecture case.
+ *        Refer to arm_fully_connected_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_fully_connected_s16_get_buffer_size().
+ *
+ */
+int32_t arm_fully_connected_s16_get_buffer_size_mve(const cmsis_nn_dims *filter_dims);
 
 /**
  * @defgroup groupElementwise Elementwise Functions
@@ -1240,10 +1382,30 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
  * @brief Get the required buffer size for S8 average pooling function
  * @param[in]       dim_dst_width         output tensor dimension
  * @param[in]       ch_src                number of input tensor channels
- * @return          The function returns  required buffer size in bytes
+ * @return          The function returns required buffer size in bytes
  *
  */
 int32_t arm_avgpool_s8_get_buffer_size(const int dim_dst_width, const int ch_src);
+
+/**
+ * @brief Get the required buffer size for S8 average pooling function for processors with DSP extension.
+ *        Refer to arm_avgpool_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_avgpool_s8_get_buffer_size().
+ *
+ */
+int32_t arm_avgpool_s8_get_buffer_size_dsp(const int dim_dst_width, const int ch_src);
+
+/**
+ * @brief Get the required buffer size for S8 average pooling function for Arm(R) Helium Architecture case.
+ *        Refer to arm_avgpool_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_avgpool_s8_get_buffer_size().
+ *
+ */
+int32_t arm_avgpool_s8_get_buffer_size_mve(const int dim_dst_width, const int ch_src);
 
 /**
  * @brief s16 average pooling function.
@@ -1283,10 +1445,30 @@ arm_cmsis_nn_status arm_avgpool_s16(const cmsis_nn_context *ctx,
  * @brief Get the required buffer size for S16 average pooling function
  * @param[in]       dim_dst_width         output tensor dimension
  * @param[in]       ch_src                number of input tensor channels
- * @return          The function returns  required buffer size in bytes
+ * @return          The function returns required buffer size in bytes
  *
  */
 int32_t arm_avgpool_s16_get_buffer_size(const int dim_dst_width, const int ch_src);
+
+/**
+ * @brief Get the required buffer size for S16 average pooling function for processors with DSP extension.
+ *        Refer to arm_avgpool_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_avgpool_s16_get_buffer_size().
+ *
+ */
+int32_t arm_avgpool_s16_get_buffer_size_dsp(const int dim_dst_width, const int ch_src);
+
+/**
+ * @brief Get the required buffer size for S16 average pooling function for Arm(R) Helium Architecture case.
+ *        Refer to arm_avgpool_s16_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_avgpool_s16_get_buffer_size().
+ *
+ */
+int32_t arm_avgpool_s16_get_buffer_size_mve(const int dim_dst_width, const int ch_src);
 
 /**
  * @brief s8 max pooling function.
@@ -1772,6 +1954,8 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
  * Peephole connections, projection, clipping, combined input/forget gate and layer normalization are not supported.
  *
  * @param[in]   scratch_buffers                 Struct containing scratch buffers
+ *                                              Expected size for each scratch buffer is
+ *                                              lstm_dims->num_batches * lstm_dims->num_outputs.
  * @param[in]   input_data                      Pointer to input data
  * @param[in]   lstm_dims                       LSTM input parameters related to dimensions
  * @param[in]   input_to_input_weights          Input to input weights

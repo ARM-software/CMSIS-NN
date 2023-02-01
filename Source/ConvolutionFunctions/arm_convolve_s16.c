@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_convolve_s16.c
  * Description:  s16 version of convolution using symmetric quantization.
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.1
+ * $Date:        30 January 2023
+ * $Revision:    V.2.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -142,13 +142,6 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
-}
-
-int32_t arm_convolve_s16_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
-{
-    (void)input_dims;
-    (void)filter_dims;
-    return 0;
 }
 
 /**
