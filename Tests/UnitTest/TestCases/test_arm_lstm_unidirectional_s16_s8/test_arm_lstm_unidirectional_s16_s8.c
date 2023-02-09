@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -28,7 +28,7 @@
 #include "../Utils/validate.h"
 
 #if (LSTM_2_BUFFER_SIZE < LSTM_1_BUFFER_SIZE) || (LSTM_2_BUFFER_SIZE < LSTM_ONE_TIME_STEP_BUFFER_SIZE)
-#error "Test buffers to small."
+    #error "Test buffers too small."
 #endif
 
 // Update the buffer size if adding a unit test with larger buffer.
@@ -38,7 +38,6 @@ int16_t buffer0[LARGEST_BUFFER_SIZE];
 int16_t buffer1[LARGEST_BUFFER_SIZE];
 int16_t buffer2[LARGEST_BUFFER_SIZE];
 int16_t buffer3[LARGEST_BUFFER_SIZE];
-int8_t buffer4[LARGEST_BUFFER_SIZE];
 
 void lstm_1_arm_lstm_unidirectional_s16_s8(void)
 {
@@ -55,7 +54,6 @@ void lstm_1_arm_lstm_unidirectional_s16_s8(void)
     scratch_buffers.forget_gate = buffer1;
     scratch_buffers.cell_gate = buffer2;
     scratch_buffers.output_gate = buffer3;
-    scratch_buffers.scratch = buffer4;
 
     lstm_dims.num_batches = LSTM_1_INPUT_BATCHES;
     lstm_dims.num_inputs = LSTM_1_NUMBER_INPUTS;
@@ -150,7 +148,6 @@ void lstm_2_arm_lstm_unidirectional_s16_s8(void)
     scratch_buffers.forget_gate = buffer1;
     scratch_buffers.cell_gate = buffer2;
     scratch_buffers.output_gate = buffer3;
-    scratch_buffers.scratch = buffer4;
 
     lstm_dims.num_batches = LSTM_2_INPUT_BATCHES;
     lstm_dims.num_inputs = LSTM_2_NUMBER_INPUTS;
@@ -251,7 +248,6 @@ void lstm_one_time_step_arm_lstm_unidirectional_s16_s8(void)
     scratch_buffers.forget_gate = buffer1;
     scratch_buffers.cell_gate = buffer2;
     scratch_buffers.output_gate = buffer3;
-    scratch_buffers.scratch = buffer4;
 
     lstm_dims.num_batches = LSTM_ONE_TIME_STEP_INPUT_BATCHES;
     lstm_dims.num_inputs = LSTM_ONE_TIME_STEP_NUMBER_INPUTS;

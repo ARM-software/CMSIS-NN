@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        18 January 2023
- * $Revision:    V.2.3.0
+ * $Date:        8 Februari 2023
+ * $Revision:    V.2.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -174,7 +174,6 @@ typedef struct
     int16_t *forget_gate;
     int16_t *cell_gate;
     int16_t *output_gate;
-    int8_t *scratch;
 } cmsis_nn_lstm_context;
 
 /** Quantized clip value for cell and projection of LSTM input. Zero value means no clipping. */

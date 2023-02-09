@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,10 +21,10 @@
  * Title:        arm_nn_lstm_step_s8_s16.c
  * Description:  Update LSTM function for a single iteration step.
  *
- * $Date:        8 September 2022
- * $Revision:    V.1.0.0
+ * $Date:        9 Februari 2023
+ * $Revision:    V.1.1.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 #include "arm_nnsupportfunctions.h"
@@ -137,15 +137,13 @@ arm_cmsis_nn_status arm_nn_lstm_step_s8_s16(const int8_t *input,
     // Update the output state
     arm_nn_lstm_update_output_s8_s16(n_batch,
                                      n_cell,
-                                     n_output,
                                      cell_state,
                                      lstm->cell_state_shift,
                                      scratch_buffers->output_gate,
                                      lstm->hidden_scaling,
                                      lstm->hidden_offset,
                                      output_state,
-                                     scratch_buffers->input_gate,
-                                     scratch_buffers->scratch);
+                                     scratch_buffers->input_gate);
 
     arm_memcpy_s8(output, output_state, n_batch * n_output * sizeof(int8_t));
 
