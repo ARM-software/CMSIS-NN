@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        30 January 2023
- * $Revision:    V.14.3.0
+ * $Date:        13 Februari 2023
+ * $Revision:    V.15.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1226,27 +1226,23 @@ void arm_nn_lstm_update_cell_state_s16(const int32_t n_block,
  *
  * @param[in]       n_batch                     The number of distinct vectors in each array
  * @param[in]       n_cell                      Number of cells
- * @param[in]       n_output                    Number of outputs
  * @param[in,out]   cell_state                  Cell state, size n_batch*n_cell
  * @param[in]       cell_state_scale            Scaling of cell_state
  * @param[in]       output_gate                 Output gate
  * @param[in]       hidden_scale                Effective scaling of cell_state .* output_gate
  * @param[in]       hidden_offset               Zero point for cell_state .* output_gate
  * @param[out]      output_state                Output state
- * @param[in]       scratch0                    Scratch buffer
- * @param[in]       scratch1                    Scratch buffer
+ * @param[in]       cell_gate_scratch           Scratch buffer
  */
 void arm_nn_lstm_update_output_s8_s16(const int n_batch,
                                       const int n_cell,
-                                      const int n_output,
                                       int16_t *cell_state,
                                       const int32_t cell_state_scale,
                                       const int16_t *output_gate,
                                       const cmsis_nn_scaling hidden_scale,
                                       const int32_t hidden_offset,
                                       int8_t *output_state,
-                                      int16_t *scratch0,
-                                      int8_t *scratch1);
+                                      int16_t *cell_gate_scratch);
 
 /**
  * @brief The result of the multiplication is accumulated to the passed result buffer.

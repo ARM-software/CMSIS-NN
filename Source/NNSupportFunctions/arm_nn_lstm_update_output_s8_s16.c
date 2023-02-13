@@ -1,6 +1,5 @@
-
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,10 +21,10 @@
  * Title:        arm_nn_lstm_update_output_s8_s16.c
  * Description:  Update output gate for an incremental step of LSTM function.
  *
- * $Date:        8 September 2022
- * $Revision:    V.1.0.0
+ * $Date:        13 Februari 2023
+ * $Revision:    V.2.0.0
  *
- * Target Processor:  Cortex-M cores
+ * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
@@ -47,15 +46,13 @@
  */
 void arm_nn_lstm_update_output_s8_s16(const int n_batch,
                                       const int n_cell,
-                                      const int n_output,
                                       int16_t *cell_state,
                                       const int32_t cell_state_scale,
                                       const int16_t *output_gate,
                                       const cmsis_nn_scaling hidden_scaling,
                                       const int32_t hidden_offset,
                                       int8_t *output_state,
-                                      int16_t *cell_gate_scratch,
-                                      int8_t *scratch)
+                                      int16_t *cell_gate_scratch)
 {
     const int32_t size = n_batch * n_cell;
 
@@ -71,17 +68,13 @@ void arm_nn_lstm_update_output_s8_s16(const int n_batch,
     }
     arm_nn_activation_s16(cell_state, cell_gate_scratch, size, tanh_input_left_shift, ARM_TANH);
 
-    if (n_cell == n_output)
-    {
-        scratch = output_state;
-    }
-
-    arm_elementwise_mul_s16_s8(
-        output_gate, cell_gate_scratch, scratch, hidden_offset, hidden_scaling.multiplier, hidden_scaling.shift, size);
-    if (n_cell != n_output)
-    {
-        arm_memcpy_s8(output_state, scratch, n_batch * n_output * sizeof(int8_t));
-    }
+    arm_elementwise_mul_s16_s8(output_gate,
+                               cell_gate_scratch,
+                               output_state,
+                               hidden_offset,
+                               hidden_scaling.multiplier,
+                               hidden_scaling.shift,
+                               size);
 }
 /**
  * @} end of supportLSTM group
