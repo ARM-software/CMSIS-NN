@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        7 March 2023
- * $Revision:    V.2.2.0
+ * $Date:        8 March 2023
+ * $Revision:    V.2.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -58,16 +58,10 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t dst_offset,
                                             const int32_t activation_min,
                                             const int32_t activation_max,
-                                            const int32_t rhs_cols_offset)
+                                            const int32_t lhs_cols_offset)
 {
 
 #if defined(ARM_MATH_MVEI)
-
-    int8_t *out_ref = dst;
-    const int8_t *in_ref = lhs;
-    (void)out_ref;
-    (void)in_ref;
-    int32_t offset = rhs_cols_offset;
     int i_items = 0;
     for (; i_items <= (lhs_rows - 4); i_items += 4)
     {
@@ -79,9 +73,9 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             int32_t acc_n3 = 0;
 
             const int8_t *lhs_vec = lhs;
-            const int8_t *ip_row_1 = lhs + offset;
-            const int8_t *ip_row_2 = lhs + (2 * offset);
-            const int8_t *ip_row_3 = lhs + (3 * offset);
+            const int8_t *ip_row_1 = lhs + lhs_cols_offset;
+            const int8_t *ip_row_2 = lhs + (2 * lhs_cols_offset);
+            const int8_t *ip_row_3 = lhs + (3 * lhs_cols_offset);
             const int8_t *col_base = rhs + i * rhs_cols;
             int32_t sum_tmp = 0;
 
@@ -143,7 +137,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             vstrbq_scatter_offset_s32(dst, scatter_offset, res);
             dst++;
         }
-        lhs += 4 * offset;
+        lhs += 4 * lhs_cols_offset;
         dst += (3 * rhs_rows);
     }
 
@@ -203,7 +197,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 dst += 4;
             }
         }
-        lhs += offset;
+        lhs += lhs_cols_offset;
 
         for (int i = 0; i < (rhs_rows & 0x3); i++)
         {
@@ -217,8 +211,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
     }
 
 #elif defined(ARM_MATH_DSP)
-    const int32_t off0 = rhs_cols - 4;
-    const int32_t lhs_off0 = rhs_cols_offset - 4;
+    const int32_t rhs_off0 = rhs_cols - 4;
+    const int32_t lhs_off0 = lhs_cols_offset - 4;
 
     for (int32_t rhs_rows_idx = 0; rhs_rows_idx <= (rhs_rows - 2); rhs_rows_idx += 2)
     {
@@ -263,7 +257,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
-                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val1 = SXTB16_RORn(val1, 8);
                 val0 = SXTB16_RORn(val0, 8);
 
@@ -285,7 +279,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 res11 = SMLAD(val0, val4, res11);
 
-                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
@@ -310,7 +304,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 res11 = SMLAD(val0, val4, res11);
 
-                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
@@ -335,7 +329,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val1 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
                 res11 = SMLAD(val0, val4, res11);
 
-                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
@@ -366,7 +360,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 val2 = SXTB16(val1);
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
-                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val4 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val1 = SXTB16_RORn(val1, 8);
                 val0 = SXTB16_RORn(val0, 8);
 
@@ -397,7 +391,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res00 += lhs_value * rhs_value0;
                 res01 += lhs_value * rhs_value1;
 
-                lhs_value = lhs_ptr[rhs_cols_offset];
+                lhs_value = lhs_ptr[lhs_cols_offset];
                 res10 += lhs_value * rhs_value0;
                 res11 += lhs_value * rhs_value1;
 
@@ -435,7 +429,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             dst_ptr += rhs_rows;
 
             lhs_ptr -= rhs_cols;
-            lhs_ptr += 2 * rhs_cols_offset;
+            lhs_ptr += 2 * lhs_cols_offset;
 
             lhs_rows_idx--;
         }
@@ -454,7 +448,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             for (; rhs_cols_idx <= (rhs_cols - 16); rhs_cols_idx += 16)
             {
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
                 val5 = SXTB16(val2);
@@ -470,7 +464,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
                 val5 = SXTB16(val2);
@@ -486,7 +480,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
                 val5 = SXTB16(val2);
@@ -502,7 +496,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res01 = SMLAD(val2, val1, res01);
 
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
                 val5 = SXTB16(val2);
@@ -521,7 +515,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             for (; rhs_cols_idx <= (rhs_cols - 4); rhs_cols_idx += 4)
             {
                 val0 = arm_nn_read_s8x4_ia((const int8_t **)&rhs_ptr);
-                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[off0]);
+                val1 = arm_nn_read_s8x4((const int8_t *)&rhs_ptr[rhs_off0]);
                 val2 = arm_nn_read_s8x4_ia((const int8_t **)&lhs_ptr);
                 val3 = SXTB16(val0);
                 val5 = SXTB16(val2);
@@ -598,7 +592,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 ++lhs_ptr;
             }
             lhs_ptr -= rhs_cols;
-            lhs_ptr += rhs_cols_offset;
+            lhs_ptr += lhs_cols_offset;
 
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multipliers[rhs_rows - 1], dst_shifts[rhs_rows - 1]);
@@ -615,7 +609,6 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
         }
     }
 #else
-    (void)rhs_cols_offset;
     for (int32_t rhs_rows_idx = 0; rhs_rows_idx <= (rhs_rows - 2); rhs_rows_idx += 2)
     {
         const int8_t *lhs_ptr = &lhs[0];
@@ -658,7 +651,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 res00 += lhs_value * rhs_value0;
                 res01 += lhs_value * rhs_value1;
 
-                lhs_value = lhs_ptr[rhs_cols_offset];
+                lhs_value = lhs_ptr[lhs_cols_offset];
                 res10 += lhs_value * rhs_value0;
                 res11 += lhs_value * rhs_value1;
 
@@ -696,7 +689,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             dst_ptr += rhs_rows;
 
             lhs_ptr -= rhs_cols;
-            lhs_ptr += 2 * rhs_cols_offset;
+            lhs_ptr += 2 * lhs_cols_offset;
 
             lhs_rows_idx--;
         }
@@ -769,7 +762,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 ++lhs_ptr;
             }
             lhs_ptr -= rhs_cols;
-            lhs_ptr += rhs_cols_offset;
+            lhs_ptr += lhs_cols_offset;
 
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multipliers[rhs_rows - 1], dst_shifts[rhs_rows - 1]);

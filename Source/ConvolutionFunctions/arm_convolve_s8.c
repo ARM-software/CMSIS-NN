@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        7 January 2023
- * $Revision:    V.3.3.0
+ * $Date:        8 March 2023
+ * $Revision:    V.3.3.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -82,11 +82,13 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
     const uint16_t pad_y = conv_params->padding.h;
     const uint16_t stride_x = conv_params->stride.w;
     const uint16_t stride_y = conv_params->stride.h;
-
-    const int32_t input_offset = conv_params->input_offset;
+    const int32_t dilation_x = conv_params->dilation.w;
+    const int32_t dilation_y = conv_params->dilation.h;
     const int32_t out_offset = conv_params->output_offset;
     const int32_t out_activation_min = conv_params->activation.min;
     const int32_t out_activation_max = conv_params->activation.max;
+
+    const int32_t input_offset = conv_params->input_offset;
     int32_t *output_mult = quant_params->multiplier;
     int32_t *output_shift = quant_params->shift;
 
@@ -100,8 +102,6 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
         int32_t lhs_rows = 0;
         const int32_t rhs_rows = output_dims->c;
         const int32_t rhs_cols = kernel_x * kernel_y * input_ch;
-        const int32_t dilation_x = conv_params->dilation.w;
-        const int32_t dilation_y = conv_params->dilation.h;
 
         /* This part implements the im2col function */
         for (int i_out_y = 0; i_out_y < output_y; i_out_y++)
@@ -181,9 +181,6 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
             im2col_buf = (int8_t *)buffer_a;
         }
 #else // #if defined(ARM_MATH_MVEI)
-        const uint16_t dilation_x = conv_params->dilation.w;
-        const uint16_t dilation_y = conv_params->dilation.h;
-
         int32_t i_out_y, i_out_x, i_ker_y, i_ker_x;
 
         /* Generate two columns from the input tensor a GEMM computation */

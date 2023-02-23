@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        13 Februari 2023
- * $Revision:    V.15.0.0
+ * $Date:        8 March 2023
+ * $Revision:    V.15.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -309,13 +309,13 @@ int8_t *arm_nn_mat_mul_core_4x_s8(const int32_t row_elements,
  * @param[in]  lhs                Pointer to the LHS input matrix
  * @param[in]  rhs                Pointer to the RHS input matrix
  * @param[in]  bias               Pointer to the bias vector. The length of this vector is equal to the number of
- * output columns (or RHS input rows)
+ *                                output columns (or RHS input rows)
  * @param[out] dst                Pointer to the output matrix with "m" rows and "n" columns
  * @param[in]  dst_multipliers    Pointer to the multipliers vector needed for the per-channel requantization.
  *                                The length of this vector is equal to the number of output columns (or RHS input
- * rows)
+ *                                rows)
  * @param[in]  dst_shifts         Pointer to the shifts vector needed for the per-channel requantization. The length
- * of this vector is equal to the number of output columns (or RHS input rows)
+ *                                of this vector is equal to the number of output columns (or RHS input rows)
  * @param[in]  lhs_rows           Number of LHS input rows
  * @param[in]  rhs_rows           Number of RHS input rows
  * @param[in]  rhs_cols           Number of LHS/RHS input columns
@@ -323,8 +323,7 @@ int8_t *arm_nn_mat_mul_core_4x_s8(const int32_t row_elements,
  * @param[in]  dst_offset         Offset to be applied the output result
  * @param[in]  activation_min     Minimum value to clamp down the output. Range : int8
  * @param[in]  activation_max     Maximum value to clamp up the output. Range : int8
- * @param[in]  rhs_cols_offset    Offset between input columns. Used to handle non-unity strides
- *                                Expected value : x * rhs_cols, where x >= 1
+ * @param[in]  lhs_cols_offset    Column offset between subsequent lhs_rows
  *
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
@@ -342,7 +341,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t dst_offset,
                                             const int32_t activation_min,
                                             const int32_t activation_max,
-                                            const int32_t rhs_cols_offset);
+                                            const int32_t lhs_cols_offset);
 
 /**
  * @brief s8 Vector by Matrix (transposed) multiplication
