@@ -22,8 +22,8 @@
  * Description:  Optimized s8 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        30 January 2023
- * $Revision:    V.3.3.0
+ * $Date:        8 March 2023
+ * $Revision:    V.3.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -98,7 +98,6 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
     /* Generate two columns from the input tensor */
     int8_t *lhs_buffer = (int8_t *)buffer_a;
     int8_t *out = output;
-    int padded = 0;
     int buffer_count = 0;
     const int32_t kernel_size = kernel_x * kernel_y;
 
@@ -123,7 +122,6 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                         if (i_ker_y < 0 || i_ker_y >= input_y || i_ker_x < 0 || i_ker_x >= input_x)
                         {
                             arm_memset_s8(lhs_buffer, (int8_t)-input_offset, (uint32_t)active_ch);
-                            padded = 1;
                         }
                         else
                         {
@@ -140,39 +138,21 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                 {
                     const int32_t block_offset = i_ch * CH_IN_BLOCK_MVE;
                     lhs_buffer = (int8_t *)buffer_a;
-                    if (padded == 0)
-                    {
-                        arm_nn_depthwise_conv_nt_t_s8(lhs_buffer,
-                                                      kernel + block_offset,
-                                                      input_offset,
-                                                      active_ch,
-                                                      input_ch,
-                                                      output_shift + block_offset,
-                                                      output_mult + block_offset,
-                                                      output_offset,
-                                                      output_activation_min,
-                                                      output_activation_max,
-                                                      kernel_size,
-                                                      bias + block_offset,
-                                                      out);
-                    }
-                    else
-                    {
-                        arm_nn_depthwise_conv_nt_t_padded_s8(lhs_buffer,
-                                                             kernel + block_offset,
-                                                             input_offset,
-                                                             active_ch,
-                                                             input_ch,
-                                                             output_shift + block_offset,
-                                                             output_mult + block_offset,
-                                                             output_offset,
-                                                             output_activation_min,
-                                                             output_activation_max,
-                                                             kernel_size,
-                                                             bias + block_offset,
-                                                             out);
-                        padded = 0;
-                    }
+
+                    arm_nn_depthwise_conv_nt_t_s8(lhs_buffer,
+                                                  kernel + block_offset,
+                                                  input_offset,
+                                                  active_ch,
+                                                  input_ch,
+                                                  output_shift + block_offset,
+                                                  output_mult + block_offset,
+                                                  output_offset,
+                                                  output_activation_min,
+                                                  output_activation_max,
+                                                  kernel_size,
+                                                  bias + block_offset,
+                                                  out);
+
                     out += (4 * input_ch);
                     buffer_count = 0;
                 }

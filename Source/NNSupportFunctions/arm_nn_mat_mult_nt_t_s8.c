@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        5 January 2023
- * $Revision:    V.2.1.0
+ * $Date:        7 March 2023
+ * $Revision:    V.2.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -60,10 +60,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t activation_max,
                                             const int32_t rhs_cols_offset)
 {
-    if (rhs_cols_offset < rhs_cols)
-    {
-        return ARM_CMSIS_NN_ARG_ERROR;
-    }
+
 #if defined(ARM_MATH_MVEI)
 
     int8_t *out_ref = dst;
