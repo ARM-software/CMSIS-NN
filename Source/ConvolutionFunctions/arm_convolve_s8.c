@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        30 January 2023
- * $Revision:    V.3.2.0
+ * $Date:        7 January 2023
+ * $Revision:    V.3.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -97,9 +97,9 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
         /* Generate upto four columns from the input tensor a GEMM computation */
         int8_t *im2col_buf = (int8_t *)buffer_a;
         int8_t *out = output_data;
-        int32_t buffer_fill_cnt = 0;
-        int32_t padded = 0;
-        const int32_t num_elem = kernel_x * kernel_y * input_ch;
+        int32_t lhs_rows = 0;
+        const int32_t rhs_rows = output_dims->c;
+        const int32_t rhs_cols = kernel_x * kernel_y * input_ch;
         const int32_t dilation_x = conv_params->dilation.w;
         const int32_t dilation_y = conv_params->dilation.h;
 
@@ -120,8 +120,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
 
                         if (k_y < 0 || k_y >= input_y || k_x < 0 || k_x >= input_x)
                         {
-                            memset(im2col_buf, (int8_t)-input_offset, sizeof(int8_t) * input_ch);
-                            padded = 1;
+                            arm_memset_s8(im2col_buf, (int8_t)-input_offset, sizeof(int8_t) * input_ch);
                         }
                         else
                         {
@@ -130,44 +129,29 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                         im2col_buf += input_ch;
                     }
                 }
-
-                buffer_fill_cnt++;
+                lhs_rows++;
 
                 /* Computation is filed for every 4 columns */
-                if (buffer_fill_cnt == 4 && (padded == 0))
+                if (lhs_rows == 4)
                 {
-                    buffer_fill_cnt = 0;
-                    out = arm_nn_mat_mul_core_4x_s8(num_elem,
-                                                    num_elem,
-                                                    (int8_t *)buffer_a,
-                                                    filter_data,
-                                                    output_ch,
-                                                    conv_params,
-                                                    quant_params,
-                                                    bias_data,
-                                                    out);
-                    im2col_buf = (int8_t *)buffer_a;
-                }
-                else if (buffer_fill_cnt == 4 && (padded != 0))
-                {
-                    buffer_fill_cnt = 0;
-                    out = arm_nn_mat_mult_s8(filter_data,
-                                             (int8_t *)buffer_a,
-                                             output_ch,
-                                             4,
-                                             output_shift,
-                                             output_mult,
-                                             out_offset,
-                                             input_offset,
-                                             0,
-                                             out_activation_min,
-                                             out_activation_max,
-                                             num_elem,
-                                             bias_data,
-                                             out);
+                    arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
+                                            filter_data,
+                                            bias_data,
+                                            out,
+                                            output_mult,
+                                            output_shift,
+                                            lhs_rows,
+                                            rhs_rows,
+                                            rhs_cols,
+                                            input_offset,
+                                            out_offset,
+                                            out_activation_min,
+                                            out_activation_max,
+                                            rhs_cols);
+                    out += lhs_rows * rhs_rows;
 
+                    lhs_rows = 0;
                     im2col_buf = (int8_t *)buffer_a;
-                    padded = 0;
                 }
             }
             if (out == NULL)
@@ -176,22 +160,25 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
             }
         }
         /* Handle left over columns */
-        if (buffer_fill_cnt != 0)
+        if (lhs_rows != 0)
         {
-            out = arm_nn_mat_mult_s8(filter_data,
-                                     (int8_t *)buffer_a,
-                                     output_ch,
-                                     buffer_fill_cnt,
-                                     output_shift,
-                                     output_mult,
-                                     out_offset,
-                                     input_offset,
-                                     0,
-                                     out_activation_min,
-                                     out_activation_max,
-                                     num_elem,
-                                     bias_data,
-                                     out);
+            arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
+                                    filter_data,
+                                    bias_data,
+                                    out,
+                                    output_mult,
+                                    output_shift,
+                                    lhs_rows,
+                                    rhs_rows,
+                                    rhs_cols,
+                                    input_offset,
+                                    out_offset,
+                                    out_activation_min,
+                                    out_activation_max,
+                                    rhs_cols);
+            out += lhs_rows * rhs_rows;
+            lhs_rows = 0;
+            im2col_buf = (int8_t *)buffer_a;
         }
 #else // #if defined(ARM_MATH_MVEI)
         const uint16_t dilation_x = conv_params->dilation.w;
