@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t conv_1_x_n_2_output_shift[3] = {-10, -10, -10};
+const int8_t conv_1_x_n_5_weights[12] = {106, 23, 127, 96, 2, -11, -71, -1, -32, 73, 66, 34};

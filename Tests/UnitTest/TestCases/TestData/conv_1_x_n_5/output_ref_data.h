@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t conv_1_x_n_2_output_shift[3] = {-10, -10, -10};
+const int8_t conv_1_x_n_5_output_ref[6] = {48, 19, -88, 3, 48, -40};

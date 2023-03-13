@@ -45,39 +45,18 @@ void setUp(void)
 void tearDown(void) {}
 
 void test_basic_arm_convolve_s8(void) { basic_arm_convolve_s8(); }
-
 void test_stride2pad1_arm_convolve_s8(void) { stride2pad1_arm_convolve_s8(); }
-
 void test_conv_2_arm_convolve_s8(void) { conv_2_arm_convolve_s8(); }
-
 void test_conv_3_arm_convolve_s8(void) { conv_3_arm_convolve_s8(); }
-
 void test_conv_4_arm_convolve_s8(void) { conv_4_arm_convolve_s8(); }
-
 void test_conv_5_arm_convolve_s8(void) { conv_5_arm_convolve_s8(); }
-
-void test_conv_1_x_n_1_arm_convolve_s8(void) { conv_1_x_n_1_arm_convolve_s8(); }
-
-void test_conv_1_x_n_2_arm_convolve_s8(void) { conv_1_x_n_2_arm_convolve_s8(); }
-
-void test_conv_1_x_n_3_arm_convolve_s8(void) { conv_1_x_n_3_arm_convolve_s8(); }
-
 void test_conv_out_activation_arm_convolve_s8(void) { conv_out_activation_arm_convolve_s8(); }
-
 void test_conv_dilation_golden_arm_convolve_s8(void) { conv_dilation_golden_arm_convolve_s8(); }
-
 void test_conv_2x2_dilation_arm_convolve_s8(void) { conv_2x2_dilation_arm_convolve_s8(); }
-
 void test_conv_2x3_dilation_arm_convolve_s8(void) { conv_2x3_dilation_arm_convolve_s8(); }
-
 void test_conv_3x2_dilation_arm_convolve_s8(void) { conv_3x2_dilation_arm_convolve_s8(); }
-
 void test_conv_3x3_dilation_5x5_input_arm_convolve_s8(void) { conv_3x3_dilation_5x5_input_arm_convolve_s8(); }
-
 void test_conv_2x2_dilation_5x5_input_arm_convolve_s8(void) { conv_2x2_dilation_5x5_input_arm_convolve_s8(); }
-
 void test_buffer_size_arm_convolve_s8(void) { buffer_size_arm_convolve_s8(); }
-
 void test_buffer_size_mve_arm_convolve_s8(void) { buffer_size_mve_arm_convolve_s8(); }
-
 void test_buffer_size_dsp_arm_convolve_s8(void) { buffer_size_dsp_arm_convolve_s8(); }

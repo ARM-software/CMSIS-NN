@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -2016,26 +2016,7 @@ def load_testdata_sets() -> dict:
                                           pad=True,
                                           out_activation_min=-127,
                                           out_activation_max=127)
-    dataset = 'conv_1_x_n_1'
-    testdata_sets[dataset] = ConvSettings(dataset,
-                                          type_of_test,
-                                          regenerate_weights,
-                                          regenerate_input,
-                                          regenerate_biases,
-                                          schema_file,
-                                          in_ch=3,
-                                          out_ch=3,
-                                          x_in=16,
-                                          y_in=1,
-                                          w_x=2,
-                                          w_y=1,
-                                          stride_x=2,
-                                          stride_y=1,
-                                          pad=False,
-                                          out_activation_min=-127,
-                                          out_activation_max=127,
-                                          batches=2)
-    dataset = 'conv_1_x_n_2'
+    dataset = 'conv_1_x_n_1' # left and right pad, no non-padded elements
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,
@@ -2043,14 +2024,33 @@ def load_testdata_sets() -> dict:
                                           regenerate_biases,
                                           schema_file,
                                           in_ch=4,
-                                          out_ch=5,
-                                          x_in=8,
+                                          out_ch=3,
+                                          x_in=2,
                                           y_in=1,
-                                          w_x=4,
+                                          w_x=3,
+                                          w_y=1,
+                                          stride_x=1,
+                                          stride_y=1,
+                                          pad=True,
+                                          out_activation_min=-127,
+                                          out_activation_max=127,
+                                          batches=2)
+    dataset = 'conv_1_x_n_2' # no pad
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=4,
+                                          out_ch=3,
+                                          x_in=296,
+                                          y_in=1,
+                                          w_x=48,
                                           w_y=1,
                                           stride_x=2,
                                           stride_y=1,
-                                          pad=True,
+                                          pad=False,
                                           out_activation_min=-111,
                                           out_activation_max=127)
     dataset = 'conv_1_x_n_3'
@@ -2060,17 +2060,55 @@ def load_testdata_sets() -> dict:
                                           regenerate_input,
                                           regenerate_biases,
                                           schema_file,
-                                          in_ch=1,
-                                          out_ch=3,
-                                          x_in=12,
-                                          y_in=2,
-                                          w_x=1,
-                                          w_y=11,
-                                          stride_x=1,
-                                          stride_y=2,
+                                          in_ch=4,
+                                          out_ch=1,
+                                          x_in=296,
+                                          y_in=1,
+                                          w_x=48,
+                                          w_y=1,
+                                          stride_x=2,
+                                          stride_y=1,
+                                          pad=True,
+                                          out_activation_min=-111,
+                                          out_activation_max=127)
+    dataset = 'conv_1_x_n_4' # 0 left pad, 1 right pad
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=4,
+                                          out_ch=4,
+                                          x_in=16,
+                                          y_in=1,
+                                          w_x=3,
+                                          w_y=1,
+                                          stride_x=2,
+                                          stride_y=1,
                                           pad=True,
                                           out_activation_min=-88,
-                                          out_activation_max=127)
+                                          out_activation_max=127)    
+
+    dataset = 'conv_1_x_n_5'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=4,
+                                          out_ch=1,
+                                          x_in=17,
+                                          y_in=1,
+                                          w_x=3,
+                                          w_y=1,
+                                          stride_x=3,
+                                          stride_y=1,
+                                          pad=True,
+                                          out_activation_min=-88,
+                                          out_activation_max=127)                                              
+
     dataset = 'conv_2'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
