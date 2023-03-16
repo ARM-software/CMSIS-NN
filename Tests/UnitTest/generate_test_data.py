@@ -2088,8 +2088,7 @@ def load_testdata_sets() -> dict:
                                           stride_y=1,
                                           pad=True,
                                           out_activation_min=-88,
-                                          out_activation_max=127)    
-
+                                          out_activation_max=127)
     dataset = 'conv_1_x_n_5'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
@@ -2107,8 +2106,7 @@ def load_testdata_sets() -> dict:
                                           stride_y=1,
                                           pad=True,
                                           out_activation_min=-88,
-                                          out_activation_max=127)                                              
-
+                                          out_activation_max=127)
     dataset = 'conv_2'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
@@ -2171,7 +2169,7 @@ def load_testdata_sets() -> dict:
                                           regenerate_input,
                                           regenerate_biases,
                                           schema_file,
-                                          in_ch=2,
+                                          in_ch=4,
                                           out_ch=2,
                                           x_in=3,
                                           y_in=3,

@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        8 March 2023
- * $Revision:    V.15.0.1
+ * $Date:        23 Mars 2023
+ * $Revision:    V.16.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -122,10 +122,11 @@ union arm_nn_long_long
  * @param[in]    src        pointer to the s8 input vector
  * @param[out]   dst        pointer to the s16 output vector
  * @param[in]    block_size length of the input vector
- * @param[in]    offset     s8 offset to be added to each input vector element.
+ * @param[in]    offset     s16 offset to be added to each input vector element.
  *
  * \par Description:
  *
+ * Output elements are ordered.
  * The equation used for the conversion process is:
  *
  * <pre>
@@ -133,7 +134,33 @@ union arm_nn_long_long
  * </pre>
  *
  */
-void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, uint32_t block_size, int16_t offset);
+void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset);
+
+#if defined(ARM_MATH_DSP)
+/**
+ * @brief Converts the elements from a s8 vector to a s16 vector with an added offset
+ * @param[in]    src        pointer to the s8 input vector
+ * @param[out]   dst        pointer to the s16 output vector
+ * @param[in]    block_size length of the input vector
+ * @param[in]    offset     s16 offset to be added to each input vector element.
+ *
+ * \par Description:
+ *
+ * No additonal ordering is done with the result that output elements are not in order.
+ * Instead of ABCD order will be ACBD.
+ * Note this is for processors with DSP extension only.
+ * The equation used for the conversion process is:
+ *
+ * <pre>
+ *  dst[n - 0] = (int16_t) src[n - 0] + offset;   0 <= n < block_size.
+ *  dst[n - 1] = (int16_t) src[n - 2] + offset;   0 <= n < block_size.
+ *  dst[n - 2] = (int16_t) src[n - 1] + offset;   0 <= n < block_size.
+ *  dst[n - 3] = (int16_t) src[n - 3] + offset;   0 <= n < block_size.
+ * </pre>
+ *
+ */
+void arm_s8_to_s16_unordered_with_offset(const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset);
+#endif
 
 /**
  * @brief Depthwise conv on an im2col buffer where the input channel equals output channel.
@@ -655,9 +682,8 @@ __STATIC_FORCEINLINE void arm_memset_s8(int8_t *dst, const int8_t val, uint32_t 
 #if defined(ARM_MATH_DSP)
 
 /**
- * @brief read and expand one s8 word into two s16 words
+ * @brief read and expand one s8 word into two s16 words with ordering.
  */
-
 __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *out1, int32_t *out2)
 {
     int32_t inA = arm_nn_read_s8x4_ia(&source);
@@ -676,9 +702,8 @@ __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *o
 }
 
 /**
- * @brief read and expand one s8 word into two s16 words with reordering
+ * @brief read and expand one s8 word into two s16 words with no additional ordering.
  */
-
 __STATIC_FORCEINLINE const int8_t *read_and_pad_reordered(const int8_t *source, int32_t *out1, int32_t *out2)
 {
     int32_t inA = arm_nn_read_s8x4_ia(&source);
@@ -725,7 +750,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
                                       const int32_t out_offset,
                                       const int16_t activation_min,
                                       const int16_t activation_max,
-                                      const uint16_t num_col_a,
+                                      const int32_t num_col_a,
                                       const int32_t *const output_bias,
                                       int8_t *out_0);
 
