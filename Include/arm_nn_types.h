@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        8 Februari 2023
- * $Revision:    V.2.4.0
+ * $Date:        8 March 2023
+ * $Revision:    V.2.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -46,6 +46,7 @@ typedef enum
     ARM_CMSIS_NN_SUCCESS = 0,        /**< No error */
     ARM_CMSIS_NN_ARG_ERROR = -1,     /**< One or more arguments are incorrect */
     ARM_CMSIS_NN_NO_IMPL_ERROR = -2, /**<  No implementation available */
+    ARM_CMSIS_NN_FAILURE = -3,       /**<  Logical error */
 } arm_cmsis_nn_status;
 
 /** CMSIS-NN object to contain the width and height of a tile */
