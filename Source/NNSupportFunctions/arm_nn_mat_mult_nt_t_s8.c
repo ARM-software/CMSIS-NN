@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        8 March 2023
- * $Revision:    V.2.1.1
+ * $Date:        22 March 2023
+ * $Revision:    V.2.1.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -90,9 +90,16 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                 acc_n3 += ip_row_3[j] * col;
             }
     #else
+            // Note: If operand initialization is moved around, use '&' constraint to
+            // specify earlyclobber operands.
             __ASM volatile(" .p2align 2                             \n"
-                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
+                           "   mov             %[sum], 0            \n"
+                           "   mov             %[out0], 0           \n"
+                           "   mov             %[out1], 0           \n"
+                           "   mov             %[out2], 0           \n"
+                           "   mov             %[out3], 0           \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "2:                                      \n"
                            "   vaddva.s8      %[sum], q0            \n"
                            "   vldrb.8         q1, [%[row0]], #16   \n"
@@ -107,15 +114,15 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                            "   letp            lr, 2b               \n"
                            "1:                                      \n"
                            : [col] "+r"(col_base),
-                             [sum] "+Te"(sum_tmp),
+                             [sum] "=Te"(sum_tmp),
                              [row0] "+r"(lhs_vec),
                              [row1] "+r"(ip_row_1),
                              [row2] "+r"(ip_row_2),
                              [row3] "+r"(ip_row_3),
-                             [out0] "+Te"(acc_n0),
-                             [out1] "+Te"(acc_n1),
-                             [out2] "+Te"(acc_n2),
-                             [out3] "+Te"(acc_n3)
+                             [out0] "=Te"(acc_n0),
+                             [out1] "=Te"(acc_n1),
+                             [out2] "=Te"(acc_n2),
+                             [out3] "=Te"(acc_n3)
                            : [cnt] "r"(rhs_cols)
                            : "q0", "q1", "q2", "q3", "q4", "memory", "r14");
     #endif
@@ -162,8 +169,10 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             }
     #else
             __ASM volatile(" .p2align 2                             \n"
-                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "   wlstp.8         lr, %[cnt], 1f       \n"
+                           "   mov             %[sum], 0            \n"
+                           "   mov             %[out0], 0            \n"
+                           "   vldrb.8         q0, [%[col]], #16    \n"
                            "2:                                      \n"
                            "   vaddva.s8      %[sum], q0            \n"
                            "   vldrb.8         q1, [%[row0]], #16   \n"
@@ -171,7 +180,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                            "   vldrb.8         q0, [%[col]], #16    \n"
                            "   letp            lr, 2b               \n"
                            "1:                                      \n"
-                           : [col] "+r"(col_base), [sum] "+Te"(sum_tmp), [row0] "+r"(lhs_vec), [out0] "+Te"(acc_n0)
+                           : [col] "+r"(col_base), [sum] "=Te"(sum_tmp), [row0] "+r"(lhs_vec), [out0] "=Te"(acc_n0)
                            : [cnt] "r"(rhs_cols)
                            : "q0", "q1", "memory", "r14");
     #endif
@@ -198,8 +207,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             }
         }
         lhs += lhs_cols_offset;
-
-        for (int i = 0; i < (rhs_rows & 0x3); i++)
+        const int32_t tail_rows = rhs_rows & 0x3;
+        for (int i = 0; i < tail_rows; i++)
         {
             int32_t acc_n0 = acc[i];
             acc_n0 = arm_nn_requantize(acc_n0, multipliers[i], shifts[i]);
