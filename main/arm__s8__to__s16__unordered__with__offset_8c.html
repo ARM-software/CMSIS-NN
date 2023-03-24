@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: Data Conversion</title>
+<title>CMSIS-NN: arm_s8_to_s16_unordered_with_offset.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Usage&#160;and&#160;Description</span></a></li>
-      <li class="current"><a href="modules.html"><span>&#160;API&#160;Reference</span></a></li>
+      <li><a href="modules.html"><span>&#160;API&#160;Reference</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('group__supportConversion.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__s8__to__s16__unordered__with__offset_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -120,79 +120,15 @@ $(document).ready(function(){initNavTree('group__supportConversion.html',''); in
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">Data Conversion<div class="ingroups"><a class="el" href="group__groupSupport.html">Private</a></div></div></div>
+  <div class="headertitle"><div class="title">arm_s8_to_s16_unordered_with_offset.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gaf89e7f2830b77d0512e196481cbfac10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset)</td></tr>
-<tr class="memdesc:gaf89e7f2830b77d0512e196481cbfac10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <a href="group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10">More...</a><br /></td></tr>
-<tr class="separator:gaf89e7f2830b77d0512e196481cbfac10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
-<p >Perform data type conversion in-between neural network operations </p>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="gaf89e7f2830b77d0512e196481cbfac10" name="gaf89e7f2830b77d0512e196481cbfac10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf89e7f2830b77d0512e196481cbfac10">&#9670;&nbsp;</a></span>arm_q7_to_q15_with_offset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void arm_q7_to_q15_with_offset </td>
-          <td>(</td>
-          <td class="paramtype">const int8_t *&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t *&#160;</td>
-          <td class="paramname"><em>dst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>block_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t&#160;</td>
-          <td class="paramname"><em>offset</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>pointer to the s8 input vector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>pointer to the s16 output vector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>length of the input vector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>s16 offset to be added to each input vector element.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section user"><dt>Description:</dt><dd></dd></dl>
-<p>Output elements are ordered. The equation used for the conversion process is:</p>
-<pre>
- dst[n] = (int16_t) src[n] + offset;   0 &lt;= n &lt; block_size.
-</pre> 
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__s8__to__s16__unordered__with__offset_8c.html">arm_s8_to_s16_unordered_with_offset.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

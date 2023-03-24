@@ -191,9 +191,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, uint32_t block_size, int16_t offset)</td></tr>
-<tr class="memdesc:ga788c777ed24cce8d63f48173b93e4ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <a href="group__supportConversion.html#ga788c777ed24cce8d63f48173b93e4ea6">More...</a><br /></td></tr>
-<tr class="separator:ga788c777ed24cce8d63f48173b93e4ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf89e7f2830b77d0512e196481cbfac10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset)</td></tr>
+<tr class="memdesc:gaf89e7f2830b77d0512e196481cbfac10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <a href="group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10">More...</a><br /></td></tr>
+<tr class="separator:gaf89e7f2830b77d0512e196481cbfac10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a5ef2ef65ceb56c4252c519d36eae3caa">arm_nn_depthwise_conv_s8_core</a> (const int8_t *row, const int16_t *col, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t kernel_size, const int32_t *const output_bias, int8_t *out)</td></tr>
 <tr class="memdesc:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise conv on an im2col buffer where the input channel equals output channel.  <a href="arm__nnsupportfunctions_8h.html#a5ef2ef65ceb56c4252c519d36eae3caa">More...</a><br /></td></tr>
 <tr class="separator:a5ef2ef65ceb56c4252c519d36eae3caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,9 +230,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
 <tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <a href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">More...</a><br /></td></tr>
 <tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const uint16_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
-<tr class="memdesc:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#ab63ddef5e87d026c6577b1d5dc9d3519">More...</a><br /></td></tr>
-<tr class="separator:ab63ddef5e87d026c6577b1d5dc9d3519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7988bb731e75e7963567b9b127d278ca"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7988bb731e75e7963567b9b127d278ca">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
+<tr class="memdesc:a7988bb731e75e7963567b9b127d278ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nnsupportfunctions_8h.html#a7988bb731e75e7963567b9b127d278ca">More...</a><br /></td></tr>
+<tr class="separator:a7988bb731e75e7963567b9b127d278ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">arm_nn_softmax_common_s8</a> (const int8_t *input, const int32_t num_rows, const int32_t row_size, const int32_t mult, const int32_t shift, const int32_t diff_min, const bool int16_output, void *output)</td></tr>
 <tr class="memdesc:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common softmax function for s8 input and s8 or s16 output.  <a href="group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a">More...</a><br /></td></tr>
 <tr class="separator:gaa5632ba67b623b5dff0c4a2d8e2a9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -912,8 +912,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab63ddef5e87d026c6577b1d5dc9d3519" name="ab63ddef5e87d026c6577b1d5dc9d3519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab63ddef5e87d026c6577b1d5dc9d3519">&#9670;&nbsp;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
+<a id="a7988bb731e75e7963567b9b127d278ca" name="a7988bb731e75e7963567b9b127d278ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7988bb731e75e7963567b9b127d278ca">&#9670;&nbsp;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -969,7 +969,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>num_col_a</em>, </td>
         </tr>
         <tr>
