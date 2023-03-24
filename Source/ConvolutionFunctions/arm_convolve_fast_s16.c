@@ -21,8 +21,8 @@
  * Title:        arm_convolve_fast_s16.c
  * Description:  Optimized s16 version of convolution.
  *
- * $Date:        30 January 2023
- * $Revision:    V.2.2.0
+ * $Date:        23 March 2023
+ * $Revision:    V.2.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -81,6 +81,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
     const int32_t output_x = output_dims->w;
     const int32_t output_y = output_dims->h;
     const int32_t output_ch = output_dims->c;
+    const int32_t rhs_cols = input_ch * kernel_y * kernel_x;
 
     const int32_t pad_x = conv_params->padding.w;
     const int32_t pad_y = conv_params->padding.h;
@@ -124,7 +125,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                     }
                 }
                 /* Computation is filed for every 2 columns */
-                if (two_column_buf == buffer_a + 2 * input_ch * kernel_y * kernel_x)
+                if (two_column_buf == buffer_a + 2 * rhs_cols)
                 {
                     out = arm_nn_mat_mult_kernel_s16(filter_data,
                                                      buffer_a,
@@ -133,7 +134,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                                                      output_mult,
                                                      out_activation_min,
                                                      out_activation_max,
-                                                     (input_ch * kernel_y * kernel_x),
+                                                     rhs_cols,
                                                      bias_data,
                                                      out);
 
@@ -158,7 +159,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                 const int16_t *ip_as_col = buffer_a;
 
                 /* 4 multiply and accumulates are done in one loop. */
-                uint16_t col_count = (input_ch * kernel_y * kernel_x) >> 2;
+                int32_t col_count = rhs_cols >> 2;
 
                 while (col_count)
                 {
@@ -175,7 +176,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
                     col_count--;
                 }
                 /* Handle left over mac */
-                col_count = input_ch * kernel_y * kernel_x & 0x3;
+                col_count = rhs_cols & 0x3;
                 while (col_count)
                 {
                     int8_t ker_a1 = *ker_a++;
@@ -214,6 +215,7 @@ arm_cmsis_nn_status arm_convolve_fast_s16(const cmsis_nn_context *ctx,
         (void)out_activation_max;
         (void)output_mult;
         (void)output_shift;
+        (void)rhs_cols;
         return ARM_CMSIS_NN_ARG_ERROR;
 #endif
         /* Advance to the next batch */

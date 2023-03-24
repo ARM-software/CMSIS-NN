@@ -21,8 +21,8 @@
  * Title:        arm_q7_to_q15_with_offset.c
  * Description:  Converts the elements of the Q7 vector to Q15 vector with an added offset
  *
- * $Date:        5 January 2023
- * $Revision:    V.2.1.0
+ * $Date:        22 March 2023
+ * $Revision:    V.2.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -39,9 +39,9 @@
  * @{
  */
 
-void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, uint32_t block_size, int16_t offset)
+void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset)
 {
-    int block_cnt;
+    int32_t block_cnt;
 
 #if defined(ARM_MATH_MVEI)
 

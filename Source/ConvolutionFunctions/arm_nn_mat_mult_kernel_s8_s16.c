@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_kernel_s8_s16.c
  * Description:  Matrix-multiplication function for convolution
  *
- * $Date:        5 Januray 2023
- * $Revision:    V.1.2.0
+ * $Date:        23 Mars 2023
+ * $Revision:    V.1.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -45,7 +45,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
                                       const int32_t out_offset,
                                       const int16_t activation_min,
                                       const int16_t activation_max,
-                                      const uint16_t num_col_a,
+                                      const int32_t num_col_a,
                                       const int32_t *const output_bias,
                                       int8_t *out_0)
 {
@@ -80,7 +80,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
         }
 
     #if defined(ARM_MATH_DSP)
-        uint16_t col_count = num_col_a / 4;
+        int32_t col_count = num_col_a / 4;
         /* accumulate over the vector */
         while (col_count)
         {
@@ -88,8 +88,8 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
             int32_t b0 = arm_nn_read_q15x2_ia(&ip_b0);
             int32_t b1 = arm_nn_read_q15x2_ia(&ip_b1);
 
-            ip_a0 = read_and_pad(ip_a0, &a01, &a02);
-            ip_a1 = read_and_pad(ip_a1, &a11, &a12);
+            ip_a0 = read_and_pad_reordered(ip_a0, &a01, &a02);
+            ip_a1 = read_and_pad_reordered(ip_a1, &a11, &a12);
 
             ch_0_out_0 = SMLAD(a01, b0, ch_0_out_0);
             ch_0_out_1 = SMLAD(a01, b1, ch_0_out_1);
@@ -108,7 +108,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
         } /* while over col_count */
         col_count = num_col_a & 0x3;
     #else
-        uint16_t col_count = num_col_a;
+        int32_t col_count = num_col_a;
     #endif
         while (col_count)
         {
@@ -175,14 +175,14 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
         }
 
     #if defined(ARM_MATH_DSP)
-        uint16_t col_count = num_col_a >> 2;
+        int32_t col_count = num_col_a >> 2;
         while (col_count)
         {
             int32_t a01, a02;
             int32_t b0 = arm_nn_read_q15x2_ia(&ip_b0);
             int32_t b1 = arm_nn_read_q15x2_ia(&ip_b1);
 
-            ip_a0 = read_and_pad(ip_a0, &a01, &a02);
+            ip_a0 = read_and_pad_reordered(ip_a0, &a01, &a02);
 
             ch_0_out_0 = SMLAD(a01, b0, ch_0_out_0);
             ch_0_out_1 = SMLAD(a01, b1, ch_0_out_1);
@@ -196,7 +196,7 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
         }
         col_count = num_col_a & 0x3;
     #else
-        uint16_t col_count = num_col_a;
+        int32_t col_count = num_col_a;
     #endif
         while (col_count)
         {

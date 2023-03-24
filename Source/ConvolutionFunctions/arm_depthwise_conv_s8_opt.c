@@ -22,8 +22,8 @@
  * Description:  Optimized s8 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        8 March 2023
- * $Revision:    V.3.4.0
+ * $Date:        22 March 2023
+ * $Revision:    V.3.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -60,7 +60,6 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                                               const cmsis_nn_dims *output_dims,
                                               int8_t *output)
 {
-
     const int32_t input_ch = input_dims->c;
     const int32_t output_ch = output_dims->c;
 
@@ -254,7 +253,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
                         arm_q7_to_q15_with_offset((int8_t *)input + (idx_y * input_x + idx_x) * input_ch,
                                                   &col_buffer[index],
                                                   input_ch,
-                                                  input_offset);
+                                                  (int16_t)input_offset);
                     }
                     index += input_ch;
                 }
