@@ -22,8 +22,8 @@
  * Description:  s8 vector by matrix (transposed) multiplication with
  *               s16 output. Targetted at SVDF operator.
  *
- * $Date:        5 January 2023
- * $Revision:    V.3.1.0
+ * $Date:        28 March 2023
+ * $Revision:    V.3.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -93,16 +93,16 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
             const int8x16_t input = vldrbq_z_s8(lhs_vec, p);
 
             const int8x16_t ker_0 = vldrbq_z_s8(rhs_0, p);
-            rhs_sum_0 = vaddvaq_p_s8(rhs_sum_0, ker_0, p);
-            acc_0 = vmladavaq_p_s8(acc_0, ker_0, input, p);
+            rhs_sum_0 = vaddvaq_s8(rhs_sum_0, ker_0);
+            acc_0 = vmladavaq_s8(acc_0, ker_0, input);
 
             const int8x16_t ker_1 = vldrbq_z_s8(rhs_1, p);
-            rhs_sum_1 = vaddvaq_p_s8(rhs_sum_1, ker_1, p);
-            acc_1 = vmladavaq_p_s8(acc_1, ker_1, input, p);
+            rhs_sum_1 = vaddvaq_s8(rhs_sum_1, ker_1);
+            acc_1 = vmladavaq_s8(acc_1, ker_1, input);
 
             const int8x16_t ker_2 = vldrbq_z_s8(rhs_2, p);
-            rhs_sum_2 = vaddvaq_p_s8(rhs_sum_2, ker_2, p);
-            acc_2 = vmladavaq_p_s8(acc_2, ker_2, input, p);
+            rhs_sum_2 = vaddvaq_s8(rhs_sum_2, ker_2);
+            acc_2 = vmladavaq_s8(acc_2, ker_2, input);
 
             lhs_vec += 16;
             rhs_0 += 16;
@@ -141,8 +141,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
             const int8x16_t input = vldrbq_z_s8(lhs_vec, p);
 
             const int8x16_t ker_0 = vldrbq_z_s8(rhs_0, p);
-            rhs_sum_0 = vaddvaq_p_s8(rhs_sum_0, ker_0, p);
-            acc_0 = vmladavaq_p_s8(acc_0, ker_0, input, p);
+            rhs_sum_0 = vaddvaq_s8(rhs_sum_0, ker_0);
+            acc_0 = vmladavaq_s8(acc_0, ker_0, input);
 
             lhs_vec += 16;
             rhs_0 += 16;
