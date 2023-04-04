@@ -39,6 +39,8 @@ CLANG_FORMAT = 'clang-format-12 -i'  # For formatting generated headers.
 
 INT32_MAX = 2147483647
 INT32_MIN = -2147483648
+INT64_MAX = 9223372036854775807
+INT64_MIN = -9223372036854775808
 INT16_MAX = 32767
 INT16_MIN = -32768
 INT8_MAX = 127
@@ -124,8 +126,8 @@ class TestSettings(ABC):
                  out_activation_min=None,
                  out_activation_max=None,
                  int16xint8=False,
-                 bias_min=None,
-                 bias_max=None,
+                 bias_min=INT32_MIN,
+                 bias_max=INT32_MAX,
                  dilation_x=1,
                  dilation_y=1):
 
@@ -583,8 +585,8 @@ class ConvSettings(TestSettings):
                  out_activation_min=None,
                  out_activation_max=None,
                  int16xint8=False,
-                 bias_min=None,
-                 bias_max=None,
+                 bias_min=INT32_MIN,
+                 bias_max=INT32_MAX,
                  dilation_x=1,
                  dilation_y=1):
         super().__init__(dataset,
@@ -677,6 +679,9 @@ class ConvSettings(TestSettings):
         else:
             weights = self.get_randomized_data([self.filter_y, self.filter_x, self.input_ch, out_channel],
                                                self.kernel_table_file,
+                                               minrange=INT32_MIN,
+                                               maxrange=INT32_MAX,
+                                               decimals=1,
                                                regenerate=self.regenerate_new_weights)
 
         biases = self.get_randomized_bias_data(biases)
@@ -754,6 +759,8 @@ class PoolingSettings(TestSettings):
                  stride_y=1,
                  randmin=INT8_MIN,
                  randmax=INT8_MAX,
+                 bias_min=INT32_MIN,
+                 bias_max=INT32_MAX,
                  batches=1,
                  pad=False,
                  relu6=False,
@@ -865,8 +872,8 @@ class FullyConnectedSettings(TestSettings):
                  out_activation_min=None,
                  out_activation_max=None,
                  int16xint8=False,
-                 bias_min=None,
-                 bias_max=None):
+                 bias_min=INT32_MIN,
+                 bias_max=INT32_MAX):
         super().__init__(dataset,
                          testtype,
                          regenerate_weights,
@@ -890,7 +897,7 @@ class FullyConnectedSettings(TestSettings):
                          out_activation_max=out_activation_max,
                          int16xint8=int16xint8,
                          bias_min=bias_min,
-                         bias_max=bias_min)
+                         bias_max=bias_max)
 
     def write_c_config_header(self) -> None:
         super().write_c_config_header()
@@ -933,6 +940,8 @@ class FullyConnectedSettings(TestSettings):
         else:
             weights = self.get_randomized_data(fc_weights_format,
                                                self.kernel_table_file,
+                                               minrange=INT32_MIN,
+                                               maxrange=INT32_MAX,
                                                regenerate=self.regenerate_new_weights)
 
         biases = self.get_randomized_bias_data(biases)
@@ -1919,6 +1928,8 @@ def load_testdata_sets() -> dict:
                                           stride_x=1,
                                           stride_y=1,
                                           pad=False,
+                                          bias_min=INT8_MIN,
+                                          bias_max=INT8_MAX,
                                           out_activation_min=-126,
                                           out_activation_max=127,
                                           batches=2)
@@ -1950,6 +1961,7 @@ def load_testdata_sets() -> dict:
                                           schema_file,
                                           in_ch=23,
                                           out_ch=15,
+                                          randmin=0,
                                           x_in=7,
                                           y_in=6,
                                           w_x=1,
@@ -1957,7 +1969,7 @@ def load_testdata_sets() -> dict:
                                           stride_x=2,
                                           stride_y=2,
                                           pad=False,
-                                          out_activation_min=-126,
+                                          out_activation_min=-6,
                                           out_activation_max=127,
                                           batches=3)
     dataset = 'kernel1x1_stride_x_y_1'
@@ -2016,7 +2028,7 @@ def load_testdata_sets() -> dict:
                                           pad=True,
                                           out_activation_min=-127,
                                           out_activation_max=127)
-    dataset = 'conv_1_x_n_1' # left and right pad, no non-padded elements
+    dataset = 'conv_1_x_n_1'  # left and right pad, no non-padded elements
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,
@@ -2035,7 +2047,7 @@ def load_testdata_sets() -> dict:
                                           out_activation_min=-127,
                                           out_activation_max=127,
                                           batches=2)
-    dataset = 'conv_1_x_n_2' # no pad
+    dataset = 'conv_1_x_n_2'  # no pad
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,
@@ -2071,7 +2083,7 @@ def load_testdata_sets() -> dict:
                                           pad=True,
                                           out_activation_min=-111,
                                           out_activation_max=127)
-    dataset = 'conv_1_x_n_4' # 0 left pad, 1 right pad
+    dataset = 'conv_1_x_n_4'  # 0 left pad, 1 right pad
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,
@@ -2446,6 +2458,8 @@ def load_testdata_sets() -> dict:
                                           stride_x=2,
                                           stride_y=2,
                                           pad=True,
+                                          bias_min=INT8_MIN,
+                                          bias_max=INT8_MAX,
                                           out_activation_min=-104,
                                           out_activation_max=127)
     dataset = 'depthwise_kernel_3x3_null_bias'
