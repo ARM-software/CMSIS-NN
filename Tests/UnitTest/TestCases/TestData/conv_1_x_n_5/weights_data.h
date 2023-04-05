@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int8_t conv_1_x_n_5_weights[12] = {106, 23, 127, 96, 2, -11, -71, -1, -32, 73, 66, 34};
+const int8_t conv_1_x_n_5_weights[12] = {-13, 24, -68, 103, 116, 87, -119, 127, -14, 120, -28, 57};

@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t conv_1_x_n_4_biases[4] = {-21306, -3886, -40080, -33302};
+const int32_t conv_1_x_n_4_biases[4] = {-2261, 8511, 27597, -32833};
