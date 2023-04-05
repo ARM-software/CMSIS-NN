@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int8_t conv_1_x_n_1_output_ref[12] = {87, -72, 77, 52, -52, 104, 51, -16, 53, 51, -62, 64};
+const int8_t conv_1_x_n_1_output_ref[12] = {-127, -82, -31, -51, -55, 64, -127, -98, -60, -71, -43, 2};

@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t conv_1_x_n_4_output_mult[4] = {1453554163, 1593809421, 1287797967, 1351550409};
+const int32_t conv_1_x_n_4_output_mult[4] = {1865164794, 2119938086, 1111138058, 1871526465};
