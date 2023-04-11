@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mult_t_s8
  * Description:  s8 vector by matrix (transposed) multiplication
  *
- * $Date:        27 March 2023
- * $Revision:    V.5.4.0
+ * $Date:        5 May 2023
+ * $Revision:    V.5.4.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -89,6 +89,12 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
         int32_t rhs_sum_0 = 0;
         int32_t rhs_sum_1 = 0;
         int32_t rhs_sum_2 = 0;
+        if (bias)
+        {
+            acc_0 = *bias++;
+            acc_1 = *bias++;
+            acc_2 = *bias++;
+        }
 
         uint32_t col_cnt = (uint32_t)rhs_cols;
 
@@ -119,13 +125,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
         rhs += 3 * rhs_cols;
 
         int32x4_t acc = {acc_0, acc_1, acc_2, 0};
-        mve_pred16_t p = vctp32q(3);
-        if (bias)
-        {
-            int32x4_t b = vldrwq_z_s32(bias, p);
-            acc = vaddq_x_s32(acc, b, p);
-            bias += 3;
-        }
         const int32x4_t rhs_sum = {rhs_sum_0, rhs_sum_1, rhs_sum_2, 0};
         acc += vdupq_n_s32(lhs_offset) * rhs_sum;
 
@@ -134,9 +133,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
         acc = vmaxq_s32(acc, vdupq_n_s32(activation_min));
         acc = vminq_s32(acc, vdupq_n_s32(activation_max));
 
+        const mve_pred16_t p = vctp32q(3);
         if (address_offset > 1L)
         {
-            vstrbq_scatter_offset_s32(dst, address_offset_array, acc);
+            vstrbq_scatter_offset_p_s32(dst, address_offset_array, acc, p);
         }
         else
         {
