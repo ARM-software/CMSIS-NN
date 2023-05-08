@@ -497,7 +497,11 @@ class TestSettings(ABC):
 
         return interpreter
 
-    def generate_json_from_template(self, weights_feature_data=None, weights_time_data=None, bias_data=None):
+    def generate_json_from_template(self,
+                                    weights_feature_data=None,
+                                    weights_time_data=None,
+                                    bias_data=None,
+                                    int8_time_weights=False):
         """
         Takes a json template and parameters as input and creates a new json file.
         """
@@ -517,7 +521,10 @@ class TestSettings(ABC):
                 data["buffers"][w_1_buffer_index]["data"] = self.to_bytes(weights_feature_data.numpy().ravel(), 1)
             if weights_time_data is not None:
                 w_2_buffer_index = 2
-                data["buffers"][w_2_buffer_index]["data"] = self.to_bytes(weights_time_data.numpy().ravel(), 2)
+                if int8_time_weights:
+                    data["buffers"][w_2_buffer_index]["data"] = self.to_bytes(weights_time_data.numpy().ravel(), 1)
+                else:
+                    data["buffers"][w_2_buffer_index]["data"] = self.to_bytes(weights_time_data.numpy().ravel(), 2)
             if bias_data is not None:
                 bias_buffer_index = 3
                 data["buffers"][bias_buffer_index]["data"] = self.to_bytes(bias_data.numpy().ravel(), 4)
@@ -1158,6 +1165,7 @@ class SVDFSettings(TestSettings):
                  input_size=3,
                  number_units=4,
                  generate_bias=True,
+                 int8_time_weights=False,
                  input_scale=0.1,
                  input_zp=0,
                  w_1_scale=0.005,
@@ -1202,7 +1210,13 @@ class SVDFSettings(TestSettings):
         self.in_activation_max = INT16_MAX
         self.in_activation_min = INT16_MIN
 
-        self.json_template = "TestCases/Common/svdf_template.json"
+        self.int8_time_weights = int8_time_weights
+
+        if self.int8_time_weights:
+            self.json_template = "TestCases/Common/svdf_s8_weights_template.json"
+        else:
+            self.json_template = "TestCases/Common/svdf_template.json"
+
         self.json_replacements = {
             "memory_sizeXnumber_filters": self.memory_size * self.number_filters,
             "batches": self.batches,
@@ -1289,7 +1303,10 @@ class SVDFSettings(TestSettings):
                                               regenerate=self.regenerate_new_weights)
 
         # Generate tflite model
-        generated_json = self.generate_json_from_template(weights_feature_data, weights_time_data, biases)
+        generated_json = self.generate_json_from_template(weights_feature_data,
+                                                          weights_time_data,
+                                                          biases,
+                                                          self.int8_time_weights)
         self.flatc_generate_tflite(generated_json, self.schema_file)
 
         # Run TFL interpreter
@@ -1316,9 +1333,20 @@ class SVDFSettings(TestSettings):
 
         # Generate unit test C headers
         self.generate_c_array("weights_feature", interpreter.get_tensor(weights_1_layer['index']))
-        self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='int16_t')
         self.generate_c_array(self.bias_data_file_prefix, interpreter.get_tensor(bias_layer['index']), "int32_t")
-        self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "int16_t")
+
+        if self.int8_time_weights:
+            self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='int8_t')
+            self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "int8_t")
+        else:
+            self.generate_c_array("weights_time", interpreter.get_tensor(weights_2_layer['index']), datatype='int16_t')
+            self.generate_c_array("state", interpreter.get_tensor(state_layer['index']), "int16_t")
+
+        # TODO: generate output reference with int8 time weights.
+        if self.int8_time_weights:
+            self.write_c_config_header()
+            self.write_c_header_wrapper()
+            return
 
         # Generate reference output
         svdf_ref = None
@@ -3429,6 +3457,21 @@ def load_testdata_sets() -> dict:
                                           input_size=20,
                                           number_units=12,
                                           generate_bias=False)
+    dataset = 'svdf_int8'
+    testdata_sets[dataset] = SVDFSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          batches=1,
+                                          number_inputs=2,
+                                          rank=1,
+                                          memory_size=2,
+                                          input_size=20,
+                                          number_units=12,
+                                          generate_bias=False,
+                                          int8_time_weights=True)
 
     type_of_test = 'add'
     dataset = 'add'
