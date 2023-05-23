@@ -127,7 +127,12 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
-<td>v4.0.1-dev </td><td>DS_CNN_S Unit Test (#25)   </td></tr>
+<td>v4.1.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.0.0">CMSIS-NN v4.0.0</a></p>
+<p class="intertd">Improvements in LSTM, generic convolution, 1xN convolution, DW convolution and FC for MVE extension. Improvements in LSTM, generic convolution and int8/int16 elementwise mul for DSP extension.</p>
+<p class="intertd">Script to extract model hyperparameters. Get size of buffers on host to support TVM use case. Dependency to CMSIS-Core is removed. CMSIS-NN can be built without including any other CMSIS module. A new DS_CNN_S model unit test is added that is used in End-to-End benchmark <a href="https://github.com/eembc/audiomark">AudioMark</a>.</p>
+<p class="intertd">Extended unit test coverage.</p>
+<p class="endtd">Potential out of buffer write in SVDF state data. Fix selection of correct int16 DW Convolution function. Workaround for a GCC 12.2 Internal Compiler Error affecting MVE. Fix error in buffer size calculation of DW Convolution wrapper for int8. Fix 'asm operand has impossible constraint' error for certain combination of GCC compiler related to MVE optimizations.   </p>
+</td></tr>
 <tr>
 <td>v4.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS_5/releases/tag/5.9.0">CMSIS 5.9.0</a></p>
 <p class="intertd">The return type of all API's that returned a status is now changed. CMSIS-NN used error codes from CMSIS-DSP in the form of enum 'arm_status'. This is now replaced by enum 'arm_cmsis_nn_status'. The status values are still the same. It is reccomended that users change the return type in their applications.</p>
