@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2020, 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -53,8 +53,6 @@ def parse_args():
                         help="Just download Unity and generate test runners if needed")
 
     required_arguments = parser.add_argument_group('required named arguments')
-    required_arguments.add_argument('-p', '--path-to-cmsis', help='Path to CMSIS project for CMSIS/Core.',
-                                    required=True)
 
     args = parser.parse_args()
     return args
@@ -131,7 +129,6 @@ def detect_architecture(target_name, target_json):
 def test_target(target, args, main_test):
     result = 3
     compiler = args.compiler
-    cmsis_path = args.path_to_cmsis
     cmsis_nn_path = "../../../../"
     target_name = target['name']
     target_model = target['model']
@@ -142,9 +139,6 @@ def test_target(target, args, main_test):
     os.makedirs(dir_name, exist_ok=True)
     start_dir = os.getcwd()
     os.chdir(dir_name)
-
-    cmsis_core_include_path = cmsis_path + '/CMSIS/Core/Include/'
-    relative_cmsis_core_include_path = os.path.relpath(cmsis_core_include_path, '.')
 
     try:
         target_json = 'mbed-os/targets/targets.json'
@@ -176,7 +170,6 @@ def test_target(target, args, main_test):
                              ' --source .'
                              ' --source ' + BASE_PATH + 'TestCases/Utils/'
                              ' --source ' + cmsis_nn_path + 'Include/'
-                             ' --source ' + relative_cmsis_core_include_path +
                              ' --source ' + cmsis_nn_path + 'Source/ConvolutionFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/PoolingFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/NNSupportFunctions/'
@@ -184,6 +177,8 @@ def test_target(target, args, main_test):
                              ' --source ' + cmsis_nn_path + 'Source/SoftmaxFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/SVDFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/BasicMathFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/ActivationFunctions/'
+                             ' --source ' + cmsis_nn_path + 'Source/LSTMFunctions/'
                              + additional_options,
                              flash_error_msg, die=die)
 

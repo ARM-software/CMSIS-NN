@@ -102,9 +102,8 @@ add_subdirectory(TestCases/test_arm_ds_cnn_s_s8)
 set(MAKE_CMD "python3")
 set(MAKE_CMD_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/unittest_targets.py")
 set(MAKE_CMD_SCRIPT_OPTION "--download-and-generate-test-runners")
-set(MAKE_CMD_SCRIPT_CMSIS_PATH "-p ${CMSIS_PATH}")
 MESSAGE(STATUS "Downloading Unity and generating test runners for CMSIS-NN unit tests if needed..")
-execute_process(COMMAND ${MAKE_CMD} ${MAKE_CMD_SCRIPT} ${MAKE_CMD_SCRIPT_OPTION} ${MAKE_CMD_SCRIPT_CMSIS_PATH}
+execute_process(COMMAND ${MAKE_CMD} ${MAKE_CMD_SCRIPT} ${MAKE_CMD_SCRIPT_OPTION}
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(Unity)
 
