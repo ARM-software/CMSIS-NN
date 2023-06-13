@@ -106,3 +106,7 @@ This product confirms to Arm’s inclusive language policy and, to the best of o
 ## Support / Contact
 
 For any questions or to reach the CMSIS-NN team, please create a new issue in https://github.com/ARM-software/CMSIS-NN/issues
+
+## License Terms
+
+CMSIS-NN is licensed under [Apache License 2.0](LICENSE).

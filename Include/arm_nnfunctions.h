@@ -96,7 +96,8 @@
    *
    * \section Copyright Copyright Notice
    *
-   *
+   * CMSIS-NN is provided free of charge by Arm under the <a href="https://raw.githubusercontent.com/ARM-software/CMSIS_NN/main/LICENSE">Apache 2.0 License</a>.
+   * 
    * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
    *
    *
