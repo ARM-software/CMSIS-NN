@@ -128,13 +128,13 @@ $(document).ready(function(){initNavTree('arm__nn__mat__mult__kernel__s8__s16_8c
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7988bb731e75e7963567b9b127d278ca"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s8__s16_8c.html#a7988bb731e75e7963567b9b127d278ca">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
-<tr class="memdesc:a7988bb731e75e7963567b9b127d278ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nn__mat__mult__kernel__s8__s16_8c.html#a7988bb731e75e7963567b9b127d278ca">More...</a><br /></td></tr>
-<tr class="separator:a7988bb731e75e7963567b9b127d278ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0498b875e04312200cb1b424d8e7e2f4"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s8__s16_8c.html#a0498b875e04312200cb1b424d8e7e2f4">arm_nn_mat_mult_kernel_s8_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int32_t aligned_num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
+<tr class="memdesc:a0498b875e04312200cb1b424d8e7e2f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization.  <a href="arm__nn__mat__mult__kernel__s8__s16_8c.html#a0498b875e04312200cb1b424d8e7e2f4">More...</a><br /></td></tr>
+<tr class="separator:a0498b875e04312200cb1b424d8e7e2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7988bb731e75e7963567b9b127d278ca" name="a7988bb731e75e7963567b9b127d278ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7988bb731e75e7963567b9b127d278ca">&#9670;&nbsp;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
+<a id="a0498b875e04312200cb1b424d8e7e2f4" name="a0498b875e04312200cb1b424d8e7e2f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0498b875e04312200cb1b424d8e7e2f4">&#9670;&nbsp;</a></span>arm_nn_mat_mult_kernel_s8_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,6 +196,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>aligned_num_col_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int32_t *const&#160;</td>
           <td class="paramname"><em>output_bias</em>, </td>
         </tr>
@@ -223,6 +229,7 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>minimum value to clamp the output to. Range : int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>maximum value to clamp the output to. Range : int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">num_col_a</td><td>number of columns of A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aligned_num_col_a</td><td>number of columns of A aligned by 4 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">output_bias</td><td>per output channel bias. Range : int32 </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">out_0</td><td>pointer to output </td></tr>
   </table>
