@@ -23,10 +23,10 @@ See below for what pip packages are needed.
 If using the script unittest_targets.py for executing unit tests, the following packages are needed.
 
 ```
-pip install pyserial mbed-ls termcolor
+pip install pyserial mbed-ls mbed-cli termcolor mercurial
 ```
 
-Other required python packages are mbed-cli and and mbed-ls. It should not matter if those are installed under python2 or python3 as they are command-line tools. These packages have been tested for Python2, with the following versions: mbed-ls(1.7.9) and mbed-cli(1.10.1).
+Python packages mbed-cli and and mbed-ls are command line tools so it should not matter if those are installed under Python2 or Python3. These packages have been tested for Python2, with the following versions: mbed-ls(1.7.9) and mbed-cli(1.10.1). They have also been tested for Python3, with the following versions: mbed-ls(1.7.12) and mbed-cli(1.10.5). Package mercurial is needed for package mbed-cli.
 
 ### Generating new test data
 
@@ -63,7 +63,7 @@ To use the tflite_runtime the script currently has to be modified.
 
 ### Using Arm Mbed OS supported hardware
 
-Connect any HW (e.g. NUCLEO_F746ZG) that is supported by Arm Mbed OS. Multiple boards are supported. If all requirements are satisfied you can just run:
+Connect any HW (e.g. NUCLEO_F746ZG) that is supported by Arm Mbed OS. Multiple boards are supported. Note that board must be mounted, which may or may not be done automatically depending on OS. If all requirements are satisfied you can just run:
 
 ```
 ./unittest_targets.py
