@@ -99,6 +99,7 @@
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s8.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_vector_sum_s8.c"/>
         <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s8_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>

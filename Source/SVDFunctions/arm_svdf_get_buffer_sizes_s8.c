@@ -18,11 +18,11 @@
 
 /* ----------------------------------------------------------------------
  * Project:      CMSIS NN Library
- * Title:        arm_fully_connected_get_buffer_sizes_s8.c
- * Description:  Collection of get buffer size functions for fully connected s8 layer function.
+ * Title:        arm_svdf_get_buffer_sizes_s8.c
+ * Description:  Collection of get buffer size functions for svdf s8 layer function.
  *
- * $Date:        15 August 2023
- * $Revision:    V.1.1.0
+ * $Date:        5 September 2023
+ * $Revision:    V.1.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,34 +31,34 @@
 #include "arm_nnfunctions.h"
 
 /**
- *  @ingroup FC
+ *  @ingroup SVDF
  */
 
 /**
- * @addtogroup GetBufferSizeFC
+ * @addtogroup GetBufferSizeSVDF
  * @{
  */
 
-int32_t arm_fully_connected_s8_get_buffer_size_dsp(const cmsis_nn_dims *filter_dims)
+int32_t arm_svdf_s8_get_buffer_size_dsp(const cmsis_nn_dims *weights_feature_dims)
 {
-    (void)filter_dims;
+    (void)weights_feature_dims;
     return 0;
 }
 
-int32_t arm_fully_connected_s8_get_buffer_size_mve(const cmsis_nn_dims *filter_dims)
+int32_t arm_svdf_s8_get_buffer_size_mve(const cmsis_nn_dims *weights_feature_dims)
 {
-    return filter_dims->c * sizeof(int32_t);
+    return weights_feature_dims->n * sizeof(int32_t);
 }
 
-int32_t arm_fully_connected_s8_get_buffer_size(const cmsis_nn_dims *filter_dims)
+int32_t arm_svdf_s8_get_buffer_size(const cmsis_nn_dims *weights_feature_dims)
 {
 #if defined(ARM_MATH_MVEI)
-    return arm_fully_connected_s8_get_buffer_size_mve(filter_dims);
+    return arm_svdf_s8_get_buffer_size_mve(weights_feature_dims);
 #else
-    return arm_fully_connected_s8_get_buffer_size_dsp(filter_dims);
+    return arm_svdf_s8_get_buffer_size_dsp(weights_feature_dims);
 #endif
 }
 
 /**
- * @} end of GetBufferSizeFC group
+ * @} end of GetBufferSizeSVDF group
  */
