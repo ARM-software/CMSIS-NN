@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int8_t svdf_input_sequence[12] = {112, -96, -125, 39, -126, 37, 54, -118, 21, -30, 121, -41};
+const int8_t svdf_int8_output_ref[12] = {2, -3, -1, -2, 0, 3, 1, -7, 6, 1, -2, 3};

@@ -25,7 +25,9 @@ import subprocess
 import numpy as np
 import tensorflow as tf
 
-from generate_test_data import SoftmaxSettings, FullyConnectedSettings, ConvSettings, Interpreter, OpResolverType
+from conv_settings import ConvSettings
+from softmax_settings import SoftmaxSettings
+from fully_connected_settings import FullyConnectedSettings
 
 
 class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
@@ -181,7 +183,6 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
                 builtin_name = operator_codes[op['opcode_index']]['builtin_code']
             else:
                 builtin_name = ""
-            #op_name = 'layer_' + str(op_index) + '_' + builtin_name
 
             # Get stride and padding.
             if 'builtin_options' in op:
@@ -271,8 +272,8 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
 
     def generate_data(self, input_data=None, weights=None, biases=None) -> None:
 
-        interpreter = Interpreter(model_path=str(self.tflite_model),
-                                  experimental_op_resolver_type=OpResolverType.BUILTIN_REF)
+        interpreter = self.Interpreter(model_path=str(self.tflite_model),
+                                       experimental_op_resolver_type=self.OpResolverType.BUILTIN_REF)
         interpreter.allocate_tensors()
 
         # Needed for input/output scale/zp as equivalant json file data has too low precision.
@@ -283,7 +284,7 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
 
         input_details = interpreter.get_input_details()
         if len(input_details) != 1:
-            raise RuntimeError(f"Only single input supported.")
+            raise RuntimeError("Only single input supported.")
         input_shape = input_details[0]['shape']
         input_data = self.get_randomized_input_data(input_data, input_shape)
         interpreter.set_tensor(input_details[0]["index"], tf.cast(input_data, tf.int8))
