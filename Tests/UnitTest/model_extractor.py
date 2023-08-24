@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -46,13 +46,7 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
         result = []
         tmp_ints = []
 
-        if type_size == 1:
-            tensor_type = np.uint8
-        elif type_size == 2:
-            tensor_type = np.uint16
-        elif type_size == 4:
-            tensor_type = np.uint32
-        else:
+        if not (type_size == 1 or type_size == 2 or type_size == 4):
             raise RuntimeError("Size not supported: {}".format(type_size))
 
         count = 0
@@ -226,6 +220,9 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
                     weights_index = op['inputs'][1]
                     bias_index = op['inputs'][2]
 
+                    weight_tensor = tensor_details[weights_index]
+                    scaling_factors = weight_tensor['quantization_parameters']['scales'].tolist()
+
                     bias = tensors[bias_index]
                     weights = tensors[weights_index]
 
@@ -236,8 +233,6 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
                     bias_data_index = bias['buffer']
                     bias_data_buffer = buffers[bias_data_index]
                     bias_data = self.from_bytes(bias_data_buffer['data'], 4)
-
-                    scaling_factors = weights['quantization']['scale']
 
                     self.output_ch = len(scaling_factors)
 
