@@ -53,13 +53,17 @@ Remember to add the built flatc binary to the path.
 
 For schema file download [schema.fbs](https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/lite/schema/schema.fbs).
 
-#### Using tflite_runtime
-Python package tensorflow is always needed however the script has the option to use tflite_runtime for the interpreter, which will generate the actual reference output. Python package tflite_runtime can be installed with pip and it can also be built locally. Check this [link](https://www.tensorflow.org/lite/guide/build_cmake_pip) on how to do that.
-To use the tflite_runtime the script currently has to be modified.
+#### Interpreter for generating reference output
+Python package tensorflow is always needed however the script has the option to use other interpreters than the tensorflow default, which will generate the actual reference output.
+
+##### tflite_runtime
+Python package tflite_runtime can be installed with pip and it can also be built locally. Check this [link](https://www.tensorflow.org/lite/guide/build_cmake_pip) on how to do that.
+Use the -h flag to get more info on supported interpreters.
+
+##### tflite_micro
+This interpreter is partially supported. See this comment for more info: https://github.com/tensorflow/tflite-micro/issues/1484#issuecomment-1677842603.
 
 ## Getting started
-
-
 
 ### Using Arm Mbed OS supported hardware
 
@@ -122,7 +126,11 @@ When adding a new test data set, new c files should be added or existing c files
 
 The steps to add a new unit test are as follows. Add a new test test in the load_all_testdatasets() function. Run the generate script with that new test set as input. Add the new generated header files to an existing or new unit test.
 
-### Tests depending on specific TFL versions or patched TFL version
+### Tests depending on specific TFL versions, patched TFL version or TFLM interpreter
+
+#### SVDF INT8
+This tests is depending on tflite_micro for its reference data. This is because the operator is only supported by TFLM.
+Note that tflite_micro interpreter is currently only supported for SVDF.
 
 #### LSTM
 

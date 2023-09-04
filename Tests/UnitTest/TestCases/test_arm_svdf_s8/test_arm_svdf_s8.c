@@ -26,6 +26,8 @@
 
 void svdf_int8_arm_svdf_s8(void)
 {
+    const int32_t output_ref_size = SVDF_INT8_DST_SIZE;
+    const int8_t *output_ref = svdf_int8_output_ref;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
     cmsis_nn_context input_ctx;
     cmsis_nn_context output_ctx;
@@ -103,6 +105,8 @@ void svdf_int8_arm_svdf_s8(void)
                                                      output_data);
             TEST_ASSERT_EQUAL(expected, result);
         }
+
+        TEST_ASSERT_TRUE(validate(output_data, output_ref, output_ref_size));
     }
 
     // Make sure state data is not written outside boundary
