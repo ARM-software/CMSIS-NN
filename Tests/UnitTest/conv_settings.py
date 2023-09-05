@@ -18,7 +18,6 @@ from test_settings import TestSettings
 
 import tensorflow as tf
 import numpy as np
-
 import math
 
 
@@ -90,8 +89,13 @@ class ConvSettings(TestSettings):
             self.channel_multiplier = self.output_ch // self.input_ch
             if self.output_ch % self.input_ch != 0:
                 raise RuntimeError("out channel ({}) is not multiple of in channel ({})".format(out_ch, in_ch))
+        else:
+            self.channel_multiplier = 0
 
-            if self.int4_weights:
+        if self.int4_weights:
+            if self.test_type == 'conv':
+                self.json_template = "TestCases/Common/conv2d_s4_weights_template.json"
+            elif self.test_type == 'depthwise_conv':
                 self.json_template = "TestCases/Common/dw_s4_weights_template.json"
 
     def write_c_config_header(self) -> None:
@@ -130,6 +134,35 @@ class ConvSettings(TestSettings):
 
         return per_channel_multiplier, per_channel_shift
 
+    # TODO
+    def quantize_float_data(self, data=None, quantization_bit_range=8, quantization_type="affine", tf_tensor=False):
+        if data is not None:
+            if tf_tensor:
+                data = data.numpy()
+            data_max = np.amax(data)
+            data_min = np.amin(data)
+
+            if quantization_type.lower() == "affine":
+                data_min = min(data_min, 0.0)
+                data_max = max(data_max, 0.0)
+
+                scale = (data_max - data_min) / (pow(2, quantization_bit_range) - 1)
+                zero_point = -(round(data_max * scale)) - pow(2, quantization_bit_range-1)
+                zero_point = max(zero_point, pow(quantization_bit_range-1) - 1)
+                zero_point = min(zero_point, -pow(quantization_bit_range-1))
+
+            elif quantization_type.lower() == "symmetric":
+                absolute_max = max(abs(data_min), abs(data_max))
+                scale = absolute_max / (pow(2, quantization_bit_range-1) - 1)
+                zero_point = 0
+
+            else:
+                raise RuntimeError("Quantization scheme not supported")
+
+            scale = 0.1 if scale == 0 else scale
+            quantized_data = [(x // scale) + zero_point for x in data]
+            return tf.convert_to_tensor(quantized_data), scale, zero_point
+
     def generate_data(self, input_data=None, weights=None, biases=None) -> None:
         if self.is_int16xint8:
             inttype = tf.int16
@@ -149,7 +182,6 @@ class ConvSettings(TestSettings):
             out_channel = self.channel_multiplier
 
         if self.int4_weights:
-
             w_shape = [self.filter_y * self.filter_x * self.input_ch * out_channel]
 
             if weights is not None:
@@ -165,16 +197,28 @@ class ConvSettings(TestSettings):
             input_scale = 0.046774
             input_zp = -128
 
-            bias_scale = [64751.269531] * self.output_ch
-            bias_zp = [0] * self.output_ch
-            if self.generate_bias:
-                output_scale = 4684910.0
-                output_zp = -2
-            else:
-                output_scale = 0.525255
-                output_zp = 2
+            if w_shape[0] % 2:
+                weights = np.append(weights, [0])
 
-            weight_scales = [1.002234] * self.output_ch
+            if self.test_type == 'depthwise_conv':
+                bias_scale = [64751.269531] * self.output_ch
+                bias_zp = [0] * self.output_ch
+                if self.generate_bias:
+                    output_scale = 4684910.0
+                    output_zp = -2
+                else:
+                    output_scale = 0.525255
+                    output_zp = 2
+            else:
+                quant_bias, bias_scale, bias_zp = self.quantize_float_data(
+                    biases, quantization_bit_range=8, quantization_type="symmetric", tf_tensor=not self.generate_bias)
+                bias_scale = [bias_scale] * self.output_ch
+                bias_zp = [bias_zp] * self.output_ch
+
+                output_scale = np.random.uniform(0.02, 0.06)
+                output_zp = 0
+
+            scaling_factors = np.random.uniform(0.001, 0.01, [self.output_ch]).tolist()
             w_zp = [0] * self.output_ch
 
             if self.has_padding:
@@ -200,7 +244,7 @@ class ConvSettings(TestSettings):
                 "output_y": output_y,
                 "input_scale": input_scale,
                 "input_zp": input_zp,
-                "w_scale": weight_scales,
+                "w_scale": scaling_factors,
                 "w_zp": w_zp,
                 "bias_scale": bias_scale,
                 "bias_zp": bias_zp,
@@ -215,28 +259,23 @@ class ConvSettings(TestSettings):
             }
 
             # Pack weights
-            weights_original_size = weights.numpy().size
-            weights = weights.numpy().flatten().astype(np.uint8)
-            if len(weights % 2):
-                weights = np.append(weights, [0])
-            temp = np.zeros(len(weights) // 2)
-            for x, y in zip(range(0, len(temp)), range(0, len(weights), 2)):
-                temp[x] = 0xff & ((0xf0 & (weights[y + 1] << 4)) | (weights[y] & 0xf))
+            temp = np.reshape(weights, (len(weights) // 2, 2)).astype(np.uint8)
+            temp = 0xff & ((0xf0 & (temp[:, 1] << 4)) | (temp[:, 0] & 0xf))
             weights = tf.convert_to_tensor(temp)
-            weights_size = weights.numpy().size * 2
-            if weights_original_size % 2:
-                weights_size -= 1
 
             # Generate tflite model
-            generated_json = self.generate_json_from_template(
-                None, weights, int8_time_weights=True, bias_data=biases, bias_buffer=3)
+            if self.test_type == 'depthwise_conv':
+                generated_json = self.generate_json_from_template(
+                    None, weights, int8_time_weights=True, bias_data=biases, bias_buffer=3)
+            else:
+                generated_json = self.generate_json_from_template(weights, int8_time_weights=False, bias_data=quant_bias, bias_buffer=2)
+
             self.flatc_generate_tflite(generated_json, self.schema_file)
 
             filter_index = 1
             bias_index = 2
 
         else:
-
             if self.test_type == 'transpose_conv':
                 weight_shape = [self.filter_y, self.filter_x, out_channel, self.input_ch]
             else:
@@ -251,7 +290,6 @@ class ConvSettings(TestSettings):
                                                    maxrange=TestSettings.INT32_MAX,
                                                    decimals=1,
                                                    regenerate=self.regenerate_new_weights)
-            weights_size = weights.numpy().size
 
             # Create a one layer Keras model.
             model = tf.keras.models.Sequential()
@@ -281,8 +319,7 @@ class ConvSettings(TestSettings):
                                                                         strides=(self.stride_y, self.stride_x),
                                                                         padding=self.padding,
                                                                         input_shape=input_shape[1:],
-                                                                        dilation_rate=(self.dilation_y,
-                                                                                       self.dilation_x),
+                                                                        dilation_rate=(self.dilation_y, self.dilation_x),
                                                                         use_bias=self.generate_bias)
                 model.add(transposed_conv_layer)
                 if self.generate_bias:
@@ -303,16 +340,21 @@ class ConvSettings(TestSettings):
 
         all_layers_details = interpreter.get_tensor_details()
         filter_layer = all_layers_details[filter_index]
-        bias_layer = all_layers_details[bias_index]
 
-        # TODO: NULL bias for conv and depthwise conv as well.
         if self.test_type == 'transpose_conv' and not self.generate_bias:
+            # TODO: real null bias for all operators and not only transpose conv.
             bias_layer = None
             biases = []
+        else:
+            bias_layer = all_layers_details[bias_index]
 
-        if weights_size != interpreter.get_tensor(filter_layer['index']).size or \
-           (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
-            print(weights_size, interpreter.get_tensor(filter_layer['index']).size)
+        if self.int4_weights:
+            expected_weight_size = math.ceil(interpreter.get_tensor(filter_layer['index']).size / 2)
+        else:
+            expected_weight_size = interpreter.get_tensor(filter_layer['index']).size
+
+        if weights.numpy().size != expected_weight_size or \
+                (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
             raise RuntimeError(f"Dimension mismatch for {self.testdataset}")
 
         output_details = interpreter.get_output_details()
