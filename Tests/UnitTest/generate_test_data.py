@@ -1724,6 +1724,22 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           generate_bias=False,
                                           int8_time_weights=True,
                                           interpreter=interpreter)
+    dataset = 'svdf_int8_2'
+    testdata_sets[dataset] = SVDFSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          batches=2,
+                                          number_inputs=3,
+                                          rank=2,
+                                          memory_size=3,
+                                          input_size=40,
+                                          number_units=13,
+                                          input_zp=-12,
+                                          int8_time_weights=True,
+                                          interpreter=interpreter)
 
     type_of_test = 'add'
     dataset = 'add'

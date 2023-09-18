@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -64,9 +64,14 @@ void fully_connected_arm_fully_connected_s8(void)
     quant_params.multiplier = FULLY_CONNECTED_OUTPUT_MULTIPLIER;
     quant_params.shift = FULLY_CONNECTED_OUTPUT_SHIFT;
 
-    int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
+    const int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
+
+#if defined(ARM_MATH_MVEI)
+    int32_t *buf = ctx.buf;
+    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data));
+#endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
                                                         &fc_params,
@@ -122,9 +127,15 @@ void fully_connected_mve_0_arm_fully_connected_s8(void)
     quant_params.multiplier = FULLY_CONNECTED_MVE_0_OUTPUT_MULTIPLIER;
     quant_params.shift = FULLY_CONNECTED_MVE_0_OUTPUT_SHIFT;
 
-    int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
+    const int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
+
+#if defined(ARM_MATH_MVEI)
+    int32_t *buf = ctx.buf;
+    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data));
+#endif
+
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
                                                         &fc_params,
                                                         &quant_params,
@@ -178,9 +189,15 @@ void fully_connected_mve_1_arm_fully_connected_s8(void)
     quant_params.multiplier = FULLY_CONNECTED_MVE_1_OUTPUT_MULTIPLIER;
     quant_params.shift = FULLY_CONNECTED_MVE_1_OUTPUT_SHIFT;
 
-    int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
+    const int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
+
+#if defined(ARM_MATH_MVEI)
+    int32_t *buf = ctx.buf;
+    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data));
+#endif
+
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
                                                         &fc_params,
                                                         &quant_params,
@@ -245,9 +262,15 @@ void fully_connected_null_bias_0_arm_fully_connected_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, ip_check);
 
-    int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
+    const int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
+
+#if defined(ARM_MATH_MVEI)
+    int32_t *buf = ctx.buf;
+    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data));
+#endif
+
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
                                                         &fc_params,
                                                         &quant_params,
@@ -301,9 +324,15 @@ void fully_connected_out_activation_arm_fully_connected_s8(void)
     quant_params.multiplier = FULLY_CONNECTED_OUT_ACTIVATION_OUTPUT_MULTIPLIER;
     quant_params.shift = FULLY_CONNECTED_OUT_ACTIVATION_OUTPUT_SHIFT;
 
-    int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
+    const int32_t buf_size = arm_fully_connected_s8_get_buffer_size(&filter_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
+
+#if defined(ARM_MATH_MVEI)
+    int32_t *buf = ctx.buf;
+    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data));
+#endif
+
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
                                                         &fc_params,
                                                         &quant_params,

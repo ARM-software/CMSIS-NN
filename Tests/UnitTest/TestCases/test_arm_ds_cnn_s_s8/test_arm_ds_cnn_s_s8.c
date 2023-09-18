@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -19,6 +19,7 @@
 #include "arm_nnfunctions.h"
 #include "unity.h"
 
+#include "../TestData/ds_cnn_s/layer_12_fully_connected_kernel_sums_data.h"
 #include "../TestData/ds_cnn_s/test_data.h"
 #include "../Utils/validate.h"
 
@@ -107,6 +108,7 @@ void ds_cnn_s_s8_inference(void)
     /* Test for a complete int8 DS_CNN_S keyword spotting network from https://github.com/ARM-software/ML-zoo &
      * Tag: 22.02 */
     cmsis_nn_context ctx;
+    cmsis_nn_context ctx_kernel_sum;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
     ctx.size = ds_cnn_s_s8_get_buffer_size();
@@ -408,7 +410,13 @@ void ds_cnn_s_s8_inference(void)
 
     bias_dims.c = in_out_dim_1.c;
 
-    status |= arm_fully_connected_s8(&ctx,
+#if defined(ARM_MATH_MVEI)
+    ctx_kernel_sum.buf = ds_cnn_s_layer_12_fully_connected_kernel_sums;
+#else
+    ctx_kernel_sum = ctx;
+#endif
+
+    status |= arm_fully_connected_s8(&ctx_kernel_sum,
                                      &fc_params,
                                      &per_tensor_quant_params,
                                      &in_out_dim_0,

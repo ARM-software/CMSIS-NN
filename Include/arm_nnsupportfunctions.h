@@ -394,6 +394,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  */
 arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                                              const int8_t *rhs,
+                                             const int32_t *kernel_sum,
                                              const int32_t *bias,
                                              int8_t *dst,
                                              const int32_t lhs_offset,

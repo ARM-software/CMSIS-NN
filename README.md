@@ -23,7 +23,6 @@ processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP exten
 Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE) instructions for optimization.
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
- 
 | Operator        | C <br> int8 | C<br>int16 | DSP<br>int8 | DSP<br>int16 | MVE<br>int8 | MVE<br>int16 |
 | --------------- | ----------- | ---------- | ----------- | ------------ | ----------- | ------------ |
 | Conv2D          | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |

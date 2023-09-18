@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -468,6 +468,10 @@ void ds_cnn_l_s8_inference(void)
     in_out_dim_1.c = FULLY_CONNECTED_14_OUTPUT_W;
 
     bias_dims.c = in_out_dim_1.c;
+
+#if defined(ARM_MATH_MVEI)
+    arm_vector_sum_s8(ctx.buf, conv_filter_dims.n, in_out_dim_1.c, ds_cnn_l_layer_14_fully_connected_weights);
+#endif
 
     status |= arm_fully_connected_s8(&ctx,
                                      &fc_params,
