@@ -1,5 +1,10 @@
 var NAVTREEINDEX1 =
 {
+"structcmsis__nn__svdf__params.html#a8a665458804b985b49ede339efb6f86e":[4,20,0],
+"structcmsis__nn__svdf__params.html#ab1dde269b1116cc98371e23a97740a58":[4,20,3],
+"structcmsis__nn__svdf__params.html#ad4670fdc658d0517928e6b2c10b2259d":[4,20,1],
+"structcmsis__nn__tile.html":[4,21],
+"structcmsis__nn__tile.html#a10eaf5bb734b696e5bcb6fd5b7033b60":[4,21,1],
 "structcmsis__nn__tile.html#a749034ae387fecbeeffedfb1d9b8aa51":[4,21,0],
 "todo.html":[2],
 "unionarm__nn__long__long.html":[4,1],

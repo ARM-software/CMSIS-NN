@@ -76,6 +76,8 @@ var searchData=
   ['arm_5fsoftmax_5fs8_2ec_73',['arm_softmax_s8.c',['../arm__softmax__s8_8c.html',1,'']]],
   ['arm_5fsoftmax_5fs8_5fs16_2ec_74',['arm_softmax_s8_s16.c',['../arm__softmax__s8__s16_8c.html',1,'']]],
   ['arm_5fsoftmax_5fu8_2ec_75',['arm_softmax_u8.c',['../arm__softmax__u8_8c.html',1,'']]],
-  ['arm_5fsvdf_5fs8_2ec_76',['arm_svdf_s8.c',['../arm__svdf__s8_8c.html',1,'']]],
-  ['arm_5fsvdf_5fstate_5fs16_5fs8_2ec_77',['arm_svdf_state_s16_s8.c',['../arm__svdf__state__s16__s8_8c.html',1,'']]]
+  ['arm_5fsvdf_5fget_5fbuffer_5fsizes_5fs8_2ec_76',['arm_svdf_get_buffer_sizes_s8.c',['../arm__svdf__get__buffer__sizes__s8_8c.html',1,'']]],
+  ['arm_5fsvdf_5fs8_2ec_77',['arm_svdf_s8.c',['../arm__svdf__s8_8c.html',1,'']]],
+  ['arm_5fsvdf_5fstate_5fs16_5fs8_2ec_78',['arm_svdf_state_s16_s8.c',['../arm__svdf__state__s16__s8_8c.html',1,'']]],
+  ['arm_5fvector_5fsum_5fs8_2ec_79',['arm_vector_sum_s8.c',['../arm__vector__sum__s8_8c.html',1,'']]]
 ];
