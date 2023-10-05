@@ -392,23 +392,29 @@ class TestSettings(ABC):
                 f.write(const + datatype + " *" + self.testdataset + '_' + name + " = NULL;\n")
         self.format_output_file(filepath)
 
-    def set_output_dims_and_padding(self, output_x, output_y):
-        self.x_output = output_x
-        self.y_output = output_y
+    def calculate_padding(self, x_output, y_output, x_input, y_input):
         if self.has_padding:
             # Take dilation into account.
             filter_x = (self.filter_x - 1) * self.dilation_x + 1
             filter_y = (self.filter_y - 1) * self.dilation_y + 1
 
-            pad_along_width = max((self.x_output - 1) * self.stride_x + filter_x - self.x_input, 0)
-            pad_along_height = max((self.y_output - 1) * self.stride_y + filter_y - self.y_input, 0)
+            pad_along_width = max((x_output - 1) * self.stride_x + filter_x - x_input, 0)
+            pad_along_height = max((y_output - 1) * self.stride_y + filter_y - y_input, 0)
+
             pad_top = pad_along_height // 2
             pad_left = pad_along_width // 2
+            pad_top_offset = pad_along_height % 2
+            pad_left_offset = pad_along_width % 2
+
+            self.pad_y_with_offset = pad_top + pad_top_offset
+            self.pad_x_with_offset = pad_left + pad_left_offset
             self.pad_x = pad_left
             self.pad_y = pad_top
         else:
             self.pad_x = 0
             self.pad_y = 0
+            self.pad_y_with_offset = 0
+            self.pad_x_with_offset = 0
 
     @abstractmethod
     def generate_data(self, input_data=None, weights=None, biases=None) -> None:

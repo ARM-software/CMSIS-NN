@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -16,10 +16,8 @@
 # limitations under the License.
 #
 
-file(GLOB SRC_S4 "./*_s4*.c")
-file(GLOB SRC_S8 "./*_s8*.c")
-file(GLOB SRC_S16 "./*_s16*.c")
-target_sources(cmsis-nn PRIVATE ${SRC_S4} ${SRC_S8} ${SRC_S16} arm_nntables.c
-  arm_q7_to_q15_with_offset.c
-  arm_nn_mat_mult_nt_t_s32.c
-  arm_s8_to_s16_unordered_with_offset.c)
+add_cmsis_nn_unit_test_executable(test_arm_transpose_conv_s8)
+
+target_sources(test_arm_transpose_conv_s8 PRIVATE
+    Unity/unity_test_arm_transpose_conv_s8.c
+    Unity/TestRunner/unity_test_arm_transpose_conv_s8_runner.c)

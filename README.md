@@ -27,6 +27,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | --------------- | ----------- | ---------- | ----------- | ------------ | ----------- | ------------ |
 | Conv2D          | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
 | DepthwiseConv2D | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
+| TransposeConv2D | Yes         | No          | No         | No           | No          | No           |
 | Fully Connected | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
 | Add             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
 | Mul             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |

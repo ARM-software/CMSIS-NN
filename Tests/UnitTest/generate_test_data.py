@@ -48,7 +48,7 @@ def parse_args() -> argparse.Namespace:
                         default=None,
                         choices=[
                             'conv', 'depthwise_conv', 'avgpool', 'maxpool', 'fully_connected', 'softmax', 'svdf', 'add',
-                            'mul', 'lstm'
+                            'mul', 'lstm', 'transpose_conv'
                         ],
                         help='Type of test. There are the operators that have unit tests.')
     parser.add_argument('--run-all-testsets',
@@ -641,6 +641,65 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           out_activation_max=32767,
                                           int16xint8=True,
                                           dilation_x=2,
+                                          interpreter=interpreter)
+
+    type_of_test = 'transpose_conv'
+    dataset = 'transpose_conv_1'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=32,
+                                          batches=2,
+                                          out_ch=3,
+                                          x_in=9,
+                                          y_in=9,
+                                          w_x=6,
+                                          w_y=6,
+                                          generate_bias=True,
+                                          stride_x=2,
+                                          stride_y=2,
+                                          pad=True,
+                                          interpreter=interpreter)
+    dataset = 'transpose_conv_2'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=15,
+                                          batches=1,
+                                          out_ch=4,
+                                          x_in=12,
+                                          y_in=12,
+                                          w_x=3,
+                                          w_y=3,
+                                          generate_bias=False,
+                                          stride_x=3,
+                                          stride_y=1,
+                                          pad=False,
+                                          interpreter=interpreter)
+    dataset = 'transpose_conv_3'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=7,
+                                          batches=3,
+                                          out_ch=5,
+                                          x_in=1,
+                                          y_in=7,
+                                          w_x=5,
+                                          w_y=1,
+                                          generate_bias=True,
+                                          stride_x=2,
+                                          stride_y=5,
+                                          pad=True,
                                           interpreter=interpreter)
 
     type_of_test = 'depthwise_conv'
