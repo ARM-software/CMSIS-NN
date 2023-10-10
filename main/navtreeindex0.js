@@ -101,8 +101,9 @@ var NAVTREEINDEX0 =
 "group__supportConversion.html":[3,1,5],
 "group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10":[3,1,5,0],
 "group__supportConvolution.html":[3,1,0],
-"group__supportConvolution.html#ga00bd5b578a50ae93cc54346f08c41bf6":[3,1,0,6],
+"group__supportConvolution.html#ga00bd5b578a50ae93cc54346f08c41bf6":[3,1,0,7],
 "group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f":[3,1,0,2],
+"group__supportConvolution.html#ga57d599200e8c5ba37c5b5cfdefdcc530":[3,1,0,6],
 "group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04":[3,1,0,0],
 "group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb":[3,1,0,1],
 "group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74":[3,1,0,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "structcmsis__nn__softmax__lut__s16.html#a66c4fc32840cf08b4176ff0ca8f6ab87":[4,19,0],
 "structcmsis__nn__softmax__lut__s16.html#a93be118b369f801f5d90e51fa7cb563d":[4,19,1],
 "structcmsis__nn__svdf__params.html":[4,20],
-"structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813":[4,20,4],
-"structcmsis__nn__svdf__params.html#a6bbdc4a23e1c03b41b66f34f50d85352":[4,20,2]
+"structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813":[4,20,4]
 };
