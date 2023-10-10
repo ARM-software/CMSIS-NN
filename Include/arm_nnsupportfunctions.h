@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        08 June 2023
- * $Revision:    V.17.0.0
+ * $Date:        09 October 2023
+ * $Revision:    V.17.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -369,6 +369,53 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t activation_min,
                                             const int32_t activation_max,
                                             const int32_t lhs_cols_offset);
+
+/**
+ * @brief Special case matrix-multiplication function with per-channel requantization.
+ *        This function assumes:
+ *        - LHS input matrix NOT transposed (nt)
+ *        - RHS input matrix transposed (t)
+ *        - Number of LHS rows divisible by 3
+ *        - Number of RHS rows divisible by 2
+ *
+ *  @note This operation assumes precomputing of the kernel sum
+ *
+ * @param[in]  lhs                Pointer to the LHS input matrix
+ * @param[in]  rhs                Pointer to the RHS input matrix
+ * @param[in]  ker_sum            Pointer to the kernel sum vector. The length of this vector is equal to the number of
+ *                                output columns (or RHS input rows)
+ * @param[out] dst                Pointer to the output matrix with "m" rows and "n" columns
+ * @param[in]  dst_multipliers    Pointer to the multipliers vector needed for the per-channel requantization.
+ *                                The length of this vector is equal to the number of output columns (or RHS input
+ *                                rows)
+ * @param[in]  dst_shifts         Pointer to the shifts vector needed for the per-channel requantization. The length
+ *                                of this vector is equal to the number of output columns (or RHS input rows)
+ * @param[in]  lhs_rows           Number of LHS input rows
+ * @param[in]  rhs_rows           Number of RHS input rows
+ * @param[in]  rhs_cols           Number of LHS/RHS input columns
+ * @param[in]  lhs_offset         Offset to be applied to the LHS input value
+ * @param[in]  dst_offset         Offset to be applied the output result
+ * @param[in]  activation_min     Minimum value to clamp down the output. Range : int8
+ * @param[in]  activation_max     Maximum value to clamp up the output. Range : int8
+ * @param[in]  lhs_cols_offset    Column offset between subsequent lhs_rows
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ */
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
+                                                 const int8_t *rhs,
+                                                 const int32_t *ker_sum,
+                                                 int8_t *dst,
+                                                 const int32_t *dst_multipliers,
+                                                 const int32_t *dst_shifts,
+                                                 const int32_t lhs_rows,
+                                                 const int32_t rhs_rows,
+                                                 const int32_t rhs_cols,
+                                                 const int32_t lhs_offset,
+                                                 const int32_t dst_offset,
+                                                 const int32_t activation_min,
+                                                 const int32_t activation_max,
+                                                 const int32_t lhs_cols_offset);
 
 /**
  * @brief s8 Vector by Matrix (transposed) multiplication

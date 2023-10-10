@@ -3,5 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t kernel1x1_output_mult[7] =
-    {1264369888, 1284102681, 1309369507, 1193027525, 1248667725, 1329067944, 1251896267};
+const int32_t kernel1x1_output_mult[2] = {1556908057, 1658761804};
