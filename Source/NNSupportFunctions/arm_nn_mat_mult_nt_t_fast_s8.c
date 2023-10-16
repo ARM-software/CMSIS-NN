@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_fast_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        09 October 2023
- * $Revision:    V.1.0.0
+ * $Date:        17 October 2023
+ * $Revision:    V.1.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -66,9 +66,14 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
 
     (void)lhs_offset;
 
-    for (; i_items <= (lhs_rows - 3); i_items += 3)
+    for (; i_items < lhs_rows / 3; ++i_items)
     {
-        for (int i = 0; i <= rhs_rows - 2; i += 2)
+        const int32_t *ker_sum_ptr = &ker_sum[0];
+        const int32_t *dst_multipliers_ptr = &dst_multipliers[0];
+        const int32_t *dst_shifts_ptr = &dst_shifts[0];
+        const int8_t *rhs_ptr = &rhs[0];
+
+        for (int i = 0; i < rhs_rows / 2; ++i)
         {
             int32_t acc_ch_1_n1 = 0;
             int32_t acc_ch_1_n2 = 0;
@@ -78,15 +83,17 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
             int32_t acc_ch_2_n2 = 0;
             int32_t acc_ch_2_n3 = 0;
 
-            const int8_t *col_base_1 = rhs + i * rhs_cols;
-            const int8_t *col_base_2 = col_base_1 + rhs_cols;
+            const int8_t *col_base_1 = rhs_ptr;
+            rhs_ptr += rhs_cols;
+            const int8_t *col_base_2 = rhs_ptr;
+            rhs_ptr += rhs_cols;
 
             const int8_t *lhs_vec_1 = lhs;
             const int8_t *lhs_vec_2 = lhs + lhs_cols_offset;
             const int8_t *lhs_vec_3 = lhs + (2 * lhs_cols_offset);
 
-            int32_t sum_k1 = ker_sum[i];
-            int32_t sum_k2 = ker_sum[i + 1];
+            int32_t sum_k1 = *ker_sum_ptr++;
+            int32_t sum_k2 = *ker_sum_ptr++;
 
             // Note: If operand initialization is moved around, use '&' constraint to
             // specify earlyclobber operands.
@@ -119,12 +126,12 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
                              [row0] "+r"(lhs_vec_1),
                              [row1] "+r"(lhs_vec_2),
                              [row2] "+r"(lhs_vec_3),
-                             [out0] "=&Te"(acc_ch_1_n1),
-                             [out1] "=&Te"(acc_ch_1_n2),
-                             [out2] "=&Te"(acc_ch_1_n3),
-                             [out3] "=&Te"(acc_ch_2_n1),
-                             [out4] "=&Te"(acc_ch_2_n2),
-                             [out5] "=&Te"(acc_ch_2_n3)
+                             [out0] "=Te"(acc_ch_1_n1),
+                             [out1] "=Te"(acc_ch_1_n2),
+                             [out2] "=Te"(acc_ch_1_n3),
+                             [out3] "=Te"(acc_ch_2_n1),
+                             [out4] "=Te"(acc_ch_2_n2),
+                             [out5] "=Te"(acc_ch_2_n3)
                            : [cnt] "r"(rhs_cols)
                            : "q0", "q1", "q2", "q3", "q4", "memory", "r14");
 
@@ -133,7 +140,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
             int32x4_t res_2 = {acc_ch_2_n1, acc_ch_2_n2, acc_ch_2_n3, 0};
             res_2 = vaddq_n_s32(res_2, sum_k2);
 
-            res_1 = arm_requantize_mve(res_1, dst_multipliers[i], dst_shifts[i]);
+            res_1 = arm_requantize_mve(res_1, *dst_multipliers_ptr++, *dst_shifts_ptr++);
+
             res_1 = vaddq_n_s32(res_1, dst_offset);
             res_1 = vmaxq_s32(res_1, vdupq_n_s32(activation_min));
             res_1 = vminq_s32(res_1, vdupq_n_s32(activation_max));
@@ -143,7 +151,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
             vstrbq_scatter_offset_p_s32(dst, scatter_offset, res_1, p);
             dst++;
 
-            res_2 = arm_requantize_mve(res_2, dst_multipliers[i + 1], dst_shifts[i + 1]);
+            res_2 = arm_requantize_mve(res_2, *dst_multipliers_ptr++, *dst_shifts_ptr++);
             res_2 = vaddq_n_s32(res_2, dst_offset);
             res_2 = vmaxq_s32(res_2, vdupq_n_s32(activation_min));
             res_2 = vminq_s32(res_2, vdupq_n_s32(activation_max));
