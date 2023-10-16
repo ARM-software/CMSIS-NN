@@ -16,9 +16,10 @@ var NAVTREEINDEX0 =
 "group__Concatenation.html#gaf0b76b039f66f34ec99503193a015ff6":[3,0,2,2],
 "group__Concatenation.html#gaf2ec7d439726caa96e0b3dc989b34d64":[3,0,2,0],
 "group__FC.html":[3,0,4],
-"group__FC.html#ga3d99c95dccc77351666b4a9baae564bd":[3,0,4,2],
+"group__FC.html#ga3d99c95dccc77351666b4a9baae564bd":[3,0,4,3],
 "group__FC.html#ga88e4790441b47324c578d36f8f8346d0":[3,0,4,1],
-"group__FC.html#gaa064d856791b84ec6c5f71cc8ee7f235":[3,0,4,3],
+"group__FC.html#gaa064d856791b84ec6c5f71cc8ee7f235":[3,0,4,4],
+"group__FC.html#gac12aea0ed93e4c513da62993b010d9b8":[3,0,4,2],
 "group__GetBufferSizeFC.html":[3,0,4,0],
 "group__GetBufferSizeFC.html#ga40ce01f2f158976c0a95656dd7660088":[3,0,4,0,4],
 "group__GetBufferSizeFC.html#ga5f0e89482a3ea7ab417630be80ca983d":[3,0,4,0,0],
@@ -111,8 +112,9 @@ var NAVTREEINDEX0 =
 "group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae":[3,1,0,4],
 "group__supportFC.html":[3,1,2],
 "group__supportFC.html#ga10758802e8392839a207eb21620f60c3":[3,1,2,0],
-"group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac":[3,1,2,2],
-"group__supportFC.html#gabee0e2dddd1185f5e05233cb180806ec":[3,1,2,1],
+"group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac":[3,1,2,3],
+"group__supportFC.html#ga9beca6f32bd09f3329f6578bafbb817f":[3,1,2,1],
+"group__supportFC.html#gabee0e2dddd1185f5e05233cb180806ec":[3,1,2,2],
 "group__supportLSTM.html":[3,1,1],
 "group__supportLSTM.html#ga2352dac3a169f026e9e94f23d981c375":[3,1,1,3],
 "group__supportLSTM.html#ga277bf0f67ccf7c5d7c21e7d87e8f986b":[3,1,1,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "structcmsis__nn__scaling.html#aa6938a602935fbbccbe0e9125ff01421":[4,18,1],
 "structcmsis__nn__softmax__lut__s16.html":[4,19],
 "structcmsis__nn__softmax__lut__s16.html#a66c4fc32840cf08b4176ff0ca8f6ab87":[4,19,0],
-"structcmsis__nn__softmax__lut__s16.html#a93be118b369f801f5d90e51fa7cb563d":[4,19,1],
-"structcmsis__nn__svdf__params.html":[4,20],
-"structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813":[4,20,4]
+"structcmsis__nn__softmax__lut__s16.html#a93be118b369f801f5d90e51fa7cb563d":[4,19,1]
 };
