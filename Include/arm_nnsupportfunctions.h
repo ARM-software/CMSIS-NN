@@ -421,7 +421,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
  * @brief s4 Vector by Matrix (transposed) multiplication
  *
  * @param[in]      lhs             Input left-hand side vector
- * @param[in]      rhs_packed      Input right-hand side matrix (transposed)
+ * @param[in]      packed_rhs      Input right-hand side matrix (transposed)
  * @param[in]      bias            Input bias
  * @param[out]     dst             Output vector
  * @param[in]      lhs_offset      Offset to be added to the input values of the left-hand side vector.
