@@ -2,6 +2,8 @@ Tests/UnitTest/TestCases/*/Unity/TestRunner/*
 Tests/UnitTest/TestCases/*/Unity/TestRunner/*
 Tests/UnitTest/TestCases/TestData/*/*.tflite
 Tests/UnitTest/TestCases/TestData/*.json
+Tests/UnitTest/TestCases/TestData/*/*.json
+Tests/UnitTest/TestCases/TestData/*/schema_generated.h
 Tests/UnitTest/PregeneratedData/*
 Tests/UnitTest/Output/*
 Tests/UnitTest/Unity/*
@@ -10,3 +12,4 @@ DoxyGen/history.txt
 DoxyGen/nn.dxy
 build
 output
+__pycache__

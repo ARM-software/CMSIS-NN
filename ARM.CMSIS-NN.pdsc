@@ -78,6 +78,7 @@
         <file category="source" name="Source/ActivationFunctions/arm_relu_q7.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_nn_activation_s16.c"/>
         <file category="source" name="Source/ReshapeFunctions/arm_reshape_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s4.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c"/>
@@ -96,6 +97,7 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_update_cell_state_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s4.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s16.c"/>

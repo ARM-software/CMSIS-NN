@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        09 October 2023
- * $Revision:    V.17.1.0
+ * $Date:        10 October 2023
+ * $Revision:    V.17.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -418,6 +418,42 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_fast_s8(const int8_t *lhs,
                                                  const int32_t lhs_cols_offset);
 
 /**
+ * @brief s4 Vector by Matrix (transposed) multiplication
+ *
+ * @param[in]      lhs             Input left-hand side vector
+ * @param[in]      rhs_packed      Input right-hand side matrix (transposed)
+ * @param[in]      bias            Input bias
+ * @param[out]     dst             Output vector
+ * @param[in]      lhs_offset      Offset to be added to the input values of the left-hand side vector.
+ *                                 Range: -127 to 128
+ * @param[in]      dst_offset      Offset to be added to the output values. Range: -127 to 128
+ * @param[in]      dst_multiplier  Output multiplier
+ * @param[in]      dst_shift       Output shift
+ * @param[in]      rhs_cols        Number of columns in the right-hand side input matrix
+ * @param[in]      rhs_rows        Number of rows in the right-hand side input matrix
+ * @param[in]      activation_min  Minimum value to clamp the output to. Range: int8
+ * @param[in]      activation_max  Maximum value to clamp the output to. Range: int8
+ * @param[in]      address_offset  Memory position offset for dst. First output is stored at 'dst', the
+ *                                 second at 'dst + address_offset' and so on. Default value is typically 1.
+ *
+ * @return         The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ */
+arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s4(const int8_t *lhs,
+                                             const int8_t *packed_rhs,
+                                             const int32_t *bias,
+                                             int8_t *dst,
+                                             const int32_t lhs_offset,
+                                             const int32_t dst_offset,
+                                             const int32_t dst_multiplier,
+                                             const int32_t dst_shift,
+                                             const int32_t rhs_cols,
+                                             const int32_t rhs_rows,
+                                             const int32_t activation_min,
+                                             const int32_t activation_max,
+                                             const int32_t address_offset);
+
+/**
  * @brief s8 Vector by Matrix (transposed) multiplication
  *
  * @param[in]      lhs             Input left-hand side vector
@@ -667,6 +703,20 @@ __STATIC_FORCEINLINE int32_t arm_nn_read_s8x4_ia(const int8_t **in_s8)
 }
 
 /**
+  @brief         Read 2 s8 from s8 pointer and post increment pointer.
+  @param[in]     in_s8    Pointer to pointer that holds address of input.
+  @return        q31      value
+ */
+__STATIC_FORCEINLINE int32_t arm_nn_read_s8x2_ia(const int8_t **in_s8)
+{
+    int32_t val;
+    memcpy(&val, *in_s8, 2);
+    *in_s8 += 2;
+
+    return (val);
+}
+
+/**
   @brief         Read 2 int16 values from int16 pointer.
   @param[in]     in     pointer to address of input.
   @return        s32    value
@@ -688,6 +738,18 @@ __STATIC_FORCEINLINE int32_t arm_nn_read_s8x4(const int8_t *in_s8)
 {
     int32_t val;
     memcpy(&val, in_s8, 4);
+
+    return (val);
+}
+/**
+  @brief         Read 2 s8 values.
+  @param[in]     in_s8    pointer to address of input.
+  @return        s32      value
+ */
+__STATIC_FORCEINLINE int32_t arm_nn_read_s8x2(const int8_t *in_s8)
+{
+    int32_t val;
+    memcpy(&val, in_s8, 2);
 
     return (val);
 }
@@ -728,6 +790,19 @@ __STATIC_FORCEINLINE void arm_memset_s8(int8_t *dst, const int8_t val, uint32_t 
 }
 
 #if defined(ARM_MATH_DSP)
+
+/**
+ * @brief read and expand one s4 word into two s8 words.
+ */
+__STATIC_FORCEINLINE const int8_t *read_and_pad_s4(const int8_t *source, int32_t *out1, int32_t *out2)
+
+{
+    int16_t in = arm_nn_read_s8x2(source);
+    int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+    *out1 = SXTB16_RORn(__sxtb16(inA << 4), 4);
+    *out2 = SXTB16_RORn(__sxtb16(inA), 4);
+    return source;
+}
 
 /**
  * @brief read and expand one s8 word into two s16 words with ordering.
