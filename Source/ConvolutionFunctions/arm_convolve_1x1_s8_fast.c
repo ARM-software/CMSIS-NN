@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        09 October 2023
- * $Revision:    V.3.2.0
+ * $Date:        17 October 2023
+ * $Revision:    V.3.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -75,7 +75,7 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
 
 #ifdef ARM_MATH_MVEI
 
-    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0)
+    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0 && rhs_rows > lhs_rows * 4)
     {
         int32_t buf[rhs_rows];
         int32_t *ker_sum = buf;
