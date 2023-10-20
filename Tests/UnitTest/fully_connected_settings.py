@@ -19,6 +19,7 @@ from test_settings import TestSettings
 import tensorflow as tf
 import numpy as np
 
+
 class FullyConnectedSettings(TestSettings):
 
     def __init__(self,
@@ -53,11 +54,9 @@ class FullyConnectedSettings(TestSettings):
                  w_zp=0,
                  bias_scale=0.00002,
                  bias_zp=0,
-                 state_scale=0.005,
-                 state_zp=0,
                  output_scale=0.1,
                  output_zp=0,
-                 packed_4bit = False
+                 int4_weights=False
                  ):
         super().__init__(dataset,
                          testtype,
@@ -83,33 +82,29 @@ class FullyConnectedSettings(TestSettings):
                          int16xint8=int16xint8,
                          bias_min=bias_min,
                          bias_max=bias_max,
-                         interpreter=interpreter)
+                         interpreter=interpreter,
+                         int4_weights=int4_weights)
 
-        self.packed_4bit = packed_4bit
-        if self.packed_4bit:
+        if self.int4_weights:
             if self.generate_bias:
                 self.json_template = "TestCases/Common/fc_s4_weights_template.json"
             else:
                 self.json_template = "TestCases/Common/fc_s4_weights_template_null_bias.json"
 
-            self.in_activation_max = TestSettings.INT4_MAX
-            self.in_activation_min = TestSettings.INT4_MIN
-
-        self.json_replacements = {
-            "batches" : batches,
-            "input_size" : in_ch * x_in * y_in,
-            "input_scale" : input_scale,
-            "input_zp" : input_zp,
-            "w_scale" : w_scale,
-            "w_zp" : w_zp,
-            "bias_size" : out_ch,
-            "bias_scale" : bias_scale,
-            "bias_zp" : bias_zp,
-            "output_size" : out_ch,
-            "output_scale" : output_scale,
-            "output_zp" : output_zp
-        }
-
+            self.json_replacements = {
+                "batches": batches,
+                "input_size": in_ch * x_in * y_in,
+                "input_scale": input_scale,
+                "input_zp": input_zp,
+                "w_scale": w_scale,
+                "w_zp": w_zp,
+                "bias_size": out_ch,
+                "bias_scale": bias_scale,
+                "bias_zp": bias_zp,
+                "output_size": out_ch,
+                "output_scale": output_scale,
+                "output_zp": output_zp
+            }
 
     def write_c_config_header(self) -> None:
         super().write_c_config_header()
@@ -125,18 +120,14 @@ class FullyConnectedSettings(TestSettings):
             f.write("#define {}_INPUT_OFFSET {}\n".format(prefix, -self.input_zero_point))
             f.write("#define {}_OUTPUT_OFFSET {}\n".format(prefix, self.output_zero_point))
 
-    def quantize_multiplier(self):
-        input_product_scale = self.input_scale * self.weights_scale
+    def quantize_multiplier(self, weights_scale):
+        input_product_scale = self.input_scale * weights_scale
         if input_product_scale < 0:
             raise RuntimeError("negative input product scale")
         real_multipler = input_product_scale / self.output_scale
         (self.quantized_multiplier, self.quantized_shift) = self.quantize_scale(real_multipler)
 
     def generate_data(self, input_data=None, weights=None, biases=None) -> None:
-        if self.packed_4bit:
-            if not self.use_tflite_micro_interpreter:
-                print("Warning: interpreter tflite_micro must be used for fully_connected int4. Skipping generating headers.")
-                return
 
         if self.is_int16xint8:
             inttype = tf.int16
@@ -148,18 +139,20 @@ class FullyConnectedSettings(TestSettings):
             bias_datatype = "int32_t"
 
         # Generate data
-        fc_input_format =  [self.batches, self.input_ch * self.x_input * self.y_input]
+        fc_input_format = [self.batches, self.input_ch * self.x_input * self.y_input]
         if input_data is not None:
             input_data = tf.reshape(input_data, fc_input_format)
         else:
            input_data = self.get_randomized_input_data(input_data, fc_input_format)
 
         # Generate bias
-        biases = self.get_randomized_bias_data(biases)
+        if self.generate_bias:
+            biases = self.get_randomized_bias_data(biases)
+        else:
+            biases = None
 
-        # Generate weights
-        if self.packed_4bit:
-            # Generate packed and unpacked model from JSON
+        if self.int4_weights:
+            # Generate weights, both packed and unpacked model from JSON
             temp1 = self.model_path
             temp2 = self.json_template
 
@@ -167,81 +160,95 @@ class FullyConnectedSettings(TestSettings):
             if weights is not None:
                 weights = tf.reshape(weights, fc_weights_format)
             else:
-                weights = self.get_randomized_data(fc_weights_format, self.kernel_table_file, minrange=TestSettings.INT4_MIN, maxrange=TestSettings.INT4_MAX, regenerate=self.regenerate_new_weights)
-
-            if not self.generate_bias:
-                biases = None
+                weights = self.get_randomized_data(fc_weights_format,
+                                                   self.kernel_table_file,
+                                                   minrange=TestSettings.INT4_MIN,
+                                                   maxrange=TestSettings.INT4_MAX,
+                                                   regenerate=self.regenerate_new_weights)
 
             # Unpacked model is used for reference during debugging only and not used by default
             self.model_path = self.model_path + "_unpacked"
             self.json_template = self.json_template[:-5] + "_unpacked.json"
-            generated_json = self.generate_json_from_template(weights, bias_data = biases, bias_buffer=2)
+            generated_json = self.generate_json_from_template(weights, bias_data=biases, bias_buffer=2)
             self.flatc_generate_tflite(generated_json, self.schema_file)
 
             self.model_path = temp1
             self.json_template = temp2
-            temp = np.reshape(weights, (len(weights)//2, 2)).astype(np.uint8)
-            temp = 0xff & ((0xf0 & (temp[:,1] << 4)) | (temp[:,0] & 0xf))
+            temp = np.reshape(weights, (len(weights) // 2, 2)).astype(np.uint8)
+            temp = 0xff & ((0xf0 & (temp[:, 1] << 4)) | (temp[:, 0] & 0xf))
             weights = tf.convert_to_tensor(temp)
-            generated_json = self.generate_json_from_template(weights, bias_data = biases, bias_buffer=2)
+            weights_size = weights.numpy().size * 2
+            generated_json = self.generate_json_from_template(weights, bias_data=biases, bias_buffer=2)
             self.flatc_generate_tflite(generated_json, self.schema_file)
 
-            interpreter = self.Interpreter(model_path=str(self.model_path_tflite), experimental_op_resolver_type=self.OpResolverType.BUILTIN_REF)
-            interpreter.allocate_tensors()
+            filter_index = 1
+            bias_index = 2
 
         else:
-            # Generate model in tensorflow with one fully_connected layer
             fc_weights_format = [self.input_ch * self.y_input * self.x_input, self.output_ch]
             if weights is not None:
                 weights = tf.reshape(weights, fc_weights_format)
             else:
-                weights = self.get_randomized_data(fc_weights_format, self.kernel_table_file, minrange=TestSettings.INT32_MIN, maxrange=TestSettings.INT32_MAX, regenerate=self.regenerate_new_weights)
+                weights = self.get_randomized_data(fc_weights_format,
+                                                   self.kernel_table_file,
+                                                   minrange=TestSettings.INT32_MIN,
+                                                   maxrange=TestSettings.INT32_MAX,
+                                                   regenerate=self.regenerate_new_weights)
+            weights_size = weights.numpy().size
 
-
+            # Generate model in tensorflow with one fully_connected layer
             model = tf.keras.models.Sequential()
             model.add(
                 tf.keras.layers.InputLayer(input_shape=(self.y_input * self.x_input * self.input_ch, ),
-                                        batch_size=self.batches))
-            fully_connected_layer = tf.keras.layers.Dense(self.output_ch, activation=None)
+                                           batch_size=self.batches))
+            fully_connected_layer = tf.keras.layers.Dense(self.output_ch, activation=None, use_bias=self.generate_bias)
             model.add(fully_connected_layer)
-            fully_connected_layer.set_weights([weights, biases])
-            interpreter = self.convert_and_interpret(model, inttype, input_data)
+            if self.generate_bias:
+                fully_connected_layer.set_weights([weights, biases])
+            else:
+                fully_connected_layer.set_weights([weights])
+            self.convert_model(model, inttype)
+
+            bias_index = 1
+            if self.generate_bias:
+                filter_index = 2
+            else:
+                filter_index = 1
+
+        interpreter = self.interpret_model(input_data, inttype)
 
         # Get layer information
         all_layers_details = interpreter.get_tensor_details()
-        input_layer = all_layers_details[0]
-        (self.input_scale, self.input_zero_point) = self.get_scale_and_zp(input_layer)
-        filter_layer = all_layers_details[1]
-        (self.weights_scale, self.weights_zero_point) = self.get_scale_and_zp(filter_layer)
-        if self.generate_bias:
-            output_layer = all_layers_details[3]
-        else:
-            output_layer = all_layers_details[2]
-        (self.output_scale, self.output_zero_point) = self.get_scale_and_zp(output_layer)
+        filter_layer = all_layers_details[filter_index]
+        bias_layer = all_layers_details[bias_index]
+
+        if weights_size != interpreter.get_tensor(filter_layer['index']).size or \
+           (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
+            raise RuntimeError(f"Dimension mismatch for {self.testdataset}")
+
         self.x_output = 1
         self.y_output = 1
 
-        self.quantize_multiplier()
+        weights_scale = filter_layer['quantization_parameters']['scales'][0]
+        self.quantize_multiplier(weights_scale)
 
         # Generate reference output
-        if self.packed_4bit:
-            interpreter = self.tflite_micro.runtime.Interpreter.from_file(model_path=str(self.model_path_tflite))
-            interpreter.set_input(tf.cast(input_data, tf.int8), input_layer["index"])
-            interpreter.invoke()
-            output_data = interpreter.get_output(0)
-        else:
-            output_details = interpreter.get_output_details()
-            interpreter.invoke()
-            output_data = interpreter.get_tensor(output_details[0]["index"])
+        output_details = interpreter.get_output_details()
+        interpreter.invoke()
+        output_data = interpreter.get_tensor(output_details[0]["index"])
 
         # Save results
         self.generate_c_array(self.input_data_file_prefix, input_data, datatype=datatype)
-        self.generate_c_array(self.weight_data_file_prefix, weights, datatype=datatype)
-        if self.generate_bias:
-            self.generate_c_array(self.bias_data_file_prefix, biases, datatype=bias_datatype)
-        self.generate_c_array(self.output_data_file_prefix, np.clip(output_data, self.out_activation_min, self.out_activation_max), datatype=datatype)
+        self.generate_c_array(
+            self.weight_data_file_prefix, interpreter.get_tensor(filter_layer['index']), pack=self.int4_weights)
+        if not self.generate_bias:
+            bias = []
+        else:
+            bias = interpreter.get_tensor(bias_layer['index'])
+        self.generate_c_array(self.bias_data_file_prefix, bias, datatype=bias_datatype)
+
+        self.generate_c_array(self.output_data_file_prefix,
+                              np.clip(output_data, self.out_activation_min, self.out_activation_max),
+                              datatype=datatype)
         self.write_c_config_header()
         self.write_c_header_wrapper()
-
-    def get_scale_and_zp(self, layer):
-        return (layer['quantization_parameters']['scales'][0], layer['quantization_parameters']['zero_points'][0])

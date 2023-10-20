@@ -23,20 +23,21 @@ processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP exten
 Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE) instructions for optimization.
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
-| Operator        | C <br> int8 | C<br>int16 | DSP<br>int8 | DSP<br>int16 | MVE<br>int8 | MVE<br>int16 |
-| --------------- | ----------- | ---------- | ----------- | ------------ | ----------- | ------------ |
-| Conv2D          | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| DepthwiseConv2D | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| TransposeConv2D | Yes         | No          | No         | No           | No          | No           |
-| Fully Connected | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| Add             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| Mul             | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| MaxPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| AvgPooling      | Yes         | Yes        | Yes         | Yes          | Yes         | Yes          |
-| Softmax         | Yes         | Yes        | Yes         | Yes          | Yes         | No           |
-| LSTM            | Yes         | NA         | Yes         | NA           | Yes         | NA           |
-| SVDF            | Yes         | No         | Yes         | No           | Yes         | No           |
+| Operator        | C <br> int8 | C<br>int16 | C<br>int4*  | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 |
+| --------------- | ----------- | ---------- | ----------- | ------------| -------------| -------------| ------------| -------------|
+| Conv2D          | Yes         | Yes        | No          | Yes         | Yes          | No           | Yes         | Yes          |
+| DepthwiseConv2D | Yes         | Yes        | Yes         | Yes         | Yes          | Yes          | Yes         | Yes          |
+| TransposeConv2D | Yes         | No         | No          | No          | No           | No           | No          | No           |
+| Fully Connected | Yes         | Yes        | Yes         | Yes         | Yes          | Yes          | Yes         | Yes          |
+| Add             | Yes         | Yes        | N/A         | Yes         | Yes          | N/A          | Yes         | Yes          |
+| Mul             | Yes         | Yes        | N/A         | Yes         | Yes          | N/A          | Yes         | Yes          |
+| MaxPooling      | Yes         | Yes        | N/A         | Yes         | Yes          | N/A          | Yes         | Yes          |
+| AvgPooling      | Yes         | Yes        | N/A         | Yes         | Yes          | N/A          | Yes         | Yes          |
+| Softmax         | Yes         | Yes        | N/A         | Yes         | Yes          | N/A          | Yes         | No           |
+| LSTM            | Yes         | NA         | No          | Yes         | NA           | No           | Yes         | NA           |
+| SVDF            | Yes         | No         | No          | Yes         | No           | No           | Yes         | No           |
 
+* int4 weights + int8 activations
 
 ## Contribution Guideline
 First, a thank you for the contribution. Here are some guidelines and good to know information to get started.
@@ -62,7 +63,7 @@ the unit tests.
 
 ### Version & Date
 Each File has a version number and a date field that must be updated when making any change to that file. The versioning
-follows Semantic Versioning 2.0.0 format.
+follows Semantic Versioning 2.0.0 format. For details check: https://semver.org/
 
 ## Building CMSIS-NN as a library
 It is recommended to use toolchain files from [Arm Ethos-U Core Platform](https://review.mlplatform.org/admin/repos/ml/ethos-u/ethos-u-core-platform) project. These are supporting TARGET_CPU, which is a required argument. Note that if not specifying TARGET_CPU, these toolchains will set some default. The format must be TARGET_CPU=cortex-mXX, see examples below.

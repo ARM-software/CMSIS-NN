@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2022 Arm Limited.
+# SPDX-FileCopyrightText: Copyright 2019-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -16,6 +16,7 @@
 # limitations under the License.
 #
 
+file(GLOB SRC_S4 "./*_s4*.c")
 file(GLOB SRC "./*_s8*.c")
 file(GLOB SRC_S16 "./*_s16*.c")
-target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16})
+target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16} ${SRC_S4})
