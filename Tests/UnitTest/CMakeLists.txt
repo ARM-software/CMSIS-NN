@@ -28,7 +28,9 @@ add_compile_options(-Ofast
                     -Wimplicit-function-declaration
                     -Wunused-variable
                     -Wunused-function
-                    -Wno-redundant-decls)
+                    -Wno-redundant-decls
+                    -Wvla
+                    )
 
 option(BUILD_CMSIS_NN_UNIT "If building the unit tests from another project, i.e. \
 platform dependencies need to be provided externally." OFF)
