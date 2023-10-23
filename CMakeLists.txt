@@ -17,12 +17,13 @@
 #
 
 cmake_minimum_required(VERSION 3.15.6)
+set(CMSIS_OPTIMIZATION_LEVEL "-Ofast" CACHE STRING "Compiler optimization level.")
 
 project(CMSISNN)
 
 add_library(cmsis-nn STATIC)
 
-target_compile_options(cmsis-nn PRIVATE -Ofast)
+target_compile_options(cmsis-nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 
 target_include_directories(cmsis-nn PUBLIC "Include")
 
