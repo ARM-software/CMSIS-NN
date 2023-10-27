@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        10 October 2023
- * $Revision:    V.17.2.0
+ * $Date:        27 October 2023
+ * $Revision:    V.17.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -375,8 +375,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  *        This function assumes:
  *        - LHS input matrix NOT transposed (nt)
  *        - RHS input matrix transposed (t)
- *        - Number of LHS rows divisible by 3
- *        - Number of RHS rows divisible by 2
+ *        - Number of LHS rows multiple of 3
+ *        - Number of RHS rows multiple of 2
  *
  *  @note This operation assumes precomputing of the kernel sum
  *
