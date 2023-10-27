@@ -75,7 +75,7 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
 #ifdef ARM_MATH_MVEI
 
     // Constraints on lhs_rows and rhs_rows follows from the implementation of arm_nn_mat_mult_nt_t_fast_s8
-    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0)
+    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0 && rhs_rows > lhs_rows * 4)
     {
         if (ctx->buf == NULL)
         {
