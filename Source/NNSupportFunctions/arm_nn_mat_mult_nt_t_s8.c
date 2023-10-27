@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_s8_nt_t_s8
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        22 March 2023
- * $Revision:    V.2.1.2
+ * $Date:        04 January 2024
+ * $Revision:    V.3.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -58,6 +58,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t dst_offset,
                                             const int32_t activation_min,
                                             const int32_t activation_max,
+                                            const int32_t row_address_offset,
                                             const int32_t lhs_cols_offset)
 {
 
@@ -140,12 +141,13 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             res = vmaxq_s32(res, vdupq_n_s32(activation_min));
             res = vminq_s32(res, vdupq_n_s32(activation_max));
 
-            const uint32x4_t scatter_offset = {0, (uint32_t)rhs_rows, (uint32_t)rhs_rows * 2, (uint32_t)rhs_rows * 3};
+            const uint32x4_t scatter_offset = {
+                0, (uint32_t)row_address_offset, (uint32_t)row_address_offset * 2, (uint32_t)row_address_offset * 3};
             vstrbq_scatter_offset_s32(dst, scatter_offset, res);
             dst++;
         }
         lhs += 4 * lhs_cols_offset;
-        dst += (3 * rhs_rows);
+        dst += 4 * row_address_offset - rhs_rows;
     }
 
     for (; i_items < lhs_rows; i_items++)
@@ -217,9 +219,11 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
             acc_n0 = MIN(acc_n0, activation_max);
             *dst++ = (int8_t)acc_n0;
         }
+        dst += row_address_offset - rhs_rows;
     }
 
 #elif defined(ARM_MATH_DSP)
+    (void)row_address_offset;
     const int32_t rhs_off0 = rhs_cols - 4;
     const int32_t lhs_off0 = lhs_cols_offset - 4;
 
@@ -618,6 +622,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
         }
     }
 #else
+    (void)row_address_offset;
     for (int32_t rhs_rows_idx = 0; rhs_rows_idx <= (rhs_rows - 2); rhs_rows_idx += 2)
     {
         const int8_t *lhs_ptr = &lhs[0];

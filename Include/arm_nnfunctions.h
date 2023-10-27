@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        9 January 2024
- * $Revision:    V.12.5.1
+ * $Date:        11 January 2024
+ * $Revision:    V.12.6.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -365,8 +365,10 @@ arm_cmsis_nn_status arm_convolve_s4(const cmsis_nn_context *ctx,
  *                                It contains the multiplier and shift values to be applied to each output channel
  * @param[in]      input_dims     Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]      input_data     Input (activation) data pointer. Data type: int8
- * @param[in]      filter_dims    Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the
- *                                spatial filter dimensions
+ * @param[in]      filter_dims    Filter tensor dimensions. Format: [C_OUT, HK, WK, CK] where HK, WK and CK are the
+ *                                spatial filter dimensions. CK != C_IN is used for grouped convolution, in which
+ *                                case the required conditions are C_IN = N * CK and C_OUT = N * M for N groups of
+ *                                size M.
  * @param[in]      filter_data    Filter data pointer. Data type: int8
  * @param[in]      bias_dims      Bias tensor dimensions. Format: [C_OUT]
  * @param[in]      bias_data      Optional bias data pointer. Data type: int32

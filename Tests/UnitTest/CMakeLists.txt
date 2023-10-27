@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2019-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -96,6 +96,7 @@ add_subdirectory(TestCases/test_arm_elementwise_mul_s8)
 add_subdirectory(TestCases/test_arm_fully_connected_s16)
 add_subdirectory(TestCases/test_arm_fully_connected_s8)
 add_subdirectory(TestCases/test_arm_fully_connected_s4)
+add_subdirectory(TestCases/test_arm_grouped_convolve_s8)
 add_subdirectory(TestCases/test_arm_lstm_unidirectional_s16_s8)
 add_subdirectory(TestCases/test_arm_max_pool_s16)
 add_subdirectory(TestCases/test_arm_max_pool_s8)

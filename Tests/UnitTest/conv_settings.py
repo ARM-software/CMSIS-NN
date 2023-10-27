@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -38,6 +38,7 @@ class ConvSettings(TestSettings):
                  w_y=3,
                  stride_x=2,
                  stride_y=2,
+                 groups=1,
                  pad=True,
                  randmin=TestSettings.INT8_MIN,
                  randmax=TestSettings.INT8_MAX,
@@ -84,11 +85,23 @@ class ConvSettings(TestSettings):
                          int4_weights=int4_weights)
 
         self.scaling_factors = []
+        self.groups = groups
 
         if self.test_type == 'depthwise_conv':
             self.channel_multiplier = self.output_ch // self.input_ch
             if self.output_ch % self.input_ch != 0:
                 raise RuntimeError("out channel ({}) is not multiple of in channel ({})".format(out_ch, in_ch))
+            if groups != 1:
+                raise RuntimeError("ERROR: Groups cannot be used for depthwise convolution")
+
+        self.filter_ch = in_ch // groups
+        if in_ch % groups != 0:
+            print(in_ch)
+            print(groups)
+            raise RuntimeError("ERROR: Number of input channels must be an even multiple of groups")
+        if out_ch % groups != 0:
+            raise RuntimeError("ERROR: Number of output channels must be an even multiple of groups")
+
         else:
             self.channel_multiplier = 0
 
@@ -113,6 +126,8 @@ class ConvSettings(TestSettings):
             f.write("#define {}_OUTPUT_OFFSET {}\n".format(prefix, self.output_zero_point))
             f.write("#define {}_DILATION_X {}\n".format(prefix, self.dilation_x))
             f.write("#define {}_DILATION_Y {}\n".format(prefix, self.dilation_y))
+            if self.groups != 1:
+                f.write("#define {}_FILTER_CH {}\n".format(prefix, self.filter_ch))
             if self.test_type == 'transpose_conv':
                 f.write("#define {}_PAD_X_WITH_OFFSET {}\n".format(prefix, self.pad_x_with_offset))
                 f.write("#define {}_PAD_Y_WITH_OFFSET {}\n".format(prefix, self.pad_y_with_offset))
@@ -279,7 +294,7 @@ class ConvSettings(TestSettings):
             if self.test_type == 'transpose_conv':
                 weight_shape = [self.filter_y, self.filter_x, out_channel, self.input_ch]
             else:
-                weight_shape = [self.filter_y, self.filter_x, self.input_ch, out_channel]
+                weight_shape = [self.filter_y, self.filter_x, self.filter_ch, out_channel]
 
             if weights is not None:
                 weights = tf.reshape(weights, weight_shape)
@@ -301,7 +316,8 @@ class ConvSettings(TestSettings):
                                                     strides=(self.stride_y, self.stride_x),
                                                     padding=self.padding,
                                                     input_shape=input_shape[1:],
-                                                    dilation_rate=(self.dilation_y, self.dilation_x))
+                                                    dilation_rate=(self.dilation_y, self.dilation_x),
+                                                groups=self.groups)
                 model.add(conv_layer)
                 conv_layer.set_weights([weights, biases])
             elif self.test_type == 'depthwise_conv':
