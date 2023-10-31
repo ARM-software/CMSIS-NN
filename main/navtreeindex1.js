@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"structcmsis__nn__svdf__params.html":[4,20],
 "structcmsis__nn__svdf__params.html#a59af5cb2404da5d33f54e62b4c9d1813":[4,20,4],
 "structcmsis__nn__svdf__params.html#a6bbdc4a23e1c03b41b66f34f50d85352":[4,20,2],
 "structcmsis__nn__svdf__params.html#a8a665458804b985b49ede339efb6f86e":[4,20,0],
