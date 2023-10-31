@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        17 October 2023
- * $Revision:    V.3.3.0
+ * $Date:        30 October 2023
+ * $Revision:    V.3.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -73,71 +73,21 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
     const int32_t rhs_rows = output_dims->c;
     const int32_t rhs_cols = input_dims->c;
 
-#ifdef ARM_MATH_MVEI
+    arm_nn_mat_mult_nt_t_s8(input_data,
+                            filter_data,
+                            bias_data,
+                            output_data,
+                            quant_params->multiplier,
+                            quant_params->shift,
+                            lhs_rows,
+                            rhs_rows,
+                            rhs_cols,
+                            conv_params->input_offset,
+                            conv_params->output_offset,
+                            conv_params->activation.min,
+                            conv_params->activation.max,
+                            rhs_cols);
 
-    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0 && rhs_rows > lhs_rows * 4)
-    {
-        int32_t buf[rhs_rows];
-        int32_t *ker_sum = buf;
-        int32_t *buf_start = buf;
-
-        const int32_t lhs_offset = conv_params->input_offset;
-
-        for (int i = 0; i <= rhs_rows - 2; i += 2)
-        {
-            int32_t ker_sum_0 = 0;
-            int32_t ker_sum_1 = 0;
-            const int8_t *col_base_1 = filter_data + i * rhs_cols;
-            const int8_t *col_base_2 = col_base_1 + rhs_cols;
-            for (int j = 0; j < rhs_cols; j++)
-            {
-                ker_sum_0 += *col_base_1++;
-                ker_sum_1 += *col_base_2++;
-            }
-            ker_sum_0 *= lhs_offset;
-            ker_sum_1 *= lhs_offset;
-            if (bias_data)
-            {
-                ker_sum_0 += *bias_data++;
-                ker_sum_1 += *bias_data++;
-            }
-            ker_sum[i] = ker_sum_0;
-            ker_sum[i + 1] = ker_sum_1;
-        }
-
-        arm_nn_mat_mult_nt_t_fast_s8(input_data,
-                                     filter_data,
-                                     buf_start,
-                                     output_data,
-                                     quant_params->multiplier,
-                                     quant_params->shift,
-                                     lhs_rows,
-                                     rhs_rows,
-                                     rhs_cols,
-                                     conv_params->input_offset,
-                                     conv_params->output_offset,
-                                     conv_params->activation.min,
-                                     conv_params->activation.max,
-                                     rhs_cols);
-    }
-    else
-#endif
-    {
-        arm_nn_mat_mult_nt_t_s8(input_data,
-                                filter_data,
-                                bias_data,
-                                output_data,
-                                quant_params->multiplier,
-                                quant_params->shift,
-                                lhs_rows,
-                                rhs_rows,
-                                rhs_cols,
-                                conv_params->input_offset,
-                                conv_params->output_offset,
-                                conv_params->activation.min,
-                                conv_params->activation.max,
-                                rhs_cols);
-    }
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;
 }

@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        09 October 2023
- * $Revision:    V.1.3.0
+ * $Date:        30 October 2023
+ * $Revision:    V.1.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -44,8 +44,8 @@ __STATIC_INLINE int32_t arm_convolve_s8_get_buffer_size_mve(const cmsis_nn_dims 
                                                             const cmsis_nn_dims *filter_dims)
 {
     int32_t col_length = input_dims->c * filter_dims->w * filter_dims->h;
-    // Get number of complete int16 lanes(multiple of 8) for given col_length.
-    // This is dependent on implementation of  arm_nn_mat_mult_s8
+    // Get number of complete int16 lanes(multiple of 8) for given col_length. This is dependent on
+    // implementation of  arm_nn_mat_mult_s8
     col_length = (col_length + 7) / 8;
     // 4 -> number of im2col buffers, 8 -> 8 elements per Q register
     return 4 * col_length * 8 * (int32_t)sizeof(int8_t);
@@ -57,22 +57,6 @@ __STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn
     (void)input_dims;
     (void)filter_dims;
     return 0;
-}
-
-__STATIC_INLINE int32_t arm_convolve_1x1_s8_fast_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
-                                                                     const cmsis_nn_dims *filter_dims)
-{
-    const int32_t lhs_rows = input_dims->w * input_dims->h * input_dims->n;
-    const int32_t rhs_rows = filter_dims->n;
-
-    if (lhs_rows % 3 == 0 && rhs_rows % 2 == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return rhs_rows * 4;
-    }
 }
 
 int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
@@ -103,8 +87,8 @@ int32_t arm_convolve_1x1_s8_fast_get_buffer_size(const cmsis_nn_dims *input_dims
 }
 
 /*
- * Get the required buffer size for arm_convolve_wrapper_s8. This is the
- * recommended function convolve wrapper s8 function.
+ * Get the required buffer size for arm_convolve_wrapper_s8. This is the recommended function convolve wrapper s8
+ * function.
  *
  * Refer to header file for details.
  *
@@ -146,16 +130,14 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *
                                                     const cmsis_nn_dims *input_dims,
                                                     const cmsis_nn_dims *filter_dims,
                                                     const cmsis_nn_dims *output_dims)
-
 {
     (void)output_dims;
-
     if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
         (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
     {
         if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
         {
-            return arm_convolve_1x1_s8_fast_get_buffer_size_mve(input_dims, filter_dims);
+            return arm_convolve_1x1_s8_fast_get_buffer_size(input_dims);
         }
         else
         {
