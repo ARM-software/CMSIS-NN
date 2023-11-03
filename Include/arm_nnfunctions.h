@@ -22,7 +22,7 @@
  * Description:  Public header file for CMSIS NN Library
  *
  * $Date:        27 October 2023
- * $Revision:    V.12.1.0
+ * $Revision:    V.12.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -408,8 +408,8 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
  *
  * @param[in]       input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims           Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
- * are the spatial filter dimensions
- * @param[in]       output_dims           Output tensor dimensions. Format: [N, H, W, C_OUT]
+ *                                        are the spatial filter dimensions
+ * @param[in]       out_dims              Output tensor dimensions. Format: [N, H, W, C_OUT]
  * @return          The function returns required buffer size(bytes)
  *
  */

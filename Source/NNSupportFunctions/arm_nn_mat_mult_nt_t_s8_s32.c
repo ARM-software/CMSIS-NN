@@ -18,7 +18,7 @@
 
 /* ----------------------------------------------------------------------
  * Project:      CMSIS NN Library
- * Title:        arm_nn_mat_mult_s8_nt_t_s32
+ * Title:        arm_nn_mat_mult_s8_nt_t_s8_s32
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
  * $Date:        5 October 2023
@@ -45,14 +45,14 @@
  * Refer header file for details.
  *
  */
-arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s32(const int8_t *lhs,
-                                             const int8_t *rhs,
-                                             int32_t *dst,
-                                             const int32_t lhs_rows,
-                                             const int32_t rhs_rows,
-                                             const int32_t rhs_cols,
-                                             const int32_t lhs_offset,
-                                             const int32_t dst_idx_offset)
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
+                                                const int8_t *rhs,
+                                                int32_t *dst,
+                                                const int32_t lhs_rows,
+                                                const int32_t rhs_rows,
+                                                const int32_t rhs_cols,
+                                                const int32_t lhs_offset,
+                                                const int32_t dst_idx_offset)
 {
     const int32_t dst_idx_col_offset = dst_idx_offset * rhs_cols;
 

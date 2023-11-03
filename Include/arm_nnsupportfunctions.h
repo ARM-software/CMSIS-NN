@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        30 October 2023
- * $Revision:    V.17.3.0
+ * $Date:        3 November 2023
+ * $Revision:    V.17.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -390,14 +390,14 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
  */
-arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s32(const int8_t *lhs,
-                                             const int8_t *rhs,
-                                             int32_t *dst,
-                                             const int32_t lhs_rows,
-                                             const int32_t rhs_rows,
-                                             const int32_t rhs_cols,
-                                             const int32_t lhs_offset,
-                                             const int32_t dst_idx_offset);
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
+                                                const int8_t *rhs,
+                                                int32_t *dst,
+                                                const int32_t lhs_rows,
+                                                const int32_t rhs_rows,
+                                                const int32_t rhs_cols,
+                                                const int32_t lhs_offset,
+                                                const int32_t dst_idx_offset);
 
 /**
  * @brief s4 Vector by Matrix (transposed) multiplication

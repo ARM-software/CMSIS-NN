@@ -109,7 +109,7 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
     {
         if (bias_data == NULL)
         {
-            memset(img_buf_ptr, 0, output_x * output_y * output_ch * sizeof(int32_t));
+            arm_memset_s8((int8_t *)img_buf_ptr, 0, output_x * output_y * output_ch * sizeof(int32_t));
         }
         else
         {
@@ -125,18 +125,18 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
         int32_t *col_data_ptr = col_data;
         const int8_t *filter_data_ptr = filter_data;
 
-        memset(col_data_ptr, 0, col_buf_size);
+        arm_memset_s8((int8_t *)col_data_ptr, 0, col_buf_size);
 
         for (int i_output_ch = 0; i_output_ch < output_ch; i_output_ch++)
         {
-            arm_nn_mat_mult_nt_t_s32(input_data_ptr,
-                                     filter_data_ptr,
-                                     col_data_ptr,
-                                     input_size,
-                                     input_ch,
-                                     filter_size,
-                                     input_offset,
-                                     output_ch);
+            arm_nn_mat_mult_nt_t_s8_s32(input_data_ptr,
+                                        filter_data_ptr,
+                                        col_data_ptr,
+                                        input_size,
+                                        input_ch,
+                                        filter_size,
+                                        input_offset,
+                                        output_ch);
 
             filter_data_ptr += (input_ch * filter_size);
             col_data_ptr++;
