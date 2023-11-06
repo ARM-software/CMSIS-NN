@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2009-2021, 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -54,7 +54,7 @@ __SRAM_SIZE = 0x00200000;
   </h>
   -----------------------------------------------------------------------------*/
 __STACK_SIZE = 0x00008000;
-__HEAP_SIZE  = 0x00008000;
+__HEAP_SIZE  = 0x00010000;
 
 /*--------------------- Embedded RAM Configuration ----------------------------
   <h> DDR Configuration

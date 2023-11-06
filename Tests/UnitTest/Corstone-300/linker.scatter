@@ -1,7 +1,7 @@
 #! cpp
 
 /*
- * SPDX-FileCopyrightText: Copyright 2019-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2019-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -23,7 +23,7 @@
 #endif
 
 #ifndef HEAP_SIZE
-#define HEAP_SIZE 0x8000
+#define HEAP_SIZE 0x10000
 #endif
 
 #define LR_START   0x10000000

@@ -165,7 +165,7 @@ class MODEL_EXTRACTOR(SoftmaxSettings, FullyConnectedSettings, ConvSettings):
             else:
                 [d, self.y_output, self.x_output, d1] = output_shape
 
-        self.set_output_dims_and_padding(self.x_output, self.y_output)
+        self.calculate_padding(self.x_output, self.y_output, self.x_input, self.y_input)
 
     def extract_from_model(self, json_file, tensor_details):
 

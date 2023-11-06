@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        10 October 2023
- * $Revision:    V.12.1.0
+ * $Date:        27 October 2023
+ * $Revision:    V.12.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -143,7 +143,7 @@ extern "C" {
  *
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
  *                                arm_convolve_wrapper_s8_get_buffer_size will return the buffer_size if required.
- *                                The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                Range of conv_params->input_offset  : [-127, 128]
  *                                Range of conv_params->output_offset : [-128, 127]
@@ -227,7 +227,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *
  *
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
  *                                arm_convolve_wrapper_s8_get_buffer_size will return the buffer_size if required
- *                                The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                conv_params->input_offset  : Not used
  *                                conv_params->output_offset : Not used
@@ -309,7 +309,7 @@ int32_t arm_convolve_wrapper_s16_get_buffer_size_mve(const cmsis_nn_conv_params 
  * @brief Basic s8 convolution function
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
  *                                arm_convolve_s8_get_buffer_size will return the buffer_size if required.
- *                                The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                Range of conv_params->input_offset  : [-127, 128]
  *                                Range of conv_params->output_offset : [-128, 127]
@@ -356,10 +356,96 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
 int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
 
 /**
+ * @brief Basic s8 transpose convolution function
+ * @param[in, out] ctx                   Function context that contains the additional buffer if required by the
+ *                                       function.
+ *                                       arm_transpose_conv_s8_get_buffer_size will return the buffer_size if required.
+ *                                       The caller is expected to clear the buffer, if applicable, for security
+ reasons.
+ * @param[in, out] output_ctx            Temporary scratch buffer.
+ *                                       The size required size is: output width * output height * output channel * 4
+ *                                       The caller is expected to clear the buffer, if applicable, for security
+ *                                        reasons.
+ * @param[in]      transpose_conv_params Convolution parameters (e.g. strides, dilations, pads,...).
+ *                                       Range of transpose_conv_params->input_offset  : [-127, 128]
+ *                                       Range of transpose_conv_params->output_offset : [-128, 127]
+ * @param[in]      quant_params          Per-channel quantization info.
+ *                                       It contains the multiplier and shift values to be applied to each out channel.
+ * @param[in]      input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
+ * @param[in]      input_data            Input (activation) data pointer. Data type: int8
+ * @param[in]      filter_dims           Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the
+ *                                       spatial filter dimensions
+ * @param[in]      filter_data           Filter data pointer. Data type: int8
+ * @param[in]      bias_dims             Bias tensor dimensions. Format: [C_OUT]
+ * @param[in]      bias_data             Optional bias data pointer. Data type: int32
+ * @param[in]      output_dims           Output tensor dimensions. Format: [N, H, W, C_OUT]
+ * @param[out]     output_data           Output data pointer. Data type: int8
+
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details
+ *    1. Supported framework: TensorFlow Lite micro
+ *    2. Additional memory is required for optimization. Refer to arguments 'ctx' and 'output_ctx' for details.
+ *
+ */
+arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
+                                          const cmsis_nn_context *output_ctx,
+                                          const cmsis_nn_transpose_conv_params *transpose_conv_params,
+                                          const cmsis_nn_per_channel_quant_params *quant_params,
+                                          const cmsis_nn_dims *input_dims,
+                                          const int8_t *input_data,
+                                          const cmsis_nn_dims *filter_dims,
+                                          const int8_t *filter_data,
+                                          const cmsis_nn_dims *bias_dims,
+                                          const int32_t *bias_data,
+                                          const cmsis_nn_dims *output_dims,
+                                          int8_t *output_data);
+
+/**
+ * @brief Get the required buffer size for s8 transpose conv function
+ *
+ * @param[in]       input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
+ * @param[in]       filter_dims           Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
+ *                                        are the spatial filter dimensions
+ * @param[in]       out_dims              Output tensor dimensions. Format: [N, H, W, C_OUT]
+ * @return          The function returns required buffer size(bytes)
+ *
+ */
+int32_t arm_transpose_conv_s8_get_buffer_size(const cmsis_nn_dims *input_dims,
+                                              const cmsis_nn_dims *filter_dims,
+                                              const cmsis_nn_dims *out_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_transpose_conv_s8() for processors with DSP extension.
+ *        Refer to arm_transpose_conv_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_transpose_conv_s8_get_buffer_size().
+ *
+ */
+int32_t arm_transpose_conv_s8_get_buffer_size_dsp(const cmsis_nn_dims *input_dims,
+                                                  const cmsis_nn_dims *filter_dims,
+                                                  const cmsis_nn_dims *out_dims);
+
+/**
+ * @brief Get size of additional buffer required by arm_transpose_conv_s8() for Arm(R) Helium Architecture case.
+ *        Refer to arm_transpose_conv_s8_get_buffer_size() for function argument details.
+ *
+ * @note       Intended for compilation on Host. If compiling for an Arm target, use
+ *             arm_transpose_conv_s8_get_buffer_size().
+ *
+ */
+int32_t arm_transpose_conv_s8_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
+                                                  const cmsis_nn_dims *filter_dims,
+                                                  const cmsis_nn_dims *out_dims);
+
+/**
  * @brief Basic s16 convolution function
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
  *                                arm_convolve_s16_get_buffer_size will return the buffer_size if required.
- *                                The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                conv_params->input_offset  : Not used
  *                                conv_params->output_offset : Not used
@@ -397,7 +483,7 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
  * @brief Optimized s16 convolution function
  * @param[in, out] ctx            Function context that contains the additional buffer if required by the function.
  *                                arm_convolve_fast_s16_get_buffer_size will return the buffer_size if required.
- *                                The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params    Convolution parameters (e.g. strides, dilations, pads,...).
  *                                conv_params->input_offset  : Not used
  *                                conv_params->output_offset : Not used
@@ -462,7 +548,7 @@ int32_t arm_convolve_fast_s16_get_buffer_size(const cmsis_nn_dims *input_dims, c
  *
  * @param[in, out] ctx           Function context that contains the additional buffer if required by the function.
  *                               arm_convolve_1x1_s8_fast_get_buffer_size will return the buffer_size if required.
- *                               The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params   Convolution parameters (e.g. strides, dilations, pads,...).
  *                               Range of conv_params->input_offset  : [-127, 128]
  *                               Range of conv_params->output_offset : [-128, 127]
@@ -554,7 +640,7 @@ arm_cmsis_nn_status arm_convolve_1x1_s8(const cmsis_nn_context *ctx,
  *
  * @param[in, out] ctx           Function context that contains the additional buffer if required by the function.
  *                               arm_convolve_1_x_n_s8_get_buffer_size will return the buffer_size if required
- *                               The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      conv_params   Convolution parameters (e.g. strides, dilations, pads,...).
  *                               Range of conv_params->input_offset  : [-127, 128]
  *                               Range of conv_params->output_offset : [-128, 127]
@@ -616,7 +702,7 @@ int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_dims *input_dims, c
  *                                 definition file to see if an additional buffer is required.
  *                                 Optional function {API}_get_buffer_size() provides the buffer
  *                                 size if required.
- *                                 The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                 The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      dw_conv_params  Depthwise convolution parameters (e.g. strides, dilations, pads,...)
  *                                 dw_conv_params->dilation is not used.
  *                                 Range of dw_conv_params->input_offset : [-127, 128]
@@ -708,7 +794,7 @@ int32_t arm_depthwise_conv_wrapper_s8_get_buffer_size_mve(const cmsis_nn_dw_conv
  *                                 definition file to see if an additional buffer is required.
  *                                 Optional function {API}_get_buffer_size() provides the buffer
  *                                 size if an additional buffer is required exists if additional memory is.
- *                                 The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                 The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      dw_conv_params  Depthwise convolution parameters (e.g. strides, dilations, pads,...)
  *                                 dw_conv_params->dilation is not used.
  *                                 Range of dw_conv_params->input_offset : [-127, 128]
@@ -750,7 +836,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s8(const cmsis_nn_context *ctx,
  *                                 Optional function {API}_get_buffer_size() provides the buffer
  *                                 size if an additional buffer is required.
  *                                 exists if additional memory is.
- *                                 The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                 The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      dw_conv_params  Depthwise convolution parameters (e.g. strides, dilations, pads,...)
  *                                 conv_params->input_offset  : Not used
  *                                 conv_params->output_offset : Not used
@@ -790,7 +876,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s16(const cmsis_nn_context *ctx,
  *                                 definition file to see if an additional buffer is required.
  *                                 Optional function {API}_get_buffer_size() provides the buffer
  *                                 size if required.
- *                                 The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                 The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      dw_conv_params  Depthwise convolution parameters (e.g. strides, dilations, pads,...)
  *                                 dw_conv_params->dilation is not used.
  *                                 Range of dw_conv_params->input_offset : Not used
@@ -1057,7 +1143,7 @@ arm_cmsis_nn_status arm_fully_connected_s4(const cmsis_nn_context *ctx,
  *                               definition file to see if an additional buffer is required.
  *                               Optional function {API}_get_buffer_size() provides the buffer
  *                               size if an additional buffer is required.
- *                               The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      fc_params     Fully Connected layer parameters.
  *                               Range of fc_params->input_offset  : [-127, 128]
  *                               fc_params->filter_offset : 0
@@ -1151,7 +1237,7 @@ int32_t arm_fully_connected_s8_get_buffer_size_mve(const cmsis_nn_dims *filter_d
  *                               definition file to see if an additional buffer is required.
  *                               Optional function {API}_get_buffer_size() provides the buffer
  *                               size if an additional buffer is required.
- *                               The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      fc_params     Fully Connected layer parameters.
  *                               fc_params->input_offset  : 0
  *                               fc_params->filter_offset : 0
@@ -1419,7 +1505,7 @@ void arm_nn_activation_s16(const int16_t *input,
  *                              definition file to see if an additional buffer is required.
  *                              Optional function {API}_get_buffer_size() provides the buffer
  *                              size if an additional buffer is required.
- *                              The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
  *                              Argument 'N' is not used.
@@ -1481,7 +1567,7 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int dim_dst_width, const int ch
  *                              definition file to see if an additional buffer is required.
  *                              Optional function {API}_get_buffer_size() provides the buffer
  *                              size if an additional buffer is required.
- *                              The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
  *                              Argument 'N' is not used.
@@ -1544,7 +1630,7 @@ int32_t arm_avgpool_s16_get_buffer_size_mve(const int dim_dst_width, const int c
  *                              definition file to see if an additional buffer is required.
  *                              Optional function {API}_get_buffer_size() provides the buffer
  *                              size if an additional buffer is required.
- *                              The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
  *                              Argument 'N' is not used.
@@ -1578,7 +1664,7 @@ arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
  *                              definition file to see if an additional buffer is required.
  *                              Optional function {API}_get_buffer_size() provides the buffer
  *                              size if an additional buffer is required.
- *                              The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
  *                              Argument 'N' is not used.
@@ -1922,15 +2008,11 @@ void arm_concatenation_s8_w(const int8_t *input,
  *                                    definition file to see if an additional buffer is required.
  *                                    Optional function arm_fully_connected_s8_get_buffer_size() provides the buffer
  *                                    size if an additional buffer is required.
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
-
- * @param[in, out] ctx                Function context that contains the additional buffer if required by the function.
- *                                    arm_fully_connected_s8_get_buffer_size will return the buffer_size if required.
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]   input_ctx             Temporary scratch buffer
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]   output_ctx            Temporary output scratch buffer
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]   svdf_params           SVDF Parameters
  *                                    Range of svdf_params->input_offset  : [-128, 127]
  *                                    Range of svdf_params->output_offset  : [-128, 127]
@@ -1979,9 +2061,9 @@ arm_cmsis_nn_status arm_svdf_s8(const cmsis_nn_context *ctx,
  * @brief s8 SVDF function with 16 bit state tensor and 16 bit time weights
  *
  * @param[in]   input_ctx             Temporary scratch buffer
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]   output_ctx            Temporary output scratch buffer
- *                                    The caller is expected to clear the buffer ,if applicable, for security reasons.
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]   svdf_params           SVDF Parameters
  *                                    Range of svdf_params->input_offset  : [-128, 127]
  *                                    Range of svdf_params->output_offset  : [-128, 127]

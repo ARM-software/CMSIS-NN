@@ -105,7 +105,11 @@ class PoolingSettings(TestSettings):
         interpreter = self.convert_and_interpret(model, inttype, input_data)
 
         output_details = interpreter.get_output_details()
-        self.set_output_dims_and_padding(output_details[0]['shape'][2], output_details[0]['shape'][1])
+
+        self.x_output = output_details[0]['shape'][2]
+        self.y_output = output_details[0]['shape'][1]
+
+        self.calculate_padding(self.x_output, self.y_output, self.x_input, self.y_input)
 
         # Generate reference
         interpreter.invoke()
