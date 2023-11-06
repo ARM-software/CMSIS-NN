@@ -18,5 +18,8 @@ var group__GetBufferSizeNNConv =
     [ "arm_depthwise_conv_wrapper_s16_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga48f035cbe0b112d630f01c4f35d5e5c1", null ],
     [ "arm_depthwise_conv_wrapper_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb", null ],
     [ "arm_depthwise_conv_wrapper_s8_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#ga9c60a9f3762d3ce1ab36f118ad74529b", null ],
-    [ "arm_depthwise_conv_wrapper_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274", null ]
+    [ "arm_depthwise_conv_wrapper_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274", null ],
+    [ "arm_transpose_conv_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b", null ],
+    [ "arm_transpose_conv_s8_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#gaf78596a8df3a90dab2d9ebe6d960a506", null ],
+    [ "arm_transpose_conv_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga764395c4f8b85bb1e8d18690accc0624", null ]
 ];

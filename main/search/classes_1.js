@@ -18,5 +18,6 @@ var searchData=
   ['cmsis_5fnn_5fscaling_15',['cmsis_nn_scaling',['../structcmsis__nn__scaling.html',1,'']]],
   ['cmsis_5fnn_5fsoftmax_5flut_5fs16_16',['cmsis_nn_softmax_lut_s16',['../structcmsis__nn__softmax__lut__s16.html',1,'']]],
   ['cmsis_5fnn_5fsvdf_5fparams_17',['cmsis_nn_svdf_params',['../structcmsis__nn__svdf__params.html',1,'']]],
-  ['cmsis_5fnn_5ftile_18',['cmsis_nn_tile',['../structcmsis__nn__tile.html',1,'']]]
+  ['cmsis_5fnn_5ftile_18',['cmsis_nn_tile',['../structcmsis__nn__tile.html',1,'']]],
+  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_19',['cmsis_nn_transpose_conv_params',['../structcmsis__nn__transpose__conv__params.html',1,'']]]
 ];

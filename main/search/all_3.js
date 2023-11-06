@@ -34,7 +34,8 @@ var searchData=
   ['cmsis_5fnn_5fsoftmax_5flut_5fs16_31',['cmsis_nn_softmax_lut_s16',['../structcmsis__nn__softmax__lut__s16.html',1,'']]],
   ['cmsis_5fnn_5fsvdf_5fparams_32',['cmsis_nn_svdf_params',['../structcmsis__nn__svdf__params.html',1,'']]],
   ['cmsis_5fnn_5ftile_33',['cmsis_nn_tile',['../structcmsis__nn__tile.html',1,'']]],
-  ['concatenation_20functions_34',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
-  ['convolution_35',['Convolution',['../group__supportConvolution.html',1,'']]],
-  ['convolution_20functions_36',['Convolution Functions',['../group__NNConv.html',1,'']]]
+  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_34',['cmsis_nn_transpose_conv_params',['../structcmsis__nn__transpose__conv__params.html',1,'']]],
+  ['concatenation_20functions_35',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
+  ['convolution_36',['Convolution',['../group__supportConvolution.html',1,'']]],
+  ['convolution_20functions_37',['Convolution Functions',['../group__NNConv.html',1,'']]]
 ];

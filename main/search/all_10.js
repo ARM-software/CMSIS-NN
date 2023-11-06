@@ -7,6 +7,6 @@ var searchData=
   ['size_4',['size',['../structcmsis__nn__context.html#af8fd9ce16b371c8a3bf5e0b37a69419f',1,'cmsis_nn_context']]],
   ['softmax_5',['Softmax',['../group__supportSoftmax.html',1,'']]],
   ['softmax_20functions_6',['Softmax Functions',['../group__Softmax.html',1,'']]],
-  ['stride_7',['stride',['../structcmsis__nn__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_conv_params::stride()'],['../structcmsis__nn__dw__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_dw_conv_params::stride()'],['../structcmsis__nn__pool__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_pool_params::stride()']]],
+  ['stride_7',['stride',['../structcmsis__nn__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_conv_params::stride()'],['../structcmsis__nn__transpose__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_transpose_conv_params::stride()'],['../structcmsis__nn__dw__conv__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_dw_conv_params::stride()'],['../structcmsis__nn__pool__params.html#a6f5c217856d767bd50556d1d4763d18f',1,'cmsis_nn_pool_params::stride()']]],
   ['svdf_20functions_8',['SVDF Functions',['../group__SVDF.html',1,'']]]
 ];

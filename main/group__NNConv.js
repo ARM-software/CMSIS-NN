@@ -16,5 +16,6 @@ var group__NNConv =
     [ "arm_depthwise_conv_s8", "group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6", null ],
     [ "arm_depthwise_conv_s8_opt", "group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba", null ],
     [ "arm_depthwise_conv_wrapper_s16", "group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20", null ],
-    [ "arm_depthwise_conv_wrapper_s8", "group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d", null ]
+    [ "arm_depthwise_conv_wrapper_s8", "group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d", null ],
+    [ "arm_transpose_conv_s8", "group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7", null ]
 ];

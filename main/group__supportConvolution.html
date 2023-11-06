@@ -149,6 +149,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga00bd5b578a50ae93cc54346f08c41bf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga00bd5b578a50ae93cc54346f08c41bf6">arm_nn_mat_mult_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int8_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max, const int32_t lhs_cols_offset)</td></tr>
 <tr class="memdesc:ga00bd5b578a50ae93cc54346f08c41bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <a href="group__supportConvolution.html#ga00bd5b578a50ae93cc54346f08c41bf6">More...</a><br /></td></tr>
 <tr class="separator:ga00bd5b578a50ae93cc54346f08c41bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6a91b1c854a59478f251e5209fef17a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__nn__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a">arm_nn_mat_mult_nt_t_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *dst, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_idx_offset)</td></tr>
+<tr class="memdesc:gae6a91b1c854a59478f251e5209fef17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with int8 input and int32 output. This function assumes:  <a href="group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a">More...</a><br /></td></tr>
+<tr class="separator:gae6a91b1c854a59478f251e5209fef17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p >Support functions for Convolution and DW Convolution </p>
@@ -892,6 +895,89 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp down the output. Range : int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp up the output. Range : int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">lhs_cols_offset</td><td>Column offset between subsequent lhs_rows</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> </dd></dl>
+
+</div>
+</div>
+<a id="gae6a91b1c854a59478f251e5209fef17a" name="gae6a91b1c854a59478f251e5209fef17a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae6a91b1c854a59478f251e5209fef17a">&#9670;&nbsp;</a></span>arm_nn_mat_mult_nt_t_s8_s32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="arm__nn__types_8h.html#a67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_t_s8_s32 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>dst_idx_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li>LHS input matrix NOT transposed (nt)</li>
+<li>RHS input matrix transposed (t)</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Dst/output buffer must be zeroed out before calling this function.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Pointer to the LHS input matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Pointer to the RHS input matrix </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Pointer to the output matrix with "m" rows and "n" columns </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of LHS input rows </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of LHS input columns/RHS input rows </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of RHS input columns </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Offset to be applied to the LHS input value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_idx_offset</td><td>Offset between subsequent output results</td></tr>
   </table>
   </dd>
 </dl>
