@@ -773,11 +773,6 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_s8(const cmsis_nn_context *ctx,
  *
  * @details
  *    - Supported framework: TensorFlow Lite
- *    - Picks one of the the following functions
- *        -# arm_depthwise_conv_s4()
- *        -# arm_depthwise_conv_s4_opt()
- *    - Check details of arm_depthwise_conv_s4_opt() for potential data that can be accessed outside of the
- * boundary.
  */
 arm_cmsis_nn_status arm_depthwise_conv_wrapper_s4(const cmsis_nn_context *ctx,
                                                   const cmsis_nn_dw_conv_params *dw_conv_params,
