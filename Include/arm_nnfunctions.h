@@ -937,14 +937,14 @@ arm_cmsis_nn_status arm_depthwise_conv_s8(const cmsis_nn_context *ctx,
  *                                 output channel
  * @param[in]      input_dims      Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  *                                 Batch argument N is not used.
- * @param[in]      input_data      Input (activation) data pointer. Data type: int8
+ * @param[in]      input           Input (activation) data pointer. Data type: int8
  * @param[in]      filter_dims     Filter tensor dimensions. Format: [1, H, W, C_OUT]
- * @param[in]      filter_data     Filter data pointer. Data type: int8_t packed 4-bit weights, e.g four sequential
+ * @param[in]      kernel          Filter data pointer. Data type: int8_t packed 4-bit weights, e.g four sequential
  *                                 weights [0x1, 0x2, 0x3, 0x4]  packed as [0x21, 0x43].
  * @param[in]      bias_dims       Bias tensor dimensions. Format: [C_OUT]
- * @param[in]      bias_data       Bias data pointer. Data type: int32
+ * @param[in]      bias            Bias data pointer. Data type: int32
  * @param[in]      output_dims     Output tensor dimensions. Format: [N, H, W, C_OUT]
- * @param[in, out] output_data     Output data pointer. Data type: int8
+ * @param[in, out] output          Output data pointer. Data type: int8
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
  * @details
