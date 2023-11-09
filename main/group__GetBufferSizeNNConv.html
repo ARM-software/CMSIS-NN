@@ -173,6 +173,21 @@ Functions</h2></td></tr>
 <tr class="memitem:gaffa52eb0b4d4894ab8fb98ed81d5f2eb"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gaffa52eb0b4d4894ab8fb98ed81d5f2eb">arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp</a> (const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *dw_conv_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims)</td></tr>
 <tr class="memdesc:gaffa52eb0b4d4894ab8fb98ed81d5f2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20" title="Wrapper function to pick the right optimized s16 depthwise convolution function.">arm_depthwise_conv_wrapper_s16()</a> for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s16()">arm_depthwise_conv_wrapper_s16_get_buffer_size()</a> for function argument details.  <a href="group__GetBufferSizeNNConv.html#gaffa52eb0b4d4894ab8fb98ed81d5f2eb">More...</a><br /></td></tr>
 <tr class="separator:gaffa52eb0b4d4894ab8fb98ed81d5f2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3b4c8eb96f3533d026c72ac340e340a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gae3b4c8eb96f3533d026c72ac340e340a">arm_depthwise_conv_s4_opt_get_buffer_size</a> (const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims)</td></tr>
+<tr class="memdesc:gae3b4c8eb96f3533d026c72ac340e340a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for optimized s4 depthwise convolution function with constraint that in_channel equals out_channel.  <a href="group__GetBufferSizeNNConv.html#gae3b4c8eb96f3533d026c72ac340e340a">More...</a><br /></td></tr>
+<tr class="separator:gae3b4c8eb96f3533d026c72ac340e340a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfe01e94b99e1fb3d7895cc11b988688"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688">arm_depthwise_conv_wrapper_s4_get_buffer_size</a> (const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *dw_conv_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims)</td></tr>
+<tr class="memdesc:gadfe01e94b99e1fb3d7895cc11b988688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#gae03b5e90c3737d5d3e8ad62c6f463fb6" title="Wrapper function to pick the right optimized s4 depthwise convolution function.">arm_depthwise_conv_wrapper_s4()</a>  <a href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688">More...</a><br /></td></tr>
+<tr class="separator:gadfe01e94b99e1fb3d7895cc11b988688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe1cf930073e8f95aafd08e783ac6493"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gafe1cf930073e8f95aafd08e783ac6493">arm_depthwise_conv_wrapper_s4_get_buffer_size_dsp</a> (const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *dw_conv_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims)</td></tr>
+<tr class="memdesc:gafe1cf930073e8f95aafd08e783ac6493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#gae03b5e90c3737d5d3e8ad62c6f463fb6" title="Wrapper function to pick the right optimized s4 depthwise convolution function.">arm_depthwise_conv_wrapper_s4()</a> for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s4()">arm_depthwise_conv_wrapper_s4_get_buffer_size()</a> for function argument details.  <a href="group__GetBufferSizeNNConv.html#gafe1cf930073e8f95aafd08e783ac6493">More...</a><br /></td></tr>
+<tr class="separator:gafe1cf930073e8f95aafd08e783ac6493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga275f328870a4648c455f584aac1d07ae"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga275f328870a4648c455f584aac1d07ae">arm_depthwise_conv_wrapper_s4_get_buffer_size_mve</a> (const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *dw_conv_params, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *output_dims)</td></tr>
+<tr class="memdesc:ga275f328870a4648c455f584aac1d07ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#gae03b5e90c3737d5d3e8ad62c6f463fb6" title="Wrapper function to pick the right optimized s4 depthwise convolution function.">arm_depthwise_conv_wrapper_s4()</a> for Arm(R) Helium Architecture case. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s4()">arm_depthwise_conv_wrapper_s4_get_buffer_size()</a> for function argument details.  <a href="group__GetBufferSizeNNConv.html#ga275f328870a4648c455f584aac1d07ae">More...</a><br /></td></tr>
+<tr class="separator:ga275f328870a4648c455f584aac1d07ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga3a2aef035b2876192a2c9b69c00b1f77">arm_depthwise_conv_s8_opt_get_buffer_size_dsp</a> (const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims)</td></tr>
+<tr class="memdesc:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_channel equals out_channel. This is for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842" title="Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_...">arm_depthwise_conv_s8_opt_get_buffer_size()</a> for function argument details.  <a href="group__GetBufferSizeNNConv.html#ga3a2aef035b2876192a2c9b69c00b1f77">More...</a><br /></td></tr>
+<tr class="separator:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ee6e4c1a521657c35477ae0daf1c842"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">arm_depthwise_conv_s8_opt_get_buffer_size</a> (const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *input_dims, const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *filter_dims)</td></tr>
 <tr class="memdesc:ga0ee6e4c1a521657c35477ae0daf1c842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_channel equals out_channel.  <a href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842">More...</a><br /></td></tr>
 <tr class="separator:ga0ee6e4c1a521657c35477ae0daf1c842"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -666,6 +681,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gae3b4c8eb96f3533d026c72ac340e340a" name="gae3b4c8eb96f3533d026c72ac340e340a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3b4c8eb96f3533d026c72ac340e340a">&#9670;&nbsp;</a></span>arm_depthwise_conv_s4_opt_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_depthwise_conv_s4_opt_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [1, H, W, C_IN] Batch argument N is not used. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [1, H, W, C_OUT] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns required buffer size in bytes </dd></dl>
+
+</div>
+</div>
 <a id="ga0ee6e4c1a521657c35477ae0daf1c842" name="ga0ee6e4c1a521657c35477ae0daf1c842"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0ee6e4c1a521657c35477ae0daf1c842">&#9670;&nbsp;</a></span>arm_depthwise_conv_s8_opt_get_buffer_size()</h2>
 
@@ -699,6 +750,35 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns required buffer size in bytes </dd></dl>
+
+</div>
+</div>
+<a id="ga3a2aef035b2876192a2c9b69c00b1f77" name="ga3a2aef035b2876192a2c9b69c00b1f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a2aef035b2876192a2c9b69c00b1f77">&#9670;&nbsp;</a></span>arm_depthwise_conv_s8_opt_get_buffer_size_dsp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_depthwise_conv_s8_opt_get_buffer_size_dsp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842" title="Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_...">arm_depthwise_conv_s8_opt_get_buffer_size()</a>. Note also this is a support function, so not recommended to call directly even on Host. </dd></dl>
 
 </div>
 </div>
@@ -831,6 +911,138 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s16()">arm_depthwise_conv_wrapper_s16_get_buffer_size()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gadfe01e94b99e1fb3d7895cc11b988688" name="gadfe01e94b99e1fb3d7895cc11b988688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadfe01e94b99e1fb3d7895cc11b988688">&#9670;&nbsp;</a></span>arm_depthwise_conv_wrapper_s4_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_depthwise_conv_wrapper_s4_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>dw_conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">dw_conv_params</td><td>Depthwise convolution parameters (e.g. strides, dilations, pads,...) Range of dw_conv_params-&gt;input_offset : [-127, 128] Range of dw_conv_params-&gt;input_offset : [-128, 127] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [H, W, C_IN] Batch argument N is not used and assumed to be 1. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [1, H, W, C_OUT] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. Format: [1, H, W, C_OUT] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Size of additional memory required for optimizations in bytes. </dd></dl>
+
+</div>
+</div>
+<a id="gafe1cf930073e8f95aafd08e783ac6493" name="gafe1cf930073e8f95aafd08e783ac6493"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafe1cf930073e8f95aafd08e783ac6493">&#9670;&nbsp;</a></span>arm_depthwise_conv_wrapper_s4_get_buffer_size_dsp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_depthwise_conv_wrapper_s4_get_buffer_size_dsp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>dw_conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s4()">arm_depthwise_conv_wrapper_s4_get_buffer_size()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga275f328870a4648c455f584aac1d07ae" name="ga275f328870a4648c455f584aac1d07ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga275f328870a4648c455f584aac1d07ae">&#9670;&nbsp;</a></span>arm_depthwise_conv_wrapper_s4_get_buffer_size_mve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_depthwise_conv_wrapper_s4_get_buffer_size_mve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dw__conv__params.html">cmsis_nn_dw_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>dw_conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcmsis__nn__dims.html">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#gadfe01e94b99e1fb3d7895cc11b988688" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s4()">arm_depthwise_conv_wrapper_s4_get_buffer_size()</a>. </dd></dl>
 
 </div>
 </div>

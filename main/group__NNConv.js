@@ -13,9 +13,12 @@ var group__NNConv =
     [ "arm_depthwise_conv_3x3_s8", "group__NNConv.html#ga517de01da489d0f3ec9e5c1db0626f48", null ],
     [ "arm_depthwise_conv_fast_s16", "group__NNConv.html#ga8485fc6b8f8838cb752bc8d9d4f0fc7b", null ],
     [ "arm_depthwise_conv_s16", "group__NNConv.html#ga51cfdc6101b25e074c8a4bb86b0ca5c1", null ],
+    [ "arm_depthwise_conv_s4", "group__NNConv.html#ga6ebf094aa572be6e8dbde746e61f7cf2", null ],
+    [ "arm_depthwise_conv_s4_opt", "group__NNConv.html#ga605616ec9cc238a733ba2b4cbc00a2f5", null ],
     [ "arm_depthwise_conv_s8", "group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6", null ],
     [ "arm_depthwise_conv_s8_opt", "group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba", null ],
     [ "arm_depthwise_conv_wrapper_s16", "group__NNConv.html#ga0dd7296dc8c710203efcf802c85e3d20", null ],
+    [ "arm_depthwise_conv_wrapper_s4", "group__NNConv.html#gae03b5e90c3737d5d3e8ad62c6f463fb6", null ],
     [ "arm_depthwise_conv_wrapper_s8", "group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d", null ],
     [ "arm_transpose_conv_s8", "group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7", null ]
 ];

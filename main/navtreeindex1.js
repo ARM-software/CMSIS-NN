@@ -1,5 +1,13 @@
 var NAVTREEINDEX1 =
 {
+"structcmsis__nn__per__tensor__quant__params.html#aa48e56822ed6e4a79d6c8c3b688ca8d3":[4,16,0],
+"structcmsis__nn__per__tensor__quant__params.html#aa6938a602935fbbccbe0e9125ff01421":[4,16,1],
+"structcmsis__nn__pool__params.html":[4,17],
+"structcmsis__nn__pool__params.html#a6f5c217856d767bd50556d1d4763d18f":[4,17,2],
+"structcmsis__nn__pool__params.html#a8b46c29d03673efd66c440c67f3cbe08":[4,17,0],
+"structcmsis__nn__pool__params.html#afc7f24c6d2ffbb0d512256b3d4e19630":[4,17,1],
+"structcmsis__nn__scaling.html":[4,18],
+"structcmsis__nn__scaling.html#aa48e56822ed6e4a79d6c8c3b688ca8d3":[4,18,0],
 "structcmsis__nn__scaling.html#aa6938a602935fbbccbe0e9125ff01421":[4,18,1],
 "structcmsis__nn__softmax__lut__s16.html":[4,19],
 "structcmsis__nn__softmax__lut__s16.html#a66c4fc32840cf08b4176ff0ca8f6ab87":[4,19,0],
