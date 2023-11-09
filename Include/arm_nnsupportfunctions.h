@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        3 November 2023
- * $Revision:    V.17.4.0
+ * $Date:        7 November 2023
+ * $Revision:    V.17.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -160,7 +160,22 @@ void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, int32_t block_si
  *
  */
 void arm_s8_to_s16_unordered_with_offset(const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset);
+
 #endif
+
+/**
+ * @brief Get the required buffer size for optimized s8 depthwise convolution
+ *        function with constraint that in_channel equals out_channel.
+ *        This is for processors with DSP extension.
+ *        Refer to arm_depthwise_conv_s8_opt_get_buffer_size() for function argument details.
+ *
+ * @note  Intended for compilation on Host. If compiling for an Arm target, use
+ *        arm_depthwise_conv_s8_opt_get_buffer_size(). Note also this is a support function,
+ *        so not recommended to call directly even on Host.
+ *
+ */
+int32_t arm_depthwise_conv_s8_opt_get_buffer_size_dsp(const cmsis_nn_dims *input_dims,
+                                                      const cmsis_nn_dims *filter_dims);
 
 /**
  * @brief Depthwise conv on an im2col buffer where the input channel equals output channel.
@@ -777,14 +792,34 @@ __STATIC_FORCEINLINE void arm_memset_s8(int8_t *dst, const int8_t val, uint32_t 
 /**
  * @brief read and expand one s4 word into two s8 words.
  */
-__STATIC_FORCEINLINE const int8_t *read_and_pad_s4(const int8_t *source, int32_t *out1, int32_t *out2)
-
+__STATIC_FORCEINLINE void read_and_pad_s4(const int8_t *source, int32_t *out1, int32_t *out2)
 {
     int16_t in = arm_nn_read_s8x2(source);
     int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+
     *out1 = SXTB16_RORn(__sxtb16(inA << 4), 4);
     *out2 = SXTB16_RORn(__sxtb16(inA), 4);
-    return source;
+}
+
+/**
+ * @brief read and expand one s4 word into two s8 words.
+ * @details   The s4 elements are not evenly aligned on the byte boundary, so 3 bytes need to be read instead of 2.
+ *            In other words first nibble to read start at the middle of a byte.
+ *            byte index, s4 element
+ *            0,          s4_x
+ *            0,          s4_0
+ *            1,          s4_1
+ *            1,          s4_2
+ *            2,          s4_3
+ *            2,          s4_x
+ */
+__STATIC_FORCEINLINE void read_and_pad_s4_uneven(const int8_t *source, int32_t *out1, int32_t *out2)
+{
+    int32_t inA1 = (source[0] & 0xFF) | ((source[1] & 0xFF) << 16);
+    int32_t inA2 = (source[1] & 0xFF) | ((source[2] & 0xFF) << 16);
+
+    *out1 = SXTB16_RORn(__sxtb16(inA2 << 4), 4);
+    *out2 = SXTB16_RORn(__sxtb16(inA1), 4);
 }
 
 /**

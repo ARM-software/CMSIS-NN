@@ -83,7 +83,10 @@ class TestSettings(ABC):
                  bias_max=np.iinfo(np.dtype('int32')).max,
                  dilation_x=1,
                  dilation_y=1,
-                 interpreter="tensorflow"):
+                 interpreter="tensorflow",
+                 int4_weights=False):
+
+        self.int4_weights = int4_weights
 
         if self.INT8_MIN != np.iinfo(np.dtype('int8')).min or self.INT8_MAX != np.iinfo(np.dtype('int8')).max or \
            self.INT16_MIN != np.iinfo(np.dtype('int16')).min or self.INT16_MAX != np.iinfo(np.dtype('int16')).max or \
@@ -360,7 +363,7 @@ class TestSettings(ABC):
         filepath = self.headers_dir + filename
         return filename, filepath
 
-    def generate_c_array(self, name, array, datatype="int8_t", const="const ") -> None:
+    def generate_c_array(self, name, array, datatype="int8_t", const="const ", pack=False) -> None:
         w = None
 
         if type(array) is list:
@@ -374,6 +377,9 @@ class TestSettings(ABC):
             w = array.numpy()
             w = w.ravel()
             size = tf.size(array)
+
+        if pack:
+            size = size // 2 + (size % 2)
 
         filename, filepath = self.get_data_file_name_info(name)
         self.generated_header_files.append(filename)
@@ -443,6 +449,11 @@ class TestSettings(ABC):
         """
         Compile and convert a model to Tflite format, run interpreter and allocate tensors.
         """
+
+        self.convert_model(model, inttype, dataset_shape)
+        return self.interpret_model(input_data, inttype)
+
+    def convert_model(self, model, inttype, dataset_shape=None):
         model.compile(loss=tf.keras.losses.categorical_crossentropy,
                       optimizer=tf.keras.optimizers.Adam(),
                       metrics=['accuracy'])
@@ -473,6 +484,7 @@ class TestSettings(ABC):
         with open(self.model_path_tflite, "wb") as model:
             model.write(tflite_model)
 
+    def interpret_model(self, input_data, inttype):
         interpreter = self.Interpreter(model_path=str(self.model_path_tflite),
                                        experimental_op_resolver_type=self.OpResolverType.BUILTIN_REF)
         interpreter.allocate_tensors()
@@ -489,6 +501,7 @@ class TestSettings(ABC):
 
         return interpreter
 
+    # TODO: make it a more generic function and remove reference to svdf specific names
     def generate_json_from_template(self,
                                     weights_feature_data=None,
                                     weights_time_data=None,
@@ -518,6 +531,7 @@ class TestSettings(ABC):
                     data["buffers"][w_2_buffer_index]["data"] = self.to_bytes(weights_time_data.numpy().ravel(), 1)
                 else:
                     data["buffers"][w_2_buffer_index]["data"] = self.to_bytes(weights_time_data.numpy().ravel(), 2)
+
             if bias_data is not None:
                 bias_buffer_index = bias_buffer
                 data["buffers"][bias_buffer_index]["data"] = self.to_bytes(bias_data.numpy().ravel(), 4)

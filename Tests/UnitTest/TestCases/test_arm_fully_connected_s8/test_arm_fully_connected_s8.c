@@ -254,7 +254,7 @@ void fully_connected_null_bias_0_arm_fully_connected_s8(void)
     arm_cmsis_nn_status ip_check = ARM_CMSIS_NN_SUCCESS;
     for (int i = 0; i < FULLY_CONNECTED_NULL_BIAS_0_OUT_CH; i++)
     {
-        if (bias_data[i] != 0)
+        if (bias_data && (bias_data[i] != 0))
         {
             ip_check = ARM_CMSIS_NN_ARG_ERROR;
             break;
