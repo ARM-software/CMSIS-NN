@@ -1,13 +1,18 @@
 var group__GetBufferSizeNNConv =
 [
     [ "arm_convolve_1_x_n_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e", null ],
+    [ "arm_convolve_1x1_s4_fast_get_buffer_size", "group__GetBufferSizeNNConv.html#ga157280560239a9cccf008bdf46982b0f", null ],
     [ "arm_convolve_1x1_s8_fast_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8", null ],
     [ "arm_convolve_fast_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#ga8db7c4be84de273cfba630106d912737", null ],
     [ "arm_convolve_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf8ee642967e4b1b05465621979de1baa", null ],
+    [ "arm_convolve_s4_get_buffer_size", "group__GetBufferSizeNNConv.html#ga24715d51ff3f0fc127e39b95f8387e66", null ],
     [ "arm_convolve_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#gac057b0749e2a6828ae21f762f3fa0c85", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#ga818dfca6a26af7cc8abb91d43fb16930", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#ga02801066bbac2f02861552963d768fa4", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga7b50bcf770926ce15d70aad0d027d309", null ],
+    [ "arm_convolve_wrapper_s4_get_buffer_size", "group__GetBufferSizeNNConv.html#gab86c0af85751006ac39c326abea0a73c", null ],
+    [ "arm_convolve_wrapper_s4_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#gac78212c1791f0d210d660d2465a34624", null ],
+    [ "arm_convolve_wrapper_s4_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gae0ecfc7f96037e01980fc7fd03e525d2", null ],
     [ "arm_convolve_wrapper_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#ga60c117b646f95abeb9966eefc4a9da38", null ],
     [ "arm_convolve_wrapper_s8_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#gadc35107dbe1bbe268af2c462cb9413b2", null ],
     [ "arm_convolve_wrapper_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gaa7e6305d9af9716ca8876fc8b6070e85", null ],
