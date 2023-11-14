@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        7 November 2023
- * $Revision:    V.17.5.0
+ * $Date:        13 November 2023
+ * $Revision:    V.17.6.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -339,6 +339,53 @@ int8_t *arm_nn_mat_mul_core_4x_s8(const int32_t row_elements,
                                   const cmsis_nn_per_channel_quant_params *quant_params,
                                   const int32_t *bias,
                                   int8_t *output);
+
+/**
+ * @brief General Matrix-multiplication function with per-channel requantization.
+ *        This function assumes:
+ *        - LHS input matrix NOT transposed (nt)
+ *        - RHS input matrix transposed (t)
+ *        - RHS is int8 packed with 2x int4
+ *        - LHS is int8
+ *
+ *  @note This operation also performs the broadcast bias addition before the requantization
+ *
+ * @param[in]  lhs                Pointer to the LHS input matrix
+ * @param[in]  rhs                Pointer to the RHS input matrix
+ * @param[in]  bias               Pointer to the bias vector. The length of this vector is equal to the number of
+ *                                output columns (or RHS input rows)
+ * @param[out] dst                Pointer to the output matrix with "m" rows and "n" columns
+ * @param[in]  dst_multipliers    Pointer to the multipliers vector needed for the per-channel requantization.
+ *                                The length of this vector is equal to the number of output columns (or RHS input
+ *                                rows)
+ * @param[in]  dst_shifts         Pointer to the shifts vector needed for the per-channel requantization. The length
+ *                                of this vector is equal to the number of output columns (or RHS input rows)
+ * @param[in]  lhs_rows           Number of LHS input rows
+ * @param[in]  rhs_rows           Number of RHS input rows
+ * @param[in]  rhs_cols           Number of LHS/RHS input columns
+ * @param[in]  lhs_offset         Offset to be applied to the LHS input value
+ * @param[in]  dst_offset         Offset to be applied the output result
+ * @param[in]  activation_min     Minimum value to clamp down the output. Range : int8
+ * @param[in]  activation_max     Maximum value to clamp up the output. Range : int8
+ * @param[in]  lhs_cols_offset    Column offset between subsequent lhs_rows
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ */
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s4(const int8_t *lhs,
+                                            const int8_t *rhs,
+                                            const int32_t *bias,
+                                            int8_t *dst,
+                                            const int32_t *dst_multipliers,
+                                            const int32_t *dst_shifts,
+                                            const int32_t lhs_rows,
+                                            const int32_t rhs_rows,
+                                            const int32_t rhs_cols,
+                                            const int32_t lhs_offset,
+                                            const int32_t dst_offset,
+                                            const int32_t activation_min,
+                                            const int32_t activation_max,
+                                            const int32_t lhs_cols_offset);
 
 /**
  * @brief General Matrix-multiplication function with per-channel requantization.
@@ -823,6 +870,24 @@ __STATIC_FORCEINLINE void read_and_pad_s4_uneven(const int8_t *source, int32_t *
 }
 
 /**
+ * @brief read and expand one s4 word into two s16 words with ordering.
+ */
+__STATIC_FORCEINLINE void read_and_pad_s4_ordered(const int8_t *source, int32_t *out1, int32_t *out2)
+{
+    int16_t in = arm_nn_read_s8x2(source);
+    int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+    int32_t inAbuf1 = SXTB16_RORn(__sxtb16(inA), 4);
+    int32_t inAbuf2 = SXTB16_RORn(__sxtb16(inA << 4), 4);
+    #ifndef ARM_MATH_BIG_ENDIAN
+    *out2 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out1 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #else
+    *out1 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out2 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #endif
+}
+
+/**
  * @brief read and expand one s8 word into two s16 words with ordering.
  */
 __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *out1, int32_t *out2)
@@ -861,6 +926,39 @@ __STATIC_FORCEINLINE const int8_t *read_and_pad_reordered(const int8_t *source, 
 
 #endif
 
+/**
+ * @brief Matrix-multiplication function for convolution with per-channel requantization and 4 bit weights.
+ * @param[in]       input_a            pointer to operand A, int8 packed with 2x int4.
+ * @param[in]       input_b            pointer to operand B, always consists of 2 vectors.
+ * @param[in]       output_ch          number of rows of A
+ * @param[in]       out_shift          pointer to per output channel requantization shift parameter.
+ * @param[in]       out_mult           pointer to per output channel requantization multiplier parameter.
+ * @param[in]       out_offset         output tensor offset.
+ * @param[in]       activation_min     minimum value to clamp the output to. Range : int8
+ * @param[in]       activation_max     maximum value to clamp the output to. Range : int8
+ * @param[in]       num_col_a          number of columns of A
+ * @param[in]       output_bias        per output channel bias. Range : int32
+ * @param[in,out]   out_0              pointer to output
+ * @return     The function returns one of the two
+ *              1. The incremented output pointer for a successful operation or
+ *              2. NULL if implementation is not available.
+ *
+ * @details   This function does the matrix multiplication of weight matrix for all output channels
+ *            with 2 columns from im2col and produces two elements/output_channel. The outputs are
+ *            clamped in the range provided by activation min and max.
+ *            Supported framework: TensorFlow Lite micro.
+ */
+int8_t *arm_nn_mat_mult_kernel_s4_s16(const int8_t *input_a,
+                                      const int16_t *input_b,
+                                      const uint16_t output_ch,
+                                      const int32_t *out_shift,
+                                      const int32_t *out_mult,
+                                      const int32_t out_offset,
+                                      const int32_t activation_min,
+                                      const int32_t activation_max,
+                                      const int32_t num_col_a,
+                                      const int32_t *const output_bias,
+                                      int8_t *out_0);
 /**
  * @brief Matrix-multiplication function for convolution with per-channel requantization.
  * @param[in]       input_a            pointer to operand A

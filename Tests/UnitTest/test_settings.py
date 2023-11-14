@@ -379,7 +379,7 @@ class TestSettings(ABC):
             size = tf.size(array)
 
         if pack:
-            size = size // 2 + (size % 2)
+            size = (size // 2) + (size % 2)
 
         filename, filepath = self.get_data_file_name_info(name)
         self.generated_header_files.append(filename)
@@ -449,7 +449,6 @@ class TestSettings(ABC):
         """
         Compile and convert a model to Tflite format, run interpreter and allocate tensors.
         """
-
         self.convert_model(model, inttype, dataset_shape)
         return self.interpret_model(input_data, inttype)
 
