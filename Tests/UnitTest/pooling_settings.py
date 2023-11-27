@@ -64,6 +64,7 @@ class PoolingSettings(TestSettings):
                          pad,
                          randmin=randmin,
                          randmax=randmax,
+                         batches=batches,
                          relu6=relu6,
                          out_activation_min=out_activation_min,
                          out_activation_max=out_activation_max,
