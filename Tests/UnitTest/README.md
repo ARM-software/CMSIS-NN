@@ -23,7 +23,7 @@ See below for what pip packages are needed.
 If using the script unittest_targets.py for executing unit tests, the following packages are needed.
 
 ```
-pip install pyserial mbed-ls mbed-cli termcolor mercurial
+pip install pyserial mbed-ls mbed-cli termcolor mercurial pyelftools==0.29 pyyaml jsonschema jinja2 mbed_host_tests mbed_greentea pycryptodome pyusb cmsis_pack_manager psutil cryptography click cbor
 ```
 
 Python packages mbed-cli and and mbed-ls are command line tools so it should not matter if those are installed under Python2 or Python3. These packages have been tested for Python2, with the following versions: mbed-ls(1.7.9) and mbed-cli(1.10.1). They have also been tested for Python3, with the following versions: mbed-ls(1.7.12) and mbed-cli(1.10.5). Package mercurial is needed for package mbed-cli.

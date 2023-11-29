@@ -1,21 +1,21 @@
 {
     "GCC_ARM": {
-        "common": ["-c", "-Wall", "-Wextra",
-                   "-Wno-unused-parameter", "-Wno-missing-field-initializers",
+        "common": ["-Wall", "-Wextra",
+                   "-Wno-missing-field-initializers",
                    "-fmessage-length=0", "-fno-exceptions",
                    "-ffunction-sections", "-fdata-sections", "-funsigned-char",
                    "-MMD", "-fno-delete-null-pointer-checks",
-                   "-fomit-frame-pointer", "-Ofast", "-DNDEBUG", "-g"],
-        "asm": ["-x", "assembler-with-cpp"],
-        "c": ["-std=gnu11"],
-        "cxx": ["-std=gnu++14", "-fno-rtti", "-Wvla"],
+                   "-fomit-frame-pointer", "-Ofast", "-DNDEBUG", "-g", "-DMBED_TRACE_MAX_LEVEL=1"],
+        "asm": ["-c", "-x", "assembler-with-cpp"],
+        "c": ["-c", "-std=gnu11"],
+        "cxx": ["-c", "-std=gnu++14", "-fno-rtti", "-Wvla"],
         "ld": ["-Wl,--gc-sections", "-Wl,--wrap,main", "-Wl,--wrap,_malloc_r",
                "-Wl,--wrap,_free_r", "-Wl,--wrap,_realloc_r", "-Wl,--wrap,_memalign_r",
                "-Wl,--wrap,_calloc_r", "-Wl,--wrap,exit", "-Wl,--wrap,atexit",
                "-Wl,-n"]
     },
     "ARMC6": {
-        "common": ["-c", "--target=arm-arm-none-eabi", "-mthumb", "-Omax",
+        "common": ["-c", "--target=arm-arm-none-eabi", "-mthumb", "-Ofast",
                    "-Wno-armcc-pragma-push-pop", "-Wno-armcc-pragma-anon-unions",
                    "-Wno-reserved-user-defined-literal", "-Wno-deprecated-register",
                    "-DMULADDC_CANNOT_USE_R7", "-fdata-sections",

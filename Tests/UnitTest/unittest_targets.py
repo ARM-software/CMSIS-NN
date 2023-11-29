@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -44,12 +44,18 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Run CMSIS-NN unit tests.",
                                      epilog="Runs on all connected HW supported by Mbed.")
     parser.add_argument('--testdir', type=str, default='TESTRUN', help="prefix of output dir name")
-    parser.add_argument('-s', '--specific-test', type=str, default=None, help="Run a specific test, e.g."
+    parser.add_argument('-s',
+                        '--specific-test',
+                        type=str,
+                        default=None,
+                        help="Run a specific test, e.g."
                         " -s TestCases/test_arm_avgpool_s8 (also this form will work: -s test_arm_avgpool_s8)."
                         " So basically the different options can be listed with:"
                         " ls -d TestCases/test_* -1")
     parser.add_argument('-c', '--compiler', type=str, default='GCC_ARM', choices=['GCC_ARM', 'ARMC6'])
-    parser.add_argument('--download-and-generate-test-runners', dest='download_and_generate', action='store_true',
+    parser.add_argument('--download-and-generate-test-runners',
+                        dest='download_and_generate',
+                        action='store_true',
                         help="Just download Unity and generate test runners if needed")
 
     required_arguments = parser.add_argument_group('required named arguments')
@@ -64,10 +70,7 @@ def error_handler(code, text=None):
 
 
 def detect_targets(targets):
-    process = subprocess.Popen(['mbedls'],
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               universal_newlines=True)
+    process = subprocess.Popen(['mbedls'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     print(process.stdout.readline().strip())
     while True:
         line = process.stdout.readline()
@@ -76,10 +79,12 @@ def detect_targets(targets):
             break
         if re.search(r"^\| ", line):
             words = (line.split('| '))
-            target = {"model": words[1].strip(),
-                      "name": words[2].strip()[:-1].replace('[', '_'),
-                      "port": words[4].strip(),
-                      "tid": words[5].strip()}  # Target id can be used to filter out targets
+            target = {
+                "model": words[1].strip(),
+                "name": words[2].strip()[:-1].replace('[', '_'),
+                "port": words[4].strip(),
+                "tid": words[5].strip()
+            }  # Target id can be used to filter out targets
             targets.append(target)
     return_code = process.poll()
     if return_code != 0:
@@ -101,25 +106,20 @@ def run_command(command, error_msg=None, die=True):
 
 def detect_architecture(target_name, target_json):
     arch = None
-
     try:
         with open(target_json, "r") as read_file:
             data = json.load(read_file)
 
-            if 'core' in data[target_name]:
-                core = data[target_name]['core']
-            elif 'inherits' in data[target_name]:
-                target_inherits = data[target_name]['inherits'][0]
-                core = data[target_inherits]['core']
-            else:
-                raise Exception("Cannot detect architecture")
+            while ('core' not in data[target_name]):
+                print(f"{target_name} inherits from {data[target_name]['inherits'][0]}")
+                target_name = data[target_name]['inherits'][0]
+            core = data[target_name]['core']
 
             if core:
                 arch = core[:9]
                 if core[:8] == 'Cortex-M':
                     return arch
-            error_handler(168, 'Unsupported target: {} with architecture: {}'.format(
-                target_name, arch))
+            error_handler(168, 'Unsupported target: {} with architecture: {}'.format(target_name, arch))
     except Exception as e:
         error_handler(167, e)
 
@@ -146,10 +146,10 @@ def test_target(target, args, main_test):
 
         if not path.exists("mbed-os.lib"):
             print("Initializing mbed in {}".format(os.getcwd()))
-            shutil.copyfile(mbed_path + 'mbed-os.lib', 'mbed-os.lib')
-            shutil.copyfile(mbed_path + 'mbed_app.json', 'mbed_app.json')
-            run_command('mbed config root .')
+            run_command(f'cp -a {mbed_path}. .')
             run_command('mbed deploy')
+            run_command(f'rm -rf mbed-os/TESTS' + ' mbed-os/UNITTESTS' + ' mbed-os/docker_images' + ' mbed-os/docs' +
+                        ' mbed-os/extern' + ' mbed-os/features')
         arch = detect_architecture(target_model, target_json)
 
         print("----------------------------------------------------------------")
@@ -165,8 +165,7 @@ def test_target(target, args, main_test):
                              ' --profile ' + mbed_path + 'release.json' + \
                              ' -f'
 
-        result = run_command("mbed {} -v -m ".format(mbed_command) + target_model + ' -t ' + compiler +
-                             test +
+        result = run_command("mbed {} -v -m ".format(mbed_command) + target_model + ' -t ' + compiler + test +
                              ' --source .'
                              ' --source ' + BASE_PATH + 'TestCases/Utils/'
                              ' --source ' + cmsis_nn_path + 'Include/'
@@ -178,9 +177,9 @@ def test_target(target, args, main_test):
                              ' --source ' + cmsis_nn_path + 'Source/SVDFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/BasicMathFunctions/'
                              ' --source ' + cmsis_nn_path + 'Source/ActivationFunctions/'
-                             ' --source ' + cmsis_nn_path + 'Source/LSTMFunctions/'
-                             + additional_options,
-                             flash_error_msg, die=die)
+                             ' --source ' + cmsis_nn_path + 'Source/LSTMFunctions/' + additional_options,
+                             flash_error_msg,
+                             die=die)
 
     except Exception as e:
         error_handler(166, e)
@@ -302,9 +301,9 @@ def print_summary(targets):
         verdict = verdict_pass
     else:
         verdict = verdict_fail
-    print("{} Summary: {} tests in total passed on {} target(s) ({})".
-          format(verdict, passed, len(targets), ', '.join([t['name'] for t in targets])))
-    print("{} {:.0f}% tests passed, {} tests failed out of {}".format(verdict, total*100, failed, expected))
+    print("{} Summary: {} tests in total passed on {} target(s) ({})".format(verdict, passed, len(targets),
+                                                                             ', '.join([t['name'] for t in targets])))
+    print("{} {:.0f}% tests passed, {} tests failed out of {}".format(verdict, total * 100, failed, expected))
 
     return return_code
 
@@ -345,14 +344,15 @@ def test_targets(args):
 
 def download_unity(force=False):
     unity_dir = UNITY_PATH
-    unity_src = unity_dir+"src/"
+    unity_src = unity_dir + "src/"
     process = subprocess.run(['mktemp'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     download_dir = process.stdout.strip()
     run_command("rm -f {}".format(download_dir))
     download_dir += '/'
 
     # Check if already downloaded
-    if not force and path.isdir(unity_dir) and path.isfile(unity_src+"unity.c") and path.isfile(unity_src+"unity.h"):
+    if not force and path.isdir(unity_dir) and path.isfile(unity_src + "unity.c") and path.isfile(unity_src +
+                                                                                                  "unity.h"):
         return
 
     if path.isdir(download_dir):
@@ -363,10 +363,12 @@ def download_unity(force=False):
     os.makedirs(download_dir, exist_ok=False)
     current_dir = os.getcwd()
     os.chdir(download_dir)
-    process = subprocess.Popen('curl -LJ https://api.github.com/repos/ThrowTheSwitch/Unity/tarball/v2.5.0 --output unity_tarball.tar.gz'.split(),
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               universal_newlines=True)
+    process = subprocess.Popen(
+        'curl -LJ https://api.github.com/repos/ThrowTheSwitch/Unity/tarball/v2.5.0 --output unity_tarball.tar.gz'.split(
+        ),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True)
     for line in process.stderr:
         print(line.strip())
     print()
@@ -382,7 +384,7 @@ def download_unity(force=False):
         error_handler(174, e)
     if not filename_base:
         error_handler(175)
-    run_command("tar xzf "+downloaded_file+" -C "+unity_dir+" --strip-components=1")
+    run_command("tar xzf " + downloaded_file + " -C " + unity_dir + " --strip-components=1")
     os.chdir(current_dir)
 
     # Cleanup
@@ -447,7 +449,7 @@ def parse_tests(targets, main_tests, specific_test=None):
                     os.remove(old_files)
 
             # Generate test runners
-            run_command('ruby '+UNITY_PATH+'auto/generate_test_runner.rb ' + test_code + ' ' + test_runner)
+            run_command('ruby ' + UNITY_PATH + 'auto/generate_test_runner.rb ' + test_code + ' ' + test_runner)
             test_found = parse_test(test_runner, targets)
             if not test_found:
                 return False
