@@ -127,6 +127,10 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
+<td>v5.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.1.0">CMSIS-NN v4.1.0</a> Improved read efficiency in FC for MVE extension. This also means FC and SVDF calculate kernel sums in prepare phase before actual inference, and because of this there may be an increase in memory usage for certain models. Packed int4 kernel support in FC, convolution and DW convolution for scalar version and DSP extension. Scalar/base support for new operator Transpose convolution. Extended unit test coverage.</p>
+<p class="endtd">Full Changelog**: <a href="https://github.com/ARM-software/CMSIS-NN/compare/23.08...v5.0.0">https://github.com/ARM-software/CMSIS-NN/compare/23.08...v5.0.0</a>   </p>
+</td></tr>
+<tr>
 <td>v4.1.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.0.0">CMSIS-NN v4.0.0</a></p>
 <p class="intertd">Improvements in LSTM, generic convolution, 1xN convolution, DW convolution and FC for MVE extension. Improvements in LSTM, generic convolution and int8/int16 elementwise mul for DSP extension.</p>
 <p class="intertd">Script to extract model hyperparameters. Get size of buffers on host to support TVM use case. Dependency to CMSIS-Core is removed. CMSIS-NN can be built without including any other CMSIS module. A new DS_CNN_S model unit test is added that is used in End-to-End benchmark <a href="https://github.com/eembc/audiomark">AudioMark</a>.</p>
