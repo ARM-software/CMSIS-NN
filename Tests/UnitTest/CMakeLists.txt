@@ -22,13 +22,13 @@ project(cmsis_nn_unit_tests VERSION 0.0.1)
 
 set(CMSIS_PATH "</path/to/CMSIS>" CACHE PATH "Path to CMSIS.")
 
-add_compile_options(-Ofast
-                    -fomit-frame-pointer
+add_compile_options(-fomit-frame-pointer
                     -Werror
                     -Wimplicit-function-declaration
                     -Wunused-variable
                     -Wunused-function
-                    -Wno-redundant-decls)
+                    -Wno-redundant-decls
+                    -Wvla)
 
 option(BUILD_CMSIS_NN_UNIT "If building the unit tests from another project, i.e. \
 platform dependencies need to be provided externally." OFF)
@@ -51,6 +51,7 @@ endif()
 
 # Build the functions to be tested.
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../.. cmsis-nn)
+add_compile_options(${CMSIS_OPTIMIZATION_LEVEL})
 
 # Target for all unit tests.
 add_custom_target(cmsis_nn_unit_tests)

@@ -87,8 +87,8 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain
 ```
 
 ### Compiler Options
-Default optimization level is set at Ofast. Please change according to project needs. Just bear in mind this can impact
-performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium
+Default optimization level is set at Ofast. This can be overwritten with CMake on command line by using <nobr>*"-DCMSIS_OPTIMIZATION_LEVEL"*</nobr>. Please change according to project needs. 
+Just bear in mind this can impact performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium
 Technology.
 
 The compiler option *'-fomit-frame-pointer'* is enabled by default at -O and higher. When no optimization level is specified,
