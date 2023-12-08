@@ -159,7 +159,6 @@ static void clamp_output(int8_t *source, int32_t length, const int32_t act_min, 
  * Refer to header file for details.
  *
  */
-
 arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
                                     const cmsis_nn_pool_params *pool_params,
                                     const cmsis_nn_dims *input_dims,
@@ -184,6 +183,11 @@ arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
     const int32_t channel_in = input_dims->c;
     const int32_t batch_size = input_x * input_y * channel_in;
     int32_t batch_cnt = input_dims->n;
+
+    if (batch_cnt < 1)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
 
     while (batch_cnt)
     {

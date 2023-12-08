@@ -167,6 +167,11 @@ arm_cmsis_nn_status arm_max_pool_s16(const cmsis_nn_context *ctx,
     const int32_t batch_size = input_x * input_y * channel_in;
     int32_t batch_cnt = input_dims->n;
 
+    if (batch_cnt < 1)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+
     while (batch_cnt)
     {
 
@@ -209,6 +214,7 @@ arm_cmsis_nn_status arm_max_pool_s16(const cmsis_nn_context *ctx,
         }
 
         clamp_output(dst_base, output_x * output_y * channel_in, act_min, act_max);
+
         src += batch_size;
         batch_cnt--;
     }

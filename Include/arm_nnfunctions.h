@@ -1916,8 +1916,10 @@ void arm_nn_activation_s16(const int16_t *input,
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data Output data pointer. Data type: int8
- * @return                     The function returns
- *                             <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite
@@ -1977,6 +1979,7 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int dim_dst_width, const int ch
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data  Output data pointer. Data type: int16
+ *
  * @return                        The function returns
  *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
  *                                    <code>ARM_CMSIS_NN_ARG_ERROR</code> - In case of invalid arguments
@@ -2040,8 +2043,10 @@ int32_t arm_avgpool_s16_get_buffer_size_mve(const int dim_dst_width, const int c
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data    Output data pointer. Data type: int8
- * @return                        The function returns
- *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite
@@ -2073,8 +2078,10 @@ arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] dst          Output data pointer. Data type: int16
- * @return                        The function returns
- *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Arm Limited or its affiliates.
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -147,4 +147,41 @@ void maxpool_int16_2_arm_max_pool_s16(void)
         TEST_ASSERT_EQUAL(expected, result);
         TEST_ASSERT_TRUE(validate_s16(output, maxpool_int16_2_output_ref, MAXPOOL_INT16_2_DST_SIZE));
     }
+}
+
+void maxpool_int16_param_fail_arm_max_pool_s16(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
+    int16_t output[MAXPOOL_INT16_2_DST_SIZE] = {0};
+
+    cmsis_nn_context ctx = {};
+    cmsis_nn_pool_params pool_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    const int16_t *input_data = maxpool_int16_2_input;
+
+    input_dims.n = -MAXPOOL_INT16_2_INPUT_BATCHES;
+    input_dims.w = MAXPOOL_INT16_2_INPUT_W;
+    input_dims.h = MAXPOOL_INT16_2_INPUT_H;
+    input_dims.c = MAXPOOL_INT16_2_IN_CH;
+    filter_dims.w = MAXPOOL_INT16_2_FILTER_X;
+    filter_dims.h = MAXPOOL_INT16_2_FILTER_Y;
+    output_dims.w = MAXPOOL_INT16_2_OUTPUT_W;
+    output_dims.h = MAXPOOL_INT16_2_OUTPUT_H;
+    output_dims.c = MAXPOOL_INT16_2_OUT_CH;
+
+    pool_params.padding.w = MAXPOOL_INT16_2_PAD_X;
+    pool_params.padding.h = MAXPOOL_INT16_2_PAD_Y;
+    pool_params.stride.w = MAXPOOL_INT16_2_STRIDE_X;
+    pool_params.stride.h = MAXPOOL_INT16_2_STRIDE_Y;
+
+    pool_params.activation.min = MAXPOOL_INT16_2_OUT_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOL_INT16_2_OUT_ACTIVATION_MAX;
+
+    arm_cmsis_nn_status result =
+        arm_max_pool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
+
+    TEST_ASSERT_EQUAL(expected, result);
 }

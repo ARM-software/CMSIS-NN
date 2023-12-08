@@ -52,3 +52,5 @@ void test_avgpooling_3_int16_arm_avgpool_s16(void) { avgpooling_int16_3_arm_avgp
 
 void test_buffer_size_mve_arm_avgpool_s16(void) { buffer_size_mve_arm_avgpool_s16(); }
 void test_buffer_size_dsp_arm_avgpool_s16(void) { buffer_size_dsp_arm_avgpool_s16(); }
+
+void test_avgpooling_param_fail_int16_arm_avgpool_s16(void) { avgpooling_int16_param_fail_arm_avgpool_s16(); }

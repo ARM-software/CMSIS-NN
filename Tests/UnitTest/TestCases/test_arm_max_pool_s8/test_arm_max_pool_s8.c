@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -357,4 +357,41 @@ void maxpooling_7_arm_max_pool_s8(void)
         TEST_ASSERT_EQUAL(expected, result);
         TEST_ASSERT_TRUE(validate(output, maxpooling_7_output_ref, MAXPOOLING_7_DST_SIZE));
     }
+}
+
+void maxpooling_param_fail_arm_max_pool_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
+    int8_t output[MAXPOOLING_7_DST_SIZE] = {0};
+
+    cmsis_nn_context ctx = {};
+    cmsis_nn_pool_params pool_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    const int8_t *input_data = maxpooling_7_input;
+
+    input_dims.n = -3;
+    input_dims.w = MAXPOOLING_7_INPUT_W;
+    input_dims.h = MAXPOOLING_7_INPUT_H;
+    input_dims.c = MAXPOOLING_7_IN_CH;
+    filter_dims.w = MAXPOOLING_7_FILTER_X;
+    filter_dims.h = MAXPOOLING_7_FILTER_Y;
+    output_dims.w = MAXPOOLING_7_OUTPUT_W;
+    output_dims.h = MAXPOOLING_7_OUTPUT_H;
+    output_dims.c = MAXPOOLING_7_OUT_CH;
+
+    pool_params.padding.w = MAXPOOLING_7_PAD_X;
+    pool_params.padding.h = MAXPOOLING_7_PAD_Y;
+    pool_params.stride.w = MAXPOOLING_7_STRIDE_X;
+    pool_params.stride.h = MAXPOOLING_7_STRIDE_Y;
+
+    pool_params.activation.min = MAXPOOLING_7_OUT_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOLING_7_OUT_ACTIVATION_MAX;
+
+    arm_cmsis_nn_status result =
+        arm_max_pool_s8(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
+
+    TEST_ASSERT_EQUAL(expected, result);
 }

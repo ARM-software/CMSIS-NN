@@ -97,6 +97,11 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
     const int32_t batch_output = output_x * output_y * ch_src;
     int32_t batch_cnt = input_dims->n;
 
+    if (batch_cnt < 1)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+
     while (batch_cnt)
     {
         for (int i_y = 0; i_y < output_y; i_y++)
@@ -250,6 +255,11 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
     const int32_t act_max = pool_params->activation.max;
     const int32_t ch_src = input_dims->c;
     int32_t batch_cnt = input_dims->n;
+
+    if (batch_cnt < 1)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
 
     if (ctx->buf == NULL && arm_avgpool_s8_get_buffer_size(output_dims->w, input_dims->c))
     {

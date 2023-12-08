@@ -94,6 +94,11 @@ arm_cmsis_nn_status arm_avgpool_s16(const cmsis_nn_context *ctx,
     const int32_t batch_input = input_x * input_y * ch_src;
     int32_t batch_cnt = input_dims->n;
 
+    if (batch_cnt < 1)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+
 #if defined(ARM_MATH_MVEI)
     (void)ctx;
 
@@ -101,7 +106,6 @@ arm_cmsis_nn_status arm_avgpool_s16(const cmsis_nn_context *ctx,
 
     while (batch_cnt)
     {
-
         for (int i_y = 0; i_y < output_y; i_y++)
         {
             for (int i_x = 0; i_x < output_x; i_x++)
