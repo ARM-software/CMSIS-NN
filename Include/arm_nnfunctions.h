@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        10 November 2023
- * $Revision:    V.12.4.0
+ * $Date:        8 December 2023
+ * $Revision:    V.12.4.1
 
  *
  * Target :  Arm(R) M-Profile Architecture
@@ -109,8 +109,8 @@
  * TensorFlow Lite framework.
  */
 
-#ifndef _ARM_NNFUNCTIONS_H
-#define _ARM_NNFUNCTIONS_H
+#ifndef ARM_NNFUNCTIONS_H
+#define ARM_NNFUNCTIONS_H
 
 #include "arm_nn_math_types.h"
 #include "arm_nn_types.h"
@@ -2606,4 +2606,4 @@ int32_t arm_svdf_s8_get_buffer_size_mve(const cmsis_nn_dims *filter_dims);
 }
 #endif
 
-#endif
+#endif /* ARM_NNFUNCTIONS_H */

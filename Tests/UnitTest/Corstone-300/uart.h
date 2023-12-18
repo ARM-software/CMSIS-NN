@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2021 Arm Limited. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2019-2021, 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef _UART_STDOUT_H_
-#define _UART_STDOUT_H_
+#ifndef UART_STDOUT_H
+#define UART_STDOUT_H
 
 #if __cplusplus
 extern "C" {
@@ -31,4 +31,4 @@ unsigned char uart_getc(void);
 }
 #endif
 
-#endif
+#endif /* UART_STDOUT_H */

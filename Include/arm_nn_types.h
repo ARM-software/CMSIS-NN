@@ -22,14 +22,14 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        27 October 2023
- * $Revision:    V.2.6.0
+ * $Date:        8 December 2023
+ * $Revision:    V.2.6.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
-#ifndef _ARM_NN_TYPES_H
-#define _ARM_NN_TYPES_H
+#ifndef ARM_NN_TYPES_H
+#define ARM_NN_TYPES_H
 
 #include <stdint.h>
 
@@ -267,4 +267,4 @@ typedef struct
 
 } cmsis_nn_lstm_params;
 
-#endif // _ARM_NN_TYPES_H
+#endif /* ARM_NN_TYPES_H */

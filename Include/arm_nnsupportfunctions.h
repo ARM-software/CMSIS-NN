@@ -21,14 +21,14 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        13 November 2023
- * $Revision:    V.17.6.0
+ * $Date:        8 December 2023
+ * $Revision:    V.17.6.2
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
-#ifndef _ARM_NNSUPPORTFUNCTIONS_H_
-#define _ARM_NNSUPPORTFUNCTIONS_H_
+#ifndef ARM_NNSUPPORTFUNCTIONS_H
+#define ARM_NNSUPPORTFUNCTIONS_H
 
 #include "Internal/arm_nn_compiler.h"
 #include "arm_nn_math_types.h"
@@ -1561,4 +1561,4 @@ arm_cmsis_nn_status arm_elementwise_mul_s16_s8(const int16_t *input_1_vect,
 }
 #endif
 
-#endif
+#endif /* ARM_NNSUPPORTFUNCTIONS_H */
