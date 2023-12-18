@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2010-2021, 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -59,3 +59,5 @@ void test_maxpooling_5_arm_max_pool_s8(void) { maxpooling_5_arm_max_pool_s8(); }
 void test_maxpooling_6_arm_max_pool_s8(void) { maxpooling_6_arm_max_pool_s8(); }
 
 void test_maxpooling_7_arm_max_pool_s8(void) { maxpooling_7_arm_max_pool_s8(); }
+
+void test_maxpooling_param_fail_arm_max_pool_s8(void) { maxpooling_param_fail_arm_max_pool_s8(); }

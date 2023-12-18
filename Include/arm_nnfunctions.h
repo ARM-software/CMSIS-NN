@@ -21,9 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        8 December 2023
- * $Revision:    V.12.4.1
-
+ * $Date:        18 December 2023
+ * $Revision:    V.12.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1909,7 +1908,6 @@ void arm_nn_activation_s16(const int16_t *input,
  *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
- *                              Argument 'N' is not used.
  * @param[in]      input_data   Input (activation) data pointer. Data type: int8
  * @param[in]      filter_dims  Filter tensor dimensions. Format: [H, W]
  *                              Argument N and C are not used.
@@ -1917,8 +1915,10 @@ void arm_nn_activation_s16(const int16_t *input,
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data Output data pointer. Data type: int8
- * @return                     The function returns
- *                             <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite
@@ -1971,7 +1971,6 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int dim_dst_width, const int ch
  *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
- *                              Argument 'N' is not used.
  * @param[in]      input_data   Input (activation) data pointer. Data type: int16
  * @param[in]      filter_dims  Filter tensor dimensions. Format: [H, W]
  *                              Argument N and C are not used.
@@ -1979,6 +1978,7 @@ int32_t arm_avgpool_s8_get_buffer_size_mve(const int dim_dst_width, const int ch
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data  Output data pointer. Data type: int16
+ *
  * @return                        The function returns
  *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
  *                                    <code>ARM_CMSIS_NN_ARG_ERROR</code> - In case of invalid arguments
@@ -2034,7 +2034,6 @@ int32_t arm_avgpool_s16_get_buffer_size_mve(const int dim_dst_width, const int c
  *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
- *                              Argument 'N' is not used.
  * @param[in]      input_data   Input (activation) data pointer. The input tensor must not
  *                              overlap with the output tensor. Data type: int8
  * @param[in]      filter_dims  Filter tensor dimensions. Format: [H, W]
@@ -2043,8 +2042,10 @@ int32_t arm_avgpool_s16_get_buffer_size_mve(const int dim_dst_width, const int c
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] output_data    Output data pointer. Data type: int8
- * @return                        The function returns
- *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite
@@ -2068,7 +2069,6 @@ arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
  *                              The caller is expected to clear the buffer, if applicable, for security reasons.
  * @param[in]      pool_params  Pooling parameters
  * @param[in]      input_dims   Input (activation) tensor dimensions. Format: [H, W, C_IN]
- *                              Argument 'N' is not used.
  * @param[in]      src          Input (activation) data pointer. The input tensor must not
  *                              overlap with the output tensor. Data type: int16
  * @param[in]      filter_dims  Filter tensor dimensions. Format: [H, W]
@@ -2077,8 +2077,10 @@ arm_cmsis_nn_status arm_max_pool_s8(const cmsis_nn_context *ctx,
  *                              Argument N is not used.
  *                              C_OUT equals C_IN.
  * @param[in, out] dst          Output data pointer. Data type: int16
- * @return                        The function returns
- *                                    <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
  *
  * @details
  *    - Supported Framework: TensorFlow Lite

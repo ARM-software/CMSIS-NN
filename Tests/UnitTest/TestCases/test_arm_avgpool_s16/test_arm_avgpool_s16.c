@@ -231,3 +231,48 @@ void buffer_size_dsp_arm_avgpool_s16(void)
     TEST_ASSERT_EQUAL(buf_size, dsp_buf_size);
 #endif
 }
+
+void avgpooling_int16_param_fail_arm_avgpool_s16(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
+    int16_t output[AVGPOOLING_INT16_3_DST_SIZE] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_pool_params pool_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    const int16_t *input_data = avgpooling_int16_3_input;
+
+    input_dims.n = 0;
+    input_dims.w = AVGPOOLING_INT16_3_INPUT_W;
+    input_dims.h = AVGPOOLING_INT16_3_INPUT_H;
+    input_dims.c = AVGPOOLING_INT16_3_IN_CH;
+    filter_dims.w = AVGPOOLING_INT16_3_FILTER_X;
+    filter_dims.h = AVGPOOLING_INT16_3_FILTER_Y;
+    output_dims.w = AVGPOOLING_INT16_3_OUTPUT_W;
+    output_dims.h = AVGPOOLING_INT16_3_OUTPUT_H;
+    output_dims.c = AVGPOOLING_INT16_3_OUT_CH;
+
+    pool_params.padding.w = AVGPOOLING_INT16_3_PAD_X;
+    pool_params.padding.h = AVGPOOLING_INT16_3_PAD_Y;
+    pool_params.stride.w = AVGPOOLING_INT16_3_STRIDE_X;
+    pool_params.stride.h = AVGPOOLING_INT16_3_STRIDE_Y;
+
+    pool_params.activation.min = AVGPOOLING_INT16_3_OUT_ACTIVATION_MIN;
+    pool_params.activation.max = AVGPOOLING_INT16_3_OUT_ACTIVATION_MAX;
+
+    ctx.size = arm_avgpool_s16_get_buffer_size(AVGPOOLING_INT16_3_OUTPUT_W, AVGPOOLING_INT16_3_IN_CH);
+    ctx.buf = malloc(ctx.size);
+
+    arm_cmsis_nn_status result =
+        arm_avgpool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, ctx.size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+}
