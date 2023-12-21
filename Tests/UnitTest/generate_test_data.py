@@ -1336,6 +1336,25 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           stride_y=5,
                                           pad=True,
                                           interpreter=interpreter)
+    dataset = 'transpose_conv_4'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=32,
+                                          batches=3,
+                                          out_ch=5,
+                                          x_in=1,
+                                          y_in=7,
+                                          w_x=3,
+                                          w_y=3,
+                                          generate_bias=False,
+                                          stride_x=3,
+                                          stride_y=1,
+                                          pad=False,
+                                          interpreter=interpreter)
 
     type_of_test = 'depthwise_conv'
     dataset = 'depthwise_2'

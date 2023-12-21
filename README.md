@@ -24,10 +24,10 @@ Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
 | Operator        | C <br> int8 | C<br>int16 | C<br>int4* | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 |
-| --------------- | ----------- | ---------- |------------| ------------| -------------|--------------| ------------| -------------|
+| --------------- | ----------- | ---------- |------------|-------------| -------------|--------------|-------------| -------------|
 | Conv2D          | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
 | DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
-| TransposeConv2D | Yes         | No         | No         | No          | No           | No           | No          | No           |
+| TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           |
 | Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
 | Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
 | Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
