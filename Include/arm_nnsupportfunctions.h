@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        8 December 2023
- * $Revision:    V.17.6.2
+ * $Date:        9 January 2024
+ * $Revision:    V.17.6.3
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -76,6 +76,20 @@ extern "C" {
 #define PACK_Q15x2_32x1(v0, v1) (((int32_t)v0 & (int32_t)0xFFFF) | ((int32_t)v1 << 16))
 
 /**
+ * @defgroup groupSupport Private
+ *
+ * Internal Support functions. Not intended to be called direclty by a CMSIS-NN user.
+ *
+ */
+
+/**
+ * @defgroup genPrivTypes Structure Types
+ * @ingroup groupSupport
+ * @brief Data structure types used by private functions.
+ * @{
+ */
+
+/**
  * @brief Union for SIMD access of q31/s16/s8 types
  */
 union arm_nnword
@@ -104,10 +118,7 @@ union arm_nn_long_long
 };
 
 /**
- * @defgroup groupSupport Private
- *
- * Internal Support functions. Not intended to be called direclty by a CMSIS-NN user.
- *
+ * @} // end group groupPrivTypes
  */
 
 /**

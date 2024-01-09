@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        8 December 2023
- * $Revision:    V.2.6.1
+ * $Date:        9 January 2024
+ * $Revision:    V.2.6.2
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -32,6 +32,14 @@
 #define ARM_NN_TYPES_H
 
 #include <stdint.h>
+
+/**
+ * @defgroup genPubTypes Structure Types
+ * @ingroup Public
+ * @brief Enums and Data Structures used in public API
+ * @{
+ */
+
 
 /** Enum for specifying activation function types */
 typedef enum
@@ -137,6 +145,7 @@ typedef struct
     cmsis_nn_tile dilation;
     cmsis_nn_activation activation;
 } cmsis_nn_dw_conv_params;
+
 /** CMSIS-NN object for pooling layer parameters */
 typedef struct
 {
@@ -266,5 +275,9 @@ typedef struct
     cmsis_nn_activation activation;
 
 } cmsis_nn_lstm_params;
+
+/**
+ * @} // end group genPubTypes
+ */
 
 #endif /* ARM_NN_TYPES_H */
