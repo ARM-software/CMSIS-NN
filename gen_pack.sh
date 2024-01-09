@@ -38,7 +38,7 @@ PACK_DIRS="
 # Default: empty
 #
 PACK_BASE_FILES="
-  LICENSE.txt
+  LICENSE
   README.md
 "
 
