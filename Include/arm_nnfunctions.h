@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,86 +21,11 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        18 December 2023
- * $Revision:    V.12.5.0
+ * $Date:        9 January 2024
+ * $Revision:    V.12.5.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
-
-/**
-   \mainpage CMSIS NN Software Library
-   *
-   * \tableofcontents
-   * \section Introduction
-   *
-   *
-   * This user manual describes the CMSIS NN software library,
-   * a collection of efficient neural network kernels developed to maximize the
-   * performance and minimize the memory footprint of neural networks on Arm Cortex-M processors.
-   *
-   * The library is divided into a number of functions each covering a specific category:
-   * - \ref NNConv
-   * - \ref Acti
-   * - \ref FC
-   * - \ref SVDF
-   * - \ref Pooling
-   * - \ref Softmax
-   * - \ref groupElementwise
-   * - \ref LSTM
-   *
-   * \section Processors Supported Processors
-   *
-   * CMSIS-NN targets Cortex-M processors with typically three different implementations for each function. Each
-   * targets a different group of processors.
-   *  - Processors without Single Instruction Multiple Data(SIMD) capability (e.g, Cortex-M0)
-   *  - Processors with DSP extension (e.g Cortex-M4)
-   *  - Processors with Arm M-Profile Vector Extension(MVE) instructions (e.g Cortex-M55)
-   * The right implementation is picked through feature flags and the user does not have to explicit set it.
-   *
-   * \section Framework Quantization Specification
-   * The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16
-   *  quantization specification of TensorFlow Lite for Microcontrollers.
-   * \section Overview Block Diagram
-   *
-   * \image html CMSIS-NN-OVERVIEW.PNG
-   *
-   * \section Examples
-   *
-   *
-   * An example image recognition application using TensorFlow Flow Lite for Microcontrollers as an inference engine
-   * and CMSIS-NN as the optimized library can be found in the Examples directory.
-   *
-   * \section Macros Pre-processor Macros
-   *
-   * \subsection Feature Feature flag based
-   * The macros below are defined in a build system based on feature flags for a chosen processor or architecture
-   * input to a compiler.
-   * These tie in to the classification in \ref Macros.
-   *
-   * For a CMSIS-NN file compiled as *armclang -mcpu=cortex-m4 --target=arm-arm-none-eabi -I<CMSIS Core Include>
-   * -Ofast -O file.c* , ARM_MATH_DSP is enabled as Cortex-M4 has the DSP extension as a feature.
-   *
-   * - `ARM_MATH_DSP`  - Selects code for processors with DSP extension.
-   *
-   * - `ARM_MATH_MVEI`  - Selects code for processors which supports MVE instructions.
-   *
-   * \subsection MiscFlags User Set
-   * - `ARM_MATH_AUTOVECTORIZE`
-   *  Applicable when ARM_MATH_MVEI is active to let the compiler auto vectorize functions, if available, that uses
-   inline
-   *  assembly. This has to be explicitly set at compile time.
-   *
-   * \section Inclusive Inclusive Language
-   * This product confirms to Arm’s inclusive language policy and, to the best of our knowledge,
-   * does not contain any non-inclusive language. If you find something that concerns you, email terms@arm.com.
-   *
-   * \section Copyright Copyright Notice
-   *
-   *
-   * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
-   *
-   *
-   */
 
 /**
  * @defgroup Public Public

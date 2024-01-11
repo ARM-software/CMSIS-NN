@@ -54,7 +54,7 @@ the function to an appropriate Doxygen group as well.
 
 ### Doxygen
 Function prototypes must have a detailed comment header in Doxygen format. You can execute the doxygen document generation
-script in the Doxygen folder to check that no errors are introduced.
+script in the Documentation/Doxygen folder to check that no errors are introduced.
 
 ### Unit Tests
 For any new features and bug fixes, new unit tests are needed. Improvements have to be verifed by unit tests. If you do
