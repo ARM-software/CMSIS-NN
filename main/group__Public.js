@@ -1,5 +1,6 @@
 var group__Public =
 [
+    [ "Structure Types", "group__genPubTypes.html", "group__genPubTypes" ],
     [ "Activation Functions", "group__Acti.html", "group__Acti" ],
     [ "Elementwise Functions", "group__groupElementwise.html", "group__groupElementwise" ],
     [ "Concatenation Functions", "group__Concatenation.html", "group__Concatenation" ],

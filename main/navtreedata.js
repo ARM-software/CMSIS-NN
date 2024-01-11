@@ -25,26 +25,12 @@
 var NAVTREE =
 [
   [ "CMSIS-NN", "index.html", [
-    [ "CMSIS NN Software Library", "index.html", [
-      [ "Introduction", "index.html#Introduction", null ],
-      [ "Supported Processors", "index.html#Processors", null ],
-      [ "Quantization Specification", "index.html#Framework", null ],
-      [ "Block Diagram", "index.html#Overview", null ],
-      [ "Examples", "index.html#Examples", null ],
-      [ "Pre-processor Macros", "index.html#Macros", [
-        [ "Feature flag based", "index.html#Feature", null ],
-        [ "User Set", "index.html#MiscFlags", null ]
-      ] ],
-      [ "Inclusive Language", "index.html#Inclusive", null ],
-      [ "Copyright Notice", "index.html#Copyright", null ]
-    ] ],
+    [ "CMSIS NN Software Library", "index.html", "index" ],
     [ "Revision History", "rev_hist.html", null ],
     [ "Todo List", "todo.html", null ],
-    [ " API Reference", "modules.html", "modules" ],
-    [ "Data Structures", "annotated.html", "annotated" ],
-    [ "Data Fields", "functions.html", [
-      [ "All", "functions.html", null ],
-      [ "Variables", "functions_vars.html", null ]
+    [ "API Reference", "modules.html", "modules" ],
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ]
     ] ]
   ] ]
 ];
@@ -52,7 +38,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structcmsis__nn__lstm__params.html#ae586c01f707fa04979e4ec854460dbe3"
+"group__genPubTypes.html#structcmsis__nn__per__channel__quant__params"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
