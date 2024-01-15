@@ -3,7 +3,7 @@ const versions = {
     "v5.0.0": "5.0.0",
     "v4.1.0": "4.1.0",
     "v4.0.0": "4.0.0",
-    "main": "5.0.1-dev4",
+    "main": "5.0.1-dev5",
     "latest": "5.0.0"
 }
 //--- list of versions ---
