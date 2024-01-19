@@ -21,7 +21,7 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        04 Jauary 2024
+ * $Date:        04 January 2024
  * $Revision:    V.3.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
