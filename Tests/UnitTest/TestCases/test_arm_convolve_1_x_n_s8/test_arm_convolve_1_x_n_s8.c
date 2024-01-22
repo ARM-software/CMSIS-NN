@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -53,6 +53,7 @@ void conv_1_x_n_1_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_1_IN_CH;
     filter_dims.w = CONV_1_X_N_1_FILTER_X;
     filter_dims.h = CONV_1_X_N_1_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_1_IN_CH;
     output_dims.w = CONV_1_X_N_1_OUTPUT_W;
     output_dims.h = CONV_1_X_N_1_OUTPUT_H;
     output_dims.c = CONV_1_X_N_1_OUT_CH;
@@ -144,6 +145,7 @@ void conv_1_x_n_2_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_2_IN_CH;
     filter_dims.w = CONV_1_X_N_2_FILTER_X;
     filter_dims.h = CONV_1_X_N_2_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_2_IN_CH;
     output_dims.w = CONV_1_X_N_2_OUTPUT_W;
     output_dims.h = CONV_1_X_N_2_OUTPUT_H;
     output_dims.c = CONV_1_X_N_2_OUT_CH;
@@ -233,6 +235,7 @@ void conv_1_x_n_3_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_3_IN_CH;
     filter_dims.w = CONV_1_X_N_3_FILTER_X;
     filter_dims.h = CONV_1_X_N_3_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_3_IN_CH;
     output_dims.w = CONV_1_X_N_3_OUTPUT_W;
     output_dims.h = CONV_1_X_N_3_OUTPUT_H;
     output_dims.c = CONV_1_X_N_3_OUT_CH;
@@ -324,6 +327,7 @@ void conv_1_x_n_4_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_4_IN_CH;
     filter_dims.w = CONV_1_X_N_4_FILTER_X;
     filter_dims.h = CONV_1_X_N_4_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_4_IN_CH;
     output_dims.w = CONV_1_X_N_4_OUTPUT_W;
     output_dims.h = CONV_1_X_N_4_OUTPUT_H;
     output_dims.c = CONV_1_X_N_4_OUT_CH;
@@ -415,6 +419,7 @@ void conv_1_x_n_5_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_5_IN_CH;
     filter_dims.w = CONV_1_X_N_5_FILTER_X;
     filter_dims.h = CONV_1_X_N_5_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_5_IN_CH;
     output_dims.w = CONV_1_X_N_5_OUTPUT_W;
     output_dims.h = CONV_1_X_N_5_OUTPUT_H;
     output_dims.c = CONV_1_X_N_5_OUT_CH;
@@ -502,6 +507,7 @@ void conv_1_x_n_6_arm_convolve_s8(void)
     input_dims.c = CONV_1_X_N_3_IN_CH;
     filter_dims.w = CONV_1_X_N_3_FILTER_X;
     filter_dims.h = CONV_1_X_N_3_FILTER_Y;
+    filter_dims.c = CONV_1_X_N_3_IN_CH;
     output_dims.w = CONV_1_X_N_3_OUTPUT_W;
     output_dims.h = CONV_1_X_N_3_OUTPUT_H;
     output_dims.c = CONV_1_X_N_3_OUT_CH;

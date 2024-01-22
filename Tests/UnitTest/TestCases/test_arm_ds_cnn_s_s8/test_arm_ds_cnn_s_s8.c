@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -60,6 +60,7 @@ int ds_cnn_s_s8_get_buffer_size(void)
 
     filter_dims.h = CONV_2D_1_FILTER_H;
     filter_dims.w = CONV_2D_1_FILTER_W;
+    filter_dims.c = CONV_2D_1_IN_CH;
 
     output_dims.n = input_dims.n;
     output_dims.h = CONV_2D_1_OUTPUT_H;
@@ -151,6 +152,7 @@ void ds_cnn_s_s8_inference(void)
 
     conv_filter_dims.h = CONV_2D_1_FILTER_H;
     conv_filter_dims.w = CONV_2D_1_FILTER_W;
+    conv_filter_dims.c = CONV_2D_1_IN_CH;
 
     in_out_dim_1.n = in_out_dim_0.n;
     in_out_dim_1.h = CONV_2D_1_OUTPUT_H;
@@ -221,6 +223,7 @@ void ds_cnn_s_s8_inference(void)
     in_out_dim_1.c = in_out_dim_0.c;
     conv_filter_dims.h = CONV_2D_3_FILTER_H;
     conv_filter_dims.w = CONV_2D_3_FILTER_W;
+    conv_filter_dims.c = CONV_2D_3_IN_CH;
 
     conv_params.padding.h = CONV_2D_3_PAD_H;
     conv_params.padding.w = CONV_2D_3_PAD_W;
