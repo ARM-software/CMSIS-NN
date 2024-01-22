@@ -1187,7 +1187,7 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">quant_params</td><td>Per-channel quantization info. It contains the multiplier and shift values to be applied to each output channel </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [N, H, W, C_IN] </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">input_data</td><td>Input (activation) data pointer. Data type: int8 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the spatial filter dimensions </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, HK, WK, CK] where HK, WK and CK are the spatial filter dimensions. CK != C_IN is used for grouped convolution, in which case the required conditions are C_IN = N * CK and C_OUT = N * M for N groups of size M. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">filter_data</td><td>Filter data pointer. Data type: int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bias_dims</td><td>Bias tensor dimensions. Format: [C_OUT] </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bias_data</td><td>Optional bias data pointer. Data type: int32 </td></tr>
