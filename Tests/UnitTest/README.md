@@ -61,7 +61,7 @@ Python package tflite_runtime can be installed with pip and it can also be built
 Use the -h flag to get more info on supported interpreters.
 
 ##### tflite_micro
-This interpreter is partially supported. See this comment for more info: https://github.com/tensorflow/tflite-micro/issues/1484#issuecomment-1677842603.
+Python package tflite_micro can be installed with pip and it can also be built locally. See this comment for more info: https://github.com/tensorflow/tflite-micro/issues/1484#issuecomment-1677842603. This interpreter is only partially supported, see *Tests depending on TFLM interpreter*.
 
 ## Getting started
 
@@ -126,20 +126,14 @@ When adding a new test data set, new c files should be added or existing c files
 
 The steps to add a new unit test are as follows. Add a new test test in the load_all_testdatasets() function. Run the generate script with that new test set as input. Add the new generated header files to an existing or new unit test.
 
-### Tests depending on specific TFL versions, patched TFL version or TFLM interpreter
-
+### Tests depending on TFLM interpreter
 #### SVDF INT8
-This tests is depending on tflite_micro for its reference data. This is because the operator is only supported by TFLM.
-Note that tflite_micro interpreter is currently only supported for SVDF.
+This test is depending on tflite_micro for its reference data. This is because the operator is only supported by TFLM.
 
 #### LSTM
+This test is depending on tflite_micro for its reference data. This is because the operator differs between TFLM and TFLite.
 
-The LSTM tests are using the tflite_runtime as interpreter.
-See [Using tflite_runtime](https://github.com/ARM-software/CMSIS-NN/blob/main/Tests/UnitTest/README.md#using-tflite_runtime) for more info.
-This patch is needed for the tflite_runtime (or tensorflow if using that):
-https://github.com/tensorflow/tflite-micro/pull/1253 - Note that this PR is for [TFLM](https://github.com/tensorflow/tflite-micro) so it has to be ported to [TFL](https://github.com/tensorflow/tensorflow) before building the tflite_runtime.
-The issue related to this is: https://github.com/tensorflow/tflite-micro/issues/1455
-
+Note that tflite_micro interpreter is currently only supported for SVDF and LSTM.
 
 ## Overview of the Folders
 
