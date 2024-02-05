@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2010-2021, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -45,6 +45,8 @@ void setUp(void)
 void tearDown(void) {}
 
 void test_fully_connected_arm_fully_connected_s8(void) { fully_connected_arm_fully_connected_s8(); }
+
+void test_fully_connected_w_zp_arm_fully_connected_s8(void) { fully_connected_w_zp_arm_fully_connected_s8(); }
 
 void test_fully_connected_mve_0_arm_fully_connected_s8(void) { fully_connected_mve_0_arm_fully_connected_s8(); }
 

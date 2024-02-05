@@ -93,17 +93,14 @@ class ConvSettings(TestSettings):
                 raise RuntimeError("out channel ({}) is not multiple of in channel ({})".format(out_ch, in_ch))
             if groups != 1:
                 raise RuntimeError("ERROR: Groups cannot be used for depthwise convolution")
+        else:
+            self.channel_multiplier = 0
 
         self.filter_ch = in_ch // groups
         if in_ch % groups != 0:
-            print(in_ch)
-            print(groups)
             raise RuntimeError("ERROR: Number of input channels must be an even multiple of groups")
         if out_ch % groups != 0:
             raise RuntimeError("ERROR: Number of output channels must be an even multiple of groups")
-
-        else:
-            self.channel_multiplier = 0
 
         if self.int4_weights:
             if self.test_type == 'conv':
@@ -149,7 +146,6 @@ class ConvSettings(TestSettings):
 
         return per_channel_multiplier, per_channel_shift
 
-    # TODO
     def quantize_float_data(self, data=None, quantization_bit_range=8, quantization_type="affine", tf_tensor=False):
         if data is not None:
             if tf_tensor:
@@ -162,13 +158,13 @@ class ConvSettings(TestSettings):
                 data_max = max(data_max, 0.0)
 
                 scale = (data_max - data_min) / (pow(2, quantization_bit_range) - 1)
-                zero_point = -(round(data_max * scale)) - pow(2, quantization_bit_range-1)
-                zero_point = max(zero_point, pow(quantization_bit_range-1) - 1)
-                zero_point = min(zero_point, -pow(quantization_bit_range-1))
+                zero_point = -(round(data_max * scale)) - pow(2, quantization_bit_range - 1)
+                zero_point = max(zero_point, pow(quantization_bit_range - 1) - 1)
+                zero_point = min(zero_point, -pow(quantization_bit_range - 1))
 
             elif quantization_type.lower() == "symmetric":
                 absolute_max = max(abs(data_min), abs(data_max))
-                scale = absolute_max / (pow(2, quantization_bit_range-1) - 1)
+                scale = absolute_max / (pow(2, quantization_bit_range - 1) - 1)
                 zero_point = 0
 
             else:
@@ -283,7 +279,8 @@ class ConvSettings(TestSettings):
                 generated_json = self.generate_json_from_template(
                     None, weights, int8_time_weights=True, bias_data=biases, bias_buffer=3)
             else:
-                generated_json = self.generate_json_from_template(weights, int8_time_weights=False, bias_data=quant_bias, bias_buffer=2)
+                generated_json = self.generate_json_from_template(weights, int8_time_weights=False,
+                                                                  bias_data=quant_bias, bias_buffer=2)
 
             self.flatc_generate_tflite(generated_json, self.schema_file)
 
@@ -317,7 +314,7 @@ class ConvSettings(TestSettings):
                                                     padding=self.padding,
                                                     input_shape=input_shape[1:],
                                                     dilation_rate=(self.dilation_y, self.dilation_x),
-                                                groups=self.groups)
+                                                    groups=self.groups)
                 model.add(conv_layer)
                 conv_layer.set_weights([weights, biases])
             elif self.test_type == 'depthwise_conv':
@@ -335,7 +332,8 @@ class ConvSettings(TestSettings):
                                                                         strides=(self.stride_y, self.stride_x),
                                                                         padding=self.padding,
                                                                         input_shape=input_shape[1:],
-                                                                        dilation_rate=(self.dilation_y, self.dilation_x),
+                                                                        dilation_rate=(self.dilation_y,
+                                                                                       self.dilation_x),
                                                                         use_bias=self.generate_bias)
                 model.add(transposed_conv_layer)
                 if self.generate_bias:

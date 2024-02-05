@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -85,17 +85,22 @@ class FullyConnectedSettings(TestSettings):
                          interpreter=interpreter,
                          int4_weights=int4_weights)
 
-        if self.int4_weights:
+        self.filter_zero_point = w_zp
+
+        if self.int4_weights or self.filter_zero_point:
             if self.generate_bias:
-                self.json_template = "TestCases/Common/fc_s4_weights_template.json"
+                self.json_template = "TestCases/Common/fc_weights_template.json"
             else:
-                self.json_template = "TestCases/Common/fc_s4_weights_template_null_bias.json"
+                self.json_template = "TestCases/Common/fc_weights_template_null_bias.json"
+
+            weight_type = "INT4" if self.int4_weights else "INT8"
 
             self.json_replacements = {
                 "batches": batches,
                 "input_size": in_ch * x_in * y_in,
                 "input_scale": input_scale,
                 "input_zp": input_zp,
+                "w_type": weight_type,
                 "w_scale": w_scale,
                 "w_zp": w_zp,
                 "bias_size": out_ch,
@@ -118,6 +123,7 @@ class FullyConnectedSettings(TestSettings):
             f.write("#define {}_OUTPUT_SHIFT {}\n".format(prefix, self.quantized_shift))
             f.write("#define {}_ACCUMULATION_DEPTH {}\n".format(prefix, self.input_ch * self.x_input * self.y_input))
             f.write("#define {}_INPUT_OFFSET {}\n".format(prefix, -self.input_zero_point))
+            f.write("#define {}_FILTER_OFFSET {}\n".format(prefix, -self.filter_zero_point))
             f.write("#define {}_OUTPUT_OFFSET {}\n".format(prefix, self.output_zero_point))
 
     def quantize_multiplier(self, weights_scale):
@@ -151,7 +157,30 @@ class FullyConnectedSettings(TestSettings):
         else:
             biases = None
 
-        if self.int4_weights:
+        if self.filter_zero_point:
+            temp1 = self.model_path
+            temp2 = self.json_template
+
+            fc_weights_format = [self.input_ch * self.y_input * self.x_input * self.output_ch]
+            if weights is not None:
+                weights = tf.reshape(weights, fc_weights_format)
+            else:
+                weights = self.get_randomized_data(fc_weights_format,
+                                                   self.kernel_table_file,
+                                                   minrange=TestSettings.INT8_MIN,
+                                                   maxrange=TestSettings.INT8_MAX,
+                                                   regenerate=self.regenerate_new_weights)
+
+            self.model_path = self.model_path
+            self.json_template = self.json_template
+            generated_json = self.generate_json_from_template(weights, bias_data=biases, bias_buffer=2)
+            self.flatc_generate_tflite(generated_json, self.schema_file)
+
+            weights_size = weights.numpy().size
+            filter_index = 1
+            bias_index = 2
+
+        elif self.int4_weights:
             # Generate weights, both packed and unpacked model from JSON
             temp1 = self.model_path
             temp2 = self.json_template
@@ -225,6 +254,10 @@ class FullyConnectedSettings(TestSettings):
         if weights_size != interpreter.get_tensor(filter_layer['index']).size or \
            (self.generate_bias and biases.numpy().size != interpreter.get_tensor(bias_layer['index']).size):
             raise RuntimeError(f"Dimension mismatch for {self.testdataset}")
+
+        weights_zero_point = filter_layer['quantization_parameters']['zero_points'][0]
+        if weights_zero_point != self.filter_zero_point:
+            raise RuntimeError(f"Filter zero point point mismatch for {self.filter_zero_point}")
 
         self.x_output = 1
         self.y_output = 1
