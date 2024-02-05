@@ -110,7 +110,7 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
-        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s4.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
