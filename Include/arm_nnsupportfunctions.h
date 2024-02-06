@@ -1503,16 +1503,11 @@ arm_cmsis_nn_status arm_nn_lstm_calculate_gate_s8_s16(const int8_t *data_in,
  * @param[in]   lhs              Batched vector
  * @param[in]   rhs              Weights - input matrix (H(Rows)xW(Columns))
  * @param[in]   effective_bias   Bias + lhs_offset * kernel_sum term precalculated into a constant vector.
- * @param[in]   bias             Bias vector. Not used in current implementation.
  * @param[out]  dst              Output
- * @param[in]   lhs_offset       LHS offset. Not used in current implementation.
- * @param[in]   dst_offset       Output offset. Not used in current implementation.
  * @param[in]   dst_multiplier   Multiplier for quantization
  * @param[in]   dst_shift        Shift for quantization
  * @param[in]   rhs_cols         Vector/matarix column length
  * @param[in]   rhs_rows         Row count of matrix
- * @param[in]   activation_min   Minimum value to clamp output to. Not used in current implementation.
- * @param[in]   activation_max   Maximum value to clamp output to. Not used in current implementation.
  * @param[in]   batches          Batch size
  * @param[in]   batch_offset     Number of timesteps between consecutive batches in input, see arm_nn_lstm_step_s8. Note
  that the output is always stored with sequential batches.
@@ -1522,16 +1517,11 @@ arm_cmsis_nn_status arm_nn_lstm_calculate_gate_s8_s16(const int8_t *data_in,
 arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
                                                          const int8_t *rhs,
                                                          const int32_t *effective_bias,
-                                                         const int32_t *bias,
                                                          int16_t *dst,
-                                                         const int32_t lhs_offset,
-                                                         const int32_t dst_offset,
                                                          const int32_t dst_multiplier,
                                                          const int32_t dst_shift,
                                                          const int32_t rhs_cols,
                                                          const int32_t rhs_rows,
-                                                         const int32_t activation_min,
-                                                         const int32_t activation_max,
                                                          const int32_t batches,
                                                          const int32_t batch_offset);
 

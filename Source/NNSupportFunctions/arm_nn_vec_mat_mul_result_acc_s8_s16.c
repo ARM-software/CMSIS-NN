@@ -22,7 +22,7 @@
  * Description:  Multiplies a matrix by a vector and accumulate with output.
  *
  * $Date:        19 January 2024
- * $Revision:    V.1.2.0
+ * $Revision:    V.2.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -43,24 +43,14 @@
 arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
                                                          const int8_t *rhs,
                                                          const int32_t *effective_bias,
-                                                         const int32_t *bias,
                                                          int16_t *dst,
-                                                         const int32_t lhs_offset,
-                                                         const int32_t dst_offset,
                                                          const int32_t dst_multiplier,
                                                          const int32_t dst_shift,
                                                          const int32_t rhs_cols,
                                                          const int32_t rhs_rows,
-                                                         const int32_t activation_min,
-                                                         const int32_t activation_max,
                                                          const int32_t batches,
                                                          const int32_t batch_offset)
 {
-    (void)dst_offset;
-    (void)activation_min;
-    (void)activation_max;
-    (void)lhs_offset;
-    (void)bias;
 
     for (int batch = 0; batch < batches; batch++)
     {

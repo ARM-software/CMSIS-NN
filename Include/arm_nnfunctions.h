@@ -2452,9 +2452,9 @@ arm_cmsis_nn_status arm_svdf_state_s16_s8(const cmsis_nn_context *input_ctx,
  *
  * @param[in]   input                      Pointer to input data
  * @param[out]  output                     Pointer to output data
- * @param[in]   params                  Struct containg all information about the lstm operator, see arm_nn_types.
- * @param[in]   buffers                    Struct containg pointers to all temporary scratch buffers needed for the lstm
- * operator, see arm_nn_types.
+ * @param[in]   params                     Struct containing all information about the lstm operator, see arm_nn_types.
+ * @param[in]   buffers                    Struct containing pointers to all temporary scratch buffers needed for the
+ * lstm operator, see arm_nn_types.
  *
  *
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
