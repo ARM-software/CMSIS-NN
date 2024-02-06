@@ -98,9 +98,9 @@ class ConvSettings(TestSettings):
 
         self.filter_ch = in_ch // groups
         if in_ch % groups != 0:
-            raise RuntimeError("ERROR: Number of input channels must be an even multiple of groups")
+            raise RuntimeError("ERROR: Input channels {} must be an even multiple of groups {}".format(in_ch, groups))
         if out_ch % groups != 0:
-            raise RuntimeError("ERROR: Number of output channels must be an even multiple of groups")
+            raise RuntimeError("ERROR: Output channels {} must be an even multiple of groups {}".format(out_ch, groups))
 
         if self.int4_weights:
             if self.test_type == 'conv':
@@ -146,6 +146,20 @@ class ConvSettings(TestSettings):
 
         return per_channel_multiplier, per_channel_shift
 
+    def generate_int4_scale(self, scale, shift, input_scale):
+        self.output_scale = scale
+        self.output_zp = shift
+        self.input_scale = input_scale
+        self.scaling_factors = np.random.uniform(0.001, 0.01, [self.output_ch]).tolist()
+        per_channel_multiplier, per_channel_shift = self.generate_quantize_per_channel_multiplier()
+
+        while any((x > 31 or x < -31) for x in per_channel_shift):
+            self.output_scale = self.output_scale / 10
+            per_channel_multiplier, per_channel_shift = self.generate_quantize_per_channel_multiplier()
+
+        return self.output_scale, self.output_zp
+
+    # TODO
     def quantize_float_data(self, data=None, quantization_bit_range=8, quantization_type="affine", tf_tensor=False):
         if data is not None:
             if tf_tensor:
@@ -215,8 +229,7 @@ class ConvSettings(TestSettings):
                 bias_scale = [64751.269531] * self.output_ch
                 bias_zp = [0] * self.output_ch
                 if self.generate_bias:
-                    output_scale = 4684910.0
-                    output_zp = -2
+                    output_scale, output_zp = self.generate_int4_scale(4684910.0, -2, input_scale)
                 else:
                     output_scale = 0.525255
                     output_zp = 2
