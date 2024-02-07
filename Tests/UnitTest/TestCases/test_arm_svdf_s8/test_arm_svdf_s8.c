@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -76,7 +76,7 @@ void svdf_int8_arm_svdf_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *kernel_sum_buf = ctx.buf;
-    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data);
+    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, 1, NULL);
 #endif
 
     // + SVDF_INT8_TIME_BATCHES additional bytes to make sure it is not overwritten
@@ -191,7 +191,7 @@ void svdf_int8_2_arm_svdf_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *kernel_sum_buf = ctx.buf;
-    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data);
+    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, 1, NULL);
 #endif
 
     const int state_data_size = sizeof(svdf_int8_2_state);

@@ -721,7 +721,8 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           dilation_x=3,
                                           dilation_y=3,
                                           pad=True,
-                                          interpreter=interpreter)    dataset = 'basic_int4'
+                                          interpreter=interpreter)
+    dataset = 'basic_int4'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,
@@ -2848,7 +2849,7 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           regenerate_input,
                                           regenerate_biases,
                                           schema_file,
-                                          batches=2,
+                                          batches=1,
                                           time_steps=9,
                                           number_inputs=6,
                                           number_units=7,

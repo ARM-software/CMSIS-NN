@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2022, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-add_cmsis_nn_unit_test_executable(test_arm_lstm_unidirectional_s16_s8)
+add_cmsis_nn_unit_test_executable(test_arm_lstm_unidirectional_s8)
 
-target_sources(test_arm_lstm_unidirectional_s16_s8 PRIVATE
-    Unity/unity_test_arm_lstm_unidirectional_s16_s8.c
-    Unity/TestRunner/unity_test_arm_lstm_unidirectional_s16_s8_runner.c)
+target_sources(test_arm_lstm_unidirectional_s8 PRIVATE
+    Unity/unity_test_arm_lstm_unidirectional_s8.c
+    Unity/TestRunner/unity_test_arm_lstm_unidirectional_s8_runner.c)

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -252,6 +252,7 @@ class LSTMSettings(TestSettings):
         self.generate_c_array("output_norm_coeff", interpreter.get_tensor(output_norm_coeff['index']))
 
         input_scale = input_data_for_index['quantization_parameters']['scales'][0]
+        self.data_zp = input_data_for_index['quantization_parameters']['zero_points'][0]
         cell_scale = cell_state['quantization_parameters']['scales'][0]
         output_state_scale = output_state['quantization_parameters']['scales'][0]
         input_zp = input_data_for_index['quantization_parameters']['zero_points'][0]
@@ -263,7 +264,7 @@ class LSTMSettings(TestSettings):
         tmp = math.log(cell_scale) * (1 / math.log(2))
         self.cell_state_shift = int(round(tmp))
 
-        self.calc_scales(input_scale, output_state_scale)
+        self.calc_scales(input_scale, output_state_scale, cell_scale)
 
         # Calculate effective biases.
         input_zp = -input_zp
@@ -293,14 +294,21 @@ class LSTMSettings(TestSettings):
         self.generate_c_array("recurrent_to_output_eff_bias", recurrent_to_output_eff_bias, datatype='int32_t')
 
         # Generate reference
-        interpreter.invoke()
-        output_data = interpreter.get_tensor(output_details[0]["index"])
+        if self.use_tflite_micro_interpreter:
+            interpreter = self.tflite_micro.runtime.Interpreter.from_file(model_path=str(self.model_path_tflite))
+            interpreter.set_input(tf.cast(input_data, tf.int8), input_details[0]["index"])
+            interpreter.invoke()
+            output_data = interpreter.get_output(0)
+        else:
+            interpreter.invoke()
+            output_data = interpreter.get_tensor(output_details[0]["index"])
+
         self.generate_c_array(self.output_data_file_prefix, output_data, datatype='int8_t')
 
         self.write_c_config_header()
         self.write_c_header_wrapper()
 
-    def calc_scales(self, input_scale, output_state_scale):
+    def calc_scales(self, input_scale, output_state_scale, cell_scale):
         intermediate_scale = pow(2, -12)
 
         if self.time_major:
@@ -308,6 +316,9 @@ class LSTMSettings(TestSettings):
         else:
             time_major_offset = 0
 
+
+        self.effective_forget_scale = pow(2, -15) / cell_scale * cell_scale
+        self.effective_input_scale = pow(2, -15) / cell_scale * pow(2, -15)
         self.effective_hidden_scale = pow(2, -15) / output_state_scale * pow(2, -15)
 
         self.i2i_effective_scale = input_scale * self.lstm_scales[self.input_to_input_w_index + time_major_offset][0] \
@@ -393,11 +404,21 @@ class LSTMSettings(TestSettings):
             f.write("#define {}_RECURRENT_TO_OUTPUT_MULTIPLIER {}\n".format(prefix, multiplier))
             f.write("#define {}_RECURRENT_TO_OUTPUT_SHIFT {}\n".format(prefix, shift))
 
+
+            (multiplier, shift) = self.quantize_scale(self.effective_forget_scale)
+            f.write("#define {}_FORGET_MULTIPLIER {}\n".format(prefix, multiplier))
+            f.write("#define {}_FORGET_SHIFT {}\n".format(prefix, shift))
+
+            (multiplier, shift) = self.quantize_scale(self.effective_input_scale)
+            f.write("#define {}_INPUT_MULTIPLIER {}\n".format(prefix, multiplier))
+            f.write("#define {}_INPUT_SHIFT {}\n".format(prefix, shift))
+
             (multiplier, shift) = self.quantize_scale(self.effective_hidden_scale)
             f.write("#define {}_HIDDEN_MULTIPLIER {}\n".format(prefix, multiplier))
             f.write("#define {}_HIDDEN_SHIFT {}\n".format(prefix, shift))
 
             f.write("#define {}_HIDDEN_OFFSET {}\n".format(prefix, self.hidden_zp))
+            f.write("#define {}_DATA_OFFSET {}\n".format(prefix, -self.data_zp))
 
             f.write("#define {}_OUTPUT_STATE_OFFSET {}\n".format(prefix, self.output_state_offset))
             f.write("#define {}_CELL_STATE_SHIFT {}\n".format(prefix, self.cell_state_shift))
