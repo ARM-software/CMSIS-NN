@@ -1,4 +1,4 @@
 var group__LSTM =
 [
-    [ "arm_lstm_unidirectional_s16_s8", "group__LSTM.html#ga051bd1309882b30a446d9023390f16b7", null ]
+    [ "arm_lstm_unidirectional_s8", "group__LSTM.html#gaec6a4ddae12fdf15d4954da0f0111f36", null ]
 ];

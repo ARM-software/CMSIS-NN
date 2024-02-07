@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: arm_nn_lstm_update_output_s8_s16.c File Reference</title>
+<title>CMSIS-NN: arm_nn_vec_mat_mul_result_acc_s8_s16.c File Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('arm__nn__lstm__update__output__s8__s16_8c.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__nn__vec__mat__mul__result__acc__s8__s16_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -130,22 +130,22 @@ $(document).ready(function(){initNavTree('arm__nn__lstm__update__output__s8__s16
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">arm_nn_lstm_update_output_s8_s16.c File Reference</div></div>
+  <div class="headertitle"><div class="title">arm_nn_vec_mat_mul_result_acc_s8_s16.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2352dac3a169f026e9e94f23d981c375"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#ga2352dac3a169f026e9e94f23d981c375">arm_nn_lstm_update_output_s8_s16</a> (const int n_batch, const int n_cell, int16_t *cell_state, const int32_t cell_state_scale, const int16_t *output_gate, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a> hidden_scaling, const int32_t hidden_offset, int8_t *output_state, int16_t *cell_gate_scratch)</td></tr>
-<tr class="memdesc:ga2352dac3a169f026e9e94f23d981c375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the output state tensor of an LSTM step, s8 input/output and s16 weight version.  <br /></td></tr>
-<tr class="separator:ga2352dac3a169f026e9e94f23d981c375"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac84041149b815eb7caa5533ffd921a4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gac84041149b815eb7caa5533ffd921a4c">arm_nn_vec_mat_mul_result_acc_s8_s16</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *effective_bias, int16_t *dst, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t batches, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:gac84041149b815eb7caa5533ffd921a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the multiplication is accumulated to the passed result buffer. Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent from each other).  <br /></td></tr>
+<tr class="separator:gac84041149b815eb7caa5533ffd921a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__nn__lstm__update__output__s8__s16_8c.html">arm_nn_lstm_update_output_s8_s16.c</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__nn__vec__mat__mul__result__acc__s8__s16_8c.html">arm_nn_vec_mat_mul_result_acc_s8_s16.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

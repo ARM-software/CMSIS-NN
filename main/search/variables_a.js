@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['max_0',['max',['../group__genPubTypes.html#accad1cdcd73e714badc388c3471bf33b',1,'cmsis_nn_activation']]],
-  ['max_5ftime_1',['max_time',['../group__genPubTypes.html#afcad0cad68a7df22c9016799abeae31a',1,'cmsis_nn_lstm_dims']]],
-  ['min_2',['min',['../group__genPubTypes.html#a0022b5ad7e496a802c64e3f6e0c2d8e1',1,'cmsis_nn_activation']]],
-  ['multiplier_3',['multiplier',['../group__genPubTypes.html#ad2d7bcdc66772400d073f101bd6a0ca9',1,'cmsis_nn_per_channel_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_per_tensor_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_scaling::multiplier()']]]
+  ['n_0',['n',['../group__genPubTypes.html#a4e34aefb3cc5403a07c020131077100a',1,'cmsis_nn_dims']]],
+  ['num_5fbatches_1',['num_batches',['../group__genPubTypes.html#a05623f7d6acf5344f2d6596ec22fb926',1,'cmsis_nn_lstm_dims']]],
+  ['num_5finputs_2',['num_inputs',['../group__genPubTypes.html#a9268585658223810aabb899898d06bcd',1,'cmsis_nn_lstm_dims']]],
+  ['num_5foutputs_3',['num_outputs',['../group__genPubTypes.html#a23ba5409f3d68aa9dfb9118f2574aec6',1,'cmsis_nn_lstm_dims']]]
 ];

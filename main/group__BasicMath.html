@@ -136,14 +136,14 @@ $(document).ready(function(){initNavTree('group__BasicMath.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8146e20126b4d9005b7b68f98d741f42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__BasicMath.html#ga8146e20126b4d9005b7b68f98d741f42">arm_elementwise_mul_s16_s8</a> (const int16_t *input_1_vect, const int16_t *input_2_vect, int8_t *output, const int32_t out_offset, const int32_t out_mult, const int32_t out_shift, const int32_t block_size)</td></tr>
-<tr class="memdesc:ga8146e20126b4d9005b7b68f98d741f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 elementwise multiplication with s8 output  <br /></td></tr>
-<tr class="separator:ga8146e20126b4d9005b7b68f98d741f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9fa56cdc80b8f4be2a03af2915afacff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__BasicMath.html#ga9fa56cdc80b8f4be2a03af2915afacff">arm_elementwise_mul_s16_s8</a> (const int16_t *input_1_vect, const int16_t *input_2_vect, int8_t *output, const int32_t out_offset, const int32_t out_mult, const int32_t out_shift, const int32_t block_size, const int32_t batch_size, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:ga9fa56cdc80b8f4be2a03af2915afacff"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 elementwise multiplication with s8 output  <br /></td></tr>
+<tr class="separator:ga9fa56cdc80b8f4be2a03af2915afacff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga8146e20126b4d9005b7b68f98d741f42" name="ga8146e20126b4d9005b7b68f98d741f42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8146e20126b4d9005b7b68f98d741f42">&#9670;&#160;</a></span>arm_elementwise_mul_s16_s8()</h2>
+<a id="ga9fa56cdc80b8f4be2a03af2915afacff" name="ga9fa56cdc80b8f4be2a03af2915afacff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9fa56cdc80b8f4be2a03af2915afacff">&#9670;&#160;</a></span>arm_elementwise_mul_s16_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +188,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>block_size</em>&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_offset</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -207,7 +219,9 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_offset</td><td>output offset </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_mult</td><td>output multiplier </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_shift</td><td>output shift </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>number of samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_size</td><td>number of samples per batch </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_size</td><td>number of samples per batch </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches in output, see arm_nn_lstm_step_s8. Note that it is assumed that the input is stored with sequential batches. </td></tr>
   </table>
   </dd>
 </dl>

@@ -142,6 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8f59d6176c7a049cfe8605c80e6e7e8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupElementwise.html#ga8f59d6176c7a049cfe8605c80e6e7e8c">arm_elementwise_add_s8</a> (const int8_t *input_1_vect, const int8_t *input_2_vect, const int32_t input_1_offset, const int32_t input_1_mult, const int32_t input_1_shift, const int32_t input_2_offset, const int32_t input_2_mult, const int32_t input_2_shift, const int32_t left_shift, int8_t *output, const int32_t out_offset, const int32_t out_mult, const int32_t out_shift, const int32_t out_activation_min, const int32_t out_activation_max, const int32_t block_size)</td></tr>
 <tr class="memdesc:ga8f59d6176c7a049cfe8605c80e6e7e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 elementwise add of two vectors  <br /></td></tr>
 <tr class="separator:ga8f59d6176c7a049cfe8605c80e6e7e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad838647ccac0201dd1be97b6a50a28af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupElementwise.html#gad838647ccac0201dd1be97b6a50a28af">arm_elementwise_mul_acc_s16</a> (const int16_t *input_1_vect, const int16_t *input_2_vect, const int32_t input_1_offset, const int32_t input_2_offset, int16_t *output, const int32_t out_offset, const int32_t out_mult, const int32_t out_shift, const int32_t out_activation_min, const int32_t out_activation_max, const int32_t block_size)</td></tr>
+<tr class="memdesc:gad838647ccac0201dd1be97b6a50a28af"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 element wise accumulative multiplication of two vectors  <br /></td></tr>
+<tr class="separator:gad838647ccac0201dd1be97b6a50a28af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30d6345a9dd6754bb39a6237b6068f5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupElementwise.html#ga30d6345a9dd6754bb39a6237b6068f5e">arm_elementwise_mul_s16</a> (const int16_t *input_1_vect, const int16_t *input_2_vect, const int32_t input_1_offset, const int32_t input_2_offset, int16_t *output, const int32_t out_offset, const int32_t out_mult, const int32_t out_shift, const int32_t out_activation_min, const int32_t out_activation_max, const int32_t block_size)</td></tr>
 <tr class="memdesc:ga30d6345a9dd6754bb39a6237b6068f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 element wise multiplication of two vectors  <br /></td></tr>
 <tr class="separator:ga30d6345a9dd6754bb39a6237b6068f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -421,6 +424,92 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS </dd></dl>
+
+</div>
+</div>
+<a id="gad838647ccac0201dd1be97b6a50a28af" name="gad838647ccac0201dd1be97b6a50a28af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad838647ccac0201dd1be97b6a50a28af">&#9670;&#160;</a></span>arm_elementwise_mul_acc_s16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_elementwise_mul_acc_s16 </td>
+          <td>(</td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>input_1_vect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>input_2_vect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_1_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_2_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_mult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_shift</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_activation_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>block_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>s16 element wise accumulative multiplication of two vectors </p>
+<p>s16 elementwise multiplication. The result of the multiplication is accumulated to the passed result buffer.</p>
+<dl class="section note"><dt>Note</dt><dd>Refer header file for details. </dd></dl>
 
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: arm_lstm_unidirectional_s8_s16.c File Reference</title>
+<title>CMSIS-NN: arm_nn_lstm_step_s8.c File Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('arm__lstm__unidirectional__s8__s16_8c.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__nn__lstm__step__s8_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -130,22 +130,22 @@ $(document).ready(function(){initNavTree('arm__lstm__unidirectional__s8__s16_8c.
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">arm_lstm_unidirectional_s8_s16.c File Reference</div></div>
+  <div class="headertitle"><div class="title">arm_nn_lstm_step_s8.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga051bd1309882b30a446d9023390f16b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#ga051bd1309882b30a446d9023390f16b7">arm_lstm_unidirectional_s16_s8</a> (<a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *scratch_buffers, const int8_t *input_data, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__dims">cmsis_nn_lstm_dims</a> *lstm_dims, const int8_t *in_to_in_weights, const int8_t *in_to_forget_weights, const int8_t *in_to_cell_weights, const int8_t *in_to_out_weights, const int8_t *recurrent_to_in_weights, const int8_t *recurrent_to_forget_weights, const int8_t *recurrent_to_cell_weights, const int8_t *recurrent_to_out_weights, const int16_t *cell_to_in_weights, const int16_t *cell_to_forget_weights, const int16_t *cell_to_out_weights, const int8_t *projection_weights, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *lstm, int8_t *output_state, int16_t *cell_state, int8_t *output_data)</td></tr>
-<tr class="memdesc:ga051bd1309882b30a446d9023390f16b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 8 bit input and output and 16 bit gate output Peephole connections, projection, clipping, combined input/forget gate and layer normalization are not supported.  <br /></td></tr>
-<tr class="separator:ga051bd1309882b30a446d9023390f16b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga353b7367696b0520200216e1987459fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#ga353b7367696b0520200216e1987459fb">arm_nn_lstm_step_s8</a> (const int8_t *data_in, const int8_t *hidden_in, int8_t *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *buffers, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:ga353b7367696b0520200216e1987459fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step.  <br /></td></tr>
+<tr class="separator:ga353b7367696b0520200216e1987459fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_727a4ff8f1ec6d98704d9084d1897d44.html">LSTMFunctions</a></li><li class="navelem"><a class="el" href="arm__lstm__unidirectional__s8__s16_8c.html">arm_lstm_unidirectional_s8_s16.c</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__nn__lstm__step__s8_8c.html">arm_nn_lstm_step_s8.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

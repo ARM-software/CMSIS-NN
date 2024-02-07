@@ -136,9 +136,9 @@ $(document).ready(function(){initNavTree('group__Acti.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga8ea8ed180e18fc1a8e7420df9aad6711">arm_nn_activation_s16</a> (const int16_t *input, int16_t *output, const uint16_t size, const uint16_t left_shift, const <a class="el" href="group__genPubTypes.html#ga7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> type)</td></tr>
-<tr class="memdesc:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 neural network activation function using direct table look-up  <br /></td></tr>
-<tr class="separator:ga8ea8ed180e18fc1a8e7420df9aad6711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f84aed104cadf145fd3d15144f3c93e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga5f84aed104cadf145fd3d15144f3c93e">arm_nn_activation_s16</a> (const int16_t *input, int16_t *output, const int32_t size, const int32_t left_shift, const <a class="el" href="group__genPubTypes.html#ga7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> type)</td></tr>
+<tr class="memdesc:ga5f84aed104cadf145fd3d15144f3c93e"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 neural network activation function using direct table look-up  <br /></td></tr>
+<tr class="separator:ga5f84aed104cadf145fd3d15144f3c93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0544841b10230a12d685074767e39787"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga0544841b10230a12d685074767e39787">arm_relu6_s8</a> (int8_t *data, uint16_t size)</td></tr>
 <tr class="memdesc:ga0544841b10230a12d685074767e39787"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 ReLU6 function  <br /></td></tr>
 <tr class="separator:ga0544841b10230a12d685074767e39787"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,14 +152,14 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Perform activation layers, including ReLU (Rectified Linear Unit), sigmoid and tanh </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga8ea8ed180e18fc1a8e7420df9aad6711" name="ga8ea8ed180e18fc1a8e7420df9aad6711"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8ea8ed180e18fc1a8e7420df9aad6711">&#9670;&#160;</a></span>arm_nn_activation_s16()</h2>
+<a id="ga5f84aed104cadf145fd3d15144f3c93e" name="ga5f84aed104cadf145fd3d15144f3c93e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f84aed104cadf145fd3d15144f3c93e">&#9670;&#160;</a></span>arm_nn_activation_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void arm_nn_activation_s16 </td>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_activation_s16 </td>
           <td>(</td>
           <td class="paramtype">const int16_t *&#160;</td>
           <td class="paramname"><em>input</em>, </td>
@@ -173,13 +173,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramtype">const int32_t&#160;</td>
           <td class="paramname"><em>left_shift</em>, </td>
         </tr>
         <tr>
@@ -202,12 +202,13 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>pointer to input data </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>pointer to output </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>number of elements </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">left_shift</td><td>bit-width of the integer part, assume to be smaller than 3 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>type of activation functions</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">left_shift</td><td>bit-width of the integer part, assumed to be smaller than 3. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>type of activation functions </td></tr>
   </table>
   </dd>
 </dl>
-<p>Supported framework: TensorFlow Lite for Microcontrollers. This activation function must be bit precise congruent with the corresponding TFLM tanh and sigmoid actication functions </p>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code></dd></dl>
+<p>Supported framework: TensorFlow Lite for Microcontrollers. This activation function must be bit precise congruent with the corresponding TFLM tanh and sigmoid activation functions </p>
 
 </div>
 </div>

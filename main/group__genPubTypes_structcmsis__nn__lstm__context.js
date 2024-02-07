@@ -1,7 +1,6 @@
 var group__genPubTypes_structcmsis__nn__lstm__context =
 [
-    [ "cell_gate", "group__genPubTypes.html#a1ea12183e484f0f5f225b21ad725d70f", null ],
-    [ "forget_gate", "group__genPubTypes.html#a7f46931757cb28745bb111131a43ed51", null ],
-    [ "input_gate", "group__genPubTypes.html#ae7fc924316e80e7c17e0eef6d17e6009", null ],
-    [ "output_gate", "group__genPubTypes.html#ad3588fc91ecaa93dea901d46031702d2", null ]
+    [ "cell_state", "group__genPubTypes.html#a34cb41690c431bd9a3a8241edde8a22e", null ],
+    [ "temp1", "group__genPubTypes.html#a2d581fce179cb2c1e6d47ac512bcb635", null ],
+    [ "temp2", "group__genPubTypes.html#a56a0d3a71c6f4fe5e89247abc6697771", null ]
 ];

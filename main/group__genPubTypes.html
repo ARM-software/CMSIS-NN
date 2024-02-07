@@ -168,18 +168,14 @@ Data Structures</h2></td></tr>
 <tr class="separator:structcmsis__nn__svdf__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__softmax__lut__s16"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__softmax__lut__s16">cmsis_nn_softmax_lut_s16</a></td></tr>
 <tr class="separator:structcmsis__nn__softmax__lut__s16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structcmsis__nn__lstm__guard__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__guard__params">cmsis_nn_lstm_guard_params</a></td></tr>
-<tr class="separator:structcmsis__nn__lstm__guard__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structcmsis__nn__lstm__context"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a></td></tr>
-<tr class="separator:structcmsis__nn__lstm__context"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structcmsis__nn__lstm__clip__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__clip__params">cmsis_nn_lstm_clip_params</a></td></tr>
-<tr class="separator:structcmsis__nn__lstm__clip__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__scaling"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td></tr>
 <tr class="separator:structcmsis__nn__scaling"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structcmsis__nn__layer__norm"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__layer__norm">cmsis_nn_layer_norm</a></td></tr>
-<tr class="separator:structcmsis__nn__layer__norm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__lstm__gate"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></td></tr>
+<tr class="separator:structcmsis__nn__lstm__gate"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__lstm__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a></td></tr>
 <tr class="separator:structcmsis__nn__lstm__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__lstm__context"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a></td></tr>
+<tr class="separator:structcmsis__nn__lstm__context"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -795,120 +791,6 @@ one_by_one_lut</td>
 
 </div>
 </div>
-<a name="structcmsis__nn__lstm__guard__params" id="structcmsis__nn__lstm__guard__params"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__lstm__guard__params">&#9670;&#160;</a></span>cmsis_nn_lstm_guard_params</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct cmsis_nn_lstm_guard_params</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>LSTM guard parameters </p>
-</div><table class="fieldtable">
-<tr><th colspan="3">Data Fields</th></tr>
-<tr><td class="fieldtype">
-<a id="ae96db03c795f5d8e70257a3b794e6263" name="ae96db03c795f5d8e70257a3b794e6263"></a>int32_t</td>
-<td class="fieldname">
-cell_variance</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="acb7bcbb2edf499aff6dabbf031e35631" name="acb7bcbb2edf499aff6dabbf031e35631"></a>int32_t</td>
-<td class="fieldname">
-forget_variance</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a8048237c86e7e0e82033bd48d2e8143a" name="a8048237c86e7e0e82033bd48d2e8143a"></a>int32_t</td>
-<td class="fieldname">
-input_variance</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="aa33cf8a77052c90f4ac40e8a7055fc90" name="aa33cf8a77052c90f4ac40e8a7055fc90"></a>int32_t</td>
-<td class="fieldname">
-output_variance</td>
-<td class="fielddoc">
-</td></tr>
-</table>
-
-</div>
-</div>
-<a name="structcmsis__nn__lstm__context" id="structcmsis__nn__lstm__context"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__lstm__context">&#9670;&#160;</a></span>cmsis_nn_lstm_context</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct cmsis_nn_lstm_context</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>LSTM scratch buffer container </p>
-</div><table class="fieldtable">
-<tr><th colspan="3">Data Fields</th></tr>
-<tr><td class="fieldtype">
-<a id="a1ea12183e484f0f5f225b21ad725d70f" name="a1ea12183e484f0f5f225b21ad725d70f"></a>int16_t *</td>
-<td class="fieldname">
-cell_gate</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a7f46931757cb28745bb111131a43ed51" name="a7f46931757cb28745bb111131a43ed51"></a>int16_t *</td>
-<td class="fieldname">
-forget_gate</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ae7fc924316e80e7c17e0eef6d17e6009" name="ae7fc924316e80e7c17e0eef6d17e6009"></a>int16_t *</td>
-<td class="fieldname">
-input_gate</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ad3588fc91ecaa93dea901d46031702d2" name="ad3588fc91ecaa93dea901d46031702d2"></a>int16_t *</td>
-<td class="fieldname">
-output_gate</td>
-<td class="fielddoc">
-</td></tr>
-</table>
-
-</div>
-</div>
-<a name="structcmsis__nn__lstm__clip__params" id="structcmsis__nn__lstm__clip__params"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__lstm__clip__params">&#9670;&#160;</a></span>cmsis_nn_lstm_clip_params</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct cmsis_nn_lstm_clip_params</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Quantized clip value for cell and projection of LSTM input. Zero value means no clipping. </p>
-</div><table class="fieldtable">
-<tr><th colspan="3">Data Fields</th></tr>
-<tr><td class="fieldtype">
-<a id="ad52e92c89f8d8a059e92c09dc32e54d7" name="ad52e92c89f8d8a059e92c09dc32e54d7"></a>int16_t</td>
-<td class="fieldname">
-cell</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a5a7700fd5c49eb81e043742fe6ce2ac1" name="a5a7700fd5c49eb81e043742fe6ce2ac1"></a>int8_t</td>
-<td class="fieldname">
-projection</td>
-<td class="fielddoc">
-</td></tr>
-</table>
-
-</div>
-</div>
 <a name="structcmsis__nn__scaling" id="structcmsis__nn__scaling"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__scaling">&#9670;&#160;</a></span>cmsis_nn_scaling</h2>
 
@@ -941,42 +823,80 @@ shift</td>
 
 </div>
 </div>
-<a name="structcmsis__nn__layer__norm" id="structcmsis__nn__layer__norm"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__layer__norm">&#9670;&#160;</a></span>cmsis_nn_layer_norm</h2>
+<a name="structcmsis__nn__lstm__gate" id="structcmsis__nn__lstm__gate"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__lstm__gate">&#9670;&#160;</a></span>cmsis_nn_lstm_gate</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct cmsis_nn_layer_norm</td>
+          <td class="memname">struct cmsis_nn_lstm_gate</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>CMSIS-NN norm layer coefficients </p>
+<div class="textblock"><p>CMSIS-NN object for LSTM gate parameters </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a id="ad6496daaebb61bc6a94efcbaf60bb195" name="ad6496daaebb61bc6a94efcbaf60bb195"></a>int16_t *</td>
+<a id="ab0544b6d11fe4c844a3fdfd7ec96d7bf" name="ab0544b6d11fe4c844a3fdfd7ec96d7bf"></a><a class="el" href="group__genPubTypes.html#ga7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a></td>
 <td class="fieldname">
-cell_weight</td>
+activation_type</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a68a564deca05dcfa66fd900a1fc27b0c" name="a68a564deca05dcfa66fd900a1fc27b0c"></a>int16_t *</td>
+<a id="a1fb7b822a92dd3ab6e7ab15c67b0ff9e" name="a1fb7b822a92dd3ab6e7ab15c67b0ff9e"></a>const int32_t *</td>
 <td class="fieldname">
-forget_weight</td>
+bias</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a86caf6f8dc5baa7035807bb6f5c22908" name="a86caf6f8dc5baa7035807bb6f5c22908"></a>int16_t *</td>
+<a id="acd613d861afbbc2878d425cd0c0bf7eb" name="acd613d861afbbc2878d425cd0c0bf7eb"></a>const int32_t *</td>
 <td class="fieldname">
-input_weight</td>
+hidden_effective_bias</td>
+<td class="fielddoc">
+<p>Precomputed kernel_sum * lhs_offset </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a0db5b8583e5fdd9a3b0eddb7174f012a" name="a0db5b8583e5fdd9a3b0eddb7174f012a"></a>int32_t</td>
+<td class="fieldname">
+hidden_multiplier</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="aa94f93ae419fa88c877a2ae26b35d9fe" name="aa94f93ae419fa88c877a2ae26b35d9fe"></a>int16_t *</td>
+<a id="a9cff0b206643fce9339ca2c3e8bfd34a" name="a9cff0b206643fce9339ca2c3e8bfd34a"></a>int32_t</td>
 <td class="fieldname">
-output_weight</td>
+hidden_shift</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="abd5a5d97f7ef68a4d4f20eb00dff8cdd" name="abd5a5d97f7ef68a4d4f20eb00dff8cdd"></a>const int8_t *</td>
+<td class="fieldname">
+hidden_weights</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a5a03b9382a91259b9d5c82264ece7172" name="a5a03b9382a91259b9d5c82264ece7172"></a>const int32_t *</td>
+<td class="fieldname">
+input_effective_bias</td>
+<td class="fielddoc">
+<p>Bias added with precomputed kernel_sum * lhs_offset </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a618adfbad834554880a0bedf6574d475" name="a618adfbad834554880a0bedf6574d475"></a>int32_t</td>
+<td class="fieldname">
+input_multiplier</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="afed698f0a4fe38ae9800c30e06f297f3" name="afed698f0a4fe38ae9800c30e06f297f3"></a>int32_t</td>
+<td class="fieldname">
+input_shift</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="afd8b91039c342290127876d474c2beff" name="afd8b91039c342290127876d474c2beff"></a>const int8_t *</td>
+<td class="fieldname">
+input_weights</td>
 <td class="fielddoc">
 </td></tr>
 </table>
@@ -994,241 +914,112 @@ output_weight</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>Parameters for integer LSTM, as defined in TFLM </p>
+<div class="textblock"><p>CMSIS-NN object for LSTM parameters </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a id="a8b46c29d03673efd66c440c67f3cbe08" name="a8b46c29d03673efd66c440c67f3cbe08"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__activation">cmsis_nn_activation</a></td>
+<a id="ae3682826b55b5b638223e24154dae150" name="ae3682826b55b5b638223e24154dae150"></a>int32_t</td>
 <td class="fieldname">
-activation</td>
+batch_size</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a48813ae66477c5eb6e6defddb4324fe8" name="a48813ae66477c5eb6e6defddb4324fe8"></a>const int32_t *</td>
+<a id="a4991bc5b842b96232566243c0bfd4c94" name="a4991bc5b842b96232566243c0bfd4c94"></a>int32_t</td>
 <td class="fieldname">
-cell_gate_bias</td>
+cell_clip</td>
+<td class="fielddoc">
+<p>Min/max value of cell output </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="acd208e3c48b975f358d9ad705c296f8a" name="acd208e3c48b975f358d9ad705c296f8a"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></td>
+<td class="fieldname">
+cell_gate</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ae586c01f707fa04979e4ec854460dbe3" name="ae586c01f707fa04979e4ec854460dbe3"></a>int32_t</td>
+<a id="a75abf1a91aca9e0407c861f01150f52a" name="a75abf1a91aca9e0407c861f01150f52a"></a>int32_t</td>
 <td class="fieldname">
-cell_state_shift</td>
+cell_scale_power</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a6b4a4581049e1a39ebd26ed12307e2a4" name="a6b4a4581049e1a39ebd26ed12307e2a4"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="a41245892fb3fb3150e22c5691b5415a3" name="a41245892fb3fb3150e22c5691b5415a3"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></td>
 <td class="fieldname">
-cell_to_forget_scaling</td>
+forget_gate</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ae82c04d8afa61717a605e462e84e159a" name="ae82c04d8afa61717a605e462e84e159a"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="aae27a4af6dc69f23aee1058b2adcef93" name="aae27a4af6dc69f23aee1058b2adcef93"></a>int32_t</td>
 <td class="fieldname">
-cell_to_input_scaling</td>
+forget_to_cell_multiplier</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a8cb86900d241b7c3eb2dc0df9119b282" name="a8cb86900d241b7c3eb2dc0df9119b282"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="a6b333b295490b4ab194c6c4d2502879e" name="a6b333b295490b4ab194c6c4d2502879e"></a>int32_t</td>
 <td class="fieldname">
-cell_to_output_scaling</td>
+forget_to_cell_shift</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="aa3fd35f1c383157b56d88055405be64a" name="aa3fd35f1c383157b56d88055405be64a"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__clip__params">cmsis_nn_lstm_clip_params</a></td>
+<a id="ae321ba52f11af4f02b52480dc8a04644" name="ae321ba52f11af4f02b52480dc8a04644"></a>int32_t</td>
 <td class="fieldname">
-clip</td>
+hidden_size</td>
+<td class="fielddoc">
+<p>Size of output from the LSTM cell, used as output and recursively into the next time step </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="abd3a8790460568f4a9b26aaaad4bb574" name="abd3a8790460568f4a9b26aaaad4bb574"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></td>
+<td class="fieldname">
+input_gate</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ae91d370710578e99a51b87412723750b" name="ae91d370710578e99a51b87412723750b"></a>const int32_t *</td>
+<a id="ad4670fdc658d0517928e6b2c10b2259d" name="ad4670fdc658d0517928e6b2c10b2259d"></a>int32_t</td>
 <td class="fieldname">
-forget_gate_bias</td>
+input_offset</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ab736fea5d989c6667fd69d3bc8dc3ba2" name="ab736fea5d989c6667fd69d3bc8dc3ba2"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__guard__params">cmsis_nn_lstm_guard_params</a></td>
+<a id="a56f49c6b551e4aec18e30116c206dd5b" name="a56f49c6b551e4aec18e30116c206dd5b"></a>int32_t</td>
 <td class="fieldname">
-guard</td>
+input_size</td>
+<td class="fielddoc">
+<p>Size of new data input into the LSTM cell </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ac4b2bfcada81de6fb2bab96959fc5619" name="ac4b2bfcada81de6fb2bab96959fc5619"></a>int32_t</td>
+<td class="fieldname">
+input_to_cell_multiplier</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="afc0f14e526bebe87956f98b977ce6887" name="afc0f14e526bebe87956f98b977ce6887"></a>int32_t</td>
+<a id="aafe543420f2b0cdf9b7e3407a4610279" name="aafe543420f2b0cdf9b7e3407a4610279"></a>int32_t</td>
 <td class="fieldname">
-hidden_offset</td>
+input_to_cell_shift</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="afac7357166b1bf1962e1fc2673b74746" name="afac7357166b1bf1962e1fc2673b74746"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="a3d9d157859a27ddf066ccd0be5664ce3" name="a3d9d157859a27ddf066ccd0be5664ce3"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></td>
 <td class="fieldname">
-hidden_scaling</td>
+output_gate</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="aa5660a334e5a32a8c331a2fee6c0d68b" name="aa5660a334e5a32a8c331a2fee6c0d68b"></a>const int32_t *</td>
+<a id="a23e9f0626e0fdd28687b85e5065f904a" name="a23e9f0626e0fdd28687b85e5065f904a"></a>int32_t</td>
 <td class="fieldname">
-i2c_effective_bias</td>
-<td class="fielddoc">
-<p>input to cell effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a00fb7f6c4aa5c96a50c6eb9fbf83dee3" name="a00fb7f6c4aa5c96a50c6eb9fbf83dee3"></a>const int32_t *</td>
-<td class="fieldname">
-i2f_effective_bias</td>
-<td class="fielddoc">
-<p>input to forget gate effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a8d8c53998a30a9e722a2daa3c517eb39" name="a8d8c53998a30a9e722a2daa3c517eb39"></a>const int32_t *</td>
-<td class="fieldname">
-i2i_effective_bias</td>
-<td class="fielddoc">
-<p>input to input effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a280c061aea21aa2ac74bf6004bf7ad8c" name="a280c061aea21aa2ac74bf6004bf7ad8c"></a>const int32_t *</td>
-<td class="fieldname">
-i2o_effective_bias</td>
-<td class="fielddoc">
-<p>input to output effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a0e0d45df231d8e6284ff4010f6b44205" name="a0e0d45df231d8e6284ff4010f6b44205"></a>const int32_t *</td>
-<td class="fieldname">
-input_gate_bias</td>
+output_multiplier</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ad4cb0bf9de8f2d7255f0534d8f36a30a" name="ad4cb0bf9de8f2d7255f0534d8f36a30a"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="ab1dde269b1116cc98371e23a97740a58" name="ab1dde269b1116cc98371e23a97740a58"></a>int32_t</td>
 <td class="fieldname">
-input_to_cell_scaling</td>
+output_offset</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="ab6b086e879424bf0e85c9c59c7a13537" name="ab6b086e879424bf0e85c9c59c7a13537"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
+<a id="a37c0ff494c31b851b6ac537fb769174f" name="a37c0ff494c31b851b6ac537fb769174f"></a>int32_t</td>
 <td class="fieldname">
-input_to_forget_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a924d2eecf7d8f78ef6485a7ba7093ea7" name="a924d2eecf7d8f78ef6485a7ba7093ea7"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-input_to_input_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ab2161be896bc44c5abf290c0fb81105f" name="ab2161be896bc44c5abf290c0fb81105f"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-input_to_output_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a540693a159ec5c6d738337c31afb9d22" name="a540693a159ec5c6d738337c31afb9d22"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__layer__norm">cmsis_nn_layer_norm</a></td>
-<td class="fieldname">
-layer_norm</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a174d1da7cf5c43f0d54e027e46eb9836" name="a174d1da7cf5c43f0d54e027e46eb9836"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-layer_norm_cell_scaling</td>
-<td class="fielddoc">
-<p>layer normalization for cell </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ad2ab652d91ffa889465614bc512fbc0c" name="ad2ab652d91ffa889465614bc512fbc0c"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-layer_norm_forget_scaling</td>
-<td class="fielddoc">
-<p>layer normalization for forget gate </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a298a5746f4f8380cea313858e271afac" name="a298a5746f4f8380cea313858e271afac"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-layer_norm_input_scaling</td>
-<td class="fielddoc">
-<p>layer normalization for input layer </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a9a99c40ff68de8590b4760b36d450d5d" name="a9a99c40ff68de8590b4760b36d450d5d"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-layer_norm_output_scaling</td>
-<td class="fielddoc">
-<p>layer normalization for outpus layer </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ae2c498fc2ab8ed1772bae77e04a114c5" name="ae2c498fc2ab8ed1772bae77e04a114c5"></a>const int32_t *</td>
-<td class="fieldname">
-output_gate_bias</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a2f245578336a704a511f915f5e0ae1b8" name="a2f245578336a704a511f915f5e0ae1b8"></a>int32_t</td>
-<td class="fieldname">
-output_state_offset</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="afc088c03aff8eb324bd7610d03ce8c9e" name="afc088c03aff8eb324bd7610d03ce8c9e"></a>const int32_t *</td>
-<td class="fieldname">
-projection_effective_bias</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a22a475fcdb08147830172ad9037c19eb" name="a22a475fcdb08147830172ad9037c19eb"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-projection_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a47a739eb2349b18f9b27c2c555177c31" name="a47a739eb2349b18f9b27c2c555177c31"></a>const int32_t *</td>
-<td class="fieldname">
-r2c_effective_bias</td>
-<td class="fielddoc">
-<p>recurrent gate to cell effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="aa7661ef20da50839a010c9185580dec5" name="aa7661ef20da50839a010c9185580dec5"></a>const int32_t *</td>
-<td class="fieldname">
-r2f_effective_bias</td>
-<td class="fielddoc">
-<p>recurrent gate to forget gate effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a4b77d7d513128100ea81b7ca23d7b7d0" name="a4b77d7d513128100ea81b7ca23d7b7d0"></a>const int32_t *</td>
-<td class="fieldname">
-r2i_effective_bias</td>
-<td class="fielddoc">
-<p>recurrent gate to input effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a83fabd4cbec42dab4672746450d8ba67" name="a83fabd4cbec42dab4672746450d8ba67"></a>const int32_t *</td>
-<td class="fieldname">
-r2o_effective_bias</td>
-<td class="fielddoc">
-<p>recurrent gate to output effective bias </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="ada553dc02112fce8089826557d62713f" name="ada553dc02112fce8089826557d62713f"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-recurrent_to_cell_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a80b8f08889b0e92989866a5fefb06bde" name="a80b8f08889b0e92989866a5fefb06bde"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-recurrent_to_forget_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a7c2648026018fbed5c33665e00a5b49e" name="a7c2648026018fbed5c33665e00a5b49e"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-recurrent_to_input_scaling</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a2eb3658eee2cbbf10077b85f597bb030" name="a2eb3658eee2cbbf10077b85f597bb030"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></td>
-<td class="fieldname">
-recurrent_to_output_scaling</td>
+output_shift</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
@@ -1236,7 +1027,49 @@ recurrent_to_output_scaling</td>
 <td class="fieldname">
 time_major</td>
 <td class="fielddoc">
-<p>Nonzero (true) if first row of data is timestamps for input </p>
+<p>0 if first dimension is batch, else first dimension is time </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a56343a20df4d7e71c6b05bd13e60205c" name="a56343a20df4d7e71c6b05bd13e60205c"></a>int32_t</td>
+<td class="fieldname">
+time_steps</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structcmsis__nn__lstm__context" id="structcmsis__nn__lstm__context"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__lstm__context">&#9670;&#160;</a></span>cmsis_nn_lstm_context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cmsis_nn_lstm_context</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>CMSIS-NN object for LSTM scratch buffers </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a34cb41690c431bd9a3a8241edde8a22e" name="a34cb41690c431bd9a3a8241edde8a22e"></a>void *</td>
+<td class="fieldname">
+cell_state</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a2d581fce179cb2c1e6d47ac512bcb635" name="a2d581fce179cb2c1e6d47ac512bcb635"></a>void *</td>
+<td class="fieldname">
+temp1</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a56a0d3a71c6f4fe5e89247abc6697771" name="a56a0d3a71c6f4fe5e89247abc6697771"></a>void *</td>
+<td class="fieldname">
+temp2</td>
+<td class="fielddoc">
 </td></tr>
 </table>
 
