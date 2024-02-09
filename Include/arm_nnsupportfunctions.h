@@ -923,7 +923,7 @@ __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *o
 /**
  * @brief read and expand one s8 word into two s16 words with ordering and addition.
  */
-__STATIC_FORCEINLINE void read_pad_and_add(const int8_t *source, int32_t *out1, int32_t *out2, const uint32_t add)
+__STATIC_FORCEINLINE void read_pad_and_add_s8(const int8_t *source, int32_t *out1, int32_t *out2, const uint32_t add)
 {
     int32_t inA = arm_nn_read_s8x4(source);
     int32_t inAbuf1 = SXTAB16_RORn(add, (uint32_t)inA, 8);

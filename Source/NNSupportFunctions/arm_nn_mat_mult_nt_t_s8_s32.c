@@ -210,10 +210,10 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
             const int8_t *rhs_ptr = &rhs[0];
 
             int32_t lhs000, lhs001, lhs010, lhs011, lhs100, lhs101, lhs110, lhs111;
-            read_pad_and_add(lhs_ptr, &lhs000, &lhs001, lhs_offset_s16x2);
-            read_pad_and_add(&lhs_ptr[4], &lhs010, &lhs011, lhs_offset_s16x2);
-            read_pad_and_add(&lhs_ptr[rhs_rows], &lhs100, &lhs101, lhs_offset_s16x2);
-            read_pad_and_add(&lhs_ptr[rhs_rows + 4], &lhs110, &lhs111, lhs_offset_s16x2);
+            read_pad_and_add_s8(lhs_ptr, &lhs000, &lhs001, lhs_offset_s16x2);
+            read_pad_and_add_s8(&lhs_ptr[4], &lhs010, &lhs011, lhs_offset_s16x2);
+            read_pad_and_add_s8(&lhs_ptr[rhs_rows], &lhs100, &lhs101, lhs_offset_s16x2);
+            read_pad_and_add_s8(&lhs_ptr[rhs_rows + 4], &lhs110, &lhs111, lhs_offset_s16x2);
 
             for (int32_t rhs_cols_idx = rhs_cols; rhs_cols_idx != 0; rhs_cols_idx--)
             {
@@ -246,8 +246,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
         {
             const int8_t *rhs_ptr = &rhs[0];
             int32_t lhs00, lhs01, lhs10, lhs11;
-            read_pad_and_add(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
-            read_pad_and_add(&lhs_ptr[4], &lhs10, &lhs11, lhs_offset_s16x2);
+            read_pad_and_add_s8(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
+            read_pad_and_add_s8(&lhs_ptr[4], &lhs10, &lhs11, lhs_offset_s16x2);
 
             for (int32_t rhs_cols_idx = rhs_cols; rhs_cols_idx != 0; rhs_cols_idx--)
             {
@@ -280,8 +280,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
             const int8_t *rhs_ptr = &rhs[0];
 
             int32_t lhs00, lhs01, lhs10, lhs11;
-            read_pad_and_add(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
-            read_pad_and_add(&lhs_ptr[rhs_rows], &lhs10, &lhs11, lhs_offset_s16x2);
+            read_pad_and_add_s8(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
+            read_pad_and_add_s8(&lhs_ptr[rhs_rows], &lhs10, &lhs11, lhs_offset_s16x2);
 
             for (int32_t rhs_cols_idx = rhs_cols; rhs_cols_idx != 0; rhs_cols_idx--)
             {
@@ -306,7 +306,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_s32(const int8_t *lhs,
         {
             const int8_t *rhs_ptr = &rhs[0];
             int32_t lhs00, lhs01;
-            read_pad_and_add(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
+            read_pad_and_add_s8(lhs_ptr, &lhs00, &lhs01, lhs_offset_s16x2);
 
             for (int32_t rhs_cols_idx = rhs_cols; rhs_cols_idx != 0; rhs_cols_idx--)
             {
