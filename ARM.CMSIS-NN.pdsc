@@ -67,6 +67,7 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s4.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>

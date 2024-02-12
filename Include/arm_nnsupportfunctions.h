@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        19 January 2024
- * $Revision:    V.18.0.0
+ * $Date:        31 January 2024
+ * $Revision:    V.18.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -918,6 +918,44 @@ __STATIC_FORCEINLINE const int8_t *read_and_pad(const int8_t *source, int32_t *o
     #endif
 
     return source;
+}
+
+/**
+ * @brief read and expand one s8 word into two s16 words with ordering and addition.
+ */
+__STATIC_FORCEINLINE void read_pad_and_add_s8(const int8_t *source, int32_t *out1, int32_t *out2, const uint32_t add)
+{
+    int32_t inA = arm_nn_read_s8x4(source);
+    int32_t inAbuf1 = SXTAB16_RORn(add, (uint32_t)inA, 8);
+    int32_t inAbuf2 = SXTAB16(add, inA);
+
+    #ifndef ARM_MATH_BIG_ENDIAN
+    *out2 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out1 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #else
+    *out1 = (int32_t)(PKHTB(inAbuf1, inAbuf2, 16));
+    *out2 = (int32_t)(PKHBT(inAbuf2, inAbuf1, 16));
+    #endif
+}
+
+/**
+ * @brief read and expand two bytes into one word with ordering.
+ */
+__STATIC_FORCEINLINE void read_and_pad_s8x2(const int8_t *source, int32_t *out)
+{
+    int16_t in = arm_nn_read_s8x2(source);
+    int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+    *out = SXTB16(inA);
+}
+
+/**
+ * @brief read and expand two bytes into one word with ordering and addition.
+ */
+__STATIC_FORCEINLINE void read_pad_and_add_s8x2(const int8_t *source, int32_t *out, const uint32_t add)
+{
+    int16_t in = arm_nn_read_s8x2(source);
+    int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+    *out = SXTAB16(add, inA);
 }
 
 /**
