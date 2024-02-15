@@ -21,8 +21,8 @@
  * Title:        arm_vector_sum_s8
  * Description:  Generic function for calculating vector sums
  *
- * $Date:        12 February 2024
- * $Revision:    V.2.1.0
+ * $Date:        15 February 2024
+ * $Revision:    V.2.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
