@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        19 January 2024
- * $Revision:    V.13.0.0
+ * $Date:        13 February 2024
+ * $Revision:    V.13.0.1
 
  *
  * Target :  Arm(R) M-Profile Architecture
@@ -1524,7 +1524,6 @@ arm_cmsis_nn_status arm_fully_connected_s8(const cmsis_nn_context *ctx,
  * @param[in]           bias_data                   Vector of bias data, added to each sum.
  * @return              The function returns
  *                         <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
- *                         <code>ARM_CMSIS_NN_ARG_ERROR</code> - If not for Arm(R) Helium Architecture case.
  */
 arm_cmsis_nn_status arm_vector_sum_s8(int32_t *vector_sum_buf,
                                       const int32_t vector_cols,
