@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s8.c
  * Description:  s8 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        04 January 2024
- * $Revision:    V.3.5.0
+ * $Date:        20 February 2024
+ * $Revision:    V.3.5.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -59,7 +59,7 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                                           int8_t *output_data)
 {
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
-    int32_t buffer_size = arm_convolve_1_x_n_s8_get_buffer_size(input_dims, filter_dims);
+    int32_t buffer_size = arm_convolve_1_x_n_s8_get_buffer_size(conv_params, input_dims, filter_dims, output_dims);
     /* The wrapper API is the ultimate reference for argument check */
     if ((input_dims->h != 1) || conv_params->dilation.w != 1 || (buffer_size != 0 && ctx->buf == NULL) ||
         conv_params->stride.w == 0 || (conv_params->stride.w * input_dims->c % 4 != 0))
@@ -90,9 +90,20 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
     const int32_t right_pad_num = pad_x + asym_pad != 0 ? MAX(1, (pad_x + asym_pad + stride_x - 1) / stride_x) : 0;
     const int32_t left_pad_num = pad_x != 0 ? MAX(1, (pad_x + stride_x - 1) / stride_x) : 0;
     const int32_t no_pad_num = MAX(output_x - (right_pad_num + left_pad_num), 0);
+
     if (right_pad_num + no_pad_num + left_pad_num != output_x)
     {
-        return ARM_CMSIS_NN_FAILURE;
+        return arm_convolve_s8(ctx,
+                               conv_params,
+                               quant_params,
+                               input_dims,
+                               input_data,
+                               filter_dims,
+                               filter_data,
+                               bias_dims,
+                               bias_data,
+                               output_dims,
+                               output_data);
     }
 
     for (int i_batch = 0; i_batch < input_dims->n; i_batch++)

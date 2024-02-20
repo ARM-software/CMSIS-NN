@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        30 October 2023
- * $Revision:    V.1.4.0
+ * $Date:        20 February 2024
+ * $Revision:    V.2.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,7 @@
 
 #include "Internal/arm_nn_compiler.h"
 #include "arm_nnfunctions.h"
+#include "arm_nnsupportfunctions.h"
 
 /**
  *  @ingroup NNConv
@@ -51,11 +52,28 @@ __STATIC_INLINE int32_t arm_convolve_s8_get_buffer_size_mve(const cmsis_nn_dims 
     return 4 * col_length * 8 * (int32_t)sizeof(int8_t);
 }
 
-__STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
-                                                                  const cmsis_nn_dims *filter_dims)
+__STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn_conv_params *conv_params,
+                                                                  const cmsis_nn_dims *input_dims,
+                                                                  const cmsis_nn_dims *filter_dims,
+                                                                  const cmsis_nn_dims *output_dims)
 {
-    (void)input_dims;
-    (void)filter_dims;
+    const int32_t input_x = input_dims->w;
+    const int32_t pad_x = conv_params->padding.w;
+    const int32_t kernel_x = filter_dims->w;
+    const int32_t output_x = output_dims->w;
+    const int32_t stride_x = conv_params->stride.w;
+    const int32_t total_pad = ((output_x - 1) * stride_x + kernel_x - input_x);
+    const int32_t asym_pad = total_pad % 2;
+
+    const int32_t right_pad_num = pad_x + asym_pad != 0 ? MAX(1, (pad_x + asym_pad + stride_x - 1) / stride_x) : 0;
+    const int32_t left_pad_num = pad_x != 0 ? MAX(1, (pad_x + stride_x - 1) / stride_x) : 0;
+    const int32_t no_pad_num = MAX(output_x - (right_pad_num + left_pad_num), 0);
+
+    if (right_pad_num + no_pad_num + left_pad_num != output_x)
+    {
+        return arm_convolve_s8_get_buffer_size_mve(input_dims, filter_dims);
+    }
+
     return 0;
 }
 
@@ -71,12 +89,18 @@ int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const c
 #endif
 }
 
-int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
+int32_t arm_convolve_1_x_n_s8_get_buffer_size(const cmsis_nn_conv_params *conv_params,
+                                              const cmsis_nn_dims *input_dims,
+                                              const cmsis_nn_dims *filter_dims,
+                                              const cmsis_nn_dims *output_dims)
 {
 #if !defined(ARM_MATH_MVEI)
+    (void)conv_params;
+    (void)output_dims;
+
     return arm_convolve_s8_get_buffer_size(input_dims, filter_dims);
 #else
-    return arm_convolve_1_x_n_s8_get_buffer_size_mve(input_dims, filter_dims);
+    return arm_convolve_1_x_n_s8_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
 #endif
 }
 
@@ -117,7 +141,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv
     else if ((input_dims->h == 1) && (conv_params->dilation.w == 1) && (filter_dims->h == 1) &&
              (conv_params->stride.w * input_dims->c % 4 == 0))
     {
-        return arm_convolve_1_x_n_s8_get_buffer_size(input_dims, filter_dims);
+        return arm_convolve_1_x_n_s8_get_buffer_size(conv_params, input_dims, filter_dims, output_dims);
     }
     else
     {
@@ -147,7 +171,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *
     else if ((input_dims->h == 1) && (conv_params->dilation.w == 1) && (filter_dims->h == 1) &&
              (conv_params->stride.w * input_dims->c % 4 == 0))
     {
-        return arm_convolve_1_x_n_s8_get_buffer_size_mve(input_dims, filter_dims);
+        return arm_convolve_1_x_n_s8_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
     }
     else
     {
