@@ -142,9 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9beca6f32bd09f3329f6578bafbb817f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga9beca6f32bd09f3329f6578bafbb817f">arm_nn_vec_mat_mult_t_s4</a> (const int8_t *lhs, const int8_t *packed_rhs, const int32_t *bias, int8_t *dst, const int32_t lhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset)</td></tr>
 <tr class="memdesc:ga9beca6f32bd09f3329f6578bafbb817f"><td class="mdescLeft">&#160;</td><td class="mdescRight">s4 Vector by Matrix (transposed) multiplication  <br /></td></tr>
 <tr class="separator:ga9beca6f32bd09f3329f6578bafbb817f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabee0e2dddd1185f5e05233cb180806ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#gabee0e2dddd1185f5e05233cb180806ec">arm_nn_vec_mat_mult_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *kernel_sum, const int32_t *bias, int8_t *dst, const int32_t lhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset)</td></tr>
-<tr class="memdesc:gabee0e2dddd1185f5e05233cb180806ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication  <br /></td></tr>
-<tr class="separator:gabee0e2dddd1185f5e05233cb180806ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff86eb02f09a2f49f452b1da945b3a2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#gaff86eb02f09a2f49f452b1da945b3a2b">arm_nn_vec_mat_mult_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *kernel_sum, const int32_t *bias, int8_t *dst, const int32_t lhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset, const int32_t rhs_offset)</td></tr>
+<tr class="memdesc:gaff86eb02f09a2f49f452b1da945b3a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication  <br /></td></tr>
+<tr class="separator:gaff86eb02f09a2f49f452b1da945b3a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40c9ae690cbeef08eddf4556d978e8ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac">arm_nn_vec_mat_mult_t_svdf_s8</a> (const int8_t *lhs, const int8_t *rhs, int16_t *dst, const int32_t lhs_offset, const int32_t dst_offset, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
 <tr class="memdesc:ga40c9ae690cbeef08eddf4556d978e8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication with s16 output  <br /></td></tr>
 <tr class="separator:ga40c9ae690cbeef08eddf4556d978e8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -361,8 +361,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gabee0e2dddd1185f5e05233cb180806ec" name="gabee0e2dddd1185f5e05233cb180806ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabee0e2dddd1185f5e05233cb180806ec">&#9670;&#160;</a></span>arm_nn_vec_mat_mult_t_s8()</h2>
+<a id="gaff86eb02f09a2f49f452b1da945b3a2b" name="gaff86eb02f09a2f49f452b1da945b3a2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaff86eb02f09a2f49f452b1da945b3a2b">&#9670;&#160;</a></span>arm_nn_vec_mat_mult_t_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -449,7 +449,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t&#160;</td>
-          <td class="paramname"><em>address_offset</em>&#160;</td>
+          <td class="paramname"><em>address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_offset</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -475,7 +481,8 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of rows in the right-hand side input matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp the output to. Range: int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp the output to. Range: int8 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">address_offset</td><td>Memory position offset for dst. First output is stored at 'dst', the second at 'dst + address_offset' and so on. Default value is typically 1.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">address_offset</td><td>Memory position offset for dst. First output is stored at 'dst', the second at 'dst + address_offset' and so on. Default value is typically 1. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_offset</td><td>Offset to be added to the input values of the right-hand side vector. Range: -127 to 128</td></tr>
   </table>
   </dd>
 </dl>
