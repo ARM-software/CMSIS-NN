@@ -1,6 +1,6 @@
 var group__GetBufferSizeNNConv =
 [
-    [ "arm_convolve_1_x_n_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf87f133e81ee6c1fbde89fe44c35352e", null ],
+    [ "arm_convolve_1_x_n_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#ga062640b4df1d7c0bcc8571a97b5f2734", null ],
     [ "arm_convolve_1x1_s4_fast_get_buffer_size", "group__GetBufferSizeNNConv.html#ga157280560239a9cccf008bdf46982b0f", null ],
     [ "arm_convolve_1x1_s8_fast_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf8bf3e2c2f8b4f2a0cbfb8a797a8b5a8", null ],
     [ "arm_convolve_fast_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#ga8db7c4be84de273cfba630106d912737", null ],
