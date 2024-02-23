@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -55,3 +55,5 @@ void test_conv_1_x_n_4_arm_convolve_s8(void) { conv_1_x_n_4_arm_convolve_s8(); }
 void test_conv_1_x_n_5_arm_convolve_s8(void) { conv_1_x_n_5_arm_convolve_s8(); }
 
 void test_conv_1_x_n_6_arm_convolve_s8(void) { conv_1_x_n_6_arm_convolve_s8(); }
+
+void test_conv_1_x_n_6_generic_arm_convolve_s8(void) { conv_1_x_n_6_generic_arm_convolve_s8(); }
