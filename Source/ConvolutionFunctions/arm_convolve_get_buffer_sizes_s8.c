@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        20 February 2024
- * $Revision:    V.2.0.0
+ * $Date:        27 February 2024
+ * $Revision:    V.2.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -46,7 +46,7 @@ __STATIC_INLINE int32_t arm_convolve_s8_get_buffer_size_mve(const cmsis_nn_dims 
 {
     int32_t col_length = input_dims->c * filter_dims->w * filter_dims->h;
     // Get number of complete int16 lanes(multiple of 8) for given col_length. This is dependent on
-    // implementation of  arm_nn_mat_mult_s8
+    // implementation of arm_nn_mat_mult_nt_t_s8
     col_length = (col_length + 7) / 8;
     // 4 -> number of im2col buffers, 8 -> 8 elements per Q register
     return 4 * col_length * 8 * (int32_t)sizeof(int8_t);
