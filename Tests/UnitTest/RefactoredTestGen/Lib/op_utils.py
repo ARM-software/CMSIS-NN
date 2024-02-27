@@ -1,0 +1,136 @@
+# SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the License); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+import numpy as np
+import tensorflow as tf
+
+
+class Generated_data():
+    """ Container for all generated data"""
+
+    def __init__(self, params, tensors, scales, effective_scales):
+        self.params = params  # All other params which are generated rather than given in the test-plan
+        self.tensors = tensors  # All tensors
+        self.scales = scales  # Scales used in the tflite model
+        self.effective_scales = effective_scales  # Scales used by CMSIS-NN
+
+
+class Op_type():
+    """ op_type interface """
+
+    @staticmethod
+    def get_shapes(args):
+        """ Returns a struct of all shapes used by the operator """
+        raise NotImplementedError
+
+    @staticmethod
+    def generate_keras_model(output_path, shapes, params):
+        """ Returns a non-quantized tflite-model with given shapes and params"""
+        raise NotImplementedError
+
+    @staticmethod
+    def generate_data_tflite(tflite_path, params) -> Generated_data:
+        """ Parses quantized tensors, scales, and other parameter from the given tflite-file, calculates effective scales, and returns them as three structs"""
+        raise NotImplementedError
+
+    @staticmethod
+    def generate_data_json(shapes, params) -> Generated_data:
+        """ Generates quantized tensors, scales, and other parameters with given shapes and params, calculates effecitve scales, and returns them as four structs"""
+        raise NotImplementedError
+
+
+def generate_tf_tensor(dims, minval, maxval, decimals=0, datatype=tf.float32):
+    array = minval + (maxval - minval) * np.random.rand(*dims)
+    array = np.round(array, decimals=decimals)
+    tensor = tf.convert_to_tensor(array, dtype=datatype)
+
+    return tensor
+
+
+def get_dtype(name, params):
+    if "bias" in name:
+        return params["bias_data_type"]
+    elif "weight" in name or "kernel" in name:
+        return params["weights_data_type"]
+    elif "input" in name or "output" in name:
+        return params["input_data_type"]
+    else:
+        raise Exception(f"Unable to deduce dtype from name '{name}'")
+
+
+def get_tf_dtype(dtype):
+    if dtype == "int8_t":
+        return tf.int8
+    if dtype == "int16_t":
+        return tf.int16
+    else:
+        raise Exception(f"Unrecognized dtype '{dtype}'")
+
+
+def get_np_dtype(dtype):
+    if dtype == "int8_t":
+        return np.uint8
+    if dtype == "int16_t":
+        return np.uint16
+    if dtype == "int32_t":
+        return np.uint32
+    if dtype == "int64_t":
+        return np.uint32
+    else:
+        raise Exception(f"Unrecognized dtype '{dtype}'")
+
+
+def get_dtype_len(dtype):
+    if dtype == "int8_t":
+        return 1
+    elif dtype == "int16_t":
+        return 2
+    elif dtype == "int32_t" or dtype == "float":
+        return 4
+    elif dtype == "int64_t" or dtype == "double":
+        return 8
+    else:
+        raise Exception(f"Unrecognized dtype '{dtype}'")
+
+
+def get_dtype_max(dtype):
+    if dtype == "int4_t":
+        return 7
+    if dtype == "int8_t":
+        return 127
+    elif dtype == "int16_t":
+        return 32767
+    elif dtype == "int32_t":
+        return 2147483647
+    elif dtype == "int64_t":
+        return 9223372036854775807
+    else:
+        raise Exception(f"Unrecognized dtype '{dtype}'")
+
+
+def get_dtype_min(dtype):
+    if dtype == "int4_t":
+        return -8
+    if dtype == "int8_t":
+        return -128
+    elif dtype == "int16_t":
+        return -32768
+    elif dtype == "int32_t":
+        return -2147483648
+    elif dtype == "int64_t":
+        return -9223372036854775808
+    else:
+        raise Exception(f"Unrecognized dtype '{dtype}'")
