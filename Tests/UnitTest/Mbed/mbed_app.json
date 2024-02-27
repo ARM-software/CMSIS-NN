@@ -3,8 +3,5 @@
         "K64F": {
             "platform.stdio-baud-rate": 9600
         }
-    },
-    "requires": [
-        "bare-metal"
-    ]
+    }
 }
