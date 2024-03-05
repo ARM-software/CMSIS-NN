@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -119,6 +119,7 @@ void depthwise_int4_1_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_1_output_ref, DEPTHWISE_INT4_1_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_1_DST_SIZE);
 
+    ctx.size = 0;
     ctx.buf = malloc(ctx.size);
     result = arm_depthwise_conv_s4(&ctx,
                                    &dw_conv_params,
@@ -234,6 +235,7 @@ void depthwise_int4_2_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_2_output_ref, DEPTHWISE_INT4_2_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_2_DST_SIZE);
 
+    ctx.size = 0;
     ctx.buf = malloc(ctx.size);
     result = arm_depthwise_conv_s4(&ctx,
                                    &dw_conv_params,
@@ -350,6 +352,7 @@ void depthwise_int4_3_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_3_output_ref, DEPTHWISE_INT4_3_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_3_DST_SIZE);
 
+    ctx.size = 0;
     ctx.buf = malloc(ctx.size);
     result = arm_depthwise_conv_s4(&ctx,
                                    &dw_conv_params,
@@ -465,6 +468,7 @@ void depthwise_int4_4_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_4_output_ref, DEPTHWISE_INT4_4_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_4_DST_SIZE);
 
+    ctx.size = 0;
     ctx.buf = malloc(ctx.size);
     result = arm_depthwise_conv_s4(&ctx,
                                    &dw_conv_params,

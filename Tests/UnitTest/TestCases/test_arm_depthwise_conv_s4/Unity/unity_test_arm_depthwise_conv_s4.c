@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates  <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates  <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -48,3 +48,5 @@ void test_depthwise_int4_generic_arm_depthwise_conv_s4(void) { depthwise_int4_ge
 void test_depthwise_int4_generic_2_arm_depthwise_conv_s4(void) { depthwise_int4_generic_2_arm_depthwise_conv_s4(); }
 void test_depthwise_int4_generic_3_arm_depthwise_conv_s4(void) { depthwise_int4_generic_3_arm_depthwise_conv_s4(); }
 void test_depthwise_int4_generic_4_arm_depthwise_conv_s4(void) { depthwise_int4_generic_4_arm_depthwise_conv_s4(); }
+void test_depthwise_int4_generic_5_arm_depthwise_conv_s4(void) { depthwise_int4_generic_5_arm_depthwise_conv_s4(); }
+void test_depthwise_int4_generic_6_arm_depthwise_conv_s4(void) { depthwise_int4_generic_6_arm_depthwise_conv_s4(); }
