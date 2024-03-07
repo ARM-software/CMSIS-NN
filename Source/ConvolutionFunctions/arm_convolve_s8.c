@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        04 January 2024
- * $Revision:    V.3.6.0
+ * $Date:        27 February 2024
+ * $Revision:    V.3.7.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -100,16 +100,18 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
         return ARM_CMSIS_NN_ARG_ERROR;
     }
 
-    int i_batch;
-    for (i_batch = 0; i_batch < input_batches; i_batch++)
+    const int32_t remainder = rhs_cols % 4;
+    const int32_t aligned_rhs_cols = remainder != 0 ? rhs_cols + 4 - remainder : rhs_cols;
+
+    for (int i_batch = 0; i_batch < input_batches; i_batch++)
     {
+
 #if defined(ARM_MATH_MVEI)
+        const int32_t aligned_rhs_cols_offset = aligned_rhs_cols - rhs_cols;
+
         /* Generate up to four columns from the input tensor a GEMM computation */
         int8_t *im2col_buf = (int8_t *)buffer_a;
 #else
-        const int32_t remainder = rhs_cols % 4;
-        const int32_t aligned_rhs_cols = remainder != 0 ? rhs_cols + 4 - remainder : rhs_cols;
-
         /* Use as a ping-pong buffer for unordered elements */
         int8_t *im2col_buf = (int8_t *)buffer_a + aligned_rhs_cols * 2;
         int16_t *im2col_buf_start_s16 = buffer_a;
@@ -155,6 +157,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                     lhs_rows++;
 
 #if defined(ARM_MATH_MVEI)
+                    im2col_buf += aligned_rhs_cols_offset;
 
                     /* Computation is filed for every 4 columns */
                     if (lhs_rows == 4)
@@ -173,7 +176,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                                                 out_activation_min,
                                                 out_activation_max,
                                                 output_ch,
-                                                rhs_cols);
+                                                aligned_rhs_cols);
 
                         out += lhs_rows * output_ch;
 
@@ -259,7 +262,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                                         out_activation_min,
                                         out_activation_max,
                                         output_ch,
-                                        rhs_cols);
+                                        aligned_rhs_cols);
 
                 out += lhs_rows * output_ch;
                 lhs_rows = 0;
