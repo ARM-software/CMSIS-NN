@@ -38,6 +38,7 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s4_s16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1x1_s4_fast.c"/>
@@ -53,7 +54,6 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s4.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_s4_opt.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_s4.c"/>
-        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_fast_s16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_s4.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_s16.c"/>
@@ -69,13 +69,13 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_s8.c"/>
-        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_w.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_y.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_z.c"/>
         <file category="source" name="Source/SVDFunctions/arm_svdf_s8.c"/>
         <file category="source" name="Source/SVDFunctions/arm_svdf_state_s16_s8.c"/>
+        <file category="source" name="Source/SVDFunctions/arm_svdf_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_max_pool_s8.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_max_pool_s16.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_s8.c"/>
@@ -101,9 +101,9 @@
         <file category="source" name="Source/NNSupportFunctions/arm_s8_to_s16_unordered_with_offset.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s4.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8_s32.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s16.c"/>
-        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nntables.c"/>
@@ -112,6 +112,7 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8_s16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_row_offset_s8_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s4.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
