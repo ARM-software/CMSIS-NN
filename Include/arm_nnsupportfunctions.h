@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        22 March 2024
- * $Revision:    V.20.0.0
+ * $Date:        14 February 2024
+ * $Revision:    V.20.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1538,9 +1538,9 @@ __STATIC_FORCEINLINE void arm_nn_write_s8x2_ia(int8_t **dst, int16_t src)
 
 // Support functions for LSTM
 /**
- * @brief Update LSTM function for an iteration step
+ * @brief Update LSTM function for an iteration step using s8 input and output, and s16 internally.
  *
- * @param[in]   data_in                         Data input pointervoid
+ * @param[in]   data_in                         Data input pointer
  * @param[in]   hidden_in                       Hidden state/ recurrent input pointer
  * @param[out]  hidden_out                      Hidden state/ recurrent output pointer
  * @param[in]   params                          Struct containg all information about the lstm operator, see
@@ -1562,6 +1562,30 @@ arm_cmsis_nn_status arm_nn_lstm_step_s8(const int8_t *data_in,
                                         const int32_t batch_offset);
 
 /**
+ * @brief Update LSTM function for an iteration step using s16 input and output, and s16 internally.
+ *
+ * @param[in]   data_in                         Data input pointer
+ * @param[in]   hidden_in                       Hidden state/ recurrent input pointer
+ * @param[out]  hidden_out                      Hidden state/ recurrent output pointer
+ * @param[in]   params                          Struct containg all information about the lstm operator, see
+ * arm_nn_types.
+ * @param[in]   buffers                         Struct containg pointers to all temporary scratch buffers needed for the
+ * lstm operator, see arm_nn_types.
+ * @param[in]   batch_offset                    Number of timesteps between consecutive batches.
+ * E.g for params->timing_major = true, all batches for t=0 are stored sequentially, so batch offset = 1.
+ * For params->time major = false, all time steps are stored continously before the next batch, so
+ * batch offset = params->time_steps.
+ * @return                                      The function returns ARM_CMSIS_NN_SUCCESS
+
+ */
+arm_cmsis_nn_status arm_nn_lstm_step_s16(const int16_t *data_in,
+                                         const int16_t *hidden_in,
+                                         int16_t *hidden_out,
+                                         const cmsis_nn_lstm_params *params,
+                                         cmsis_nn_lstm_context *buffers,
+                                         const int32_t batch_offset);
+
+/**
  * @brief Updates a LSTM gate for an iteration step of LSTM function, int8x8_16 version.
  *
  * @param[in]   data_in                         Data input pointer
@@ -1581,6 +1605,27 @@ arm_cmsis_nn_status arm_nn_lstm_calculate_gate_s8_s16(const int8_t *data_in,
                                                       const cmsis_nn_lstm_params *params,
                                                       int16_t *output,
                                                       const int32_t batch_offset);
+
+/**
+ * @brief Updates a LSTM gate for an iteration step of LSTM function, int16x8_16 version.
+ *
+ * @param[in]   data_in                         Data input pointer
+ * @param[in]   hidden_in                       Hidden state/ recurrent input pointer
+ * @param[in]   gate_data                       Struct containing all information about the gate caluclation, see
+ * arm_nn_types.
+ * @param[in]   params                          Struct containing all information about the lstm_operation, see
+ * arm_nn_types
+ * @param[out]  output                          Hidden state/ recurrent output pointer
+ * @param[in]   batch_offset                    Number of timesteps between consecutive batches, see
+ * arm_nn_lstm_step_s16.
+ * @return                                      The function returns ARM_CMSIS_NN_SUCCESS
+ */
+arm_cmsis_nn_status arm_nn_lstm_calculate_gate_s16(const int16_t *data_in,
+                                                   const int16_t *hidden_in,
+                                                   const cmsis_nn_lstm_gate *gate_data,
+                                                   const cmsis_nn_lstm_params *params,
+                                                   int16_t *output,
+                                                   const int32_t batch_offset);
 
 /**
  * @brief The result of the multiplication is accumulated to the passed result buffer.
@@ -1613,6 +1658,36 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
                                                          const int32_t batch_offset);
 
 /**
+ * @brief The result of the multiplication is accumulated to the passed result buffer.
+ * Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent
+ * from each other).
+ *
+ * @param[in]   lhs              Batched vector
+ * @param[in]   rhs              Weights - input matrix (H(Rows)xW(Columns))
+ * @param[in]   effective_bias   Bias + lhs_offset * kernel_sum term precalculated into a constant vector.
+ * @param[out]  dst              Output
+ * @param[in]   dst_multiplier   Multiplier for quantization
+ * @param[in]   dst_shift        Shift for quantization
+ * @param[in]   rhs_cols         Vector/matarix column length
+ * @param[in]   rhs_rows         Row count of matrix
+ * @param[in]   batches          Batch size
+ * @param[in]   batch_offset     Number of timesteps between consecutive batches in input, see arm_nn_lstm_step_s16.
+ Note that the output is always stored with sequential batches.
+ * @return                       The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+
+ */
+arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
+                                                      const int8_t *rhs,
+                                                      const int64_t *effective_bias,
+                                                      int16_t *dst,
+                                                      const int32_t dst_multiplier,
+                                                      const int32_t dst_shift,
+                                                      const int32_t rhs_cols,
+                                                      const int32_t rhs_rows,
+                                                      const int32_t batches,
+                                                      const int32_t batch_offset);
+
+/**
  * @brief s16 elementwise multiplication with s8 output
  * @param[in]       input_1_vect        pointer to input vector 1
  * @param[in]       input_2_vect        pointer to input vector 2
@@ -1637,6 +1712,32 @@ arm_cmsis_nn_status arm_elementwise_mul_s16_s8(const int16_t *input_1_vect,
                                                const int32_t block_size,
                                                const int32_t batch_size,
                                                const int32_t batch_offset);
+
+/**
+ * @brief s16 elementwise multiplication with s16 output
+ * @param[in]       input_1_vect        pointer to input vector 1
+ * @param[in]       input_2_vect        pointer to input vector 2
+ * @param[in,out]   output              pointer to output vector
+ * @param[in]       out_offset          output offset
+ * @param[in]       out_mult            output multiplier
+ * @param[in]       out_shift           output shift
+ * @param[in]       block_size          number of samples per batch
+ * @param[in]       batch_size          number of samples per batch
+ * @param[in]       batch_offset        Number of timesteps between consecutive batches in output, see
+ * arm_nn_lstm_step_s16. Note that it is assumed that the input is stored with sequential batches.
+ * @return          The function returns ARM_CMSIS_NN_SUCCESS
+ *
+ * @details   Supported framework: TensorFlow Lite micro
+ */
+arm_cmsis_nn_status arm_elementwise_mul_s16_batch_offset(const int16_t *input_1_vect,
+                                                         const int16_t *input_2_vect,
+                                                         int16_t *output,
+                                                         const int32_t out_offset,
+                                                         const int32_t out_mult,
+                                                         const int32_t out_shift,
+                                                         const int32_t block_size,
+                                                         const int32_t batch_size,
+                                                         const int32_t batch_offset);
 
 /**
  * @brief s16 elementwise multiplication. The result of the multiplication is accumulated to the passed result buffer.

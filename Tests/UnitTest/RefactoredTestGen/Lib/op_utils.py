@@ -88,7 +88,7 @@ def get_np_dtype(dtype):
     if dtype == "int32_t":
         return np.uint32
     if dtype == "int64_t":
-        return np.uint32
+        return np.uint64
     else:
         raise Exception(f"Unrecognized dtype '{dtype}'")
 

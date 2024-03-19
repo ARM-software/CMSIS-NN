@@ -84,6 +84,7 @@
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_s16.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_batch_offset.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_acc_s16.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_s16.c"/>
@@ -110,16 +111,21 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s8.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8_s16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_row_offset_s8_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s4.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_vector_sum_s8.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_vector_sum_s8_s64.c"/>
         <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s8.c"/>
+        <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>

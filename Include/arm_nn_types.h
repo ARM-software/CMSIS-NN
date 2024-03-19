@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        19 January 2024
- * $Revision:    V.3.0.0
+ * $Date:        26 March 2024
+ * $Revision:    V.3.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -191,15 +191,15 @@ typedef struct
 {
     int32_t input_multiplier;
     int32_t input_shift;
-    const int8_t *input_weights;
-    const int32_t *input_effective_bias; /**< Bias added with precomputed kernel_sum * lhs_offset*/
+    const void *input_weights;
+    const void *input_effective_bias; /**< Bias added with precomputed kernel_sum * lhs_offset*/
 
     int32_t hidden_multiplier;
     int32_t hidden_shift;
-    const int8_t *hidden_weights;
-    const int32_t *hidden_effective_bias; /**< Precomputed kernel_sum * lhs_offset*/
+    const void *hidden_weights;
+    const void *hidden_effective_bias; /**< Precomputed kernel_sum * lhs_offset*/
 
-    const int32_t *bias;
+    const void *bias;
     arm_nn_activation_type activation_type;
 } cmsis_nn_lstm_gate;
 

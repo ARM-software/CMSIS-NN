@@ -27,7 +27,11 @@ class Op_lstm(Lib.op_utils.Op_type):
 
     def get_shapes(params):
         shapes = {}
-        shapes["input"] = (params["batch_size"], params["time_steps"], params["input_size"])
+        if params["time_major"] and params["tflite_generator"] == "json":
+            shapes["input"] = (params["time_steps"], params["batch_size"], params["input_size"])
+        else:
+            shapes["input"] = (params["batch_size"], params["time_steps"], params["input_size"])
+
         shapes["input_weights"] = (params["input_size"], params["hidden_size"])
         shapes["all_input_weights"] = (params["input_size"], params["hidden_size"] * 4)
 
@@ -135,8 +139,8 @@ class Op_lstm(Lib.op_utils.Op_type):
         effective_scales = {}
         generated_params = {}
 
-        maxval = 0.009
-        minval = 0.002
+        maxval = 0.001
+        minval = 0.0001
 
         scales["input_scale"] = np.round(np.random.rand(1) * (maxval - minval) + minval, 6)[0]
         scales["cell_scale"] = np.round(np.random.rand(1) * (maxval - minval) + maxval, 6)[0]
@@ -175,8 +179,8 @@ class Op_lstm(Lib.op_utils.Op_type):
         tensors["cell_gate_input_weights"] = np.random.randint(minval, maxval, size=shapes["input_weights"])
         tensors["output_gate_input_weights"] = np.random.randint(minval, maxval, size=shapes["input_weights"])
 
-        maxval = 1
-        minval = 0
+        maxval = Lib.op_utils.get_dtype_max(params["input_data_type"])
+        minval = 0 # Negative weights are not supported in test generation
         tensors["input_gate_bias"] = np.random.randint(minval, maxval, size=shapes["bias"])
         tensors["forget_gate_bias"] = np.random.randint(minval, maxval, size=shapes["bias"])
         tensors["cell_gate_bias"] = np.random.randint(minval, maxval, size=shapes["bias"])
