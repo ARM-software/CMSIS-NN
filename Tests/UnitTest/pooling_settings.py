@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,7 +18,7 @@ from test_settings import TestSettings
 
 import numpy as np
 import tensorflow as tf
-
+import tf_keras as keras
 
 class PoolingSettings(TestSettings):
 
@@ -85,18 +85,18 @@ class PoolingSettings(TestSettings):
         input_data = tf.cast(input_data, tf.float32)
 
         # Create a one-layer Keras model
-        model = tf.keras.models.Sequential()
+        model = keras.models.Sequential()
         input_shape = (self.batches, self.y_input, self.x_input, self.input_ch)
-        model.add(tf.keras.layers.InputLayer(input_shape=input_shape[1:], batch_size=self.batches))
+        model.add(keras.layers.InputLayer(input_shape=input_shape[1:], batch_size=self.batches))
         if self.test_type == 'avgpool':
             model.add(
-                tf.keras.layers.AveragePooling2D(pool_size=(self.filter_y, self.filter_x),
+                keras.layers.AveragePooling2D(pool_size=(self.filter_y, self.filter_x),
                                                  strides=(self.stride_y, self.stride_x),
                                                  padding=self.padding,
                                                  input_shape=input_shape[1:]))
         elif self.test_type == 'maxpool':
             model.add(
-                tf.keras.layers.MaxPooling2D(pool_size=(self.filter_y, self.filter_x),
+                keras.layers.MaxPooling2D(pool_size=(self.filter_y, self.filter_x),
                                              strides=(self.stride_y, self.stride_x),
                                              padding=self.padding,
                                              input_shape=input_shape[1:]))

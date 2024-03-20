@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,6 +18,7 @@ from test_settings import TestSettings
 
 import tensorflow as tf
 import numpy as np
+import tf_keras as keras
 
 
 class AddMulSettings(TestSettings):
@@ -90,16 +91,16 @@ class AddMulSettings(TestSettings):
             inttype_tf = tf.int8
 
         # Create a one-layer functional Keras model as add/mul cannot use a sequntial Keras model.
-        input1 = tf.keras.layers.Input(shape=input_shape[1:])
-        input2 = tf.keras.layers.Input(shape=input_shape[1:])
+        input1 = keras.layers.Input(shape=input_shape[1:])
+        input2 = keras.layers.Input(shape=input_shape[1:])
         if self.test_type == 'add':
-            layer = tf.keras.layers.Add()([input1, input2])
+            layer = keras.layers.Add()([input1, input2])
         elif self.test_type == 'mul':
-            layer = tf.keras.layers.Multiply()([input1, input2])
+            layer = keras.layers.Multiply()([input1, input2])
         else:
             raise RuntimeError("Wrong test type")
-        out = tf.keras.layers.Lambda(function=lambda x: x)(layer)
-        model = tf.keras.models.Model(inputs=[input1, input2], outputs=out)
+        out = keras.layers.Lambda(function=lambda x: x)(layer)
+        model = keras.models.Model(inputs=[input1, input2], outputs=out)
 
         interpreter = self.convert_and_interpret(model, inttype_tf)
 
