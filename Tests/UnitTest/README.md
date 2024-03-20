@@ -33,7 +33,7 @@ Python packages mbed-cli and and mbed-ls are command line tools so it should not
 For generating new test data, the following packages are needed.
 
 ```
-pip install numpy packaging tensorflow
+pip install numpy packaging tensorflow tf-keras~=2.16
 ```
 
 

@@ -18,7 +18,7 @@ from test_settings import TestSettings
 
 import tensorflow as tf
 import numpy as np
-
+import tf_keras as keras
 
 class FullyConnectedSettings(TestSettings):
 
@@ -226,11 +226,11 @@ class FullyConnectedSettings(TestSettings):
             weights_size = weights.numpy().size
 
             # Generate model in tensorflow with one fully_connected layer
-            model = tf.keras.models.Sequential()
+            model = keras.models.Sequential()
             model.add(
-                tf.keras.layers.InputLayer(input_shape=(self.y_input * self.x_input * self.input_ch, ),
+                keras.layers.InputLayer(input_shape=(self.y_input * self.x_input * self.input_ch, ),
                                            batch_size=self.batches))
-            fully_connected_layer = tf.keras.layers.Dense(self.output_ch, activation=None, use_bias=self.generate_bias)
+            fully_connected_layer = keras.layers.Dense(self.output_ch, activation=None, use_bias=self.generate_bias)
             model.add(fully_connected_layer)
             if self.generate_bias:
                 fully_connected_layer.set_weights([weights, biases])

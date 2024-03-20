@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -26,7 +26,7 @@ from packaging import version
 
 import numpy as np
 import tensorflow as tf
-
+import tf_keras as keras
 
 class TestSettings(ABC):
 
@@ -453,8 +453,8 @@ class TestSettings(ABC):
         return self.interpret_model(input_data, inttype)
 
     def convert_model(self, model, inttype, dataset_shape=None):
-        model.compile(loss=tf.keras.losses.categorical_crossentropy,
-                      optimizer=tf.keras.optimizers.Adam(),
+        model.compile(loss=keras.losses.categorical_crossentropy,
+                      optimizer=keras.optimizers.Adam(),
                       metrics=['accuracy'])
         n_inputs = len(model.inputs)
 

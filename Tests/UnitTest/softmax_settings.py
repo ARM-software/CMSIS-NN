@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -17,7 +17,7 @@
 import math
 from test_settings import TestSettings
 import tensorflow as tf
-
+import tf_keras as keras
 
 class SoftmaxSettings(TestSettings):
     softmax_input_integer_bits = 5
@@ -147,9 +147,9 @@ class SoftmaxSettings(TestSettings):
             output_data = interpreter.get_tensor(output_layer["index"])
         else:
             # Create a one-layer Keras model.
-            model = tf.keras.models.Sequential()
+            model = keras.models.Sequential()
             input_shape = (self.y_input, self.x_input)
-            model.add(tf.keras.layers.Softmax(input_shape=input_shape))
+            model.add(keras.layers.Softmax(input_shape=input_shape))
 
             interpreter = self.convert_and_interpret(model, inttype, tf.expand_dims(input_data, axis=0))
             output_details = interpreter.get_output_details()

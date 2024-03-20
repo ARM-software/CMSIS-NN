@@ -19,7 +19,7 @@ from test_settings import TestSettings
 import tensorflow as tf
 import numpy as np
 import math
-
+import tf_keras as keras
 
 class ConvSettings(TestSettings):
 
@@ -317,11 +317,11 @@ class ConvSettings(TestSettings):
                                                    regenerate=self.regenerate_new_weights)
 
             # Create a one layer Keras model.
-            model = tf.keras.models.Sequential()
+            model = keras.models.Sequential()
             input_shape = (self.batches, self.y_input, self.x_input, self.input_ch)
-            model.add(tf.keras.layers.InputLayer(input_shape=input_shape[1:], batch_size=self.batches))
+            model.add(keras.layers.InputLayer(input_shape=input_shape[1:], batch_size=self.batches))
             if self.test_type == 'conv':
-                conv_layer = tf.keras.layers.Conv2D(self.output_ch,
+                conv_layer = keras.layers.Conv2D(self.output_ch,
                                                     kernel_size=(self.filter_y, self.filter_x),
                                                     strides=(self.stride_y, self.stride_x),
                                                     padding=self.padding,
@@ -331,7 +331,7 @@ class ConvSettings(TestSettings):
                 model.add(conv_layer)
                 conv_layer.set_weights([weights, biases])
             elif self.test_type == 'depthwise_conv':
-                depthwise_layer = tf.keras.layers.DepthwiseConv2D(kernel_size=(self.filter_y, self.filter_x),
+                depthwise_layer = keras.layers.DepthwiseConv2D(kernel_size=(self.filter_y, self.filter_x),
                                                                   strides=(self.stride_y, self.stride_x),
                                                                   padding=self.padding,
                                                                   depth_multiplier=self.channel_multiplier,
@@ -340,7 +340,7 @@ class ConvSettings(TestSettings):
                 model.add(depthwise_layer)
                 depthwise_layer.set_weights([weights, biases])
             elif self.test_type == 'transpose_conv':
-                transposed_conv_layer = tf.keras.layers.Conv2DTranspose(self.output_ch,
+                transposed_conv_layer = keras.layers.Conv2DTranspose(self.output_ch,
                                                                         kernel_size=(self.filter_y, self.filter_x),
                                                                         strides=(self.stride_y, self.stride_x),
                                                                         padding=self.padding,
@@ -356,6 +356,9 @@ class ConvSettings(TestSettings):
 
             if self.test_type == 'transpose_conv' and self.generate_bias:
                 filter_index = 3
+                bias_index = 2
+            elif self.is_int16xint8 and self.generate_bias:
+                filter_index = 1
                 bias_index = 2
             else:
                 filter_index = 2

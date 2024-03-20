@@ -19,7 +19,7 @@ from test_settings import TestSettings
 
 import tensorflow as tf
 import numpy as np
-
+import tf_keras as keras
 
 class LSTMSettings(TestSettings):
 
@@ -142,19 +142,19 @@ class LSTMSettings(TestSettings):
                                               maxrange=1.0)
 
         # Create a Keras based LSTM model.
-        input_layer = tf.keras.layers.Input(shape=(self.time_steps, self.number_inputs),
+        input_layer = keras.layers.Input(shape=(self.time_steps, self.number_inputs),
                                             batch_size=self.batches,
                                             name='input')
         if self.time_major:
             input_layer_transposed = tf.transpose(input_layer, perm=[1, 0, 2])
-            lstm_layer = tf.keras.layers.LSTM(units=self.number_units,
+            lstm_layer = keras.layers.LSTM(units=self.number_units,
                                               time_major=self.time_major,
                                               return_sequences=True)(input_layer_transposed)
         else:
-            lstm_layer = tf.keras.layers.LSTM(units=self.number_units,
+            lstm_layer = keras.layers.LSTM(units=self.number_units,
                                               time_major=self.time_major,
                                               return_sequences=True)(input_layer)
-        model = tf.keras.Model(input_layer, lstm_layer, name="LSTM")
+        model = keras.Model(input_layer, lstm_layer, name="LSTM")
 
         if self.time_major:
             time_major_offset = 1
