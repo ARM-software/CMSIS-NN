@@ -29,20 +29,22 @@ echo "++ Checking if version and date was updated in changed files"
 echo " ------ "
 for file in ${CHANGED_FILES[@]}
 do
-    diff=$(git diff ${SHA} HEAD ${file})
-    # This pattern matches "(+|-) * $DATE: Day Month Year"
-    echo "$diff" | grep -E '(-|\+)\s*\*\s*\$[Date]+:\s*[0-9]+\s*[A-Za-z]+\s*[0-9]+' -vqz
-    if [[ $? -eq 0 ]]; then
-        echo "${file}: FAILED"
-        ANY_FAILURE=1
-    else
-        # This pattern matches "(+|-) * $REVISION: V.X.X.X"
-        echo "$diff" | grep -E '(-|\+)\s*\*\s*\$[Revision]+:\s*V\.[0-9]+\.[0-9]+\.[0-9]+' -vqz
+    if [[ ${file} != *"CMake"* ]]; then
+        diff=$(git diff ${SHA} HEAD ${file})
+        # This pattern matches "(+|-) * $DATE: Day Month Year"
+        echo "$diff" | grep -E '(-|\+)\s*\*\s*\$[Date]+:\s*[0-9]+\s*[A-Za-z]+\s*[0-9]+' -vqz
         if [[ $? -eq 0 ]]; then
             echo "${file}: FAILED"
             ANY_FAILURE=1
         else
-            echo "${file}: OK"
+            # This pattern matches "(+|-) * $REVISION: V.X.X.X"
+            echo "$diff" | grep -E '(-|\+)\s*\*\s*\$[Revision]+:\s*V\.[0-9]+\.[0-9]+\.[0-9]+' -vqz
+            if [[ $? -eq 0 ]]; then
+                echo "${file}: FAILED"
+                ANY_FAILURE=1
+            else
+                echo "${file}: OK"
+            fi
         fi
     fi
 done

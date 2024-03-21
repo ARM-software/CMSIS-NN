@@ -28,9 +28,9 @@ class Op_lstm(Lib.op_utils.Op_type):
     def get_shapes(params):
         shapes = {}
         if params["time_major"] and params["tflite_generator"] == "json":
-            shapes["input"] = (params["time_steps"], params["batch_size"], params["input_size"])
+            shapes["input_tensor"] = (params["time_steps"], params["batch_size"], params["input_size"])
         else:
-            shapes["input"] = (params["batch_size"], params["time_steps"], params["input_size"])
+            shapes["input_tensor"] = (params["batch_size"], params["time_steps"], params["input_size"])
 
         shapes["input_weights"] = (params["input_size"], params["hidden_size"])
         shapes["all_input_weights"] = (params["input_size"], params["hidden_size"] * 4)

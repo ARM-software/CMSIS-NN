@@ -30,6 +30,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
 | TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 | Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
+| Batch Matmul    | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
 | Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |

@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        04 Jun 2024
- * $Revision:    V.16.1.0
+ * $Date:        19 June 2024
+ * $Revision:    V.16.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -2603,6 +2603,80 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s16(const int16_t *input,
                                                 int16_t *output,
                                                 const cmsis_nn_lstm_params *params,
                                                 cmsis_nn_lstm_context *buffers);
+
+/**
+ * @brief Batch matmul function with 8 bit input and output.
+ *
+ * @param[in]   ctx                   Temporary scratch buffer
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
+ *                                    Optional function arm_fully_connected_s8_get_buffer_size() provides the buffer
+ *                                    size if an additional buffer is required.
+ * @param[in]   bmm_params            Batch matmul Parameters
+ *                                    Adjoint flags are currently unused.
+ * @param[in]   quant_params          Quantization parameters
+ * @param[in]   input_lhs_dims        Input lhs tensor dimensions.
+ *                                    This should be NHWC where lhs C = rhs C
+ * @param[in]   input_lhs             Pointer to input tensor
+ * @param[in]   input_rhs_dims        Input lhs tensor dimensions.
+ *                                    This is expected to be transposed so
+ *                                    should be NHWC where lhs C = rhs C
+ * @param[in]   input_rhs             Pointer to transposed input tensor
+ * @param[in]   output_dims           Output tensor dimensions
+ * @param[out]  output_data           Pointer to the output tensor *
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ * @details
+ *    1. Supported framework: TensorFlow Lite Micro
+ *    2. Performs row * row matrix multiplication with the RHS transposed.
+ *
+ */
+arm_cmsis_nn_status arm_batch_matmul_s8(const cmsis_nn_context *ctx,
+                                        const cmsis_nn_bmm_params *bmm_params,
+                                        const cmsis_nn_per_tensor_quant_params *quant_params,
+                                        const cmsis_nn_dims *input_lhs_dims,
+                                        const int8_t *input_lhs,
+                                        const cmsis_nn_dims *input_rhs_dims,
+                                        const int8_t *input_rhs,
+                                        const cmsis_nn_dims *output_dims,
+                                        int8_t *output);
+
+/**
+ * @brief Batch matmul function with 16 bit input and output.
+ *
+ * @param[in]   ctx                   Temporary scratch buffer
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
+ *                                    Optional function arm_fully_connected_s8_get_buffer_size() provides the buffer
+ *                                    size if an additional buffer is required.
+ * @param[in]   bmm_params            Batch matmul Parameters
+ *                                    Adjoint flags are currently unused.
+ * @param[in]   quant_params          Quantization parameters
+ * @param[in]   input_lhs_dims        Input lhs tensor dimensions.
+ *                                    This should be NHWC where LHS.C = RHS.C
+ * @param[in]   input_lhs             Pointer to input tensor
+ * @param[in]   input_rhs_dims        Input lhs tensor dimensions.
+ *                                    This is expected to be transposed so
+ *                                    should be NHWC where LHS.C = RHS.C
+ * @param[in]   input_rhs             Pointer to transposed input tensor
+ * @param[in]   output_dims           Output tensor dimensions
+ * @param[out]  output_data           Pointer to the output tensor *
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ * @details
+ *    1. Supported framework: TensorFlow Lite Micro
+ *    2. Performs row * row matrix multiplication with the RHS transposed.
+ *
+ */
+arm_cmsis_nn_status arm_batch_matmul_s16(const cmsis_nn_context *ctx,
+                                         const cmsis_nn_bmm_params *bmm_params,
+                                         const cmsis_nn_per_tensor_quant_params *quant_params,
+                                         const cmsis_nn_dims *input_lhs_dims,
+                                         const int16_t *input_lhs,
+                                         const cmsis_nn_dims *input_rhs_dims,
+                                         const int16_t *input_rhs,
+                                         const cmsis_nn_dims *output_dims,
+                                         int16_t *output);
 
 #ifdef __cplusplus
 }

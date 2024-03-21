@@ -76,6 +76,7 @@ do
 done
 
 Setup_Environment() {
+    set -e
     echo "++ Downloading Corstone300"
     if [[ -d ${WORKING_DIR}/corstone300_download ]]; then
         echo "Corstone300 already installed. If you wish to install a new version, please delete the old folder."
@@ -138,6 +139,7 @@ Setup_Environment() {
 }
 
 Build_Tests() {
+    set -e
     echo "++ Building Tests"
     if [[ ${QUIET} -eq 0 ]]; then
         cmake -S ./ -B build-${cpu}-${compiler} -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} -DTARGET_CPU=${cpu} -DCMSIS_PATH=${CMSIS_5_PATH} -DCMSIS_OPTIMIZATION_LEVEL=${OPTIMIZATION}
@@ -155,6 +157,7 @@ Build_Tests() {
 }
 
 Run_Tests() {
+    set +e
     echo "++ Running Unit Tests"
     readarray -d '' tests < <(find ./build-${cpu}-${compiler}/ -iname "*.elf" -print0)
     for test in "${tests[@]}"

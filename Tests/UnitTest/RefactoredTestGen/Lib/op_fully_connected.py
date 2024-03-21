@@ -58,7 +58,7 @@ class Op_fully_connected(Lib.op_utils.Op_type):
         in_ch = params["in_ch"]
         out_ch = params["out_ch"]
 
-        shapes["input"] = (params["batch_size"], in_ch)
+        shapes["input_tensor"] = (params["batch_size"], in_ch)
         shapes["weight_shape"] = (in_ch, 1, 1, out_ch)
 
         if params["generate_bias"]:
