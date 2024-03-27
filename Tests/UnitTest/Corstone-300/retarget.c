@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * SPDX-FileCopyrightText: Copyright 2010-2021, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -17,16 +17,16 @@
  */
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6100100) && !defined(GCCCOMPILER)
-#include <rt_misc.h>
-#include <rt_sys.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+    #include <rt_misc.h>
+    #include <rt_sys.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <time.h>
 #else
-#include <errno.h>
-#include <string.h>
-#include <sys/stat.h>
+    #include <errno.h>
+    #include <string.h>
+    #include <sys/stat.h>
 #endif
 
 #include "uart.h"
@@ -75,9 +75,9 @@ int SER_GetChar(void) { return UartPutc(UartGetc()); }
    Copied from CMSIS/DSP/Platforms/FVP/ARMv81MML/system_ARMv81MML.c
 */
 
-#define FH_STDIN 0x8001
-#define FH_STDOUT 0x8002
-#define FH_STDERR 0x8003
+    #define FH_STDIN 0x8001
+    #define FH_STDOUT 0x8002
+    #define FH_STDERR 0x8003
 
 const char __stdin_name[] = ":STDIN";
 const char __stdout_name[] = ":STDOUT";
@@ -127,9 +127,9 @@ __attribute__((weak)) int _sys_close(FILEHANDLE fh)
         return (0);
     case FH_STDERR:
         return (0);
+    default:
+        return (-1);
     }
-
-    return (-1);
 }
 
 __attribute__((weak)) int _sys_write(FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode)
@@ -146,9 +146,9 @@ __attribute__((weak)) int _sys_write(FILEHANDLE fh, const uint8_t *buf, uint32_t
         return (0);
     case FH_STDERR:
         return (0);
+    default:
+        return (-1);
     }
-
-    return (-1);
 }
 
 __attribute__((weak)) int _sys_read(FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode)
@@ -165,9 +165,9 @@ __attribute__((weak)) int _sys_read(FILEHANDLE fh, uint8_t *buf, uint32_t len, i
         return (-1);
     case FH_STDERR:
         return (-1);
+    default:
+        return (-1);
     }
-
-    return (-1);
 }
 
 __attribute__((weak)) int _sys_istty(FILEHANDLE fh)
@@ -181,9 +181,9 @@ __attribute__((weak)) int _sys_istty(FILEHANDLE fh)
         return (1);
     case FH_STDERR:
         return (1);
+    default:
+        return (0);
     }
-
-    return (0);
 }
 
 __attribute__((weak)) int _sys_seek(FILEHANDLE fh, long pos)
@@ -198,9 +198,9 @@ __attribute__((weak)) int _sys_seek(FILEHANDLE fh, long pos)
         return (-1);
     case FH_STDERR:
         return (-1);
+    default:
+        return (-1);
     }
-
-    return (-1);
 }
 
 __attribute__((weak)) long _sys_flen(FILEHANDLE fh)
@@ -214,9 +214,9 @@ __attribute__((weak)) long _sys_flen(FILEHANDLE fh)
         return (0);
     case FH_STDERR:
         return (0);
+    default:
+        return (0);
     }
-
-    return (0);
 }
 
 __attribute__((weak)) char *(_sys_command_string)(char *cmd, int len)
