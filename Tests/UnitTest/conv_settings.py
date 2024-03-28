@@ -53,7 +53,9 @@ class ConvSettings(TestSettings):
                  dilation_x=1,
                  dilation_y=1,
                  interpreter="tensorflow",
-                 int4_weights=False):
+                 int4_weights=False,
+                 weights_min=TestSettings.INT32_MIN,
+                 weights_max=TestSettings.INT32_MAX):
         super().__init__(dataset,
                          testtype,
                          regenerate_weights,
@@ -86,6 +88,9 @@ class ConvSettings(TestSettings):
 
         self.scaling_factors = []
         self.groups = groups
+
+        self.weights_min = weights_min
+        self.weights_max = weights_max
 
         if self.test_type == 'depthwise_conv':
             self.channel_multiplier = self.output_ch // self.input_ch
@@ -311,8 +316,8 @@ class ConvSettings(TestSettings):
             else:
                 weights = self.get_randomized_data(weight_shape,
                                                    self.kernel_table_file,
-                                                   minrange=TestSettings.INT32_MIN,
-                                                   maxrange=TestSettings.INT32_MAX,
+                                                   minrange=self.weights_min,
+                                                   maxrange=self.weights_max,
                                                    decimals=1,
                                                    regenerate=self.regenerate_new_weights)
 
@@ -327,18 +332,26 @@ class ConvSettings(TestSettings):
                                                     padding=self.padding,
                                                     input_shape=input_shape[1:],
                                                     dilation_rate=(self.dilation_y, self.dilation_x),
-                                                    groups=self.groups)
+                                                    groups=self.groups,
+                                                    use_bias=self.generate_bias)
                 model.add(conv_layer)
-                conv_layer.set_weights([weights, biases])
+                if self.generate_bias:
+                    conv_layer.set_weights([weights, biases])
+                else:
+                    conv_layer.set_weights([weights])
             elif self.test_type == 'depthwise_conv':
                 depthwise_layer = keras.layers.DepthwiseConv2D(kernel_size=(self.filter_y, self.filter_x),
                                                                   strides=(self.stride_y, self.stride_x),
                                                                   padding=self.padding,
                                                                   depth_multiplier=self.channel_multiplier,
                                                                   input_shape=input_shape[1:],
-                                                                  dilation_rate=(self.dilation_y, self.dilation_x))
+                                                                  dilation_rate=(self.dilation_y, self.dilation_x),
+                                                                  use_bias=self.generate_bias)
                 model.add(depthwise_layer)
-                depthwise_layer.set_weights([weights, biases])
+                if self.generate_bias:
+                    depthwise_layer.set_weights([weights, biases])
+                else:
+                    depthwise_layer.set_weights([weights])
             elif self.test_type == 'transpose_conv':
                 transposed_conv_layer = keras.layers.Conv2DTranspose(self.output_ch,
                                                                         kernel_size=(self.filter_y, self.filter_x),
@@ -371,8 +384,7 @@ class ConvSettings(TestSettings):
         all_layers_details = interpreter.get_tensor_details()
         filter_layer = all_layers_details[filter_index]
 
-        if self.test_type == 'transpose_conv' and not self.generate_bias:
-            # TODO: real null bias for all operators and not only transpose conv.
+        if not self.int4_weights and not self.generate_bias:
             bias_layer = None
             biases = []
         else:

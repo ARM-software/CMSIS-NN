@@ -3,4 +3,4 @@
 #pragma once
 #include <stdint.h>
 
-const int32_t int16xint8_output_shift[4] = {-16, -16, -16, -16};
+const int32_t int16xint8_spill2_output_shift[9] = {-14, -14, -14, -14, -14, -14, -14, -14, -14};

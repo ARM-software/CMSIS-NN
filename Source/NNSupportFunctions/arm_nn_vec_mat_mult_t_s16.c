@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2020-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2020-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,16 +21,14 @@
  * Title:        arm_nn_vec_mat_mult_t_s16
  * Description:  s16 vector by matrix (transposed) multiplication
  *
- * $Date:        5 January 2023
- * $Revision:    V.2.2.0
+ * $Date:        22 March 2024
+ * $Revision:    V.2.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnsupportfunctions.h"
-
-#define MAX_COL_COUNT (512)
 
 /**
  * @ingroup groupSupport
