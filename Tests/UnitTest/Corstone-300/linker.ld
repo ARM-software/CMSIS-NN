@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2009-2021, 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2009-2021, 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -133,8 +133,6 @@ SECTIONS
     *(SORT(.dtors.*))
     *(.dtors)
 
-    *(.rodata*)
-
     KEEP(*(.eh_frame*))
   } > ITCM
 
@@ -255,6 +253,12 @@ SECTIONS
     *(.bss.NoInit)
     . = ALIGN(16);
   } > SRAM AT > SRAM
+
+  .ddr :
+  {
+    . = ALIGN(16);
+    *(.rodata*)
+  } > DDR AT > DDR
 
   .bss :
   {
