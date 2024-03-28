@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        27 February 2024
- * $Revision:    V.2.0.1
+ * $Date:        14 March 2024
+ * $Revision:    V.2.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -74,7 +74,13 @@ __STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn
         return arm_convolve_s8_get_buffer_size_mve(input_dims, filter_dims);
     }
 
-    return 0;
+    const int32_t pad_size_left = pad_x * input_dims->c;
+    const int32_t pad_size_right = asym_pad ? right_pad_num * input_dims->c : pad_size_left;
+    const int32_t num_elem_left = kernel_x * input_dims->c;
+    const int32_t num_elem_right = num_elem_left - input_dims->c;
+    const int32_t size_1_x_n = MAX(num_elem_left + pad_size_left, num_elem_right + pad_size_right);
+
+    return size_1_x_n;
 }
 
 int32_t arm_convolve_s8_get_buffer_size(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
