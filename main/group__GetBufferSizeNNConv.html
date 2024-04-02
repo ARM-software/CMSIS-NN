@@ -136,9 +136,6 @@ $(document).ready(function(){initNavTree('group__GetBufferSizeNNConv.html',''); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8db7c4be84de273cfba630106d912737"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga8db7c4be84de273cfba630106d912737">arm_convolve_fast_s16_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims)</td></tr>
-<tr class="memdesc:ga8db7c4be84de273cfba630106d912737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for fast s16 convolution function.  <br /></td></tr>
-<tr class="separator:ga8db7c4be84de273cfba630106d912737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf8ee642967e4b1b05465621979de1baa"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gaf8ee642967e4b1b05465621979de1baa">arm_convolve_s16_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims)</td></tr>
 <tr class="memdesc:gaf8ee642967e4b1b05465621979de1baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for s16 convolution function.  <br /></td></tr>
 <tr class="separator:gaf8ee642967e4b1b05465621979de1baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -338,44 +335,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns the required buffer size in bytes </dd></dl>
-
-</div>
-</div>
-<a id="ga8db7c4be84de273cfba630106d912737" name="ga8db7c4be84de273cfba630106d912737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8db7c4be84de273cfba630106d912737">&#9670;&#160;</a></span>arm_convolve_fast_s16_get_buffer_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_convolve_fast_s16_get_buffer_size </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>input_dims</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>filter_dims</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the required buffer size for fast s16 convolution function. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [N, H, W, C_IN] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the spatial filter dimensions </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The function returns required buffer size(bytes) </dd></dl>
 
 </div>
 </div>

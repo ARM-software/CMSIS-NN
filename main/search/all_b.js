@@ -5,7 +5,7 @@ var searchData=
   ['mask_5fif_5fzero_2',['MASK_IF_ZERO',['../arm__nnsupportfunctions_8h.html#a76b700415a2c22cea484103b7123739b',1,'arm_nnsupportfunctions.h']]],
   ['max_3',['max',['../group__genPubTypes.html#accad1cdcd73e714badc388c3471bf33b',1,'cmsis_nn_activation']]],
   ['max_4',['MAX',['../arm__nnsupportfunctions_8h.html#ad935f1ff1a50822e317bdb321ce991ad',1,'arm_nnsupportfunctions.h']]],
-  ['max_5fcol_5fcount_5',['MAX_COL_COUNT',['../arm__nn__vec__mat__mult__t__s16_8c.html#ab6cf185995a44514fff7ea4871e26fc2',1,'arm_nn_vec_mat_mult_t_s16.c']]],
+  ['max_5fcol_5fcount_5',['MAX_COL_COUNT',['../arm__nnsupportfunctions_8h.html#ab6cf185995a44514fff7ea4871e26fc2',1,'arm_nnsupportfunctions.h']]],
   ['max_5ftime_6',['max_time',['../group__genPubTypes.html#afcad0cad68a7df22c9016799abeae31a',1,'cmsis_nn_lstm_dims']]],
   ['min_7',['min',['../group__genPubTypes.html#a0022b5ad7e496a802c64e3f6e0c2d8e1',1,'cmsis_nn_activation']]],
   ['min_8',['MIN',['../arm__nnsupportfunctions_8h.html#adcd021ac91d43a62b2cdecf9a5b971a7',1,'arm_nnsupportfunctions.h']]],

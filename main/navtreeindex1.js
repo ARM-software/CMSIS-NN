@@ -1,10 +1,9 @@
 var NAVTREEINDEX1 =
 {
-"group__supportConvolution.html#ga9a5bbacc830176ced95c98d2d4100041":[3,1,1,6],
-"group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74":[3,1,1,5],
 "group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785":[3,1,1,3],
 "group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae":[3,1,1,4],
-"group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a":[3,1,1,8],
+"group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a":[3,1,1,9],
+"group__supportConvolution.html#gafe7ffd3eeb76064cdf8a690953305e03":[3,1,1,6],
 "group__supportFC.html":[3,1,3],
 "group__supportFC.html#ga10758802e8392839a207eb21620f60c3":[3,1,3,0],
 "group__supportFC.html#ga40c9ae690cbeef08eddf4556d978e8ac":[3,1,3,3],
@@ -16,8 +15,8 @@ var NAVTREEINDEX1 =
 "group__supportLSTM.html#gac84041149b815eb7caa5533ffd921a4c":[3,1,2,2],
 "group__supportSoftmax.html":[3,1,4],
 "group__supportSoftmax.html#gaa5632ba67b623b5dff0c4a2d8e2a9a3a":[3,1,4,0],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#Copyright":[0,7],
 "index.html#Examples":[0,4],
 "index.html#Framework":[0,3],

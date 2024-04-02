@@ -171,6 +171,8 @@ Macros</h2></td></tr>
 <tr class="separator:a19343832dbe881d527496171f69dc0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ace380daf8e374d9ab4aa50095d1b39b1">CH_IN_BLOCK_MVE</a>&#160;&#160;&#160;(124)</td></tr>
 <tr class="separator:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6cf185995a44514fff7ea4871e26fc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab6cf185995a44514fff7ea4871e26fc2">MAX_COL_COUNT</a>&#160;&#160;&#160;(512)</td></tr>
+<tr class="separator:ab6cf185995a44514fff7ea4871e26fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bde61046c9d2729f56054cafba589c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4bde61046c9d2729f56054cafba589c6">PACK_S8x4_32x1</a>(v0,  v1,  v2,  v3)</td></tr>
 <tr class="memdesc:a4bde61046c9d2729f56054cafba589c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition to pack four 8 bit values.  <br /></td></tr>
 <tr class="separator:a4bde61046c9d2729f56054cafba589c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,9 +213,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a195279926b8d39ef8a1ff9131832a40f"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a195279926b8d39ef8a1ff9131832a40f">arm_nn_mat_mult_s8</a> (const int8_t *input_row, const int8_t *input_col, const uint16_t output_ch, const uint16_t col_batches, const int32_t *output_shift, const int32_t *output_mult, const int32_t out_offset, const int32_t col_offset, const int32_t row_offset, const int16_t out_activation_min, const int16_t out_activation_max, const uint16_t row_len, const int32_t *const bias, int8_t *out)</td></tr>
 <tr class="memdesc:a195279926b8d39ef8a1ff9131832a40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization.  <br /></td></tr>
 <tr class="separator:a195279926b8d39ef8a1ff9131832a40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gac84bcbb440c964e76e1bcfdcf2477c74">arm_nn_mat_mult_kernel_s16</a> (const int8_t *input_a, const int16_t *input_b, const int32_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int16_t activation_min, const int16_t activation_max, const int32_t num_col_a, const int64_t *const output_bias, int16_t *out_0)</td></tr>
-<tr class="memdesc:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization for 16 bits convolution.  <br /></td></tr>
-<tr class="separator:gac84bcbb440c964e76e1bcfdcf2477c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81be0dc780b8724088ebd4d6cffd8359"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga81be0dc780b8724088ebd4d6cffd8359">arm_nn_mat_mult_kernel_s16</a> (const int8_t *input_a, const int16_t *input_b, const int32_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const int32_t num_col_a, const int64_t *const output_bias, int16_t *out_0)</td></tr>
+<tr class="memdesc:ga81be0dc780b8724088ebd4d6cffd8359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization for 16 bits convolution.  <br /></td></tr>
+<tr class="separator:ga81be0dc780b8724088ebd4d6cffd8359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada3234313b4c9fefd7c4421d88c4a785"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785">arm_nn_mat_mul_core_1x_s8</a> (int32_t row_elements, const int32_t skipped_row_elements, const int8_t *row_base_ref, const int8_t *col_base_ref, const int32_t out_ch, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
 <tr class="memdesc:gada3234313b4c9fefd7c4421d88c4a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Vector by Matrix multiplication with requantization and storage of result.  <br /></td></tr>
 <tr class="separator:gada3234313b4c9fefd7c4421d88c4a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -226,6 +228,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6e946ce01dca21f5d1b2f6d1dfeabb4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga6e946ce01dca21f5d1b2f6d1dfeabb4a">arm_nn_mat_mult_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *bias, int8_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max, const int32_t row_address_offset, const int32_t lhs_cols_offset)</td></tr>
 <tr class="memdesc:ga6e946ce01dca21f5d1b2f6d1dfeabb4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <br /></td></tr>
 <tr class="separator:ga6e946ce01dca21f5d1b2f6d1dfeabb4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe7ffd3eeb76064cdf8a690953305e03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gafe7ffd3eeb76064cdf8a690953305e03">arm_nn_mat_mult_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const int64_t *bias, int16_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t activation_min, const int32_t activation_max)</td></tr>
+<tr class="memdesc:gafe7ffd3eeb76064cdf8a690953305e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization and int16 input (LHS) and output. This function assumes:  <br /></td></tr>
+<tr class="separator:gafe7ffd3eeb76064cdf8a690953305e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6a91b1c854a59478f251e5209fef17a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a">arm_nn_mat_mult_nt_t_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *dst, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_idx_offset)</td></tr>
 <tr class="memdesc:gae6a91b1c854a59478f251e5209fef17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with int8 input and int32 output. This function assumes:  <br /></td></tr>
 <tr class="separator:gae6a91b1c854a59478f251e5209fef17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -477,6 +482,20 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td>&#160;&#160;&#160;((A) &gt; (B) ? (A) : (B))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6cf185995a44514fff7ea4871e26fc2" name="ab6cf185995a44514fff7ea4871e26fc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6cf185995a44514fff7ea4871e26fc2">&#9670;&#160;</a></span>MAX_COL_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_COL_COUNT&#160;&#160;&#160;(512)</td>
         </tr>
       </table>
 </div><div class="memdoc">
