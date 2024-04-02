@@ -37,4 +37,4 @@ jobs:
 
       - name: Check
         run: |
-          check_pdsc.sh
+          sh check_pdsc.sh
