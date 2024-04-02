@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        14 February 2024
- * $Revision:    V.19.0.0
+ * $Date:        22 March 2024
+ * $Revision:    V.20.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -62,6 +62,10 @@ extern "C" {
 // scratch buffer usage and a layer with higher number of channels than CH_IN_BLOCK_MVE
 // will result in lower scratch buffer usage.
 #define CH_IN_BLOCK_MVE (124)
+
+// For input of int16 when number of columns are above this limit int64 accumulation is needed
+// to not loose precision.
+#define MAX_COL_COUNT (512)
 
 /**
  * @brief definition to pack four 8 bit values.
@@ -281,8 +285,8 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
                                     const int32_t output_ch,
                                     const int32_t *out_shift,
                                     const int32_t *out_mult,
-                                    const int16_t activation_min,
-                                    const int16_t activation_max,
+                                    const int32_t activation_min,
+                                    const int32_t activation_max,
                                     const int32_t num_col_a,
                                     const int64_t *const output_bias,
                                     int16_t *out_0);
@@ -444,6 +448,48 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t activation_max,
                                             const int32_t row_address_offset,
                                             const int32_t lhs_cols_offset);
+
+/**
+ * @brief General Matrix-multiplication function with per-channel requantization and int16 input (LHS) and output.
+ *        This function assumes:
+ *        - LHS input matrix NOT transposed (nt)
+ *        - RHS input matrix transposed (t)
+ *
+ *  @note This operation also performs the broadcast bias addition before the requantization
+ *
+ * @param[in]  lhs                Pointer to the LHS input matrix
+ * @param[in]  rhs                Pointer to the RHS input matrix
+ * @param[in]  bias               Pointer to the bias vector. The length of this vector is equal to the number of
+ *                                output columns (or RHS input rows)
+ * @param[out] dst                Pointer to the output matrix with "m" rows and "n" columns
+ * @param[in]  dst_multipliers    Pointer to the multipliers vector needed for the per-channel requantization.
+ *                                The length of this vector is equal to the number of output columns (or RHS input
+ *                                rows)
+ * @param[in]  dst_shifts         Pointer to the shifts vector needed for the per-channel requantization. The length
+ *                                of this vector is equal to the number of output columns (or RHS input rows)
+ * @param[in]  lhs_rows           Number of LHS input rows
+ * @param[in]  rhs_rows           Number of RHS input rows
+ * @param[in]  rhs_cols           Number of LHS/RHS input columns
+ * @param[in]  activation_min     Minimum value to clamp down the output. Range : int16
+ * @param[in]  activation_max     Maximum value to clamp up the output. Range : int16
+ *
+ * @details MVE implementation only.
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code> or
+ *                                  <code>ARM_CMSIS_NN_NO_IMPL_ERROR</code> if not for MVE
+ *
+ */
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s16(const int16_t *lhs,
+                                             const int8_t *rhs,
+                                             const int64_t *bias,
+                                             int16_t *dst,
+                                             const int32_t *dst_multipliers,
+                                             const int32_t *dst_shifts,
+                                             const int32_t lhs_rows,
+                                             const int32_t rhs_rows,
+                                             const int32_t rhs_cols,
+                                             const int32_t activation_min,
+                                             const int32_t activation_max);
 
 /**
  * @brief General Matrix-multiplication function with int8 input and int32 output.
