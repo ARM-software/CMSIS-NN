@@ -18,10 +18,10 @@
 
 /* ----------------------------------------------------------------------
  * Project:      CMSIS NN Library
- * Title:        arm_nn_mat_mult_s8_nt_t_s16
+ * Title:        arm_nn_mat_mult_nt_t_s16
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed
  *
- * $Date:        22 March 2024
+ * $Date:        2 April 2024
  * $Revision:    V.1.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
