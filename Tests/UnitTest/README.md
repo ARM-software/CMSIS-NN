@@ -128,13 +128,22 @@ When adding a new test data set, new c files should be added or existing c files
 The steps to add a new unit test are as follows. Add a new test test in the load_all_testdatasets() function. Run the generate script with that new test set as input. Add the new generated header files to an existing or new unit test.
 
 ### Tests depending on TFLM interpreter
-#### SVDF INT8
-This test is depending on tflite_micro for its reference data. This is because the operator is only supported by TFLM.
 
-#### LSTM
-This test is depending on tflite_micro for its reference data. This is because the operator differs between TFLM and TFLite.
+If TFL and TFLM reference kernels differ, CMSIS-NN aims to be bit-exact to TFLM reference kernels. Hence those operators depends on tflite_micro interpreter.
 
-Note that tflite_micro interpreter is currently only supported for SVDF and LSTM.
+Operator bit-exactness compability:
+
+| Operator        |  TFL bit-exact  | TFLM bit-exact |  Notes
+| ---             | ---             | ---       | ---
+| convolution     |   x             |  x        |
+| fully_connected |   x             |  x        |
+| lstm            |                 |  x        |
+| svdf            |                 |  x        | Operator is only fully supported by TFLM.
+| softmax         |   x             |  x        |
+| avgpool         |   x             |  x        |
+| maxpool         |   x             |  x        |
+| add             |   x             |  x        |
+| mul             |   x             |  x        |
 
 ### Refactoring of generate_test_data.py
 Test data generation is in progress of incrementally moving over to the cleaned up scripts placed in `RefactoredTestGen`.
