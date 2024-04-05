@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        08 October 2024
- * $Revision:    V.22.4.0
+ * $Date:        04 November 2024
+ * $Revision:    V.22.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -71,6 +71,12 @@ extern "C" {
 // For input of int16 when number of columns are above this limit int64 accumulation is needed
 // to not loose precision.
 #define MAX_COL_COUNT (512)
+
+// By default this will have not effect. During compilation this may be set to __restrict, which may be beneficial for
+// performance. See README.md for more intformation.
+#ifndef OPTIONAL_RESTRICT_KEYWORD
+    #define OPTIONAL_RESTRICT_KEYWORD
+#endif
 
 /**
  * @brief definition to pack four 8 bit values.
