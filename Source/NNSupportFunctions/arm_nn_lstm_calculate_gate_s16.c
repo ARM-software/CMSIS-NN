@@ -36,13 +36,6 @@
  */
 
 /**
- * @defgroup supportLSTM
- *
- * Support functions for LSTM
- *
- */
-
-/**
  * @addtogroup supportLSTM
  * @{
  */
