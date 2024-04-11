@@ -31,8 +31,8 @@ import Lib.test_plan
 def main():
     parser = argparse.ArgumentParser(
         prog="generate_test_data",
-        description=
-        "Generates reference data and test code for CMSIS-NN kernels. Tensorflow, Tflite or TFLM may be used for reference."
+        description="Generates reference data and test code for CMSIS-NN kernels. Tensorflow, Tflite or TFLM may be "
+        "used for reference."
     )
 
     parser.add_argument("-p",
@@ -55,7 +55,6 @@ def main():
                         type=pathlib.Path,
                         default="../../../tflite_micro/tensorflow/lite/schema/schema.fbs",
                         help="Path to the schema-file needed for generating tflite-files with flatc")
-    parser.add_argument("--verbose", action="store_true", help="Enable additional logging")
     parser.add_argument("--list", action="store_true", help="Only list tests in test plan")
 
     args = parser.parse_args()

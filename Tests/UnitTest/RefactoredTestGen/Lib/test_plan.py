@@ -18,6 +18,7 @@ import json
 import Lib.test_suite
 import sys
 
+
 def generate(args):
     """Generate a number of test suites defined by a json-file test plan"""
 
@@ -39,4 +40,4 @@ def generate(args):
             test_names = [test["name"] for test in test_suite_params["tests"] if test["name"] in args.tests]
             if (len(test_names) > 0) or (args.tests == []):
                 print(f"{test_suite_params['suite_name']}")
-                test_suite = Lib.test_suite.generate(test_suite_params, args)
+                Lib.test_suite.generate(test_suite_params, args)

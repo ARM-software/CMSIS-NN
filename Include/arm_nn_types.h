@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        26 March 2024
- * $Revision:    V.3.1.0
+ * $Date:        11 April 2024
+ * $Revision:    V.3.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -31,6 +31,7 @@
 #ifndef ARM_NN_TYPES_H
 #define ARM_NN_TYPES_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /**
@@ -69,6 +70,13 @@ typedef struct
     void *buf;    /**< Pointer to a buffer needed for the optimization */
     int32_t size; /**< Buffer size */
 } cmsis_nn_context;
+
+/** CMSIS-NN object used to hold bias data for int16 variants. */
+typedef struct
+{
+    const void *data;         /**< Pointer to bias data */
+    const bool is_int32_bias; /**< Indicate type of bias data. True means int32 else int64 */
+} cmsis_nn_bias_data;
 
 /** CMSIS-NN object to contain the dimensions of the tensors */
 typedef struct

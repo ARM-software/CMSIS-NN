@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s16.c
  * Description:  s16 version of convolution.
  *
- * $Date:        22 March 2024
- * $Revision:    V.3.0.0
+ * $Date:        22 April 2024
+ * $Revision:    V.4.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -55,7 +55,7 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                                      const cmsis_nn_dims *filter_dims,
                                      const int8_t *filter_data,
                                      const cmsis_nn_dims *bias_dims,
-                                     const int64_t *bias_data,
+                                     const cmsis_nn_bias_data *bias_data,
                                      const cmsis_nn_dims *output_dims,
                                      int16_t *output_data)
 {
@@ -200,6 +200,9 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
             im2col = buffer_a;
 #else // #if defined(ARM_MATH_MVEI)
 
+            const int64_t *bias_s64 = (const int64_t *)bias_data->data;
+            const int32_t *bias_s32 = (const int32_t *)bias_data->data;
+            const bool is_int32_bias = bias_data->is_int32_bias;
             const int8_t *ker_a = filter_data;
             int i;
 
@@ -235,6 +238,7 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                 uint16_t col_count = rhs_cols;
 
     #endif
+
                 while (col_count)
                 {
                     int8_t ker_a1 = *ker_a++;
@@ -242,21 +246,35 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                     sum += ker_a1 * ip_b1;
                     col_count--;
                 }
-                if (bias_data)
+
+                if (is_int32_bias)
                 {
-                    int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[i]);
-                    int64_t acc_64 = sum + bias_data[i];
-                    sum = arm_nn_requantize_s64(acc_64, reduced_multiplier, output_shift[i]);
+                    if (bias_s32)
+                    {
+                        sum += bias_s32[i];
+                    }
+
+                    sum = arm_nn_requantize(sum, output_mult[i], output_shift[i]);
                 }
                 else
                 {
-                    sum = arm_nn_requantize(sum, output_mult[i], output_shift[i]);
+                    int64_t acc_64 = sum;
+
+                    if (bias_s64)
+                    {
+                        acc_64 += bias_s64[i];
+                    }
+
+                    int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[i]);
+                    sum = arm_nn_requantize_s64(acc_64, reduced_multiplier, output_shift[i]);
                 }
+
                 sum = MAX(sum, out_activation_min);
                 sum = MIN(sum, out_activation_max);
                 *out++ = (int16_t)sum;
             }
             lhs_rows = 0;
+
 #endif // #if defined(ARM_MATH_MVEI)
         }
 

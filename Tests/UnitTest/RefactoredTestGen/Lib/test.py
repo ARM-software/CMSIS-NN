@@ -16,7 +16,7 @@
 #
 import os
 import Lib.op_lstm
-import Lib.op_lstm
+import Lib.op_conv
 import tensorflow as tf
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
@@ -44,12 +44,9 @@ except ModuleNotFoundError:
     print("WARNING: tflite_runtime not installed, skipping tests using this interpreter.")
     tflite_runtime_imported = False
 
+
 def generate(params, args, fpaths):
     """ Create a test with given parameters """
-    if not args.verbose:
-        # Supress output
-        sys.stdout = open(os.devnull, "w")
-        sys.stderr = open(os.devnull, "w")
 
     # Check if test is valid, skip otherwise
     if (params["interpreter"] == "tflite_runtime") and (not tflite_runtime_imported):
@@ -75,6 +72,7 @@ def generate(params, args, fpaths):
                                 keras_model,
                                 quantize=True,
                                 dtype=params["input_data_type"],
+                                bias_dtype=params["bias_data_type"],
                                 shape=shapes["representational_dataset"])
         data = op_type.generate_data_tflite(fpaths["tflite"], params)
 
@@ -97,8 +95,9 @@ def generate(params, args, fpaths):
         params[name + "_shift"] = shift
 
     # Run reference model
-    minval = Lib.op_utils.get_dtype_min(params["input_data_type"])
-    maxval = Lib.op_utils.get_dtype_max(params["input_data_type"])
+    minval = Lib.op_utils.get_dtype_min(params["input_data_type"]) if "input_min" not in params else params["input_min"]
+    maxval = Lib.op_utils.get_dtype_max(params["input_data_type"]) if "input_max" not in params else params["input_max"]
+
     dtype = Lib.op_utils.get_tf_dtype(params["input_data_type"])
     input_tensor = Lib.op_utils.generate_tf_tensor(shapes["input"], minval, maxval, decimals=0, datatype=dtype)
     data.tensors["input"] = input_tensor.numpy()
@@ -110,45 +109,53 @@ def generate(params, args, fpaths):
     elif params["interpreter"] == "tflite_micro":
         data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor)
     else:
-        raise ValueError(f"Invalid interpreter in {self.params['name']}")
+        raise ValueError(f"Invalid interpreter in {params['name']}")
 
     # Write data
     header = get_header(params["tflite_generator"], params["interpreter"])
 
-    include_in_config = lambda key: key not in [
-        "suite_name", "name", "input_data_type", "op_type", "input_data_type", "weights_data_type", "bias_data_type",
-        "interpreter", "tflite_generator", "json_template"
-    ]
+    def include_in_config(key):
+        return key not in [
+            "suite_name", "name", "input_data_type", "op_type", "input_data_type", "weights_data_type",
+            "bias_data_type", "shift_and_mult_data_type", "interpreter", "tflite_generator", "json_template",
+            "groups", "generate_bias", "bias_min", "bias_max", "weights_min", "weights_max",
+        ]
+
     config_params = {key: val for key, val in params.items() if include_in_config(key)}
     write_config(fpaths["config_data"], config_params, params["name"], fpaths["test_data"], header)
 
     for name, tensor in data.tensors.items():
         dtype = Lib.op_utils.get_dtype(name, params)
         fpaths[name] = fpaths["data_folder"] / f"{name}.h"
+        if name == "output" and "out_activation_min" in params and "out_activation_max" in params:
+            tensor = np.clip(tensor, params["out_activation_min"], params["out_activation_max"])
         write_c_array(tensor, fpaths[name], dtype, params["name"], name, fpaths["test_data"], header)
 
-    # Stop supressing output
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
+        if name in data.aliases:
+            append_alias_to_c_array_file(fpaths[name], dtype, params["name"], name, data.aliases[name])
+
 
 def get_op_type(op_type_string):
     if op_type_string == "lstm":
         return Lib.op_lstm.Op_lstm
+    elif op_type_string == "conv":
+        return Lib.op_conv.Op_conv
     else:
         raise ValueError(f"Unknown op type '{op_type_string}'")
 
 
-def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, shape):
+def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, bias_dtype, shape):
     """ Convert a model generated with keras to tflite-format """
     keras_model.compile(loss=keras.losses.categorical_crossentropy,
                         optimizer=keras.optimizers.Adam(),
                         metrics=['accuracy'])
+    n_inputs = len(keras_model.inputs)
     converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
 
     if quantize:
 
         def representative_dataset():
-            for _ in range(100):
+            for _ in range(n_inputs):
                 data = np.random.rand(*shape)
                 yield [data.astype(np.float32)]
 
@@ -160,6 +167,8 @@ def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, shape):
         if dtype == "int8_t":
             converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
         else:
+            if bias_dtype == "int32_t":
+                converter._experimental_full_integer_quantization_bias_type = tf.int32
             converter.target_spec.supported_ops = [
                 tf.lite.OpsSet.EXPERIMENTAL_TFLITE_BUILTINS_ACTIVATIONS_INT16_WEIGHTS_INT8
             ]
@@ -184,7 +193,8 @@ def invoke_tflite(tflite_path, input_tensor):
 
 
 def invoke_tflite_runtime(tflite_path, input_tensor):
-    interpreter = TfliteRuntimeInterpreter(str(tflite_path), experimental_op_resolver_type=TfliteRuntimeOpResolverType.BUILTIN_REF)
+    interpreter = TfliteRuntimeInterpreter(str(tflite_path),
+                                           experimental_op_resolver_type=TfliteRuntimeOpResolverType.BUILTIN_REF)
     input_index = interpreter.get_input_details()[0]["index"]
     interpreter.allocate_tensors()
     interpreter.set_tensor(input_index, input_tensor)
@@ -216,7 +226,7 @@ def write_config(config_fpath, params, prefix, test_data_fpath, header):
                 else:
                     val = "false"
 
-            f.write(f"#define {prefix}_{key} {val}\n")
+            f.write("#define " + f"{prefix}_{key} ".upper() + f"{val}\n")
 
     with test_data_fpath.open("w") as f:
         f.write(f'#include "{config_fpath.name}"\n')
@@ -226,16 +236,19 @@ def write_c_array(data, fname, dtype, prefix, tensor_name, test_data_fpath, head
 
     # Check that the data looks reasonable
     values, counts = np.unique(data, return_counts=True)
-    if len(values) < data.size / 2 or max(counts) > data.size / 2:
+
+    size = 0 if data is None else data.size
+
+    if len(values) < size / 2 or max(counts) > size / 2:
         print(f"WARNING: {fname} has repeating values, is this intended?")
-    if len(data) > 500:
+    if size and len(data) > 500:
         print(f"WARNING: {fname} has more than 500 values, is this intended?")
 
     with fname.open("w+") as f:
         f.write(header)
         f.write("#pragma once\n")
         f.write("#include <stdint.h>\n\n")
-        if not data is None:
+        if size > 0:
             data_shape = data.shape
             format_width = len(str(data.max())) + 1
             data = data.flatten()
@@ -246,15 +259,36 @@ def write_c_array(data, fname, dtype, prefix, tensor_name, test_data_fpath, head
                     f.write("\n")
                 f.write(f"{data[i]: {format_width}n}, ")
 
-            if len(data)-1 % data_shape[-1] == 0:
+            if len(data) - 1 % data_shape[-1] == 0:
                 f.write("\n")
-            f.write(f"{data[len(data) - 1]: {format_width}n}" + "\n};")
+            f.write(f"{data[len(data) - 1]: {format_width}n}" + "\n};\n")
 
         else:
-            f.write(f"const {dtype} *{prefix}_{tensor_name} = NULL;\n")
+            f.write(f"const {dtype} *const {prefix}_{tensor_name} = NULL;\n")
 
     with test_data_fpath.open("a") as f:
         f.write(f'#include "{fname.name}"\n')
+
+    format_output_file(fname)
+    format_output_file(test_data_fpath)
+
+
+def append_alias_to_c_array_file(fname, dtype, prefix, tensor_name, alias_name):
+    with fname.open("a") as f:
+        f.write(f"\nconst {dtype} *const {prefix}_{alias_name} = {prefix}_{tensor_name};\n")
+
+
+def format_output_file(file):
+    CLANG_FORMAT = 'clang-format-12 -i'  # For formatting generated headers.
+    command_list = CLANG_FORMAT.split(' ')
+    command_list.append(file)
+    try:
+        process = subprocess.run(command_list)
+        if process.returncode != 0:
+            print(f"ERROR: {command_list = }")
+            sys.exit(1)
+    except Exception as e:
+        raise RuntimeError(f"{e} from: {command_list = }")
 
 
 def generate_test_from_template(name, test_functions_fpath, template_fpath, unity_fpath):
@@ -334,10 +368,11 @@ def quantize_scale(scale):
 
 
 def get_header(generator, interpreter):
+    header = f"// Generated by {os.path.basename(sys.argv[0])}"
     if generator == "keras":
-        header = f"// Generated by {os.path.basename(__file__)} using tensorflow version {tf.__version__} (Keras version {keras.__version__}).\n"
+        header += f" using tensorflow version {tf.__version__} (Keras version {keras.__version__}).\n"
     elif generator == "json":
-        command = f"flatc  --version"
+        command = "flatc  --version"
         command_list = command.split()
         try:
             process = subprocess.Popen(command_list,
@@ -350,7 +385,7 @@ def get_header(generator, interpreter):
                 sys.exit(1)
         except Exception as e:
             raise RuntimeError(f"{e} from: {command = }. Did you install flatc?")
-        header = f"// Generated by {os.path.basename(__file__)} using {str(flatc_version)[2:-3]}\n"
+        header += f" using {str(flatc_version)[2:-3]}\n"
     else:
         raise Exception
 
@@ -359,6 +394,8 @@ def get_header(generator, interpreter):
         revision = tf.__git_version__
         header += f"// Interpreter from tensorflow version {version} and revision {revision}.\n"
     elif interpreter == "tflite_runtime":
+        import tflite_runtime as tfl_runtime
+
         version = tfl_runtime.__version__
         revision = tfl_runtime.__git_version__
         header += f"// Interpreter from tflite_runtime version {version} and revision {revision}.\n"

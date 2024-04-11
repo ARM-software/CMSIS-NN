@@ -22,8 +22,8 @@
  * Description:  s16 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  * cmsis-nn to perform the convolution.
  *
- * $Date:        12 March 2024
- * $Revision:    V.2.2.0
+ * $Date:        23 April 2024
+ * $Revision:    V.3.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -55,7 +55,7 @@ arm_cmsis_nn_status arm_convolve_wrapper_s16(const cmsis_nn_context *ctx,
                                              const cmsis_nn_dims *filter_dims,
                                              const int8_t *filter_data,
                                              const cmsis_nn_dims *bias_dims,
-                                             const int64_t *bias_data,
+                                             const cmsis_nn_bias_data *bias_data,
                                              const cmsis_nn_dims *output_dims,
                                              int16_t *output_data)
 {

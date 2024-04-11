@@ -159,7 +159,7 @@ Current progress:
 
 | Operator        | Old  | New | Notes
 | ---             | ---  | --- | ---
-| convolution     |  x   |     |
+| convolution     |  x   |  x  | New version only supports 16x8
 | fully_connected |  x   |     |
 | lstm            |  x   |  x  | Only new version supporting 16x8
 | svdf            |  x   |     |
