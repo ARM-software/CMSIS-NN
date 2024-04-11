@@ -16,18 +16,27 @@
 #
 import json
 import Lib.test_suite
-
+import sys
 
 def generate(args):
     """Generate a number of test suites defined by a json-file test plan"""
 
-    print(f"\nGenerating tests from {args.test_plan}")
     test_plan = args.test_plan.read_text()
     test_suite_params_list = json.loads(test_plan)
 
-    test_suites = []
+    # List available tests for convenience
+    if args.list:
+        for suite in test_suite_params_list:
+            print(f"{suite['suite_name']}")
+            for test in suite["tests"]:
+                print(f"- {test['name']}")
+
+        sys.exit()
+
+    print(f"\nGenerating tests from {args.test_plan}")
     for test_suite_params in test_suite_params_list:
         if (test_suite_params["suite_name"] in args.test_suites) or (args.test_suites == []):
-            print(f"{test_suite_params['suite_name']}")
-            test_suite = Lib.test_suite.generate(test_suite_params, args)
-            test_suites.append(test_suite)
+            test_names = [test["name"] for test in test_suite_params["tests"] if test["name"] in args.tests]
+            if (len(test_names) > 0) or (args.tests == []):
+                print(f"{test_suite_params['suite_name']}")
+                test_suite = Lib.test_suite.generate(test_suite_params, args)

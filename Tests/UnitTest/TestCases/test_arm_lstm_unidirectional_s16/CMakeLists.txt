@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2021, 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2022, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -16,9 +16,8 @@
 # limitations under the License.
 #
 
-file(GLOB SRC_S4 "./*_s4.c")
-file(GLOB SRC_S8 "./*_s8.c")
-file(GLOB SRC_S16 "./*_s16*.c")
-file(GLOB SRC_S64 "./*_s64.c")
+add_cmsis_nn_unit_test_executable(lstm_unidirectional_s16)
 
-target_sources(cmsis-nn PRIVATE ${SRC_S4} ${SRC_S8} ${SRC_S16} ${SRC_S64})
+target_sources(lstm_unidirectional_s16 PRIVATE
+    Unity/unity_test_arm_lstm_unidirectional_s16.c
+    Unity/TestRunner/unity_test_arm_lstm_unidirectional_s16_runner.c)

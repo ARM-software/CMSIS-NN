@@ -14,7 +14,7 @@
          "time_steps" : 10,
          "input_size" : 22,
          "hidden_size" : 11,
-         "json_template": "test_arm_lstm_s16.json"
+         "json_template": "lstm_s16_tm.json"
         },
         {"name" : "lstm_2_s16",
          "time_major" : false,
@@ -22,7 +22,7 @@
          "time_steps" : 9,
          "input_size" : 6,
          "hidden_size" : 7,
-         "json_template": "test_arm_lstm_s16.json"
+         "json_template": "lstm_s16.json"
         },
         {"name" : "lstm_one_time_step_s16",
          "time_major" : false,
@@ -30,7 +30,7 @@
          "time_steps" : 1,
          "input_size" : 22,
          "hidden_size" : 3,
-         "json_template": "test_arm_lstm_s16.json"
+         "json_template": "lstm_s16.json"
         }
     ]
 },

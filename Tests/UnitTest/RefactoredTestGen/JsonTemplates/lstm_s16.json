@@ -448,7 +448,7 @@
             "fused_activation_function": "TANH",
             "cell_clip": cell_clip,
             "proj_clip": 0.0,
-            "time_major": false,
+            "time_major": time_major,
             "asymmetric_quantize_inputs": false,
             "diagonal_recurrent_tensors": false
           },

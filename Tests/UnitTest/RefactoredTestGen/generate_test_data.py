@@ -17,8 +17,9 @@
 # limitations under the License.
 #
 import os
-os.environ["TF_USE_LEGACY_KERAS"]="1"    # See https://github.com/tensorflow/tensorflow/releases/tag/v2.16.1
-os.environ['TF_CPP_MIN_LOG_LEVEL'] ="2"  # See https://github.com/tensorflow/tensorflow/issues/59779
+
+os.environ["TF_USE_LEGACY_KERAS"] = "1"  # See https://github.com/tensorflow/tensorflow/releases/tag/v2.16.1
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"  # See https://github.com/tensorflow/tensorflow/issues/59779
 import json
 import argparse
 import pathlib
@@ -55,6 +56,8 @@ def main():
                         default="../../../tflite_micro/tensorflow/lite/schema/schema.fbs",
                         help="Path to the schema-file needed for generating tflite-files with flatc")
     parser.add_argument("--verbose", action="store_true", help="Enable additional logging")
+    parser.add_argument("--list", action="store_true", help="Only list tests in test plan")
+
     args = parser.parse_args()
 
     Lib.test_plan.generate(args)
