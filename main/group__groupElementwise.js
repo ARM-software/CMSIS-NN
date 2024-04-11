@@ -4,5 +4,6 @@ var group__groupElementwise =
     [ "arm_elementwise_add_s8", "group__groupElementwise.html#ga8f59d6176c7a049cfe8605c80e6e7e8c", null ],
     [ "arm_elementwise_mul_acc_s16", "group__groupElementwise.html#gad838647ccac0201dd1be97b6a50a28af", null ],
     [ "arm_elementwise_mul_s16", "group__groupElementwise.html#ga30d6345a9dd6754bb39a6237b6068f5e", null ],
+    [ "arm_elementwise_mul_s16_batch_offset", "group__groupElementwise.html#ga4d26b1eeade1b7779cd4e9365d0505e4", null ],
     [ "arm_elementwise_mul_s8", "group__groupElementwise.html#ga0ac27a4f45de0738632abe89fc1418e7", null ]
 ];

@@ -152,8 +152,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga3d99c95dccc77351666b4a9baae564bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic s8 Fully Connected function.  <br /></td></tr>
 <tr class="separator:ga3d99c95dccc77351666b4a9baae564bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga61c355b529a2113ecfd4dcea03d8c018"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga61c355b529a2113ecfd4dcea03d8c018">arm_vector_sum_s8</a> (int32_t *vector_sum_buf, const int32_t vector_cols, const int32_t vector_rows, const int8_t *vector_data, const int32_t lhs_offset, const int32_t *bias_data)</td></tr>
-<tr class="memdesc:ga61c355b529a2113ecfd4dcea03d8c018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add bias_data.  <br /></td></tr>
+<tr class="memdesc:ga61c355b529a2113ecfd4dcea03d8c018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s32 bias_data.  <br /></td></tr>
 <tr class="separator:ga61c355b529a2113ecfd4dcea03d8c018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada3d49fb970fd7754c81b353e1573609"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gada3d49fb970fd7754c81b353e1573609">arm_vector_sum_s8_s64</a> (int64_t *vector_sum_buf, const int32_t vector_cols, const int32_t vector_rows, const int8_t *vector_data, const int32_t lhs_offset, const int64_t *bias_data)</td></tr>
+<tr class="memdesc:gada3d49fb970fd7754c81b353e1573609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s64 bias_data.  <br /></td></tr>
+<tr class="separator:gada3d49fb970fd7754c81b353e1573609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Collection of fully-connected and matrix multiplication functions.</p>
@@ -521,7 +524,73 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add bias_data. </p>
+<p>Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s32 bias_data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">vector_sum_buf</td><td>Buffer for vector sums </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vector_cols</td><td>Number of vector columns </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vector_rows</td><td>Number of vector rows </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vector_data</td><td>Vector of weigths data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Constant multiplied with each sum </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias_data</td><td>Vector of bias data, added to each sum. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation </dd></dl>
+
+</div>
+</div>
+<a id="gada3d49fb970fd7754c81b353e1573609" name="gada3d49fb970fd7754c81b353e1573609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada3d49fb970fd7754c81b353e1573609">&#9670;&#160;</a></span>arm_vector_sum_s8_s64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_vector_sum_s8_s64 </td>
+          <td>(</td>
+          <td class="paramtype">int64_t *&#160;</td>
+          <td class="paramname"><em>vector_sum_buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>vector_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>vector_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>vector_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int64_t *&#160;</td>
+          <td class="paramname"><em>bias_data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s64 bias_data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">vector_sum_buf</td><td>Buffer for vector sums </td></tr>

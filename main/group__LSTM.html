@@ -136,12 +136,70 @@ $(document).ready(function(){initNavTree('group__LSTM.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gad1ece452a6bb117836a5565da561a542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#gad1ece452a6bb117836a5565da561a542">arm_lstm_unidirectional_s16</a> (const int16_t *input, int16_t *output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *buffers)</td></tr>
+<tr class="memdesc:gad1ece452a6bb117836a5565da561a542"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 16 bit input and output and 16 bit gate output, 64 bit bias.  <br /></td></tr>
+<tr class="separator:gad1ece452a6bb117836a5565da561a542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec6a4ddae12fdf15d4954da0f0111f36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#gaec6a4ddae12fdf15d4954da0f0111f36">arm_lstm_unidirectional_s8</a> (const int8_t *input, int8_t *output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *buffers)</td></tr>
-<tr class="memdesc:gaec6a4ddae12fdf15d4954da0f0111f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 8 bit input and output and 16 bit gate output.  <br /></td></tr>
+<tr class="memdesc:gaec6a4ddae12fdf15d4954da0f0111f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 8 bit input and output and 16 bit gate output, 32 bit bias.  <br /></td></tr>
 <tr class="separator:gaec6a4ddae12fdf15d4954da0f0111f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gad1ece452a6bb117836a5565da561a542" name="gad1ece452a6bb117836a5565da561a542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad1ece452a6bb117836a5565da561a542">&#9670;&#160;</a></span>arm_lstm_unidirectional_s16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_lstm_unidirectional_s16 </td>
+          <td>(</td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LSTM unidirectional function with 16 bit input and output and 16 bit gate output, 64 bit bias. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to input data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to output data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>Struct containing all information about the lstm operator, see arm_nn_types. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffers</td><td>Struct containing pointers to all temporary scratch buffers needed for the lstm operator, see arm_nn_types.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code></dd></dl>
+<ol type="1">
+<li>Supported framework: TensorFlow Lite Micro </li>
+</ol>
+
+</div>
+</div>
 <a id="gaec6a4ddae12fdf15d4954da0f0111f36" name="gaec6a4ddae12fdf15d4954da0f0111f36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaec6a4ddae12fdf15d4954da0f0111f36">&#9670;&#160;</a></span>arm_lstm_unidirectional_s8()</h2>
 
@@ -180,7 +238,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>LSTM unidirectional function with 8 bit input and output and 16 bit gate output. </p>
+<p>LSTM unidirectional function with 8 bit input and output and 16 bit gate output, 32 bit bias. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to input data </td></tr>
