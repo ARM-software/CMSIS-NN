@@ -818,8 +818,7 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
  * @details
  *   - Supported framework : TensorFlow Lite Micro
  *   - The following constrains on the arguments apply
- *      -# input_dims->n equals 1
- *      -# ouput_dims->w is a multiple of 4
+ *      -# stride.w * input_dims->c is a multiple of 4
  *      -# Explicit constraints(since it is for 1xN convolution)
  *      -## input_dims->h equals 1
  *      -## output_dims->h equals 1
