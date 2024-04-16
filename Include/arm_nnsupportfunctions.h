@@ -1316,11 +1316,21 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
 
 /**
  * @brief           Requantize a given value.
+ * @details         Essentially returns (val * multiplier)/(2 ^ shift) with different rounding depending if
+ *                  CMSIS_NN_USE_SINGLE_ROUNDING is defined or not.
  * @param[in]       val         Value to be requantized
- * @param[in]       multiplier  multiplier. Range {NN_Q31_MIN + 1, Q32_MAX}
- * @param[in]       shift       left or right shift for 'val * multiplier'
+ * @param[in]       multiplier  Multiplier. Range {NN_Q31_MIN + 1, Q32_MAX}
+ * @param[in]       shift       Shift. Range: {-31, 30}
+ *                              Default branch:
+ *                                  If shift is positive left shift 'val * multiplier' with shift
+ *                                  If shift is negative right shift 'val * multiplier' with abs(shift)
+ *                              Single round branch:
+ *                                  Input for total_shift in divide by '2 ^ total_shift'
  *
- * @return          Returns (val * multiplier)/(2 ^ shift)
+ * @return          Default branch:
+ *                      Returns (val * multiplier) with rounding divided by (2 ^ shift) with rounding
+ *                  Single round branch:
+ *                      Returns (val * multiplier)/(2 ^ (31 - shift)) with rounding
  *
  */
 __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t multiplier, const int32_t shift)
@@ -1432,7 +1442,7 @@ __STATIC_FORCEINLINE int32x4_t arm_divide_by_power_of_two_mve(const int32x4_t di
  * @param[in]       multiplier  multiplier
  * @param[in]       shift       shift
  *
- * @return          Returns (val * multiplier)/(2 ^ shift)
+ * @return          Returns (val * multiplier)/(2 ^ shift) with different rounding. See arm_nn_requantize for detatails.
  *
  */
 __STATIC_FORCEINLINE int32x4_t arm_requantize_mve(const int32x4_t val, const int32_t multiplier, const int32_t shift)

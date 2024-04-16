@@ -4,6 +4,7 @@ performance and minimize the memory footprint of neural networks on Arm Cortex-M
 
 ## Supported Framework
 The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16 quantization specification of TensorFlow Lite for Microcontrollers.
+This means CMSIS-NN is bit-exact with Tensorflow Lite reference kernels. In some cases TFL and TFLM reference kernels may not be bit-exact. In that case CMSIS-NN follows TFLM reference kernels. The unit test readme provides an [overview](https://github.com/ARM-software/CMSIS-NN/blob/main/Tests/UnitTest/README.md#tests-depending-on-tflm-interpreter).
 
 ## Branches and Tags
 There is a single branch called 'main'.
@@ -95,6 +96,8 @@ The compiler option *'-fomit-frame-pointer'* is enabled by default at -O and hig
 you may need to specify '-fomit-frame-pointer'.
 
 The compiler option *'-fno-builtin'* does not utilize optimized implementations of e.g. memcpy and memset, which are heavily used by CMSIS-NN. It can significantly downgrade performance. So this should be avoided. The compiler option *'-ffreestanding'* should also be avoided as it enables '-fno-builtin' implicitly.
+
+Another option is to enable CMSIS_NN_USE_SINGLE_ROUNDING. This may affect the output. If enabling this the equivalent flag should be enabled in TFL/TFLM.
 
 ### Supported Compilers
 * CMSIS-NN is tested on Arm Compiler 6 and on Arm GNU Toolchain.
