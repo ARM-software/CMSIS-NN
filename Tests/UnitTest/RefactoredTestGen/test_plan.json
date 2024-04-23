@@ -234,5 +234,68 @@
          "hidden_size" : 3
         }
     ]
+},
+{
+    "suite_name" : "test_arm_fully_connected_s4",
+    "op_type" : "fully_connected",
+    "input_data_type": "int8_t",
+    "weights_data_type": "int8_t",
+    "bias_data_type": "int32_t",
+    "interpreter": "tensorflow",
+    "tflite_generator": "json",
+    "w_type": "INT4",
+    "w_scale": 0.005,
+    "w_zp": 0,
+    "bias_scale": 0.00002,
+    "bias_zp": 0,
+    "output_scale": 0.1,
+    "input_scale": 0.1,
+    "tests" : [
+        {"name" : "fully_connected_int4",
+          "in_ch" : 82,
+         "out_ch" : 21,
+         "bias_min": -128,
+         "bias_max": 127,
+         "input_zp": 3,
+         "output_zp": -3
+        },
+         {"name" : "fully_connected_int4_2",
+          "in_ch" : 84,
+         "out_ch" : 23,
+         "bias_min": -128,
+         "bias_max": 127,
+         "input_zp": -4,
+         "output_zp": 16
+         },
+        {"name" : "fully_connected_int4_3",
+          "in_ch" : 86,
+         "out_ch" : 25,
+         "bias_min": -128,
+         "bias_max": 127,
+         "input_zp": 1,
+         "output_zp": 0
+        },
+        {"name" : "fully_connected_int4_4",
+          "in_ch" : 85,
+         "out_ch" : 19,
+         "generate_bias": false,
+         "input_zp": -2,
+         "output_zp": 0
+        },
+        {"name" : "fully_connected_int4_5",
+          "in_ch" : 89,
+         "out_ch" : 22,
+         "input_zp": 120,
+         "output_zp": 100
+        },
+        {"name" : "fully_connected_int4_6",
+          "in_ch" : 89,
+         "out_ch" : 22,
+         "generate_bias": false,
+         "input_zp": -127,
+         "output_zp": 128
+        }
+
+    ]
 }
 ]

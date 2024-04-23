@@ -34,9 +34,13 @@ def generate(args):
 
         sys.exit()
 
+    test_suites = []
+    for s in args.test_suites:
+        test_suites.append(list(filter(None, str.split(s, '/')))[-1])
+
     print(f"\nGenerating tests from {args.test_plan}")
     for test_suite_params in test_suite_params_list:
-        if (test_suite_params["suite_name"] in args.test_suites) or (args.test_suites == []):
+        if (test_suite_params["suite_name"] in test_suites) or (test_suites == []):
             test_names = [test["name"] for test in test_suite_params["tests"] if test["name"] in args.tests]
             if (len(test_names) > 0) or (args.tests == []):
                 print(f"{test_suite_params['suite_name']}")
