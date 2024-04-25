@@ -2,6 +2,7 @@ var group__NNConv =
 [
     [ "GetBufferSizeNNConv", "group__GetBufferSizeNNConv.html", "group__GetBufferSizeNNConv" ],
     [ "__attribute__", "group__NNConv.html#ga4779f7318779682e7789f1888d37e56b", null ],
+    [ "arm_convolve_1_x_n_s4", "group__NNConv.html#ga8de29637a1ddef54c076dd93c347ea68", null ],
     [ "arm_convolve_1_x_n_s8", "group__NNConv.html#gad1b14c79a862285824945d6685c1fbca", null ],
     [ "arm_convolve_1x1_s4", "group__NNConv.html#gac9487e8a7f7d93887060e7b9b496787c", null ],
     [ "arm_convolve_1x1_s4_fast", "group__NNConv.html#ga6d96adb73721f1e33a02e654145da61c", null ],

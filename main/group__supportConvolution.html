@@ -148,6 +148,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nn_depthwise_conv_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t input_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
 <tr class="memdesc:ga00f617f8c04f9dafcb48a08a4339284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95772eaf0d1687266e3fb7cee334b9c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga95772eaf0d1687266e3fb7cee334b9c9">arm_nn_mat_mul_core_1x_s4</a> (int32_t row_elements, const int32_t skipped_row_elements, const int8_t *row_base_ref, const int8_t *col_base_ref, const int32_t out_ch, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
+<tr class="memdesc:ga95772eaf0d1687266e3fb7cee334b9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Vector by Matrix multiplication with requantization, storage of result and int4 weights packed into an int8 buffer.  <br /></td></tr>
+<tr class="separator:ga95772eaf0d1687266e3fb7cee334b9c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada3234313b4c9fefd7c4421d88c4a785"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gada3234313b4c9fefd7c4421d88c4a785">arm_nn_mat_mul_core_1x_s8</a> (int32_t row_elements, const int32_t skipped_row_elements, const int8_t *row_base_ref, const int8_t *col_base_ref, const int32_t out_ch, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
 <tr class="memdesc:gada3234313b4c9fefd7c4421d88c4a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Vector by Matrix multiplication with requantization and storage of result.  <br /></td></tr>
 <tr class="separator:gada3234313b4c9fefd7c4421d88c4a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -524,6 +527,94 @@ Functions</h2></td></tr>
 <li>rhs </li>
 </ul>
 </dd></dl>
+
+</div>
+</div>
+<a id="ga95772eaf0d1687266e3fb7cee334b9c9" name="ga95772eaf0d1687266e3fb7cee334b9c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95772eaf0d1687266e3fb7cee334b9c9">&#9670;&#160;</a></span>arm_nn_mat_mul_core_1x_s4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mul_core_1x_s4 </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_elements</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>skipped_row_elements</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>row_base_ref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>col_base_ref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a> *&#160;</td>
+          <td class="paramname"><em>quant_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>General Vector by Matrix multiplication with requantization, storage of result and int4 weights packed into an int8 buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_elements</td><td>number of row elements </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">skipped_row_elements</td><td>number of row elements skipped due to padding. row_elements + skipped_row_elements = (kernel_x * kernel_y) * input_ch </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_base_ref</td><td>pointer to row operand </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">col_base_ref</td><td>pointer to col operand as packed int4 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_ch</td><td>Number of output channels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">conv_params</td><td>Pointer to convolution parameters like offsets and activation values </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">quant_params</td><td>Pointer to per-channel quantization parameters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Pointer to optional per-channel bias </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to output where int8 results are stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function performs matrix(row_base_ref) multiplication with vector(col_base_ref) and scaled result is stored in memory.</dd></dl>
+<p>Pseudo-code as int8 example. Int4 filter data will be unpacked. *output = 0 sum_col = 0 for (j = 0; j &lt; out_ch; j++) for (i = 0; i &lt; row_elements; i++) *output += row_base_ref[i] * col_base_ref[i] sum_col += col_base_ref[i] scale sum_col using quant_params and bias store result in 'output' </p>
 
 </div>
 </div>
