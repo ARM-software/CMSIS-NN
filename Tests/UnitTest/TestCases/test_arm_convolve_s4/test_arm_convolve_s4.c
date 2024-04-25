@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -1493,17 +1493,17 @@ void conv_1_x_n_1_arm_convolve_s4(void)
     buf_size = arm_convolve_wrapper_s4_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
 
-    result = arm_convolve_s4(&ctx,
-                             &conv_params,
-                             &quant_params,
-                             &input_dims,
-                             input_data,
-                             &filter_dims,
-                             kernel_data,
-                             &bias_dims,
-                             bias_data,
-                             &output_dims,
-                             output);
+    result = arm_convolve_1_x_n_s4(&ctx,
+                                   &conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   bias_data,
+                                   &output_dims,
+                                   output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
@@ -1584,17 +1584,17 @@ void conv_1_x_n_2_arm_convolve_s4(void)
 
     ctx.buf = malloc(buf_size);
 
-    result = arm_convolve_s4(&ctx,
-                             &conv_params,
-                             &quant_params,
-                             &input_dims,
-                             input_data,
-                             &filter_dims,
-                             kernel_data,
-                             &bias_dims,
-                             bias_data,
-                             &output_dims,
-                             output);
+    result = arm_convolve_1_x_n_s4(&ctx,
+                                   &conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   bias_data,
+                                   &output_dims,
+                                   output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
@@ -1674,17 +1674,17 @@ void conv_1_x_n_3_arm_convolve_s4(void)
     buf_size = arm_convolve_wrapper_s4_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
 
-    result = arm_convolve_s4(&ctx,
-                             &conv_params,
-                             &quant_params,
-                             &input_dims,
-                             input_data,
-                             &filter_dims,
-                             kernel_data,
-                             &bias_dims,
-                             bias_data,
-                             &output_dims,
-                             output);
+    result = arm_convolve_1_x_n_s4(&ctx,
+                                   &conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   bias_data,
+                                   &output_dims,
+                                   output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
@@ -1767,17 +1767,17 @@ void conv_1_x_n_4_arm_convolve_s4(void)
 
     ctx.buf = malloc(buf_size);
 
-    result = arm_convolve_s4(&ctx,
-                             &conv_params,
-                             &quant_params,
-                             &input_dims,
-                             input_data,
-                             &filter_dims,
-                             kernel_data,
-                             &bias_dims,
-                             bias_data,
-                             &output_dims,
-                             output);
+    result = arm_convolve_1_x_n_s4(&ctx,
+                                   &conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   bias_data,
+                                   &output_dims,
+                                   output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
@@ -1857,17 +1857,17 @@ void conv_1_x_n_5_arm_convolve_s4(void)
     buf_size = arm_convolve_wrapper_s4_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
 
-    result = arm_convolve_s4(&ctx,
-                             &conv_params,
-                             &quant_params,
-                             &input_dims,
-                             input_data,
-                             &filter_dims,
-                             kernel_data,
-                             &bias_dims,
-                             bias_data,
-                             &output_dims,
-                             output);
+    result = arm_convolve_1_x_n_s4(&ctx,
+                                   &conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   bias_data,
+                                   &output_dims,
+                                   output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
