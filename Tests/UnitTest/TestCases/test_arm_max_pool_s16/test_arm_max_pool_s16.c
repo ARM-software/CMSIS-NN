@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -29,7 +29,8 @@
 void maxpool_int16_arm_max_pool_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    int16_t output[MAXPOOL_INT16_DST_SIZE] = {0};
+    int16_t output[MAXPOOL_INT16_OUTPUT_W * MAXPOOL_INT16_OUTPUT_H * MAXPOOL_INT16_INPUT_C * MAXPOOL_INT16_BATCH_SIZE] =
+        {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -37,25 +38,25 @@ void maxpool_int16_arm_max_pool_s16(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const int16_t *input_data = maxpool_int16_input;
+    const int16_t *input_data = maxpool_int16_input_tensor;
 
-    input_dims.n = MAXPOOL_INT16_INPUT_BATCHES;
+    input_dims.n = MAXPOOL_INT16_BATCH_SIZE;
     input_dims.w = MAXPOOL_INT16_INPUT_W;
     input_dims.h = MAXPOOL_INT16_INPUT_H;
-    input_dims.c = MAXPOOL_INT16_IN_CH;
-    filter_dims.w = MAXPOOL_INT16_FILTER_X;
-    filter_dims.h = MAXPOOL_INT16_FILTER_Y;
+    input_dims.c = MAXPOOL_INT16_INPUT_C;
+    filter_dims.w = MAXPOOL_INT16_FILTER_W;
+    filter_dims.h = MAXPOOL_INT16_FILTER_H;
     output_dims.w = MAXPOOL_INT16_OUTPUT_W;
     output_dims.h = MAXPOOL_INT16_OUTPUT_H;
-    output_dims.c = MAXPOOL_INT16_OUT_CH;
+    output_dims.c = MAXPOOL_INT16_INPUT_C;
 
-    pool_params.padding.w = MAXPOOL_INT16_PAD_X;
-    pool_params.padding.h = MAXPOOL_INT16_PAD_Y;
-    pool_params.stride.w = MAXPOOL_INT16_STRIDE_X;
-    pool_params.stride.h = MAXPOOL_INT16_STRIDE_Y;
+    pool_params.padding.w = MAXPOOL_INT16_PADDING_W;
+    pool_params.padding.h = MAXPOOL_INT16_PADDING_H;
+    pool_params.stride.w = MAXPOOL_INT16_STRIDE_W;
+    pool_params.stride.h = MAXPOOL_INT16_STRIDE_H;
 
-    pool_params.activation.min = MAXPOOL_INT16_OUT_ACTIVATION_MIN;
-    pool_params.activation.max = MAXPOOL_INT16_OUT_ACTIVATION_MAX;
+    pool_params.activation.min = MAXPOOL_INT16_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOL_INT16_ACTIVATION_MAX;
 
     for (int i = 0; i < REPEAT_NUM; i++)
     {
@@ -63,14 +64,18 @@ void maxpool_int16_arm_max_pool_s16(void)
             arm_max_pool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
 
         TEST_ASSERT_EQUAL(expected, result);
-        TEST_ASSERT_TRUE(validate_s16(output, maxpool_int16_output_ref, MAXPOOL_INT16_DST_SIZE));
+        TEST_ASSERT_TRUE(validate_s16(output,
+                                      maxpool_int16_output,
+                                      MAXPOOL_INT16_OUTPUT_W * MAXPOOL_INT16_OUTPUT_H * MAXPOOL_INT16_INPUT_C *
+                                          MAXPOOL_INT16_BATCH_SIZE));
     }
 }
 
 void maxpool_int16_1_arm_max_pool_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    int16_t output[MAXPOOL_INT16_1_DST_SIZE] = {0};
+    int16_t output[MAXPOOL_INT16_1_OUTPUT_W * MAXPOOL_INT16_1_OUTPUT_H * MAXPOOL_INT16_1_INPUT_C *
+                   MAXPOOL_INT16_1_BATCH_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -78,25 +83,25 @@ void maxpool_int16_1_arm_max_pool_s16(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const int16_t *input_data = maxpool_int16_1_input;
+    const int16_t *input_data = maxpool_int16_1_input_tensor;
 
-    input_dims.n = MAXPOOL_INT16_1_INPUT_BATCHES;
+    input_dims.n = MAXPOOL_INT16_1_BATCH_SIZE;
     input_dims.w = MAXPOOL_INT16_1_INPUT_W;
     input_dims.h = MAXPOOL_INT16_1_INPUT_H;
-    input_dims.c = MAXPOOL_INT16_1_IN_CH;
-    filter_dims.w = MAXPOOL_INT16_1_FILTER_X;
-    filter_dims.h = MAXPOOL_INT16_1_FILTER_Y;
+    input_dims.c = MAXPOOL_INT16_1_INPUT_C;
+    filter_dims.w = MAXPOOL_INT16_1_FILTER_W;
+    filter_dims.h = MAXPOOL_INT16_1_FILTER_H;
     output_dims.w = MAXPOOL_INT16_1_OUTPUT_W;
     output_dims.h = MAXPOOL_INT16_1_OUTPUT_H;
-    output_dims.c = MAXPOOL_INT16_1_OUT_CH;
+    output_dims.c = MAXPOOL_INT16_1_INPUT_C;
 
-    pool_params.padding.w = MAXPOOL_INT16_1_PAD_X;
-    pool_params.padding.h = MAXPOOL_INT16_1_PAD_Y;
-    pool_params.stride.w = MAXPOOL_INT16_1_STRIDE_X;
-    pool_params.stride.h = MAXPOOL_INT16_1_STRIDE_Y;
+    pool_params.padding.w = MAXPOOL_INT16_1_PADDING_W;
+    pool_params.padding.h = MAXPOOL_INT16_1_PADDING_H;
+    pool_params.stride.w = MAXPOOL_INT16_1_STRIDE_W;
+    pool_params.stride.h = MAXPOOL_INT16_1_STRIDE_H;
 
-    pool_params.activation.min = MAXPOOL_INT16_1_OUT_ACTIVATION_MIN;
-    pool_params.activation.max = MAXPOOL_INT16_1_OUT_ACTIVATION_MAX;
+    pool_params.activation.min = MAXPOOL_INT16_1_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOL_INT16_1_ACTIVATION_MAX;
 
     for (int i = 0; i < REPEAT_NUM; i++)
     {
@@ -104,14 +109,18 @@ void maxpool_int16_1_arm_max_pool_s16(void)
             arm_max_pool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
 
         TEST_ASSERT_EQUAL(expected, result);
-        TEST_ASSERT_TRUE(validate_s16(output, maxpool_int16_1_output_ref, MAXPOOL_INT16_1_DST_SIZE));
+        TEST_ASSERT_TRUE(validate_s16(output,
+                                      maxpool_int16_1_output,
+                                      MAXPOOL_INT16_1_OUTPUT_W * MAXPOOL_INT16_1_OUTPUT_H * MAXPOOL_INT16_1_INPUT_C *
+                                          MAXPOOL_INT16_1_BATCH_SIZE));
     }
 }
 
 void maxpool_int16_2_arm_max_pool_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
-    int16_t output[MAXPOOL_INT16_2_DST_SIZE] = {0};
+    int16_t output[MAXPOOL_INT16_2_OUTPUT_W * MAXPOOL_INT16_2_OUTPUT_H * MAXPOOL_INT16_2_INPUT_C *
+                   MAXPOOL_INT16_2_BATCH_SIZE] = {0};
 
     cmsis_nn_context ctx;
     cmsis_nn_pool_params pool_params;
@@ -119,25 +128,25 @@ void maxpool_int16_2_arm_max_pool_s16(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const int16_t *input_data = maxpool_int16_2_input;
+    const int16_t *input_data = maxpool_int16_2_input_tensor;
 
-    input_dims.n = MAXPOOL_INT16_2_INPUT_BATCHES;
+    input_dims.n = MAXPOOL_INT16_2_BATCH_SIZE;
     input_dims.w = MAXPOOL_INT16_2_INPUT_W;
     input_dims.h = MAXPOOL_INT16_2_INPUT_H;
-    input_dims.c = MAXPOOL_INT16_2_IN_CH;
-    filter_dims.w = MAXPOOL_INT16_2_FILTER_X;
-    filter_dims.h = MAXPOOL_INT16_2_FILTER_Y;
+    input_dims.c = MAXPOOL_INT16_2_INPUT_C;
+    filter_dims.w = MAXPOOL_INT16_2_FILTER_W;
+    filter_dims.h = MAXPOOL_INT16_2_FILTER_H;
     output_dims.w = MAXPOOL_INT16_2_OUTPUT_W;
     output_dims.h = MAXPOOL_INT16_2_OUTPUT_H;
-    output_dims.c = MAXPOOL_INT16_2_OUT_CH;
+    output_dims.c = MAXPOOL_INT16_2_INPUT_C;
 
-    pool_params.padding.w = MAXPOOL_INT16_2_PAD_X;
-    pool_params.padding.h = MAXPOOL_INT16_2_PAD_Y;
-    pool_params.stride.w = MAXPOOL_INT16_2_STRIDE_X;
-    pool_params.stride.h = MAXPOOL_INT16_2_STRIDE_Y;
+    pool_params.padding.w = MAXPOOL_INT16_2_PADDING_W;
+    pool_params.padding.h = MAXPOOL_INT16_2_PADDING_H;
+    pool_params.stride.w = MAXPOOL_INT16_2_STRIDE_W;
+    pool_params.stride.h = MAXPOOL_INT16_2_STRIDE_H;
 
-    pool_params.activation.min = MAXPOOL_INT16_2_OUT_ACTIVATION_MIN;
-    pool_params.activation.max = MAXPOOL_INT16_2_OUT_ACTIVATION_MAX;
+    pool_params.activation.min = MAXPOOL_INT16_2_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOL_INT16_2_ACTIVATION_MAX;
 
     for (int i = 0; i < REPEAT_NUM; i++)
     {
@@ -145,14 +154,18 @@ void maxpool_int16_2_arm_max_pool_s16(void)
             arm_max_pool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
 
         TEST_ASSERT_EQUAL(expected, result);
-        TEST_ASSERT_TRUE(validate_s16(output, maxpool_int16_2_output_ref, MAXPOOL_INT16_2_DST_SIZE));
+        TEST_ASSERT_TRUE(validate_s16(output,
+                                      maxpool_int16_2_output,
+                                      MAXPOOL_INT16_2_OUTPUT_W * MAXPOOL_INT16_2_OUTPUT_H * MAXPOOL_INT16_2_INPUT_C *
+                                          MAXPOOL_INT16_2_BATCH_SIZE));
     }
 }
 
 void maxpool_int16_param_fail_arm_max_pool_s16(void)
 {
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_ARG_ERROR;
-    int16_t output[MAXPOOL_INT16_2_DST_SIZE] = {0};
+    int16_t output[MAXPOOL_INT16_2_OUTPUT_W * MAXPOOL_INT16_2_OUTPUT_H * MAXPOOL_INT16_2_INPUT_C *
+                   MAXPOOL_INT16_2_BATCH_SIZE] = {0};
 
     cmsis_nn_context ctx = {};
     cmsis_nn_pool_params pool_params;
@@ -160,25 +173,25 @@ void maxpool_int16_param_fail_arm_max_pool_s16(void)
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
 
-    const int16_t *input_data = maxpool_int16_2_input;
+    const int16_t *input_data = maxpool_int16_2_input_tensor;
 
-    input_dims.n = -MAXPOOL_INT16_2_INPUT_BATCHES;
+    input_dims.n = -MAXPOOL_INT16_2_BATCH_SIZE;
     input_dims.w = MAXPOOL_INT16_2_INPUT_W;
     input_dims.h = MAXPOOL_INT16_2_INPUT_H;
-    input_dims.c = MAXPOOL_INT16_2_IN_CH;
-    filter_dims.w = MAXPOOL_INT16_2_FILTER_X;
-    filter_dims.h = MAXPOOL_INT16_2_FILTER_Y;
+    input_dims.c = MAXPOOL_INT16_2_INPUT_C;
+    filter_dims.w = MAXPOOL_INT16_2_FILTER_W;
+    filter_dims.h = MAXPOOL_INT16_2_FILTER_H;
     output_dims.w = MAXPOOL_INT16_2_OUTPUT_W;
     output_dims.h = MAXPOOL_INT16_2_OUTPUT_H;
-    output_dims.c = MAXPOOL_INT16_2_OUT_CH;
+    output_dims.c = MAXPOOL_INT16_2_INPUT_C;
 
-    pool_params.padding.w = MAXPOOL_INT16_2_PAD_X;
-    pool_params.padding.h = MAXPOOL_INT16_2_PAD_Y;
-    pool_params.stride.w = MAXPOOL_INT16_2_STRIDE_X;
-    pool_params.stride.h = MAXPOOL_INT16_2_STRIDE_Y;
+    pool_params.padding.w = MAXPOOL_INT16_2_PADDING_W;
+    pool_params.padding.h = MAXPOOL_INT16_2_PADDING_H;
+    pool_params.stride.w = MAXPOOL_INT16_2_STRIDE_W;
+    pool_params.stride.h = MAXPOOL_INT16_2_STRIDE_H;
 
-    pool_params.activation.min = MAXPOOL_INT16_2_OUT_ACTIVATION_MIN;
-    pool_params.activation.max = MAXPOOL_INT16_2_OUT_ACTIVATION_MAX;
+    pool_params.activation.min = MAXPOOL_INT16_2_ACTIVATION_MIN;
+    pool_params.activation.max = MAXPOOL_INT16_2_ACTIVATION_MAX;
 
     arm_cmsis_nn_status result =
         arm_max_pool_s16(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
