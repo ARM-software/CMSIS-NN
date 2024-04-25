@@ -93,17 +93,7 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
 
     if (right_pad_num + no_pad_num + left_pad_num != output_x)
     {
-        return arm_convolve_s4(ctx,
-                               conv_params,
-                               quant_params,
-                               input_dims,
-                               input_data,
-                               filter_dims,
-                               filter_data,
-                               bias_dims,
-                               bias_data,
-                               output_dims,
-                               output_data);
+        return ARM_CMSIS_NN_FAILURE;
     }
 
     for (int i_batch = 0; i_batch < input_dims->n; i_batch++)
