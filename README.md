@@ -24,19 +24,19 @@ processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP exten
 Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE) instructions for optimization.
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
-| Operator        | C <br> int8 | C<br>int16 | C<br>int4* | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 |
-| --------------- | ----------- | ---------- |------------|-------------| -------------|--------------|-------------| -------------|
-| Conv2D          | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
-| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
-| TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           |
-| Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          |
-| Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
-| Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
-| MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
-| AvgPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          |
-| Softmax         | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | No           |
-| LSTM            | Yes         | NA         | No         | Yes         | NA           | No           | Yes         | NA           |
-| SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           |
+| Operator        | C <br> int8 | C<br>int16 | C<br>int4* | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 | MVE<br>int4* |
+| --------------- | ----------- | ---------- |------------|-------------| -------------|--------------|-------------| -------------|--------------|
+| Conv2D          | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
+| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | No           |
+| TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
+| Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | No           |
+| Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
+| Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
+| MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
+| AvgPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
+| Softmax         | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | No           | N/A          |
+| LSTM            | Yes         | NA         | No         | Yes         | NA           | No           | Yes         | NA           | No           |
+| SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 
 * int4 weights + int8 activations
 
