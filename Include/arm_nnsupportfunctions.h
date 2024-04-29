@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        16 April 2024
- * $Revision:    V.20.3.0
+ * $Date:        23 April 2024
+ * $Revision:    V.21.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -264,12 +264,14 @@ int8_t *arm_nn_mat_mult_s8(const int8_t *input_row,
  * @param[in]       input_a     pointer to operand A
  * @param[in]       input_b     pointer to operand B, always consists of 2 vectors.
  * @param[in]       output_ch   number of rows of A
- * @param[in]       out_shift  pointer to per output channel requantization shift parameter.
- * @param[in]       out_mult   pointer to per output channel requantization multiplier parameter.
+ * @param[in]       out_shift   pointer to per output channel requantization shift parameter.
+ * @param[in]       out_mult    pointer to per output channel requantization multiplier parameter.
  * @param[in]       activation_min   minimum value to clamp the output to. Range : int16
  * @param[in]       activation_max   maximum value to clamp the output to. Range : int16
  * @param[in]       num_col_a   number of columns of A
- * @param[in]       output_bias per output channel bias. Range : int64
+ * @param[in]       bias_data   pointer to struct with bias vector. The length of this vector is equal to the number
+ *                              of output columns (or RHS input rows). The vector can be int32 or int64 indicated by a
+ *                              flag in the struct.
  * @param[in,out]   out_0       pointer to output
  * @return     The function returns one of the two
  *              1. The incremented output pointer for a successful operation or
@@ -288,7 +290,7 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
                                     const int32_t activation_min,
                                     const int32_t activation_max,
                                     const int32_t num_col_a,
-                                    const int64_t *const output_bias,
+                                    const cmsis_nn_bias_data *const bias_data,
                                     int16_t *out_0);
 
 /**
@@ -497,8 +499,9 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  *
  * @param[in]  lhs                Pointer to the LHS input matrix
  * @param[in]  rhs                Pointer to the RHS input matrix
- * @param[in]  bias               Pointer to the bias vector. The length of this vector is equal to the number of
- *                                output columns (or RHS input rows)
+ * @param[in]  bias_data          Pointer to struct with bias vector. The length of this vector is equal to the number
+ *                                of output columns (or RHS input rows). The vector can be int32 or int64 indicated by a
+ *                                flag in the struct.
  * @param[out] dst                Pointer to the output matrix with "m" rows and "n" columns
  * @param[in]  dst_multipliers    Pointer to the multipliers vector needed for the per-channel requantization.
  *                                The length of this vector is equal to the number of output columns (or RHS input
@@ -519,7 +522,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
  */
 arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s16(const int16_t *lhs,
                                              const int8_t *rhs,
-                                             const int64_t *bias,
+                                             const cmsis_nn_bias_data *bias_data,
                                              int16_t *dst,
                                              const int32_t *dst_multipliers,
                                              const int32_t *dst_shifts,

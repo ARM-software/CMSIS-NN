@@ -452,7 +452,7 @@ class TestSettings(ABC):
         self.convert_model(model, inttype, dataset_shape)
         return self.interpret_model(input_data, inttype)
 
-    def convert_model(self, model, inttype, dataset_shape=None):
+    def convert_model(self, model, inttype, dataset_shape=None, int16x8_int32bias=False):
         model.compile(loss=keras.losses.categorical_crossentropy,
                       optimizer=keras.optimizers.Adam(),
                       metrics=['accuracy'])
@@ -470,6 +470,8 @@ class TestSettings(ABC):
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
         if self.is_int16xint8:
+            if int16x8_int32bias:
+                converter._experimental_full_integer_quantization_bias_type = tf.int32
             converter.target_spec.supported_ops = [
                 tf.lite.OpsSet.EXPERIMENTAL_TFLITE_BUILTINS_ACTIVATIONS_INT16_WEIGHTS_INT8
             ]

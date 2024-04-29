@@ -21,11 +21,12 @@ import tensorflow as tf
 class Generated_data():
     """ Container for all generated data"""
 
-    def __init__(self, params, tensors, scales, effective_scales):
+    def __init__(self, params, tensors, scales, effective_scales, aliases={}):
         self.params = params  # All other params which are generated rather than given in the test-plan
         self.tensors = tensors  # All tensors
         self.scales = scales  # Scales used in the tflite model
         self.effective_scales = effective_scales  # Scales used by CMSIS-NN
+        self.aliases = aliases  # Optional for backward compability with old unit tests
 
 
 class Op_type():
@@ -43,12 +44,18 @@ class Op_type():
 
     @staticmethod
     def generate_data_tflite(tflite_path, params) -> Generated_data:
-        """ Parses quantized tensors, scales, and other parameter from the given tflite-file, calculates effective scales, and returns them as three structs"""
+        """
+            Parses quantized tensors, scales, and other parameter from the given tflite-file, calculates effective
+            scales, and returns them as three structs
+        """
         raise NotImplementedError
 
     @staticmethod
     def generate_data_json(shapes, params) -> Generated_data:
-        """ Generates quantized tensors, scales, and other parameters with given shapes and params, calculates effecitve scales, and returns them as four structs"""
+        """
+           Generates quantized tensors, scales, and other parameters with given shapes and params, calculates effecitve
+           scales, and returns them as four structs
+        """
         raise NotImplementedError
 
 
@@ -65,6 +72,8 @@ def get_dtype(name, params):
         return params["bias_data_type"]
     elif "weight" in name or "kernel" in name:
         return params["weights_data_type"]
+    elif "multiplier" in name or "shift" in name:
+        return params["shift_and_mult_data_type"]
     elif "input" in name or "output" in name:
         return params["input_data_type"]
     else:

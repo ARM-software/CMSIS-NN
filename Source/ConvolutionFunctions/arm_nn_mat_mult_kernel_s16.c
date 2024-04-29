@@ -22,8 +22,8 @@
  * Title:        arm_nn_mat_mult_kernel_s16.c
  * Description:  Matrix-multiplication function for 16 bits convolution
  *
- * $Date:        22 March 2024
- * $Revision:    V.2.0.0
+ * $Date:        12 April 2024
+ * $Revision:    V.3.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -54,18 +54,20 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
                                     const int32_t activation_min,
                                     const int32_t activation_max,
                                     const int32_t num_col_a,
-                                    const int64_t *const output_bias,
+                                    const cmsis_nn_bias_data *const bias_data,
                                     int16_t *out_0)
 {
 #if !defined(ARM_MATH_MVEI)
-    const int32_t num_col_a_fast = num_col_a > MAX_COL_COUNT ? MAX_COL_COUNT : num_col_a;
+    const int64_t *bias_s64 = (const int64_t *)bias_data->data;
+    const int32_t *bias_s32 = (const int32_t *)bias_data->data;
+    const bool is_int32_bias = bias_data->is_int32_bias;
+
+    const int32_t num_col_a_fast = is_int32_bias ? num_col_a : (num_col_a > MAX_COL_COUNT ? MAX_COL_COUNT : num_col_a);
     const int32_t num_col_a_slow = num_col_a - MAX_COL_COUNT;
 
     int16_t *out_1 = out_0 + output_ch;
-    const int64_t *bias = output_bias;
     int32_t row_count = output_ch / 2;
     const int8_t *ip_a0 = input_a;
-    int32_t reduced_multiplier;
 
     /* This loop over rows in A */
     while (row_count)
@@ -82,11 +84,6 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
         int32_t ch_0_out_1 = 0;
         int32_t ch_1_out_0 = 0;
         int32_t ch_1_out_1 = 0;
-
-        int64_t ch_0_out_0_s64 = 0;
-        int64_t ch_0_out_1_s64 = 0;
-        int64_t ch_1_out_0_s64 = 0;
-        int64_t ch_1_out_1_s64 = 0;
 
     #if defined(ARM_MATH_DSP)
         uint16_t col_count = num_col_a_fast / 4;
@@ -135,65 +132,104 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
             col_count--;
         }
 
-        ch_0_out_0_s64 = ch_0_out_0;
-        ch_0_out_1_s64 = ch_0_out_1;
-        ch_1_out_0_s64 = ch_1_out_0;
-        ch_1_out_1_s64 = ch_1_out_1;
-
-        if (num_col_a > MAX_COL_COUNT)
+        if (is_int32_bias)
         {
-            col_count = num_col_a_slow;
-            while (col_count)
+            if (bias_s32)
             {
-                int8_t a0 = *ip_a0++;
-                int16_t b0 = *ip_b0++;
-                int8_t a1 = *ip_a1++;
-                int16_t b1 = *ip_b1++;
-
-                ch_0_out_0_s64 += a0 * b0;
-                ch_0_out_1_s64 += a0 * b1;
-                ch_1_out_0_s64 += a1 * b0;
-                ch_1_out_1_s64 += a1 * b1;
-                col_count--;
+                ch_0_out_0 += *bias_s32;
+                ch_0_out_1 += *bias_s32++;
+                ch_1_out_0 += *bias_s32;
+                ch_1_out_1 += *bias_s32++;
             }
-        }
 
-        if (bias)
+            ch_0_out_0 = arm_nn_requantize(ch_0_out_0, *out_mult, *out_shift);
+            ch_0_out_1 = arm_nn_requantize(ch_0_out_1, *out_mult, *out_shift);
+            out_mult++;
+            out_shift++;
+
+            ch_0_out_0 = MAX(ch_0_out_0, activation_min);
+            ch_0_out_0 = MIN(ch_0_out_0, activation_max);
+            *out_0++ = (int16_t)ch_0_out_0;
+
+            ch_0_out_1 = MAX(ch_0_out_1, activation_min);
+            ch_0_out_1 = MIN(ch_0_out_1, activation_max);
+            *out_1++ = (int16_t)ch_0_out_1;
+
+            ch_1_out_0 = arm_nn_requantize(ch_1_out_0, *out_mult, *out_shift);
+            ch_1_out_1 = arm_nn_requantize(ch_1_out_1, *out_mult, *out_shift);
+            out_mult++;
+            out_shift++;
+
+            ch_1_out_0 = MAX(ch_1_out_0, activation_min);
+            ch_1_out_0 = MIN(ch_1_out_0, activation_max);
+            *out_0++ = (int16_t)ch_1_out_0;
+
+            ch_1_out_1 = MAX(ch_1_out_1, activation_min);
+            ch_1_out_1 = MIN(ch_1_out_1, activation_max);
+            *out_1++ = (int16_t)ch_1_out_1;
+        }
+        else
         {
-            ch_0_out_0_s64 += *bias;
-            ch_0_out_1_s64 += *bias++;
-            ch_1_out_0_s64 += *bias;
-            ch_1_out_1_s64 += *bias++;
+            int64_t ch_0_out_0_s64 = ch_0_out_0;
+            int64_t ch_0_out_1_s64 = ch_0_out_1;
+            int64_t ch_1_out_0_s64 = ch_1_out_0;
+            int64_t ch_1_out_1_s64 = ch_1_out_1;
+
+            if (num_col_a > MAX_COL_COUNT)
+            {
+                col_count = num_col_a_slow;
+                while (col_count)
+                {
+                    int8_t a0 = *ip_a0++;
+                    int16_t b0 = *ip_b0++;
+                    int8_t a1 = *ip_a1++;
+                    int16_t b1 = *ip_b1++;
+
+                    ch_0_out_0_s64 += a0 * b0;
+                    ch_0_out_1_s64 += a0 * b1;
+                    ch_1_out_0_s64 += a1 * b0;
+                    ch_1_out_1_s64 += a1 * b1;
+                    col_count--;
+                }
+            }
+
+            if (bias_s64)
+            {
+                ch_0_out_0_s64 += *bias_s64;
+                ch_0_out_1_s64 += *bias_s64++;
+                ch_1_out_0_s64 += *bias_s64;
+                ch_1_out_1_s64 += *bias_s64++;
+            }
+
+            int32_t reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
+            ch_0_out_0 = arm_nn_requantize_s64(ch_0_out_0_s64, reduced_multiplier, *out_shift);
+            ch_0_out_1 = arm_nn_requantize_s64(ch_0_out_1_s64, reduced_multiplier, *out_shift);
+            out_mult++;
+            out_shift++;
+
+            reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
+            ch_1_out_0 = arm_nn_requantize_s64(ch_1_out_0_s64, reduced_multiplier, *out_shift);
+            ch_1_out_1 = arm_nn_requantize_s64(ch_1_out_1_s64, reduced_multiplier, *out_shift);
+
+            ch_0_out_0 = MAX(ch_0_out_0, activation_min);
+            ch_0_out_0 = MIN(ch_0_out_0, activation_max);
+            *out_0++ = (int16_t)ch_0_out_0;
+
+            ch_0_out_1 = MAX(ch_0_out_1, activation_min);
+            ch_0_out_1 = MIN(ch_0_out_1, activation_max);
+            *out_1++ = (int16_t)ch_0_out_1;
+
+            ch_1_out_0 = MAX(ch_1_out_0, activation_min);
+            ch_1_out_0 = MIN(ch_1_out_0, activation_max);
+            *out_0++ = (int16_t)ch_1_out_0;
+
+            ch_1_out_1 = MAX(ch_1_out_1, activation_min);
+            ch_1_out_1 = MIN(ch_1_out_1, activation_max);
+            *out_1++ = (int16_t)ch_1_out_1;
+
+            out_mult++;
+            out_shift++;
         }
-
-        reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
-        ch_0_out_0 = arm_nn_requantize_s64(ch_0_out_0_s64, reduced_multiplier, *out_shift);
-        ch_0_out_1 = arm_nn_requantize_s64(ch_0_out_1_s64, reduced_multiplier, *out_shift);
-        out_mult++;
-        out_shift++;
-
-        reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
-        ch_1_out_0 = arm_nn_requantize_s64(ch_1_out_0_s64, reduced_multiplier, *out_shift);
-        ch_1_out_1 = arm_nn_requantize_s64(ch_1_out_1_s64, reduced_multiplier, *out_shift);
-
-        ch_0_out_0 = MAX(ch_0_out_0, activation_min);
-        ch_0_out_0 = MIN(ch_0_out_0, activation_max);
-        *out_0++ = (int16_t)ch_0_out_0;
-
-        ch_0_out_1 = MAX(ch_0_out_1, activation_min);
-        ch_0_out_1 = MIN(ch_0_out_1, activation_max);
-        *out_1++ = (int16_t)ch_0_out_1;
-
-        ch_1_out_0 = MAX(ch_1_out_0, activation_min);
-        ch_1_out_0 = MIN(ch_1_out_0, activation_max);
-        *out_0++ = (int16_t)ch_1_out_0;
-
-        ch_1_out_1 = MAX(ch_1_out_1, activation_min);
-        ch_1_out_1 = MIN(ch_1_out_1, activation_max);
-        *out_1++ = (int16_t)ch_1_out_1;
-
-        out_mult++;
-        out_shift++;
 
         /* Skip row */
         ip_a0 += num_col_a;
@@ -209,8 +245,6 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
 
         int32_t ch_0_out_0 = 0;
         int32_t ch_0_out_1 = 0;
-        int64_t ch_0_out_0_s64 = 0;
-        int64_t ch_0_out_1_s64 = 0;
 
     #if defined(ARM_MATH_DSP)
         uint16_t col_count = num_col_a_fast >> 2;
@@ -247,43 +281,67 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
             col_count--;
         }
 
-        ch_0_out_0_s64 = ch_0_out_0;
-        ch_0_out_1_s64 = ch_0_out_1;
-
-        if (num_col_a > MAX_COL_COUNT)
+        if (is_int32_bias)
         {
-            col_count = num_col_a_slow;
-            while (col_count)
+            if (bias_s32)
             {
-                int8_t a0 = *ip_a0++;
-                int16_t b0 = *ip_b0++;
-                int16_t b1 = *ip_b1++;
-
-                ch_0_out_0_s64 += a0 * b0;
-                ch_0_out_1_s64 += a0 * b1;
-                col_count--;
+                ch_0_out_0 += *bias_s32;
+                ch_0_out_1 += *bias_s32++;
             }
-        }
 
-        if (bias)
+            ch_0_out_0 = arm_nn_requantize(ch_0_out_0, *out_mult, *out_shift);
+            ch_0_out_1 = arm_nn_requantize(ch_0_out_1, *out_mult, *out_shift);
+            out_mult++;
+            out_shift++;
+
+            ch_0_out_0 = MAX(ch_0_out_0, activation_min);
+            ch_0_out_0 = MIN(ch_0_out_0, activation_max);
+            *out_0++ = (int16_t)ch_0_out_0;
+
+            ch_0_out_1 = MAX(ch_0_out_1, activation_min);
+            ch_0_out_1 = MIN(ch_0_out_1, activation_max);
+            *out_1++ = (int16_t)ch_0_out_1;
+        }
+        else
         {
-            ch_0_out_0_s64 += *bias;
-            ch_0_out_1_s64 += *bias++;
+            int64_t ch_0_out_0_s64 = ch_0_out_0;
+            int64_t ch_0_out_1_s64 = ch_0_out_1;
+
+            if (num_col_a > MAX_COL_COUNT)
+            {
+                col_count = num_col_a_slow;
+                while (col_count)
+                {
+                    int8_t a0 = *ip_a0++;
+                    int16_t b0 = *ip_b0++;
+                    int16_t b1 = *ip_b1++;
+
+                    ch_0_out_0_s64 += a0 * b0;
+                    ch_0_out_1_s64 += a0 * b1;
+                    col_count--;
+                }
+            }
+
+            if (bias_s64)
+            {
+                ch_0_out_0_s64 += *bias_s64;
+                ch_0_out_1_s64 += *bias_s64++;
+            }
+
+            int32_t reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
+            ch_0_out_0 = arm_nn_requantize_s64(ch_0_out_0_s64, reduced_multiplier, *out_shift);
+            ch_0_out_1 = arm_nn_requantize_s64(ch_0_out_1_s64, reduced_multiplier, *out_shift);
+
+            ch_0_out_0 = MAX(ch_0_out_0, activation_min);
+            ch_0_out_0 = MIN(ch_0_out_0, activation_max);
+            *out_0++ = (int16_t)ch_0_out_0;
+
+            ch_0_out_1 = MAX(ch_0_out_1, activation_min);
+            ch_0_out_1 = MIN(ch_0_out_1, activation_max);
+            *out_1++ = (int16_t)ch_0_out_1;
+            out_mult++;
+            out_shift++;
         }
-
-        reduced_multiplier = REDUCE_MULTIPLIER(*out_mult);
-        ch_0_out_0 = arm_nn_requantize_s64(ch_0_out_0_s64, reduced_multiplier, *out_shift);
-        ch_0_out_1 = arm_nn_requantize_s64(ch_0_out_1_s64, reduced_multiplier, *out_shift);
-
-        ch_0_out_0 = MAX(ch_0_out_0, activation_min);
-        ch_0_out_0 = MIN(ch_0_out_0, activation_max);
-        *out_0++ = (int16_t)ch_0_out_0;
-
-        ch_0_out_1 = MAX(ch_0_out_1, activation_min);
-        ch_0_out_1 = MIN(ch_0_out_1, activation_max);
-        *out_1++ = (int16_t)ch_0_out_1;
-        out_mult++;
-        out_shift++;
     }
 
     out_0 += output_ch;
@@ -299,7 +357,7 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
     (void)activation_min;
     (void)activation_max;
     (void)num_col_a;
-    (void)output_bias;
+    (void)bias_data;
     (void)out_0;
 
     return NULL;

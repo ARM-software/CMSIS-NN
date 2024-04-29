@@ -21,6 +21,7 @@ import numpy as np
 import math
 import tf_keras as keras
 
+
 class ConvSettings(TestSettings):
 
     def __init__(self,
@@ -48,6 +49,7 @@ class ConvSettings(TestSettings):
                  out_activation_min=None,
                  out_activation_max=None,
                  int16xint8=False,
+                 int16xint8_int32=False,
                  bias_min=TestSettings.INT32_MIN,
                  bias_max=TestSettings.INT32_MAX,
                  dilation_x=1,
@@ -91,6 +93,13 @@ class ConvSettings(TestSettings):
 
         self.weights_min = weights_min
         self.weights_max = weights_max
+
+        if int16xint8_int32:
+            if not self.is_int16xint8:
+                raise RuntimeError("ERROR: int16x8 with int32 bias only relevant for int16x8")
+            if not self.test_type == 'conv':
+                raise RuntimeError("ERROR: int16x8 with int32 bias only supported for conv")
+        self.int16xint8_int32 = int16xint8_int32
 
         if self.test_type == 'depthwise_conv':
             self.channel_multiplier = self.output_ch // self.input_ch
@@ -197,7 +206,7 @@ class ConvSettings(TestSettings):
         if self.is_int16xint8:
             inttype = tf.int16
             datatype = "int16_t"
-            bias_datatype = "int64_t"
+            bias_datatype = "int32_t" if self.int16xint8_int32 else "int64_t"
         else:
             inttype = tf.int8
             datatype = "int8_t"
@@ -327,13 +336,13 @@ class ConvSettings(TestSettings):
             model.add(keras.layers.InputLayer(input_shape=input_shape[1:], batch_size=self.batches))
             if self.test_type == 'conv':
                 conv_layer = keras.layers.Conv2D(self.output_ch,
-                                                    kernel_size=(self.filter_y, self.filter_x),
-                                                    strides=(self.stride_y, self.stride_x),
-                                                    padding=self.padding,
-                                                    input_shape=input_shape[1:],
-                                                    dilation_rate=(self.dilation_y, self.dilation_x),
-                                                    groups=self.groups,
-                                                    use_bias=self.generate_bias)
+                                                 kernel_size=(self.filter_y, self.filter_x),
+                                                 strides=(self.stride_y, self.stride_x),
+                                                 padding=self.padding,
+                                                 input_shape=input_shape[1:],
+                                                 dilation_rate=(self.dilation_y, self.dilation_x),
+                                                 groups=self.groups,
+                                                 use_bias=self.generate_bias)
                 model.add(conv_layer)
                 if self.generate_bias:
                     conv_layer.set_weights([weights, biases])
@@ -341,12 +350,12 @@ class ConvSettings(TestSettings):
                     conv_layer.set_weights([weights])
             elif self.test_type == 'depthwise_conv':
                 depthwise_layer = keras.layers.DepthwiseConv2D(kernel_size=(self.filter_y, self.filter_x),
-                                                                  strides=(self.stride_y, self.stride_x),
-                                                                  padding=self.padding,
-                                                                  depth_multiplier=self.channel_multiplier,
-                                                                  input_shape=input_shape[1:],
-                                                                  dilation_rate=(self.dilation_y, self.dilation_x),
-                                                                  use_bias=self.generate_bias)
+                                                               strides=(self.stride_y, self.stride_x),
+                                                               padding=self.padding,
+                                                               depth_multiplier=self.channel_multiplier,
+                                                               input_shape=input_shape[1:],
+                                                               dilation_rate=(self.dilation_y, self.dilation_x),
+                                                               use_bias=self.generate_bias)
                 model.add(depthwise_layer)
                 if self.generate_bias:
                     depthwise_layer.set_weights([weights, biases])
@@ -354,13 +363,13 @@ class ConvSettings(TestSettings):
                     depthwise_layer.set_weights([weights])
             elif self.test_type == 'transpose_conv':
                 transposed_conv_layer = keras.layers.Conv2DTranspose(self.output_ch,
-                                                                        kernel_size=(self.filter_y, self.filter_x),
-                                                                        strides=(self.stride_y, self.stride_x),
-                                                                        padding=self.padding,
-                                                                        input_shape=input_shape[1:],
-                                                                        dilation_rate=(self.dilation_y,
-                                                                                       self.dilation_x),
-                                                                        use_bias=self.generate_bias)
+                                                                     kernel_size=(self.filter_y, self.filter_x),
+                                                                     strides=(self.stride_y, self.stride_x),
+                                                                     padding=self.padding,
+                                                                     input_shape=input_shape[1:],
+                                                                     dilation_rate=(self.dilation_y,
+                                                                                    self.dilation_x),
+                                                                     use_bias=self.generate_bias)
                 model.add(transposed_conv_layer)
                 if self.generate_bias:
                     transposed_conv_layer.set_weights([weights, biases])
@@ -377,7 +386,7 @@ class ConvSettings(TestSettings):
                 filter_index = 2
                 bias_index = 1
 
-            self.convert_model(model, inttype)
+            self.convert_model(model, inttype, int16x8_int32bias=self.int16xint8_int32)
 
         interpreter = self.interpret_model(input_data, inttype)
 

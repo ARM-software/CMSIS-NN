@@ -22,7 +22,9 @@ def generate(params, args):
     """ Generate data for a number of tests and optionally create corresponding code to run the test"""
 
     # Filter out params from suite to pass on to each test
-    is_common = lambda key: key not in ["tests"]
+    def is_common(key):
+        return key not in ["tests"]
+
     common_test_params = {key: val for key, val in params.items() if is_common(key)}
 
     # Create fpaths related to the test suite
@@ -35,11 +37,11 @@ def generate(params, args):
     for test_params in params["tests"]:
         if (test_params["name"] in args.tests) or (args.tests == []):
             print(f"- {test_params['name']}")
-            test_params.update(common_test_params)
+
+            # Test params overrides common params
+            test_params = common_test_params | test_params
 
             test = Lib.test.generate(test_params, args, fpaths)
             tests.append(test)
 
     return tests
-
-
