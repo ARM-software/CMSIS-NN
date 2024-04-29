@@ -144,6 +144,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:structcmsis__nn__tile"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__context"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a></td></tr>
 <tr class="separator:structcmsis__nn__context"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__bias__data"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__bias__data">cmsis_nn_bias_data</a></td></tr>
+<tr class="separator:structcmsis__nn__bias__data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__dims"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a></td></tr>
 <tr class="separator:structcmsis__nn__dims"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__lstm__dims"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__dims">cmsis_nn_lstm_dims</a></td></tr>
@@ -260,6 +262,38 @@ buf</td>
 size</td>
 <td class="fielddoc">
 <p>Buffer size </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structcmsis__nn__bias__data" id="structcmsis__nn__bias__data"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__bias__data">&#9670;&#160;</a></span>cmsis_nn_bias_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cmsis_nn_bias_data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>CMSIS-NN object used to hold bias data for int16 variants. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a0d49d74db4c035719c3867723cf7e779" name="a0d49d74db4c035719c3867723cf7e779"></a>const void *</td>
+<td class="fieldname">
+data</td>
+<td class="fielddoc">
+<p>Pointer to bias data </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a87e275ff31aa329281ff92380812e333" name="a87e275ff31aa329281ff92380812e333"></a>const bool</td>
+<td class="fieldname">
+is_int32_bias</td>
+<td class="fielddoc">
+<p>Indicate type of bias data. True means int32 else int64 </p>
 </td></tr>
 </table>
 

@@ -8,6 +8,10 @@ var group__genPubTypes =
       [ "buf", "group__genPubTypes.html#a5bc5fa69bee375df074734a2c4858604", null ],
       [ "size", "group__genPubTypes.html#af8fd9ce16b371c8a3bf5e0b37a69419f", null ]
     ] ],
+    [ "cmsis_nn_bias_data", "group__genPubTypes.html#structcmsis__nn__bias__data", [
+      [ "data", "group__genPubTypes.html#a0d49d74db4c035719c3867723cf7e779", null ],
+      [ "is_int32_bias", "group__genPubTypes.html#a87e275ff31aa329281ff92380812e333", null ]
+    ] ],
     [ "cmsis_nn_dims", "group__genPubTypes.html#structcmsis__nn__dims", [
       [ "c", "group__genPubTypes.html#a3c6f6f6780d5503e1bc87fc432c3af69", null ],
       [ "h", "group__genPubTypes.html#a749034ae387fecbeeffedfb1d9b8aa51", null ],
