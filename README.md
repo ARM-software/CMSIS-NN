@@ -27,7 +27,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | Operator        | C <br> int8 | C<br>int16 | C<br>int4* | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 | MVE<br>int4* |
 | --------------- | ----------- | ---------- |------------|-------------| -------------|--------------|-------------| -------------|--------------|
 | Conv2D          | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
-| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | No           |
+| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
 | TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 | Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | No           |
 | Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |

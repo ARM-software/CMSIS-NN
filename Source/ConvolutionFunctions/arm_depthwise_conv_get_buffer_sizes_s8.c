@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_depthwise_conv_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        30 October 2023
- * $Revision:    V.1.1.0
+ * $Date:        17 April 2024
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -40,8 +40,7 @@
  * @{
  */
 
-__STATIC_INLINE int32_t arm_depthwise_conv_s8_opt_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
-                                                                      const cmsis_nn_dims *filter_dims)
+int32_t arm_depthwise_conv_s8_opt_get_buffer_size_mve(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims)
 {
     (void)input_dims;
     return (4 * CH_IN_BLOCK_MVE * filter_dims->w * filter_dims->h) * (int32_t)sizeof(int8_t);
