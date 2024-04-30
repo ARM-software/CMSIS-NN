@@ -20,6 +20,7 @@ var group__GetBufferSizeNNConv =
     [ "arm_depthwise_conv_s4_opt_get_buffer_size", "group__GetBufferSizeNNConv.html#gae3b4c8eb96f3533d026c72ac340e340a", null ],
     [ "arm_depthwise_conv_s8_opt_get_buffer_size", "group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842", null ],
     [ "arm_depthwise_conv_s8_opt_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#ga3a2aef035b2876192a2c9b69c00b1f77", null ],
+    [ "arm_depthwise_conv_s8_opt_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga1e447072edbb72a4f2d03ba922463795", null ],
     [ "arm_depthwise_conv_wrapper_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#ga35ee13fe338f79af48cd10ae6b5b31fa", null ],
     [ "arm_depthwise_conv_wrapper_s16_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#gaffa52eb0b4d4894ab8fb98ed81d5f2eb", null ],
     [ "arm_depthwise_conv_wrapper_s16_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga48f035cbe0b112d630f01c4f35d5e5c1", null ],

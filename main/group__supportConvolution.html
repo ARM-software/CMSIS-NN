@@ -145,6 +145,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
 <tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga269fb73ffdff3f10a6d8e9a17b27179b">arm_nn_depthwise_conv_nt_t_s4</a> (const int8_t *lhs, const int8_t *rhs, const int32_t input_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. rhs consists of packed int4 data. Dimensions are the same for lhs and rhs.  <br /></td></tr>
+<tr class="separator:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nn_depthwise_conv_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t input_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
 <tr class="memdesc:ga00f617f8c04f9dafcb48a08a4339284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -381,6 +384,132 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">num_ch</td><td>Number of channels in LHS/RHS </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_shift</td><td>Per channel output shift. Length of vector is equal to number of channels. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_mult</td><td>Per channel output multiplier. Length of vector is equal to number of channels. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp the output to. Range: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp the output to. Range: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_x_col</td><td>(row_dimension * col_dimension) of LHS/RHS matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_bias</td><td>Per channel output bias. Length of vector is equal to number of channels. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">out</td><td>Output pointer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns one of the two<ul>
+<li>Updated output pointer if an implementation is available</li>
+<li>NULL if no implementation is available.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read out for the following.<ul>
+<li>Output shift</li>
+<li>Output multiplier</li>
+<li>Output bias</li>
+<li>rhs </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga269fb73ffdff3f10a6d8e9a17b27179b" name="ga269fb73ffdff3f10a6d8e9a17b27179b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga269fb73ffdff3f10a6d8e9a17b27179b">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_s4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_depthwise_conv_nt_t_s4 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>active_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>total_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>out_shift</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>out_mult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>out_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>row_x_col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *const&#160;</td>
+          <td class="paramname"><em>output_bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. rhs consists of packed int4 data. Dimensions are the same for lhs and rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Input left-hand side matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Input right-hand side matrix (transposed). Consists of int4 data packed in an int8 buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>LHS matrix offset(input offset). Range: -127 to 128 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">active_ch</td><td>Subset of total_ch processed </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">total_ch</td><td>Number of channels in LHS/RHS </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">out_shift</td><td>Per channel output shift. Length of vector is equal to number of channels. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">out_mult</td><td>Per channel output multiplier. Length of vector is equal to number of channels. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">out_offset</td><td>Offset to be added to the output values. Range: -127 to 128 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp the output to. Range: int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp the output to. Range: int8 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">row_x_col</td><td>(row_dimension * col_dimension) of LHS/RHS matrix </td></tr>

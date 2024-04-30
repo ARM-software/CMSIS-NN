@@ -171,6 +171,8 @@ Macros</h2></td></tr>
 <tr class="separator:a19343832dbe881d527496171f69dc0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ace380daf8e374d9ab4aa50095d1b39b1">CH_IN_BLOCK_MVE</a>&#160;&#160;&#160;(124)</td></tr>
 <tr class="separator:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8f6a47120a40681ebddb3705c776b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#afd8f6a47120a40681ebddb3705c776b6">S4_CH_IN_BLOCK_MVE</a>&#160;&#160;&#160;(124)</td></tr>
+<tr class="separator:afd8f6a47120a40681ebddb3705c776b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6cf185995a44514fff7ea4871e26fc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab6cf185995a44514fff7ea4871e26fc2">MAX_COL_COUNT</a>&#160;&#160;&#160;(512)</td></tr>
 <tr class="separator:ab6cf185995a44514fff7ea4871e26fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bde61046c9d2729f56054cafba589c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a4bde61046c9d2729f56054cafba589c6">PACK_S8x4_32x1</a>(v0,  v1,  v2,  v3)</td></tr>
@@ -204,6 +206,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf89e7f2830b77d0512e196481cbfac10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html#gaf89e7f2830b77d0512e196481cbfac10">arm_q7_to_q15_with_offset</a> (const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset)</td></tr>
 <tr class="memdesc:gaf89e7f2830b77d0512e196481cbfac10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the elements from a s8 vector to a s16 vector with an added offset.  <br /></td></tr>
 <tr class="separator:gaf89e7f2830b77d0512e196481cbfac10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e447072edbb72a4f2d03ba922463795"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga1e447072edbb72a4f2d03ba922463795">arm_depthwise_conv_s8_opt_get_buffer_size_mve</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims)</td></tr>
+<tr class="memdesc:ga1e447072edbb72a4f2d03ba922463795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_channel equals out_channel. This is for processors with MVE extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842" title="Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_...">arm_depthwise_conv_s8_opt_get_buffer_size()</a> for function argument details.  <br /></td></tr>
+<tr class="separator:ga1e447072edbb72a4f2d03ba922463795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga3a2aef035b2876192a2c9b69c00b1f77">arm_depthwise_conv_s8_opt_get_buffer_size_dsp</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims)</td></tr>
 <tr class="memdesc:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_channel equals out_channel. This is for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#ga0ee6e4c1a521657c35477ae0daf1c842" title="Get the required buffer size for optimized s8 depthwise convolution function with constraint that in_...">arm_depthwise_conv_s8_opt_get_buffer_size()</a> for function argument details.  <br /></td></tr>
 <tr class="separator:ga3a2aef035b2876192a2c9b69c00b1f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -255,6 +260,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga00f617f8c04f9dafcb48a08a4339284f">arm_nn_depthwise_conv_nt_t_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
 <tr class="memdesc:ga00f617f8c04f9dafcb48a08a4339284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga00f617f8c04f9dafcb48a08a4339284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga269fb73ffdff3f10a6d8e9a17b27179b">arm_nn_depthwise_conv_nt_t_s4</a> (const int8_t *lhs, const int8_t *rhs, const int32_t lhs_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
+<tr class="memdesc:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. rhs consists of packed int4 data. Dimensions are the same for lhs and rhs.  <br /></td></tr>
+<tr class="separator:ga269fb73ffdff3f10a6d8e9a17b27179b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
 <tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -771,6 +779,20 @@ Functions</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">_shift</td><td>)</td>
           <td>&#160;&#160;&#160;(_shift &gt; 0 ? 0 : -_shift)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd8f6a47120a40681ebddb3705c776b6" name="afd8f6a47120a40681ebddb3705c776b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8f6a47120a40681ebddb3705c776b6">&#9670;&#160;</a></span>S4_CH_IN_BLOCK_MVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define S4_CH_IN_BLOCK_MVE&#160;&#160;&#160;(124)</td>
         </tr>
       </table>
 </div><div class="memdoc">
