@@ -160,7 +160,7 @@ Current progress:
 | Operator        | Old  | New | Notes
 | ---             | ---  | --- | ---
 | convolution     |  x   |  x  | New version only supports 16x8
-| fully_connected |  x   |     |
+| fully_connected |  x   |  x  | New version only supports int4 packed weights
 | lstm            |  x   |  x  | Only new version supporting 16x8
 | svdf            |  x   |     |
 | softmax         |  x   |     |

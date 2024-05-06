@@ -17,6 +17,7 @@
 import os
 import Lib.op_lstm
 import Lib.op_conv
+import Lib.op_fully_connected
 import tensorflow as tf
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
@@ -118,7 +119,8 @@ def generate(params, args, fpaths):
         return key not in [
             "suite_name", "name", "input_data_type", "op_type", "input_data_type", "weights_data_type",
             "bias_data_type", "shift_and_mult_data_type", "interpreter", "tflite_generator", "json_template",
-            "groups", "generate_bias", "bias_min", "bias_max", "weights_min", "weights_max",
+            "groups", "generate_bias", "bias_min", "bias_max", "weights_min", "weights_max", "bias_zp", "w_zp",
+            "input_zp", "output_zp", "w_scale", "bias_scale", "input_scale", "output_scale"
         ]
 
     config_params = {key: val for key, val in params.items() if include_in_config(key)}
@@ -140,6 +142,8 @@ def get_op_type(op_type_string):
         return Lib.op_lstm.Op_lstm
     elif op_type_string == "conv":
         return Lib.op_conv.Op_conv
+    elif op_type_string == "fully_connected":
+        return Lib.op_fully_connected.Op_fully_connected
     else:
         raise ValueError(f"Unknown op type '{op_type_string}'")
 

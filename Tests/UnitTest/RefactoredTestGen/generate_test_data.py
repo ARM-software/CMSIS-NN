@@ -42,7 +42,7 @@ def main():
                         help="Path to a json test-plan")
     parser.add_argument("-s",
                         "--test_suites",
-                        action="append",
+                        nargs='+',
                         default=[],
                         help="Generate specific test suites, defaults to all test suites")
     parser.add_argument("-t",

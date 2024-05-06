@@ -20,6 +20,7 @@ import tensorflow as tf
 import numpy as np
 import tf_keras as keras
 
+
 class FullyConnectedSettings(TestSettings):
 
     def __init__(self,
@@ -203,10 +204,19 @@ class FullyConnectedSettings(TestSettings):
 
             self.model_path = temp1
             self.json_template = temp2
+
+            uneven = len(weights) % 2
+            if uneven:
+                weights = tf.experimental.numpy.append(weights, 0)
+
             temp = np.reshape(weights, (len(weights) // 2, 2)).astype(np.uint8)
             temp = 0xff & ((0xf0 & (temp[:, 1] << 4)) | (temp[:, 0] & 0xf))
             weights = tf.convert_to_tensor(temp)
             weights_size = weights.numpy().size * 2
+
+            if uneven:
+                weights_size = weights_size - 1
+
             generated_json = self.generate_json_from_template(weights, bias_data=biases, bias_buffer=2)
             self.flatc_generate_tflite(generated_json, self.schema_file)
 
@@ -229,7 +239,7 @@ class FullyConnectedSettings(TestSettings):
             model = keras.models.Sequential()
             model.add(
                 keras.layers.InputLayer(input_shape=(self.y_input * self.x_input * self.input_ch, ),
-                                           batch_size=self.batches))
+                                        batch_size=self.batches))
             fully_connected_layer = keras.layers.Dense(self.output_ch, activation=None, use_bias=self.generate_bias)
             model.add(fully_connected_layer)
             if self.generate_bias:
