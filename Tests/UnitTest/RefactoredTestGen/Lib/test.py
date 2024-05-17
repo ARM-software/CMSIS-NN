@@ -87,6 +87,8 @@ def generate(params, args, fpaths):
     else:
         raise ValueError(f"Invalid tflite generator in {params['name']}")
 
+    data = op_type.post_model_update(fpaths["tflite"], data, params)
+
     params.update(data.params)
 
     # Quantize scales
@@ -108,7 +110,10 @@ def generate(params, args, fpaths):
     elif params["interpreter"] == "tflite_runtime":
         data.tensors["output"] = invoke_tflite_runtime(fpaths["tflite"], input_tensor)
     elif params["interpreter"] == "tflite_micro":
-        data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor)
+        if "arena_size" in params:
+            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor, params["arena_size"])
+        else:
+            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor)
     else:
         raise ValueError(f"Invalid interpreter in {params['name']}")
 
@@ -120,7 +125,7 @@ def generate(params, args, fpaths):
             "suite_name", "name", "input_data_type", "op_type", "input_data_type", "weights_data_type",
             "bias_data_type", "shift_and_mult_data_type", "interpreter", "tflite_generator", "json_template",
             "groups", "generate_bias", "bias_min", "bias_max", "weights_min", "weights_max", "bias_zp", "w_zp",
-            "input_zp", "output_zp", "w_scale", "bias_scale", "input_scale", "output_scale"
+            "input_zp", "output_zp", "w_scale", "bias_scale", "input_scale", "output_scale", "arena_size"
         ]
 
     config_params = {key: val for key, val in params.items() if include_in_config(key)}
@@ -209,8 +214,9 @@ def invoke_tflite_runtime(tflite_path, input_tensor):
     return data.flatten()
 
 
-def invoke_tflite_micro(tflite_path, input_tensor):
-    interpreter = tflite_micro.runtime.Interpreter.from_file(model_path=str(tflite_path))
+def invoke_tflite_micro(tflite_path, input_tensor, arena_size=30000):
+    interpreter = tflite_micro.runtime.Interpreter.from_file(model_path=str(tflite_path), arena_size=arena_size)
+
     interpreter.set_input(input_tensor, 0)
     interpreter.invoke()
     data = interpreter.get_output(0)

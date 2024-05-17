@@ -4,6 +4,6 @@
 #include <stdint.h>
 
 const int64_t int16xint8_spill_bias[9] =
-    {-884417, 3945708, 3406942, 2133137, 3248303, 3305055, -1536011, -3483503, -3626630};
+    {916276, -3598002, -602971, 2764017, -1194775, -583961, -1182959, 1777309, 4141893};
 
 const int64_t *const int16xint8_spill_biases = int16xint8_spill_bias;

@@ -32,14 +32,28 @@ class Op_fully_connected(Lib.op_utils.Op_type):
             params["out_activation_min"] = Lib.op_utils.get_dtype_min(params["input_data_type"])
         if "out_activation_max" not in params:
             params["out_activation_max"] = Lib.op_utils.get_dtype_max(params["input_data_type"])
+
+        if params["weights_data_type"] == "int4_t":
+            w_min = Lib.op_utils.get_dtype_min("int4_t")
+            w_max = Lib.op_utils.get_dtype_max("int4_t")
+            b_min = Lib.op_utils.get_dtype_min("int8_t")
+            b_max = Lib.op_utils.get_dtype_max("int8_t")
+            print("dadasdas")
+        else:
+            w_min = Lib.op_utils.get_dtype_min("int32_t")
+            w_max = Lib.op_utils.get_dtype_max("int32_t")
+            b_min = Lib.op_utils.get_dtype_min("int32_t")
+            b_max = Lib.op_utils.get_dtype_max("int32_t")
+
         if "bias_min" not in params:
-            params["bias_min"] = Lib.op_utils.get_dtype_min("int32_t")
+            params["bias_min"] = b_min
         if "bias_max" not in params:
-            params["bias_max"] = Lib.op_utils.get_dtype_max("int32_t")
+            params["bias_max"] = b_max
+
         if "weights_min" not in params:
-            params["weights_min"] = Lib.op_utils.get_dtype_min("int32_t")
+            params["weights_min"] = w_min
         if "weights_max" not in params:
-            params["weights_max"] = Lib.op_utils.get_dtype_max("int32_t")
+            params["weights_max"] = w_max
 
         in_ch = params["in_ch"]
         out_ch = params["out_ch"]
@@ -76,11 +90,9 @@ class Op_fully_connected(Lib.op_utils.Op_type):
         aliases["output"] = "output_ref"
         aliases["input_weights"] = "weights"
 
-        # TODOx
-        minval = -7
-        maxval = 8
-        weights = np.random.randint(minval, maxval, size=shapes["weight_shape"])
-
+        weights = np.random.randint(
+            params["weights_min"], params["weights_max"], size=shapes["weight_shape"])
+#            Lib.op_utils.get_dtype_min("int4_t"), Lib.op_utils.get_dtype_max("int4_t"), size=shapes["weight_shape"])
         uneven = weights.size % 2
         if uneven:
             weights = np.append(weights, 0)
@@ -90,7 +102,10 @@ class Op_fully_connected(Lib.op_utils.Op_type):
         tensors["input_weights"] = weights
 
         if params["generate_bias"]:
-            tensors["input_bias"] = np.random.randint(minval, maxval, size=shapes["bias_shape"])
+            tensors["input_bias"] = np.random.randint(
+                params["bias_min"],
+                params["bias_max"],
+                size=shapes["bias_shape"])
         else:
             tensors["input_bias"] = None
 

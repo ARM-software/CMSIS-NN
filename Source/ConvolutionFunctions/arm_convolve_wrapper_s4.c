@@ -22,8 +22,8 @@
  * Description:  s4 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  *               cmsis-nn to perform the convolution. See header files for details.
  *
- * $Date:        10 April 2024
- * $Revision:    V.1.1.0
+ * $Date:        27 May 2024
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -106,6 +106,22 @@ arm_cmsis_nn_status arm_convolve_wrapper_s4(const cmsis_nn_context *ctx,
                                      output_dims,
                                      output_data);
     }
+#if defined(ARM_MATH_MVEI)
+    else if (((filter_dims->h * filter_dims->w * input_dims->c) & 0x1) == 0)
+    {
+        return arm_convolve_even_s4(ctx,
+                                    conv_params,
+                                    quant_params,
+                                    input_dims,
+                                    input_data,
+                                    filter_dims,
+                                    filter_data,
+                                    bias_dims,
+                                    bias_data,
+                                    output_dims,
+                                    output_data);
+    }
+#endif
     else
     {
         return arm_convolve_s4(ctx,
