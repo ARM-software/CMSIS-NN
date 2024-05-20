@@ -4,10 +4,17 @@ Unit test CMSIS-NN functions on any [Arm Mbed OS](https://os.mbed.com/mbed-os/) 
 
 The [Unity test framework](http://www.throwtheswitch.org/unity) is used for running the actual unit tests.
 
+For a quick setup, it is reccomended to the helper script targetting the Arm Corstone-300 softwware. See the section " Using FVP based on Arm Corstone-300 software ".
+
 ## Requirements
 
+The following apt packages are required. Replace python venv version with your python version.
+```
+sudo apt install ruby-full cmake python3.X-venv pip curl git git-lfs
+```
+
 Python3 is required.
-It has been tested with Python 3.6 and it has been tested on Ubuntu 16, 18 and 20.
+It has been tested with Python 3.10 and it has been tested on Ubuntu 22.04.
 
 Make sure to use the latest pip version before starting.
 If in a virtual environment just start by upgrading pip.
@@ -16,28 +23,14 @@ If in a virtual environment just start by upgrading pip.
 pip install --upgrade pip
 ```
 
-See below for what pip packages are needed.
-
-### Executing unit tests
-
-If using the script unittest_targets.py for executing unit tests, the following packages are needed.
-
-```
-pip install pyserial mbed-ls mbed-cli termcolor mercurial pyelftools==0.29 pyyaml jsonschema jinja2 mbed_host_tests mbed_greentea pycryptodome pyusb cmsis_pack_manager psutil cryptography click cbor
-```
-
-Python packages mbed-cli and and mbed-ls are command line tools so it should not matter if those are installed under Python2 or Python3. These packages have been tested for Python2, with the following versions: mbed-ls(1.7.9) and mbed-cli(1.10.1). They have also been tested for Python3, with the following versions: mbed-ls(1.7.12) and mbed-cli(1.10.5). Package mercurial is needed for package mbed-cli.
-
-### Generating new test data
-
-For generating new test data, the following packages are needed.
+After upgrading pip, the requirements file found in Tests/UnitTests can be installed. This contains all 
+python modules required to run all of the scripts. This will install tensorflow and keras to allow the use of
+the generate_test_data.py script. If you have version specific requirements, it is reccomended to install this
+requirements.txt in a virtual environment.
 
 ```
-pip install numpy packaging tensorflow tf-keras~=2.16
+pip install -r requirements.txt
 ```
-
-
-For generating new data, the python3 packages tensorflow, numpy and packaging are required. Most unit tests use a Keras generated model for reference. The SVDF unit test use a json template as input for generating a model. To do so flatc compiler is needed and it requires a schema file.
 
 #### Get flatc and schema
 
@@ -76,6 +69,18 @@ Connect any HW (e.g. NUCLEO_F746ZG) that is supported by Arm Mbed OS. Multiple b
 Use the -h flag to get more info.
 
 ### Using FVP based on Arm Corstone-300 software
+
+The easiest way to run the unit tests on Corstone-300 is to use the build_and_run_tests.sh script. This script will install required packages, build unit tests and run unit tests. This script has been designed for Linux hosts with both aarch64 and x86_64 architectures. For more help use the '-h' flag on the script.
+
+Sample usage:
+```
+./build_and_run_tests.sh -c cortex-m3,cortex-m7,cortex-m55 -o '-Ofast' 
+```
+By default the script will download and target gcc. To use arm compiler ensure that arm compilers folder is located in path, export CC and use the -a option on the script.
+
+Downloaded dependencies including python venv can be found in Tests/UnitTests/downloads. Test elfs can be found in Tests/UnitTests/build-($cpu) directories. 
+
+Otherwise, you can build it manually:
 
 The build for unit tests differs from the build of CMSIS-NN as a [standalone library](https://github.com/ARM-software/CMSIS-NN/blob/main/README.md#building-cmsis-nn-as-a-library) in that, there is a dependency to [CMSIS](https://github.com/ARM-software/CMSIS_5) project for the startup files from CMSIS-Core. This is specified by the mandatory CMSIS_PATH CMake argument.
 
