@@ -160,6 +160,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae2308fbfe9d11a742a712a0fe01643ae"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae2308fbfe9d11a742a712a0fe01643ae">arm_nn_mat_mul_core_4x_s8</a> (const int32_t row_elements, const int32_t offset, const int8_t *row_base, const int8_t *col_base_ref, const int32_t out_ch, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a> *conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a> *quant_params, const int32_t *bias, int8_t *output)</td></tr>
 <tr class="memdesc:gae2308fbfe9d11a742a712a0fe01643ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication with requantization &amp; activation function for four rows and one column.  <br /></td></tr>
 <tr class="separator:gae2308fbfe9d11a742a712a0fe01643ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabaf719e35dc69b5e49e6a5c6b5f4f245"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gabaf719e35dc69b5e49e6a5c6b5f4f245">arm_nn_mat_mult_nt_interleaved_t_even_s4</a> (const int8_t *lhs, const int8_t *packed_rhs, const int32_t *bias, int8_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_offset, const int32_t activation_min, const int32_t activation_max, const int32_t lhs_cols_offset)</td></tr>
+<tr class="memdesc:gabaf719e35dc69b5e49e6a5c6b5f4f245"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization. This function assumes:  <br /></td></tr>
+<tr class="separator:gabaf719e35dc69b5e49e6a5c6b5f4f245"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd91877357d8c36954d00c33add65e1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gabd91877357d8c36954d00c33add65e1d">arm_nn_mat_mult_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bias__data">cmsis_nn_bias_data</a> *bias_data, int16_t *dst, const int32_t *dst_multipliers, const int32_t *dst_shifts, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t activation_min, const int32_t activation_max)</td></tr>
 <tr class="memdesc:gabd91877357d8c36954d00c33add65e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with per-channel requantization and int16 input (LHS) and output. This function assumes:  <br /></td></tr>
 <tr class="separator:gabd91877357d8c36954d00c33add65e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1020,6 +1023,137 @@ Functions</h2></td></tr>
 </li>
 </ol>
 </dd></dl>
+
+</div>
+</div>
+<a id="gabaf719e35dc69b5e49e6a5c6b5f4f245" name="gabaf719e35dc69b5e49e6a5c6b5f4f245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabaf719e35dc69b5e49e6a5c6b5f4f245">&#9670;&#160;</a></span>arm_nn_mat_mult_nt_interleaved_t_even_s4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_interleaved_t_even_s4 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>dst_multipliers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>dst_shifts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>dst_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_cols_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>General Matrix-multiplication function with per-channel requantization. This function assumes: </p>
+<ul>
+<li>LHS input matrix NOT transposed (nt)</li>
+<li>RHS input matrix transposed (t)</li>
+<li>RHS is int8 packed with 2x int4</li>
+<li>LHS is int8</li>
+<li>LHS/RHS input columns must be even numbered</li>
+<li>LHS must be interleaved. Compare to arm_nn_mat_mult_nt_t_s4 where LHS is not interleaved.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>This operation also performs the broadcast bias addition before the requantization</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Pointer to the LHS input matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Pointer to the RHS input matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Pointer to the bias vector. The length of this vector is equal to the number of output columns (or RHS input rows) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Pointer to the output matrix with "m" rows and "n" columns </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_multipliers</td><td>Pointer to the multipliers vector needed for the per-channel requantization. The length of this vector is equal to the number of output columns (or RHS input rows) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_shifts</td><td>Pointer to the shifts vector needed for the per-channel requantization. The length of this vector is equal to the number of output columns (or RHS input rows) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of LHS input rows </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of RHS input rows </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of LHS/RHS input columns. Note this must be even. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Offset to be applied to the LHS input value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_offset</td><td>Offset to be applied the output result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp down the output. Range : int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp up the output. Range : int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_cols_offset</td><td>Column offset between subsequent lhs_rows</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> </dd></dl>
 
 </div>
 </div>

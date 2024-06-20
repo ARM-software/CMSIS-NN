@@ -8,6 +8,7 @@ var group__NNConv =
     [ "arm_convolve_1x1_s4_fast", "group__NNConv.html#ga6d96adb73721f1e33a02e654145da61c", null ],
     [ "arm_convolve_1x1_s8", "group__NNConv.html#ga0fb372d6cb69754bd47d99516d52ff80", null ],
     [ "arm_convolve_1x1_s8_fast", "group__NNConv.html#gaff720df237ae836e7c6c3044a9bbf8d0", null ],
+    [ "arm_convolve_even_s4", "group__NNConv.html#ga2e1a43864a925f74c5fcec24bdcbb2ea", null ],
     [ "arm_convolve_s16", "group__NNConv.html#gab3348c6b057f3a4d9c02d0cc91f401e1", null ],
     [ "arm_convolve_s4", "group__NNConv.html#ga7d805cf2dfa9702beb0855dca44d7589", null ],
     [ "arm_convolve_s8", "group__NNConv.html#gabe85fc783fbd4f5faa738643828cfaef", null ],
