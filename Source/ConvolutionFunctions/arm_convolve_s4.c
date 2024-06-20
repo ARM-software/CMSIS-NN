@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s4.c
  * Description:  s8 version of convolution using symmetric quantization with 4 bit weights.
  *
- * $Date:        10 April 2024
- * $Revision:    V.1.1.0
+ * $Date:        17 May 2024
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -152,11 +152,6 @@ arm_cmsis_nn_status arm_convolve_s4(const cmsis_nn_context *ctx,
                     lhs_rows = 0;
                     im2col_buf = (int8_t *)buffer_a;
                 }
-            }
-
-            if (out == NULL)
-            {
-                return ARM_CMSIS_NN_NO_IMPL_ERROR;
             }
         }
 

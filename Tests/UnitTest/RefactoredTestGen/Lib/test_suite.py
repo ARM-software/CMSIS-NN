@@ -36,6 +36,7 @@ def generate(params, args):
     tests = []
     for test_params in params["tests"]:
         if (test_params["name"] in args.tests) or (args.tests == []):
+            print()
             print(f"- {test_params['name']}")
 
             # Test params overrides common params

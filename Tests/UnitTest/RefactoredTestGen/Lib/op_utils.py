@@ -58,6 +58,13 @@ class Op_type():
         """
         raise NotImplementedError
 
+    @staticmethod
+    def post_model_update(tflite_path, generated_data, params) -> Generated_data:
+        """
+           Optional function for updating parameters after model has been created.
+        """
+        return generated_data
+
 
 def generate_tf_tensor(dims, minval, maxval, decimals=0, datatype=tf.float32):
     array = minval + (maxval - minval) * np.random.rand(*dims)
@@ -71,6 +78,8 @@ def get_dtype(name, params):
     if "bias" in name:
         return params["bias_data_type"]
     elif "weight" in name or "kernel" in name:
+        if params["weights_data_type"] == "int4_t":
+            return "int8_t"
         return params["weights_data_type"]
     elif "multiplier" in name or "shift" in name:
         return params["shift_and_mult_data_type"]
@@ -90,7 +99,7 @@ def get_tf_dtype(dtype):
 
 
 def get_np_dtype(dtype):
-    if dtype == "int8_t":
+    if dtype == "int8_t" or dtype == "int4_t":
         return np.uint8
     if dtype == "int16_t":
         return np.uint16
@@ -103,7 +112,7 @@ def get_np_dtype(dtype):
 
 
 def get_dtype_len(dtype):
-    if dtype == "int8_t":
+    if dtype == "int8_t" or dtype == "int4_t":
         return 1
     elif dtype == "int16_t":
         return 2
