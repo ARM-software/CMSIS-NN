@@ -18,7 +18,7 @@ from test_settings import TestSettings
 
 import tensorflow as tf
 import numpy as np
-import tf_keras as keras
+import keras as keras
 
 
 class FullyConnectedSettings(TestSettings):

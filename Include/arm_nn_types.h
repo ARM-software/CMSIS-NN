@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        19 June 2024
- * $Revision:    V.3.3.0
+ * $Date:        19 Aug 2024
+ * $Revision:    V.3.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -110,6 +110,17 @@ typedef struct
     int32_t multiplier; /**< Multiplier value */
     int32_t shift;      /**< Shift value */
 } cmsis_nn_per_tensor_quant_params;
+
+/** CMSIS-NN object for quantization parameters.
+ *  This struct supports both per-tensor and per-channels requantization
+ *  and is recommended for new operators.
+ */
+typedef struct
+{
+    int32_t *multiplier;    /**< Multiplier values */
+    int32_t *shift;         /**< Shift values */
+    int32_t is_per_channel; /** Indicating if per channel or per tensor quantization */
+} cmsis_nn_quant_params;
 
 /** CMSIS-NN object for the quantized Relu activation */
 typedef struct

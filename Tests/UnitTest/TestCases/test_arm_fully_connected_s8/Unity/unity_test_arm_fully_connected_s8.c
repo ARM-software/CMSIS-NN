@@ -61,3 +61,5 @@ void test_fully_connected_out_activation_arm_fully_connected_s8(void)
 {
     fully_connected_out_activation_arm_fully_connected_s8();
 }
+
+void test_fc_per_fc_per_ch_arm_fully_connected_s8(void) { fc_per_ch_arm_fully_connected_s8(); }

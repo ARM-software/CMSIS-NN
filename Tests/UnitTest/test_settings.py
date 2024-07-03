@@ -26,7 +26,7 @@ from packaging import version
 
 import numpy as np
 import tensorflow as tf
-import tf_keras as keras
+import keras as keras
 
 class TestSettings(ABC):
 
@@ -454,7 +454,6 @@ class TestSettings(ABC):
 
     def convert_model(self, model, inttype, dataset_shape=None, int16x8_int32bias=False):
         model.compile(loss=keras.losses.categorical_crossentropy,
-                      optimizer=keras.optimizers.Adam(),
                       metrics=['accuracy'])
         n_inputs = len(model.inputs)
 
@@ -469,6 +468,8 @@ class TestSettings(ABC):
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
+        converter._experimental_disable_per_channel_quantization_for_dense_layers = True
+
         if self.is_int16xint8:
             if int16x8_int32bias:
                 converter._experimental_full_integer_quantization_bias_type = tf.int32

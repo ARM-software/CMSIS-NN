@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        19 June 2024
- * $Revision:    V.16.2.0
+ * $Date:        19 Aug 2024
+ * $Revision:    V.16.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1499,7 +1499,7 @@ int32_t arm_depthwise_conv_s4_opt_get_buffer_size(const cmsis_nn_dims *input_dim
  *                               fc_params->filter_offset : 0
  *                               Range of fc_params->output_offset : [-128, 127]
  * @param[in]      quant_params  Per-tensor quantization info.
- *                               It contains the multiplier and shift values to be applied to the output tensor.
+ *                               It contains the multiplier and shift value to be applied to the output tensor.
  * @param[in]      input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  *                               Input dimension is taken as Nx(H * W * C_IN)
  * @param[in]      input_data    Input (activation) data pointer. Data type: int8
@@ -1547,7 +1547,7 @@ arm_cmsis_nn_status arm_fully_connected_s4(const cmsis_nn_context *ctx,
  *                               fc_params->filter_offset : 0
  *                               Range of fc_params->output_offset : [-128, 127]
  * @param[in]      quant_params  Per-tensor quantization info.
- *                               It contains the multiplier and shift values to be applied to the output tensor.
+ *                               It contains the multiplier and shift value to be applied to the output tensor.
  * @param[in]      input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  *                               Input dimension is taken as Nx(H * W * C_IN)
  * @param[in]      input_data    Input (activation) data pointer. Data type: int8
@@ -1583,6 +1583,106 @@ arm_cmsis_nn_status arm_fully_connected_s8(const cmsis_nn_context *ctx,
                                            const int32_t *bias_data,
                                            const cmsis_nn_dims *output_dims,
                                            int8_t *output_data);
+
+/**
+ * @brief Basic s8 Fully Connected function using per channel quantization.
+ *
+ * @param[in, out] ctx           Function context (e.g. temporary buffer). Check the function
+ *                               definition file to see if an additional buffer is required.
+ *                               Optional function {API}_get_buffer_size() provides the buffer
+ *                               size if an additional buffer is required.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
+ * @param[in]      fc_params     Fully Connected layer parameters.
+ *                               Range of fc_params->input_offset  : [-127, 128]
+ *                               fc_params->filter_offset : 0
+ *                               Range of fc_params->output_offset : [-128, 127]
+ * @param[in]      quant_params  Per-channel quantization info.
+ *                               It contains the multiplier and shift values to be applied to each output channel
+ * @param[in]      input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
+ *                               Input dimension is taken as Nx(H * W * C_IN)
+ * @param[in]      input_data    Input (activation) data pointer. Data type: int8
+ * @param[in]      filter_dims   Two dimensional filter dimensions. Format: [N, C]
+ *                               N : accumulation depth and equals (H * W * C_IN) from input_dims
+ *                               C : output depth and equals C_OUT in output_dims
+ *                               H & W : Not used
+ * @param[in]      filter_data   Filter data pointer. Data type: int8
+ * @param[in]      bias_dims     Bias tensor dimensions. Format: [C_OUT]
+ *                               N, H, W : Not used
+ * @param[in]      bias_data     Bias data pointer. Data type: int32
+ * @param[in]      output_dims   Output tensor dimensions. Format: [N, C_OUT]
+ *                               N : Batches
+ *                               C_OUT : Output depth
+ *                               H & W : Not used.
+ * @param[in, out] output_data    Output data pointer. Data type: int8
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details
+ *    - Supported framework: TensorFlow Lite
+ */
+arm_cmsis_nn_status arm_fully_connected_per_channel_s8(const cmsis_nn_context *ctx,
+                                                       const cmsis_nn_fc_params *fc_params,
+                                                       const cmsis_nn_per_channel_quant_params *quant_params,
+                                                       const cmsis_nn_dims *input_dims,
+                                                       const int8_t *input_data,
+                                                       const cmsis_nn_dims *filter_dims,
+                                                       const int8_t *filter_data,
+                                                       const cmsis_nn_dims *bias_dims,
+                                                       const int32_t *bias_data,
+                                                       const cmsis_nn_dims *output_dims,
+                                                       int8_t *output_data);
+
+/**
+ * @brief s8 Fully Connected layer wrapper function
+ *
+ * @param[in, out] ctx           Function context (e.g. temporary buffer). Check the function
+ *                               definition file to see if an additional buffer is required.
+ *                               Optional function {API}_get_buffer_size() provides the buffer
+ *                               size if an additional buffer is required.
+ *                               The caller is expected to clear the buffer, if applicable, for security reasons.
+ * @param[in]      fc_params     Fully Connected layer parameters.
+ *                               Range of fc_params->input_offset  : [-127, 128]
+ *                               fc_params->filter_offset : 0
+ *                               Range of fc_params->output_offset : [-128, 127]
+ * @param[in]      quant_params  Per-channel or per-tensor quantization info. Check struct defintion for details.
+ *                               It contains the multiplier and shift value(s) to be applied to each output channel
+ * @param[in]      input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
+ *                               Input dimension is taken as Nx(H * W * C_IN)
+ * @param[in]      input_data    Input (activation) data pointer. Data type: int8
+ * @param[in]      filter_dims   Two dimensional filter dimensions. Format: [N, C]
+ *                               N : accumulation depth and equals (H * W * C_IN) from input_dims
+ *                               C : output depth and equals C_OUT in output_dims
+ *                               H & W : Not used
+ * @param[in]      filter_data   Filter data pointer. Data type: int8
+ * @param[in]      bias_dims     Bias tensor dimensions. Format: [C_OUT]
+ *                               N, H, W : Not used
+ * @param[in]      bias_data     Bias data pointer. Data type: int32
+ * @param[in]      output_dims   Output tensor dimensions. Format: [N, C_OUT]
+ *                               N : Batches
+ *                               C_OUT : Output depth
+ *                               H & W : Not used.
+ * @param[in, out] output_data    Output data pointer. Data type: int8
+ *
+ * @return     The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details
+ *    - Supported framework: TensorFlow Lite
+ */
+arm_cmsis_nn_status arm_fully_connected_wrapper_s8(const cmsis_nn_context *ctx,
+                                                   const cmsis_nn_fc_params *fc_params,
+                                                   const cmsis_nn_quant_params *quant_params,
+                                                   const cmsis_nn_dims *input_dims,
+                                                   const int8_t *input_data,
+                                                   const cmsis_nn_dims *filter_dims,
+                                                   const int8_t *filter_data,
+                                                   const cmsis_nn_dims *bias_dims,
+                                                   const int32_t *bias_data,
+                                                   const cmsis_nn_dims *output_dims,
+                                                   int8_t *output_data);
 
 /**
  * @brief Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s32 bias_data.
@@ -1662,7 +1762,7 @@ int32_t arm_fully_connected_s8_get_buffer_size_mve(const cmsis_nn_dims *filter_d
  *                               fc_params->filter_offset : 0
  *                               fc_params->output_offset : 0
  * @param[in]      quant_params  Per-tensor quantization info.
- *                               It contains the multiplier and shift values to be applied to the output tensor.
+ *                               It contains the multiplier and shift value to be applied to the output tensor.
  * @param[in]      input_dims    Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  *                               Input dimension is taken as Nx(H * W * C_IN)
  * @param[in]      input_data    Input (activation) data pointer. Data type: int16

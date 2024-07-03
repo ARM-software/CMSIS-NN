@@ -18,11 +18,11 @@
 
 /* ----------------------------------------------------------------------
  * Project:      CMSIS NN Library
- * Title:        arm_nn_vec_mat_mult_t_s8
+ * Title:        arm_nn_vec_mat_mult_t_per_ch_s8
  * Description:  s8 vector by matrix (transposed) multiplication
  *
- * $Date:        12 Jul 2024
- * $Revision:    V.6.1.0
+ * $Date:        19 Aug 2024
+ * $Revision:    V.1.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -47,7 +47,7 @@
  */
 
 /*
- * s8 vector(lhs) by matrix (transposed) multiplication
+ * s8 vector(lhs) by matrix (transposed) multiplication and per channel quant output
  *
  * Refer header file for details.
  *
@@ -55,21 +55,21 @@
 #if !defined(ARM_MATH_MVEI) && defined(ARM_MATH_DSP) && !defined(__ARMCC_VERSION) && !defined(__ICCARM__)
     #pragma GCC optimize("unroll-loops")
 #endif
-arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
-                                             const int8_t *rhs,
-                                             const int32_t *kernel_sum,
-                                             const int32_t *bias,
-                                             int8_t *dst,
-                                             const int32_t lhs_offset,
-                                             const int32_t dst_offset,
-                                             const int32_t dst_multiplier,
-                                             const int32_t dst_shift,
-                                             const int32_t rhs_cols,
-                                             const int32_t rhs_rows,
-                                             const int32_t activation_min,
-                                             const int32_t activation_max,
-                                             const int32_t address_offset,
-                                             const int32_t rhs_offset)
+arm_cmsis_nn_status arm_nn_vec_mat_mult_t_per_ch_s8(const int8_t *lhs,
+                                                    const int8_t *rhs,
+                                                    const int32_t *kernel_sum,
+                                                    const int32_t *bias,
+                                                    int8_t *dst,
+                                                    const int32_t lhs_offset,
+                                                    const int32_t dst_offset,
+                                                    const int32_t *dst_multiplier,
+                                                    const int32_t *dst_shift,
+                                                    const int32_t rhs_cols,
+                                                    const int32_t rhs_rows,
+                                                    const int32_t activation_min,
+                                                    const int32_t activation_max,
+                                                    const int32_t address_offset,
+                                                    const int32_t rhs_offset)
 {
     if (rhs_offset)
     {
@@ -141,7 +141,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             acc += vdupq_n_s32(rhs_offset) * vdupq_n_s32(lhs_sum);
             acc += vdupq_n_s32(rhs_offset * lhs_offset) * vdupq_n_s32(rhs_cols);
 
-            acc = arm_requantize_mve(acc, dst_multiplier, dst_shift);
+            acc = arm_requantize_mve(acc, *dst_multiplier++, *dst_shift++);
+
             acc = vaddq_s32(acc, vdupq_n_s32(dst_offset));
             acc = vmaxq_s32(acc, vdupq_n_s32(activation_min));
             acc = vminq_s32(acc, vdupq_n_s32(activation_max));
@@ -186,7 +187,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             acc_0 += lhs_sum * rhs_offset;
             acc_0 += rhs_cols * lhs_offset * rhs_offset;
 
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
             acc_0 += dst_offset;
 
             // Clamp the result
@@ -254,8 +255,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                 rhs_1_ptr++;
             }
 
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
-            acc_1 = arm_nn_requantize(acc_1, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
+            acc_1 = arm_nn_requantize(acc_1, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             acc_0 += dst_offset;
@@ -304,10 +305,11 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                 rhs_ptr++;
             }
 
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             acc_0 += dst_offset;
+
             // Clamp the result
             acc_0 = MAX(acc_0, activation_min);
             acc_0 = MIN(acc_0, activation_max);
@@ -354,9 +356,9 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             }
 
             // Quantize down
-            res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
-            res01 = arm_nn_requantize(res01, dst_multiplier, dst_shift);
-            res02 = arm_nn_requantize(res02, dst_multiplier, dst_shift);
+            res00 = arm_nn_requantize(res00, *dst_multiplier++, *dst_shift++);
+            res01 = arm_nn_requantize(res01, *dst_multiplier++, *dst_shift++);
+            res02 = arm_nn_requantize(res02, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             res00 += dst_offset;
@@ -404,7 +406,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             }
 
             // Quantize down
-            res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
+            res00 = arm_nn_requantize(res00, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             res00 += dst_offset;
@@ -484,7 +486,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             acc += vdupq_n_s32(lhs_offset) * rhs_sum;
             kernel_sum += 4;
 
-            acc = arm_requantize_mve(acc, dst_multiplier, dst_shift);
+            acc = arm_requantize_mve_32x4(acc, vldrwq_s32(dst_multiplier), vldrwq_s32(dst_shift));
+            dst_multiplier += 4;
+            dst_shift += 4;
+
             acc = vaddq_s32(acc, vdupq_n_s32(dst_offset));
             acc = vmaxq_s32(acc, vdupq_n_s32(activation_min));
             acc = vminq_s32(acc, vdupq_n_s32(activation_max));
@@ -525,7 +530,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             const int32_t rhs_sum = kernel_sum[i_row_loop_cnt];
             const int32_t offsets = rhs_sum * lhs_offset;
             acc_0 += offsets;
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
+
             acc_0 += dst_offset;
 
             // Clamp the result
@@ -590,12 +596,13 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                 rhs_1_ptr++;
             }
 
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
-            acc_1 = arm_nn_requantize(acc_1, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
+            acc_1 = arm_nn_requantize(acc_1, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             acc_0 += dst_offset;
             acc_1 += dst_offset;
+
             // Clamp the result
             acc_0 = MAX(acc_0, activation_min);
             acc_0 = MIN(acc_0, activation_max);
@@ -640,10 +647,11 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                 rhs_ptr++;
             }
 
-            acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = arm_nn_requantize(acc_0, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             acc_0 += dst_offset;
+
             // Clamp the result
             acc_0 = MAX(acc_0, activation_min);
             acc_0 = MIN(acc_0, activation_max);
@@ -689,9 +697,9 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                 ++lhs_ptr;
             }
             // Quantize down
-            res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
-            res01 = arm_nn_requantize(res01, dst_multiplier, dst_shift);
-            res02 = arm_nn_requantize(res02, dst_multiplier, dst_shift);
+            res00 = arm_nn_requantize(res00, *dst_multiplier++, *dst_shift++);
+            res01 = arm_nn_requantize(res01, *dst_multiplier++, *dst_shift++);
+            res02 = arm_nn_requantize(res02, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             res00 += dst_offset;
@@ -739,7 +747,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
             }
 
             // Quantize down
-            res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
+            res00 = arm_nn_requantize(res00, *dst_multiplier++, *dst_shift++);
 
             // Add offset
             res00 += dst_offset;

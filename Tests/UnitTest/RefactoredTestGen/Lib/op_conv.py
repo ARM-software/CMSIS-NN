@@ -19,10 +19,13 @@ import math
 
 from tensorflow.lite.python.interpreter import Interpreter
 from tensorflow.lite.python.interpreter import OpResolverType
-import tf_keras as keras
+import keras as keras
 import numpy as np
 
-import tflite_micro
+try:
+    import tflite_micro
+except ModuleNotFoundError:
+    pass
 
 
 def generate_data(tflite_fname, params):
@@ -119,28 +122,6 @@ def generate_data(tflite_fname, params):
 
     pad_y_with_offset, pad_x_with_offset, pad_y, pad_x = calculate_padding(x_output, y_output, params)
 
-    def generate_quantize_per_channel_multiplier(params, scales):
-        def quantize_scale(scale):
-            significand, shift = math.frexp(scale)
-            significand_q31 = round(significand * (1 << 31))
-            return significand_q31, shift
-
-        num_channels = params["out_ch"]
-        per_channel_multiplier = []
-        per_channel_shift = []
-
-        if len(scales["scaling_factors"]) != num_channels:
-            raise RuntimeError("Missing scaling factors")
-
-        for i in range(num_channels):
-            effective_output_scale = scales["input_scale"] * scales["scaling_factors"][i] / scales["output_scale"]
-            (quantized_multiplier, shift) = quantize_scale(effective_output_scale)
-
-            per_channel_multiplier.append(quantized_multiplier)
-            per_channel_shift.append(shift)
-
-        return per_channel_multiplier, per_channel_shift
-
     generated_params["input_batches"] = params["batch_size"]
     generated_params["pad_x"] = pad_x
     generated_params["pad_y"] = pad_y
@@ -150,7 +131,7 @@ def generate_data(tflite_fname, params):
     generated_params["input_offset"] = -scales["input_zero_point"]
     generated_params["output_offset"] = scales["output_zero_point"]
 
-    per_channel_multiplier, per_channel_shift = generate_quantize_per_channel_multiplier(params, scales)
+    per_channel_multiplier, per_channel_shift = Lib.op_utils.generate_quantize_per_channel_multiplier(params, scales)
 
     tensors["output_multiplier"] = np.array(per_channel_multiplier)
     tensors["output_shift"] = np.array(per_channel_shift)
