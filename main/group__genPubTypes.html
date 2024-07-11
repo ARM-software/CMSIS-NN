@@ -166,6 +166,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:structcmsis__nn__pool__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__fc__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params">cmsis_nn_fc_params</a></td></tr>
 <tr class="separator:structcmsis__nn__fc__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__bmm__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a></td></tr>
+<tr class="separator:structcmsis__nn__bmm__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__svdf__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__svdf__params">cmsis_nn_svdf_params</a></td></tr>
 <tr class="separator:structcmsis__nn__svdf__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__softmax__lut__s16"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__softmax__lut__s16">cmsis_nn_softmax_lut_s16</a></td></tr>
@@ -725,7 +727,7 @@ activation</td>
 <td class="fieldname">
 filter_offset</td>
 <td class="fielddoc">
-<p>The negative of the zero value for the filter tensor. Not used </p>
+<p>The negative of the zero value for the filter tensor </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="ad4670fdc658d0517928e6b2c10b2259d" name="ad4670fdc658d0517928e6b2c10b2259d"></a>int32_t</td>
@@ -740,6 +742,42 @@ input_offset</td>
 output_offset</td>
 <td class="fielddoc">
 <p>The negative of the zero value for the output tensor </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structcmsis__nn__bmm__params" id="structcmsis__nn__bmm__params"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__bmm__params">&#9670;&#160;</a></span>cmsis_nn_bmm_params</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cmsis_nn_bmm_params</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>CMSIS-NN object for Batch Matmul layer parameters </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a3f232fedc315dc2572d83b88d89b74f9" name="a3f232fedc315dc2572d83b88d89b74f9"></a>const bool</td>
+<td class="fieldname">
+adj_x</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae96cb7f5df330c44dfea3db05dda8267" name="ae96cb7f5df330c44dfea3db05dda8267"></a>const bool</td>
+<td class="fieldname">
+adj_y</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a95a09263de54d691990992674a618c07" name="a95a09263de54d691990992674a618c07"></a><a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params">cmsis_nn_fc_params</a></td>
+<td class="fieldname">
+fc_params</td>
+<td class="fielddoc">
 </td></tr>
 </table>
 

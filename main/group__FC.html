@@ -142,6 +142,12 @@ Content</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gaf2cd866eb2adc67d53ff71f60c0d2b8b">arm_batch_matmul_s16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *quant_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const int16_t *input_lhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const int16_t *input_rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, int16_t *output)</td></tr>
+<tr class="memdesc:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batch matmul function with 16 bit input and output.  <br /></td></tr>
+<tr class="separator:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga52d0c3dc09c8cf16b7bbf16221b5736d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga52d0c3dc09c8cf16b7bbf16221b5736d">arm_batch_matmul_s8</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *quant_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const int8_t *input_lhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const int8_t *input_rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, int8_t *output)</td></tr>
+<tr class="memdesc:ga52d0c3dc09c8cf16b7bbf16221b5736d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batch matmul function with 8 bit input and output.  <br /></td></tr>
+<tr class="separator:ga52d0c3dc09c8cf16b7bbf16221b5736d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga88e4790441b47324c578d36f8f8346d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga88e4790441b47324c578d36f8f8346d0">arm_fully_connected_s16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params">cmsis_nn_fc_params</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *quant_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const int16_t *input, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const int8_t *kernel, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const int64_t *bias, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, int16_t *output)</td></tr>
 <tr class="memdesc:ga88e4790441b47324c578d36f8f8346d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic s16 Fully Connected function.  <br /></td></tr>
 <tr class="separator:ga88e4790441b47324c578d36f8f8346d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +168,188 @@ Functions</h2></td></tr>
 <p>Collection of fully-connected and matrix multiplication functions.</p>
 <p>Fully-connected layer is basically a matrix-vector multiplication with bias. The matrix is the weights and the input/output vectors are the activation values. Supported {weight, activation} precisions include {8-bit, 8-bit} and {8-bit, 16-bit} </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaf2cd866eb2adc67d53ff71f60c0d2b8b" name="gaf2cd866eb2adc67d53ff71f60c0d2b8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2cd866eb2adc67d53ff71f60c0d2b8b">&#9670;&#160;</a></span>arm_batch_matmul_s16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_batch_matmul_s16 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *&#160;</td>
+          <td class="paramname"><em>quant_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>input_lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int16_t *&#160;</td>
+          <td class="paramname"><em>input_rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Batch matmul function with 16 bit input and output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Temporary scratch buffer The caller is expected to clear the buffer, if applicable, for security reasons. Optional function <a class="el" href="group__GetBufferSizeFC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e" title="Get size of additional buffer required by arm_fully_connected_s8(). See also arm_vector_sum_s8,...">arm_fully_connected_s8_get_buffer_size()</a> provides the buffer size if an additional buffer is required. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul Parameters Adjoint flags are currently unused. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">quant_params</td><td>Quantization parameters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Input lhs tensor dimensions. This should be NHWC where LHS.C = RHS.C </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs</td><td>Pointer to input tensor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Input lhs tensor dimensions. This is expected to be transposed so should be NHWC where LHS.C = RHS.C </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs</td><td>Pointer to transposed input tensor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code></dd></dl>
+<ol type="1">
+<li>Supported framework: TensorFlow Lite Micro</li>
+<li>Performs row * row matrix multiplication with the RHS transposed. </li>
+</ol>
+
+</div>
+</div>
+<a id="ga52d0c3dc09c8cf16b7bbf16221b5736d" name="ga52d0c3dc09c8cf16b7bbf16221b5736d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52d0c3dc09c8cf16b7bbf16221b5736d">&#9670;&#160;</a></span>arm_batch_matmul_s8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_batch_matmul_s8 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *&#160;</td>
+          <td class="paramname"><em>quant_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>input_lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>input_rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Batch matmul function with 8 bit input and output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Temporary scratch buffer The caller is expected to clear the buffer, if applicable, for security reasons. Optional function <a class="el" href="group__GetBufferSizeFC.html#ga88e541ff9fb088ebccb79a7a6b8bbe1e" title="Get size of additional buffer required by arm_fully_connected_s8(). See also arm_vector_sum_s8,...">arm_fully_connected_s8_get_buffer_size()</a> provides the buffer size if an additional buffer is required. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul Parameters Adjoint flags are currently unused. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">quant_params</td><td>Quantization parameters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Input lhs tensor dimensions. This should be NHWC where lhs C = rhs C </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs</td><td>Pointer to input tensor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Input lhs tensor dimensions. This is expected to be transposed so should be NHWC where lhs C = rhs C </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs</td><td>Pointer to transposed input tensor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code></dd></dl>
+<ol type="1">
+<li>Supported framework: TensorFlow Lite Micro</li>
+<li>Performs row * row matrix multiplication with the RHS transposed. </li>
+</ol>
+
+</div>
+</div>
 <a id="ga88e4790441b47324c578d36f8f8346d0" name="ga88e4790441b47324c578d36f8f8346d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga88e4790441b47324c578d36f8f8346d0">&#9670;&#160;</a></span>arm_fully_connected_s16()</h2>
 
