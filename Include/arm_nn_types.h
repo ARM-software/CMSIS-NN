@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        11 April 2024
- * $Revision:    V.3.2.0
+ * $Date:        19 June 2024
+ * $Revision:    V.3.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -165,10 +165,18 @@ typedef struct
 typedef struct
 {
     int32_t input_offset;  /**< The negative of the zero value for the input tensor */
-    int32_t filter_offset; /**< The negative of the zero value for the filter tensor. Not used */
+    int32_t filter_offset; /**< The negative of the zero value for the filter tensor */
     int32_t output_offset; /**< The negative of the zero value for the output tensor */
     cmsis_nn_activation activation;
 } cmsis_nn_fc_params;
+
+/** CMSIS-NN object for Batch Matmul layer parameters */
+typedef struct
+{
+    const bool adj_x;
+    const bool adj_y;
+    cmsis_nn_fc_params fc_params;
+} cmsis_nn_bmm_params;
 
 /** CMSIS-NN object for SVDF layer parameters */
 typedef struct

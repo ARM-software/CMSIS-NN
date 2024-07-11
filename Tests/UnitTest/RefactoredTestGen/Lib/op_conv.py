@@ -193,7 +193,7 @@ class Op_conv(Lib.op_utils.Op_type):
         if out_ch % groups != 0:
             raise RuntimeError("ERROR: Output channels {} must be an even multiple of groups {}".format(out_ch, groups))
 
-        shapes["input"] = (params["batch_size"], params["input_h"], params["input_w"], in_ch)
+        shapes["input_tensor"] = (params["batch_size"], params["input_h"], params["input_w"], in_ch)
         shapes["weight_shape"] = [params["filter_y"], params["filter_x"], filter_ch, out_ch]
 
         if params["tflite_generator"] == "json":

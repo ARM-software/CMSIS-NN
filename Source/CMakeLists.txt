@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2019-2022, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,7 +18,7 @@
 
 SET(ROOT ${CMSIS_PATH})
 
-# Select which parts of the CMSIS-DSP must be compiled.
+# Select which parts of the CMSIS-NN must be compiled.
 # There are some dependencies between the parts but they are not tracked
 # by this cmake. So, enabling some functions may require to enable some
 # other ones.

@@ -83,7 +83,7 @@ def get_dtype(name, params):
         return params["weights_data_type"]
     elif "multiplier" in name or "shift" in name:
         return params["shift_and_mult_data_type"]
-    elif "input" in name or "output" in name:
+    elif "input" in name or "output" in name or "transpose" in name:
         return params["input_data_type"]
     else:
         raise Exception(f"Unable to deduce dtype from name '{name}'")

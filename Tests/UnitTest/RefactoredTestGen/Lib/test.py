@@ -17,6 +17,7 @@
 import os
 import Lib.op_lstm
 import Lib.op_conv
+import Lib.op_batch_matmul
 import Lib.op_fully_connected
 import tensorflow as tf
 import numpy as np
@@ -74,7 +75,7 @@ def generate(params, args, fpaths):
                                 quantize=True,
                                 dtype=params["input_data_type"],
                                 bias_dtype=params["bias_data_type"],
-                                shape=shapes["representational_dataset"])
+                                shape=shapes)
         data = op_type.generate_data_tflite(fpaths["tflite"], params)
 
     elif params["tflite_generator"] == "json":
@@ -102,18 +103,29 @@ def generate(params, args, fpaths):
     maxval = Lib.op_utils.get_dtype_max(params["input_data_type"]) if "input_max" not in params else params["input_max"]
 
     dtype = Lib.op_utils.get_tf_dtype(params["input_data_type"])
-    input_tensor = Lib.op_utils.generate_tf_tensor(shapes["input"], minval, maxval, decimals=0, datatype=dtype)
-    data.tensors["input"] = input_tensor.numpy()
+
+    # Initialize input tensors
+    input_tensors = {}
+    for shape_name, shape in shapes.items():
+        if "input_tensor" in shape_name:
+            if shape_name in data.tensors:
+                input_tensors[shape_name] = data.tensors[shape_name]
+            else:
+                input_tensors[shape_name] = Lib.op_utils.generate_tf_tensor(shape, minval, maxval, decimals=0, datatype=dtype)
+                data.tensors[shape_name] = input_tensors[shape_name].numpy()
+
+    if not input_tensors:
+        raise ValueError("Op_type must initialize at least one input shape")
 
     if params["interpreter"] == "tensorflow":
-        data.tensors["output"] = invoke_tflite(fpaths["tflite"], input_tensor)
+        data.tensors["output"] = invoke_tflite(fpaths["tflite"], input_tensors)
     elif params["interpreter"] == "tflite_runtime":
-        data.tensors["output"] = invoke_tflite_runtime(fpaths["tflite"], input_tensor)
+        data.tensors["output"] = invoke_tflite_runtime(fpaths["tflite"], input_tensors)
     elif params["interpreter"] == "tflite_micro":
         if "arena_size" in params:
-            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor, params["arena_size"])
+            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensors, params["arena_size"])
         else:
-            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensor)
+            data.tensors["output"] = invoke_tflite_micro(fpaths["tflite"], input_tensors)
     else:
         raise ValueError(f"Invalid interpreter in {params['name']}")
 
@@ -147,6 +159,8 @@ def get_op_type(op_type_string):
         return Lib.op_lstm.Op_lstm
     elif op_type_string == "conv":
         return Lib.op_conv.Op_conv
+    elif op_type_string == "batch_matmul":
+        return Lib.op_batch_matmul.Op_batch_matmul
     elif op_type_string == "fully_connected":
         return Lib.op_fully_connected.Op_fully_connected
     else:
@@ -160,13 +174,19 @@ def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, bias_dty
                         metrics=['accuracy'])
     n_inputs = len(keras_model.inputs)
     converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
-
     if quantize:
 
-        def representative_dataset():
-            for _ in range(n_inputs):
-                data = np.random.rand(*shape)
-                yield [data.astype(np.float32)]
+        if shape.get("different_in_shapes") is True:
+            def representative_dataset():
+                for _ in range(100):
+                    data1 = np.random.rand(*shape["representational_dataset"])
+                    data2 = np.random.rand(*shape["representational_dataset2"])
+                    yield [data1.astype(np.float32), data2.astype(np.float32)]
+        else:
+            def representative_dataset():
+                for _ in range(n_inputs):
+                    data = np.random.rand(*shape["representational_dataset"])
+                    yield [data.astype(np.float32)]
 
         converter.representative_dataset = representative_dataset
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
@@ -191,9 +211,12 @@ def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, bias_dty
 
 def invoke_tflite(tflite_path, input_tensor):
     interpreter = Interpreter(str(tflite_path), experimental_op_resolver_type=OpResolverType.BUILTIN_REF)
-    input_index = interpreter.get_input_details()[0]["index"]
     interpreter.allocate_tensors()
-    interpreter.set_tensor(input_index, input_tensor)
+
+    for i, val in enumerate(input_tensor.values()):
+        input_index = interpreter.get_input_details()[i]["index"]
+        interpreter.set_tensor(input_index, val)
+
     interpreter.invoke()
     output_index = interpreter.get_output_details()[0]["index"]
     data = interpreter.get_tensor(output_index)
@@ -204,9 +227,12 @@ def invoke_tflite(tflite_path, input_tensor):
 def invoke_tflite_runtime(tflite_path, input_tensor):
     interpreter = TfliteRuntimeInterpreter(str(tflite_path),
                                            experimental_op_resolver_type=TfliteRuntimeOpResolverType.BUILTIN_REF)
-    input_index = interpreter.get_input_details()[0]["index"]
     interpreter.allocate_tensors()
-    interpreter.set_tensor(input_index, input_tensor)
+
+    for i, val in enumerate(input_tensor.values()):
+        input_index = interpreter.get_input_details()[i]["index"]
+        interpreter.set_tensor(input_index, val)
+
     interpreter.invoke()
     output_index = interpreter.get_output_details()[0]["index"]
     data = interpreter.get_tensor(output_index)
@@ -217,7 +243,9 @@ def invoke_tflite_runtime(tflite_path, input_tensor):
 def invoke_tflite_micro(tflite_path, input_tensor, arena_size=30000):
     interpreter = tflite_micro.runtime.Interpreter.from_file(model_path=str(tflite_path), arena_size=arena_size)
 
-    interpreter.set_input(input_tensor, 0)
+    for i, val in enumerate(input_tensor.values()):
+        interpreter.set_input(val, i)
+
     interpreter.invoke()
     data = interpreter.get_output(0)
 
@@ -246,6 +274,7 @@ def write_c_array(data, fname, dtype, prefix, tensor_name, test_data_fpath, head
 
     # Check that the data looks reasonable
     values, counts = np.unique(data, return_counts=True)
+    tf.experimental.numpy.experimental_enable_numpy_behavior()
 
     size = 0 if data is None else data.size
 
@@ -262,6 +291,7 @@ def write_c_array(data, fname, dtype, prefix, tensor_name, test_data_fpath, head
             data_shape = data.shape
             format_width = len(str(data.max())) + 1
             data = data.flatten()
+
             f.write(f"const {dtype} {prefix}_{tensor_name}[{len(data)}] = \n" + "{")
 
             for i in range(len(data) - 1):
