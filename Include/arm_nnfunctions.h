@@ -2622,7 +2622,7 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s16(const int16_t *input,
  *                                    should be NHWC where lhs C = rhs C
  * @param[in]   input_rhs             Pointer to transposed input tensor
  * @param[in]   output_dims           Output tensor dimensions
- * @param[out]  output_data           Pointer to the output tensor *
+ * @param[out]  output                Pointer to the output tensor
  *
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
@@ -2659,7 +2659,7 @@ arm_cmsis_nn_status arm_batch_matmul_s8(const cmsis_nn_context *ctx,
  *                                    should be NHWC where LHS.C = RHS.C
  * @param[in]   input_rhs             Pointer to transposed input tensor
  * @param[in]   output_dims           Output tensor dimensions
- * @param[out]  output_data           Pointer to the output tensor *
+ * @param[out]  output                Pointer to the output tensor
  *
  * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
  *
