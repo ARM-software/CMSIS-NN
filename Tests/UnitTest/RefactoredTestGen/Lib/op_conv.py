@@ -22,8 +22,6 @@ from tensorflow.lite.python.interpreter import OpResolverType
 import tf_keras as keras
 import numpy as np
 
-import tflite_micro
-
 
 def generate_data(tflite_fname, params):
     tensors = {}
@@ -38,6 +36,8 @@ def generate_data(tflite_fname, params):
     aliases["output"] = "output_ref"
 
     if params["tflite_generator"] == "json":
+        import tflite_micro # Only tflite_micro interpreter supports int4 convolution
+        
         interpreter = tflite_micro.runtime.Interpreter.from_file(
             model_path=str(tflite_fname), arena_size=params["arena_size"],
             intrepreter_config=tflite_micro.runtime.InterpreterConfig.kPreserveAllTensors)

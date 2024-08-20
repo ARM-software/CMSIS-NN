@@ -53,7 +53,7 @@ def main():
 
     parser.add_argument("--schema",
                         type=pathlib.Path,
-                        default="../../../tflite_micro/tensorflow/lite/schema/schema.fbs",
+                        default="../../../tflite_micro/tensorflow/compiler/mlir/lite/schema/schema.fbs",
                         help="Path to the schema-file needed for generating tflite-files with flatc")
     parser.add_argument("--list", action="store_true", help="Only list tests in test plan")
 
