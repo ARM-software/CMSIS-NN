@@ -23,7 +23,7 @@ from tensorflow.lite.python.interpreter import Interpreter
 from tensorflow.lite.python.interpreter import OpResolverType
 
 import numpy as np
-import keras as keras
+import keras
 
 
 def quantize_multiplier(input_scale, weights_scale, output_scale):

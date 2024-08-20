@@ -19,7 +19,7 @@ import math
 
 from tensorflow.lite.python.interpreter import Interpreter
 from tensorflow.lite.python.interpreter import OpResolverType
-import keras as keras
+import keras
 import numpy as np
 
 try:

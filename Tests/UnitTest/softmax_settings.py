@@ -17,7 +17,7 @@
 import math
 from test_settings import TestSettings
 import tensorflow as tf
-import keras as keras
+import keras
 
 class SoftmaxSettings(TestSettings):
     softmax_input_integer_bits = 5

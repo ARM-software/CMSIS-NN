@@ -27,7 +27,7 @@ import pathlib
 import subprocess
 import sys
 import math
-import keras as keras
+import keras
 
 # Optional runtime interpreters
 try:

@@ -26,7 +26,7 @@ from packaging import version
 
 import numpy as np
 import tensorflow as tf
-import keras as keras
+import keras
 
 class TestSettings(ABC):
 

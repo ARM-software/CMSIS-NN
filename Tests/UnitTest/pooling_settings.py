@@ -18,7 +18,7 @@ from test_settings import TestSettings
 
 import numpy as np
 import tensorflow as tf
-import keras as keras
+import keras
 
 class PoolingSettings(TestSettings):
 
