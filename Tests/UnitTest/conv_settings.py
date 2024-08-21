@@ -19,7 +19,7 @@ from test_settings import TestSettings
 import tensorflow as tf
 import numpy as np
 import math
-import tf_keras as keras
+import keras
 
 
 class ConvSettings(TestSettings):

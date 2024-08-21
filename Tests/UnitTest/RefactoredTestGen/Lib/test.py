@@ -27,7 +27,7 @@ import pathlib
 import subprocess
 import sys
 import math
-import tf_keras as keras
+import keras
 
 # Optional runtime interpreters
 try:
@@ -70,12 +70,21 @@ def generate(params, args, fpaths):
     # Generate reference data
     if params["tflite_generator"] == "keras":
         keras_model = op_type.generate_keras_model(shapes, params)
+
+        per_tensor_quant_for_dense = False
+        try:
+            per_tensor_quant_for_dense = not params["per_channel_quant"]
+        except KeyError:
+            pass
+
         convert_keras_to_tflite(fpaths["tflite"],
                                 keras_model,
                                 quantize=True,
                                 dtype=params["input_data_type"],
                                 bias_dtype=params["bias_data_type"],
-                                shape=shapes)
+                                shape=shapes,
+                                per_tensor_quant_for_dense=per_tensor_quant_for_dense)
+
         data = op_type.generate_data_tflite(fpaths["tflite"], params)
 
     elif params["tflite_generator"] == "json":
@@ -167,10 +176,10 @@ def get_op_type(op_type_string):
         raise ValueError(f"Unknown op type '{op_type_string}'")
 
 
-def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, bias_dtype, shape):
+def convert_keras_to_tflite(
+        output_fpath, keras_model, quantize, dtype, bias_dtype, shape, per_tensor_quant_for_dense=False):
     """ Convert a model generated with keras to tflite-format """
     keras_model.compile(loss=keras.losses.categorical_crossentropy,
-                        optimizer=keras.optimizers.Adam(),
                         metrics=['accuracy'])
     n_inputs = len(keras_model.inputs)
     converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
@@ -192,6 +201,7 @@ def convert_keras_to_tflite(output_fpath, keras_model, quantize, dtype, bias_dty
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.inference_input_type = Lib.op_utils.get_tf_dtype(dtype)
         converter.inference_output_type = Lib.op_utils.get_tf_dtype(dtype)
+        converter._experimental_disable_per_channel_quantization_for_dense_layers = per_tensor_quant_for_dense
 
         if dtype == "int8_t":
             converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]

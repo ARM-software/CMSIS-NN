@@ -803,5 +803,24 @@
         }
 
     ]
+},
+{
+    "suite_name" : "test_arm_fully_connected_s8",
+    "op_type" : "fully_connected",
+    "input_data_type": "int8_t",
+    "weights_data_type": "int8_t",
+    "bias_data_type": "int32_t",
+    "interpreter": "tensorflow",
+    "tflite_generator": "keras",
+    "w_type": "INT8",
+    "shift_and_mult_data_type": "int32_t",
+    "tests" : [
+        {"name" : "fc_per_ch",
+          "in_ch" : 89,
+         "out_ch" : 22,
+         "generate_bias": true,
+         "per_channel_quant": true
+        }
+    ]
 }
 ]

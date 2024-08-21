@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        19 June 2024
- * $Revision:    V.22.2.0
+ * $Date:        12 Jul 2024
+ * $Revision:    V.22.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -702,6 +702,47 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
                                              const int32_t activation_max,
                                              const int32_t address_offset,
                                              const int32_t rhs_offset);
+
+/**
+ * @brief s8 Vector by Matrix (transposed) multiplication using per channel quantization for output
+ *
+ * @param[in]      lhs             Input left-hand side vector
+ * @param[in]      rhs             Input right-hand side matrix (transposed)
+ * @param[in]      kernel_sum      Kernel sums of the kernels (rhs). See arm_vector_sum_s8 for more info.
+ * @param[in]      bias            Input bias
+ * @param[out]     dst             Output vector
+ * @param[in]      lhs_offset      Offset to be added to the input values of the left-hand side vector.
+ *                                 Range: -127 to 128
+ * @param[in]      dst_offset      Offset to be added to the output values. Range: -127 to 128
+ * @param[in]      dst_multiplier  Output multipliers
+ * @param[in]      dst_shift       Output shifts
+ * @param[in]      rhs_cols        Number of columns in the right-hand side input matrix
+ * @param[in]      rhs_rows        Number of rows in the right-hand side input matrix
+ * @param[in]      activation_min  Minimum value to clamp the output to. Range: int8
+ * @param[in]      activation_max  Maximum value to clamp the output to. Range: int8
+ * @param[in]      address_offset  Memory position offset for dst. First output is stored at 'dst', the
+ *                                 second at 'dst + address_offset' and so on. Default value is typically 1.
+ * @param[in]      rhs_offset      Offset to be added to the input values of the right-hand side vector.
+ *                                 Range: -127 to 128
+ *
+ * @return         The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ */
+arm_cmsis_nn_status arm_nn_vec_mat_mult_t_per_ch_s8(const int8_t *lhs,
+                                                    const int8_t *rhs,
+                                                    const int32_t *kernel_sum,
+                                                    const int32_t *bias,
+                                                    int8_t *dst,
+                                                    const int32_t lhs_offset,
+                                                    const int32_t dst_offset,
+                                                    const int32_t *dst_multiplier,
+                                                    const int32_t *dst_shift,
+                                                    const int32_t rhs_cols,
+                                                    const int32_t rhs_rows,
+                                                    const int32_t activation_min,
+                                                    const int32_t activation_max,
+                                                    const int32_t address_offset,
+                                                    const int32_t rhs_offset);
 
 /**
  * @brief s16 Vector by s8 Matrix (transposed) multiplication

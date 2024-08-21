@@ -18,7 +18,7 @@ from test_settings import TestSettings
 
 import numpy as np
 import tensorflow as tf
-import tf_keras as keras
+import keras
 
 class PoolingSettings(TestSettings):
 
@@ -92,13 +92,13 @@ class PoolingSettings(TestSettings):
             model.add(
                 keras.layers.AveragePooling2D(pool_size=(self.filter_y, self.filter_x),
                                                  strides=(self.stride_y, self.stride_x),
-                                                 padding=self.padding,
+                                                 padding=self.padding.lower(),
                                                  input_shape=input_shape[1:]))
         elif self.test_type == 'maxpool':
             model.add(
                 keras.layers.MaxPooling2D(pool_size=(self.filter_y, self.filter_x),
                                              strides=(self.stride_y, self.stride_x),
-                                             padding=self.padding,
+                                             padding=self.padding.lower(),
                                              input_shape=input_shape[1:]))
         else:
             raise RuntimeError("Wrong test type")
