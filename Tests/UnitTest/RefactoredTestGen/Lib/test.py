@@ -52,10 +52,10 @@ def generate(params, args, fpaths):
 
     # Check if test is valid, skip otherwise
     if (params["interpreter"] == "tflite_runtime") and (not tflite_runtime_imported):
-        print("Skipping...")
+        print("Skipping due to tflite_runtime not being installed...")
         return
     if (params["interpreter"] == "tflite_micro") and (not tflite_micro_imported):
-        print("Skipping...")
+        print("Skipping due to tflite_micro not being installed...")
         return
 
     op_type = get_op_type(params["op_type"])

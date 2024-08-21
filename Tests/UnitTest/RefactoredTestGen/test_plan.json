@@ -551,7 +551,7 @@
     "input_data_type": "int8_t",
     "weights_data_type": "int8_t",
     "bias_data_type": "int32_t",
-    "interpreter": "tensorflow",
+    "interpreter": "tflite_micro",
     "tflite_generator": "keras",
     "tests" : [
         {"name" : "lstm_1",
