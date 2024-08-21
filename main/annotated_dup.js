@@ -18,6 +18,7 @@ var annotated_dup =
     [ "cmsis_nn_per_channel_quant_params", "group__genPubTypes.html#structcmsis__nn__per__channel__quant__params", "group__genPubTypes_structcmsis__nn__per__channel__quant__params" ],
     [ "cmsis_nn_per_tensor_quant_params", "group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params", "group__genPubTypes_structcmsis__nn__per__tensor__quant__params" ],
     [ "cmsis_nn_pool_params", "group__genPubTypes.html#structcmsis__nn__pool__params", "group__genPubTypes_structcmsis__nn__pool__params" ],
+    [ "cmsis_nn_quant_params", "group__genPubTypes.html#structcmsis__nn__quant__params", "group__genPubTypes_structcmsis__nn__quant__params" ],
     [ "cmsis_nn_scaling", "group__genPubTypes.html#structcmsis__nn__scaling", "group__genPubTypes_structcmsis__nn__scaling" ],
     [ "cmsis_nn_softmax_lut_s16", "group__genPubTypes.html#structcmsis__nn__softmax__lut__s16", "group__genPubTypes_structcmsis__nn__softmax__lut__s16" ],
     [ "cmsis_nn_svdf_params", "group__genPubTypes.html#structcmsis__nn__svdf__params", "group__genPubTypes_structcmsis__nn__svdf__params" ],

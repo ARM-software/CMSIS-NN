@@ -139,6 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7b0851befe3767409a7d36b74b36faa5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga7b0851befe3767409a7d36b74b36faa5">arm_nn_vec_mat_mul_result_acc_s16</a> (const int16_t *lhs, const int8_t *rhs, const int64_t *effective_bias, int16_t *dst, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t batches, const int32_t batch_offset)</td></tr>
 <tr class="memdesc:ga7b0851befe3767409a7d36b74b36faa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the multiplication is accumulated to the passed result buffer. Multiplies a matrix by a "batched" vector (i.e. a matrix with a batch dimension composed by input vectors independent from each other).  <br /></td></tr>
 <tr class="separator:ga7b0851befe3767409a7d36b74b36faa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga899b14405558500b6675bbfd896f4a11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga899b14405558500b6675bbfd896f4a11">arm_nn_vec_mat_mult_t_per_ch_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t *kernel_sum, const int32_t *bias, int8_t *dst, const int32_t lhs_offset, const int32_t dst_offset, const int32_t *dst_multiplier, const int32_t *dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max, const int32_t address_offset, const int32_t rhs_offset)</td></tr>
+<tr class="memdesc:ga899b14405558500b6675bbfd896f4a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Vector by Matrix (transposed) multiplication using per channel quantization for output  <br /></td></tr>
+<tr class="separator:ga899b14405558500b6675bbfd896f4a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10758802e8392839a207eb21620f60c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportFC.html#ga10758802e8392839a207eb21620f60c3">arm_nn_vec_mat_mult_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const int64_t *bias, int16_t *dst, const int32_t dst_multiplier, const int32_t dst_shift, const int32_t rhs_cols, const int32_t rhs_rows, const int32_t activation_min, const int32_t activation_max)</td></tr>
 <tr class="memdesc:ga10758802e8392839a207eb21620f60c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 Vector by s8 Matrix (transposed) multiplication  <br /></td></tr>
 <tr class="separator:ga10758802e8392839a207eb21620f60c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,6 +248,135 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Row count of matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">batches</td><td>Batch size </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches in input, see arm_nn_lstm_step_s16. Note that the output is always stored with sequential batches. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> </dd></dl>
+
+</div>
+</div>
+<a id="ga899b14405558500b6675bbfd896f4a11" name="ga899b14405558500b6675bbfd896f4a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga899b14405558500b6675bbfd896f4a11">&#9670;&#160;</a></span>arm_nn_vec_mat_mult_t_per_ch_s8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_vec_mat_mult_t_per_ch_s8 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>kernel_sum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>dst_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>dst_multiplier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>dst_shift</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>s8 Vector by Matrix (transposed) multiplication using per channel quantization for output </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Input left-hand side vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Input right-hand side matrix (transposed) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kernel_sum</td><td>Kernel sums of the kernels (rhs). See arm_vector_sum_s8 for more info. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Input bias </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Offset to be added to the input values of the left-hand side vector. Range: -127 to 128 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_offset</td><td>Offset to be added to the output values. Range: -127 to 128 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_multiplier</td><td>Output multipliers </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dst_shift</td><td>Output shifts </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of columns in the right-hand side input matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of rows in the right-hand side input matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Minimum value to clamp the output to. Range: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Maximum value to clamp the output to. Range: int8 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">address_offset</td><td>Memory position offset for dst. First output is stored at 'dst', the second at 'dst + address_offset' and so on. Default value is typically 1. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_offset</td><td>Offset to be added to the input values of the right-hand side vector. Range: -127 to 128</td></tr>
   </table>
   </dd>
 </dl>

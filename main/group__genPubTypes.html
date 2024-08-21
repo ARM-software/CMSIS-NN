@@ -154,6 +154,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:structcmsis__nn__per__channel__quant__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__per__tensor__quant__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a></td></tr>
 <tr class="separator:structcmsis__nn__per__tensor__quant__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__quant__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__quant__params">cmsis_nn_quant_params</a></td></tr>
+<tr class="separator:structcmsis__nn__quant__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__activation"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__activation">cmsis_nn_activation</a></td></tr>
 <tr class="separator:structcmsis__nn__activation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__conv__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a></td></tr>
@@ -448,6 +450,44 @@ multiplier</td>
 shift</td>
 <td class="fielddoc">
 <p>Shift value </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structcmsis__nn__quant__params" id="structcmsis__nn__quant__params"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__quant__params">&#9670;&#160;</a></span>cmsis_nn_quant_params</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cmsis_nn_quant_params</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>CMSIS-NN object for quantization parameters. This struct supports both per-tensor and per-channels requantization and is recommended for new operators. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a944753df62eac12c18f39495bf52ab5d" name="a944753df62eac12c18f39495bf52ab5d"></a>int32_t</td>
+<td class="fieldname">
+is_per_channel</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ad2d7bcdc66772400d073f101bd6a0ca9" name="ad2d7bcdc66772400d073f101bd6a0ca9"></a>int32_t *</td>
+<td class="fieldname">
+multiplier</td>
+<td class="fielddoc">
+<p>Multiplier values </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a37330ddd659e21d8a4cf88f31164efb8" name="a37330ddd659e21d8a4cf88f31164efb8"></a>int32_t *</td>
+<td class="fieldname">
+shift</td>
+<td class="fielddoc">
+<p>Shift values </p>
 </td></tr>
 </table>
 

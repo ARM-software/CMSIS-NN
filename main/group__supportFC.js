@@ -1,6 +1,7 @@
 var group__supportFC =
 [
     [ "arm_nn_vec_mat_mul_result_acc_s16", "group__supportFC.html#ga7b0851befe3767409a7d36b74b36faa5", null ],
+    [ "arm_nn_vec_mat_mult_t_per_ch_s8", "group__supportFC.html#ga899b14405558500b6675bbfd896f4a11", null ],
     [ "arm_nn_vec_mat_mult_t_s16", "group__supportFC.html#ga10758802e8392839a207eb21620f60c3", null ],
     [ "arm_nn_vec_mat_mult_t_s16_s16", "group__supportFC.html#ga29c9201fd0b0a003e9b50f4c62051899", null ],
     [ "arm_nn_vec_mat_mult_t_s4", "group__supportFC.html#gaaf9b8b660e2ad47197bcea8c91a87e2c", null ],

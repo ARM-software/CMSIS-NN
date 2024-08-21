@@ -12,5 +12,5 @@ var searchData=
   ['mul_5fpow2_9',['MUL_POW2',['../arm__nnsupportfunctions_8h.html#a9d7332bc4331d55ada7ea19407e2a8c3',1,'arm_nnsupportfunctions.h']]],
   ['mul_5fsat_10',['MUL_SAT',['../arm__nnsupportfunctions_8h.html#a518f7e0db18bea6b61a2b88f266aef20',1,'arm_nnsupportfunctions.h']]],
   ['mul_5fsat_5fmve_11',['MUL_SAT_MVE',['../arm__nnsupportfunctions_8h.html#a6349818fec8167dff87c3fb7ca81fc1c',1,'arm_nnsupportfunctions.h']]],
-  ['multiplier_12',['multiplier',['../group__genPubTypes.html#ad2d7bcdc66772400d073f101bd6a0ca9',1,'cmsis_nn_per_channel_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_per_tensor_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_scaling::multiplier()']]]
+  ['multiplier_12',['multiplier',['../group__genPubTypes.html#ad2d7bcdc66772400d073f101bd6a0ca9',1,'cmsis_nn_per_channel_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_per_tensor_quant_params::multiplier()'],['../group__genPubTypes.html#ad2d7bcdc66772400d073f101bd6a0ca9',1,'cmsis_nn_quant_params::multiplier()'],['../group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3',1,'cmsis_nn_scaling::multiplier()']]]
 ];

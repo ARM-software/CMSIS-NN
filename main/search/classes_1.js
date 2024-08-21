@@ -15,9 +15,10 @@ var searchData=
   ['cmsis_5fnn_5fper_5fchannel_5fquant_5fparams_12',['cmsis_nn_per_channel_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__channel__quant__params',1,'']]],
   ['cmsis_5fnn_5fper_5ftensor_5fquant_5fparams_13',['cmsis_nn_per_tensor_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params',1,'']]],
   ['cmsis_5fnn_5fpool_5fparams_14',['cmsis_nn_pool_params',['../group__genPubTypes.html#structcmsis__nn__pool__params',1,'']]],
-  ['cmsis_5fnn_5fscaling_15',['cmsis_nn_scaling',['../group__genPubTypes.html#structcmsis__nn__scaling',1,'']]],
-  ['cmsis_5fnn_5fsoftmax_5flut_5fs16_16',['cmsis_nn_softmax_lut_s16',['../group__genPubTypes.html#structcmsis__nn__softmax__lut__s16',1,'']]],
-  ['cmsis_5fnn_5fsvdf_5fparams_17',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
-  ['cmsis_5fnn_5ftile_18',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
-  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_19',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]]
+  ['cmsis_5fnn_5fquant_5fparams_15',['cmsis_nn_quant_params',['../group__genPubTypes.html#structcmsis__nn__quant__params',1,'']]],
+  ['cmsis_5fnn_5fscaling_16',['cmsis_nn_scaling',['../group__genPubTypes.html#structcmsis__nn__scaling',1,'']]],
+  ['cmsis_5fnn_5fsoftmax_5flut_5fs16_17',['cmsis_nn_softmax_lut_s16',['../group__genPubTypes.html#structcmsis__nn__softmax__lut__s16',1,'']]],
+  ['cmsis_5fnn_5fsvdf_5fparams_18',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
+  ['cmsis_5fnn_5ftile_19',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
+  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_20',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]]
 ];

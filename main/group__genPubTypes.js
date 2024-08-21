@@ -32,6 +32,11 @@ var group__genPubTypes =
       [ "multiplier", "group__genPubTypes.html#aa48e56822ed6e4a79d6c8c3b688ca8d3", null ],
       [ "shift", "group__genPubTypes.html#aa6938a602935fbbccbe0e9125ff01421", null ]
     ] ],
+    [ "cmsis_nn_quant_params", "group__genPubTypes.html#structcmsis__nn__quant__params", [
+      [ "is_per_channel", "group__genPubTypes.html#a944753df62eac12c18f39495bf52ab5d", null ],
+      [ "multiplier", "group__genPubTypes.html#ad2d7bcdc66772400d073f101bd6a0ca9", null ],
+      [ "shift", "group__genPubTypes.html#a37330ddd659e21d8a4cf88f31164efb8", null ]
+    ] ],
     [ "cmsis_nn_activation", "group__genPubTypes.html#structcmsis__nn__activation", [
       [ "max", "group__genPubTypes.html#accad1cdcd73e714badc388c3471bf33b", null ],
       [ "min", "group__genPubTypes.html#a0022b5ad7e496a802c64e3f6e0c2d8e1", null ]

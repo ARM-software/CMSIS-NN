@@ -24,12 +24,13 @@ var searchData=
   ['cmsis_5fnn_5fper_5fchannel_5fquant_5fparams_21',['cmsis_nn_per_channel_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__channel__quant__params',1,'']]],
   ['cmsis_5fnn_5fper_5ftensor_5fquant_5fparams_22',['cmsis_nn_per_tensor_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params',1,'']]],
   ['cmsis_5fnn_5fpool_5fparams_23',['cmsis_nn_pool_params',['../group__genPubTypes.html#structcmsis__nn__pool__params',1,'']]],
-  ['cmsis_5fnn_5fscaling_24',['cmsis_nn_scaling',['../group__genPubTypes.html#structcmsis__nn__scaling',1,'']]],
-  ['cmsis_5fnn_5fsoftmax_5flut_5fs16_25',['cmsis_nn_softmax_lut_s16',['../group__genPubTypes.html#structcmsis__nn__softmax__lut__s16',1,'']]],
-  ['cmsis_5fnn_5fsvdf_5fparams_26',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
-  ['cmsis_5fnn_5ftile_27',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
-  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_28',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]],
-  ['concatenation_20functions_29',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
-  ['convolution_30',['Convolution',['../group__supportConvolution.html',1,'']]],
-  ['convolution_20functions_31',['Convolution Functions',['../group__NNConv.html',1,'']]]
+  ['cmsis_5fnn_5fquant_5fparams_24',['cmsis_nn_quant_params',['../group__genPubTypes.html#structcmsis__nn__quant__params',1,'']]],
+  ['cmsis_5fnn_5fscaling_25',['cmsis_nn_scaling',['../group__genPubTypes.html#structcmsis__nn__scaling',1,'']]],
+  ['cmsis_5fnn_5fsoftmax_5flut_5fs16_26',['cmsis_nn_softmax_lut_s16',['../group__genPubTypes.html#structcmsis__nn__softmax__lut__s16',1,'']]],
+  ['cmsis_5fnn_5fsvdf_5fparams_27',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
+  ['cmsis_5fnn_5ftile_28',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
+  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_29',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]],
+  ['concatenation_20functions_30',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
+  ['convolution_31',['Convolution',['../group__supportConvolution.html',1,'']]],
+  ['convolution_20functions_32',['Convolution Functions',['../group__NNConv.html',1,'']]]
 ];
