@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import math
 import numpy as np
 import tensorflow as tf
 
@@ -152,3 +154,25 @@ def get_dtype_min(dtype):
         return -9223372036854775808
     else:
         raise Exception(f"Unrecognized dtype '{dtype}'")
+
+def generate_quantize_per_channel_multiplier(params, scales):
+    def quantize_scale(scale):
+        significand, shift = math.frexp(scale)
+        significand_q31 = round(significand * (1 << 31))
+        return significand_q31, shift
+
+    num_channels = params["out_ch"]
+    per_channel_multiplier = []
+    per_channel_shift = []
+
+    if len(scales["scaling_factors"]) != num_channels:
+        raise RuntimeError("Missing scaling factors")
+
+    for i in range(num_channels):
+        effective_output_scale = scales["input_scale"] * scales["scaling_factors"][i] / scales["output_scale"]
+        (quantized_multiplier, shift) = quantize_scale(effective_output_scale)
+
+        per_channel_multiplier.append(quantized_multiplier)
+        per_channel_shift.append(shift)
+
+    return per_channel_multiplier, per_channel_shift
