@@ -19,6 +19,7 @@ import Lib.op_lstm
 import Lib.op_conv
 import Lib.op_batch_matmul
 import Lib.op_fully_connected
+import Lib.op_pooling
 import tensorflow as tf
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
@@ -77,11 +78,16 @@ def generate(params, args, fpaths):
         except KeyError:
             pass
 
+        if "bias_data_type" in params:
+            bias_dtype = params["bias_data_type"]
+        else:
+            bias_dtype = None
+
         convert_keras_to_tflite(fpaths["tflite"],
                                 keras_model,
                                 quantize=True,
                                 dtype=params["input_data_type"],
-                                bias_dtype=params["bias_data_type"],
+                                bias_dtype=bias_dtype,
                                 shape=shapes,
                                 per_tensor_quant_for_dense=per_tensor_quant_for_dense)
 
@@ -138,6 +144,11 @@ def generate(params, args, fpaths):
     else:
         raise ValueError(f"Invalid interpreter in {params['name']}")
 
+    if "activation_min" in params:
+        data.tensors["output"] = np.maximum(data.tensors["output"], params["activation_min"])
+    if "activation_max" in params:
+        data.tensors["output"] = np.minimum(data.tensors["output"], params["activation_max"])
+
     # Write data
     header = get_header(params["tflite_generator"], params["interpreter"])
 
@@ -172,6 +183,8 @@ def get_op_type(op_type_string):
         return Lib.op_batch_matmul.Op_batch_matmul
     elif op_type_string == "fully_connected":
         return Lib.op_fully_connected.Op_fully_connected
+    if op_type_string == "avgpool" or op_type_string == "maxpool":
+        return Lib.op_pooling.Op_pooling
     else:
         raise ValueError(f"Unknown op type '{op_type_string}'")
 

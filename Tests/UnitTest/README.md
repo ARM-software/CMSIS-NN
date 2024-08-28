@@ -168,11 +168,11 @@ Current progress:
 | convolution     |  x   |  x  | New version only supports 16x8 and int4 packed weights
 | depthwise conv  |  x   |     |
 | fully_connected |  x   |  x  | New version supports int4 packed weights. Only new version supports per channels quantization for int8.
-| lstm            |  x   |  x  | Only new version supporting 16x8
+| lstm            |      |  x  | Only new version supporting 16x8
 | svdf            |  x   |     |
 | softmax         |  x   |     |
-| avgpool         |  x   |     |
-| maxpool         |  x   |     |
+| avgpool         |      |  x  |
+| maxpool         |      |  x  |
 | add             |  x   |     |
 | mul             |  x   |     |
 | batch matmul    |      |  x  |

@@ -36,7 +36,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | AvgPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | Softmax         | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | No           | N/A          |
-| LSTM            | Yes         | NA         | No         | Yes         | NA           | No           | Yes         | NA           | No           |
+| LSTM            | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
 | SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 
 * int4 weights + int8 activations
