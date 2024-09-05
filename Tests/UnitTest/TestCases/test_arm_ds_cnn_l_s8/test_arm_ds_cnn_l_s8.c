@@ -473,7 +473,13 @@ void ds_cnn_l_s8_inference(void)
     bias_dims.c = in_out_dim_1.c;
 
 #if defined(ARM_MATH_MVEI)
-    arm_vector_sum_s8(ctx.buf, conv_filter_dims.n, in_out_dim_1.c, ds_cnn_l_layer_14_fully_connected_weights, 1, NULL);
+    arm_vector_sum_s8(ctx.buf,
+                      conv_filter_dims.n,
+                      in_out_dim_1.c,
+                      ds_cnn_l_layer_14_fully_connected_weights,
+                      fc_params.input_offset,
+                      0,
+                      ds_cnn_l_layer_14_fully_connected_bias);
 #endif
 
     status |= arm_fully_connected_s8(&ctx,

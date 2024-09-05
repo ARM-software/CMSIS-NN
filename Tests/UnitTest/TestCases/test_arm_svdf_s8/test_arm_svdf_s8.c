@@ -76,7 +76,8 @@ void svdf_int8_arm_svdf_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *kernel_sum_buf = ctx.buf;
-    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, 1, NULL);
+    arm_vector_sum_s8(
+        kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, -SVDF_INT8_INPUT_OFFSET, 0, NULL);
 #endif
 
     // + SVDF_INT8_TIME_BATCHES additional bytes to make sure it is not overwritten
@@ -191,7 +192,8 @@ void svdf_int8_2_arm_svdf_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *kernel_sum_buf = ctx.buf;
-    arm_vector_sum_s8(kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, 1, NULL);
+    arm_vector_sum_s8(
+        kernel_sum_buf, input_dims.h, weights_feature_dims.n, weights_feature_data, -SVDF_INT8_2_INPUT_OFFSET, 0, NULL);
 #endif
 
     const int state_data_size = sizeof(svdf_int8_2_state);

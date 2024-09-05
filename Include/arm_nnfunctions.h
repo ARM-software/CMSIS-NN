@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        19 Aug 2024
- * $Revision:    V.16.3.0
+ * $Date:        5 Sep 2024
+ * $Revision:    V.17.0.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1691,6 +1691,7 @@ arm_cmsis_nn_status arm_fully_connected_wrapper_s8(const cmsis_nn_context *ctx,
  * @param[in]           vector_rows                 Number of vector rows
  * @param[in]           vector_data                 Vector of weigths data
  * @param[in]           lhs_offset                  Constant multiplied with each sum
+ * @param[in]           rhs_offset                  Constant added to each vector element before sum
  * @param[in]           bias_data                   Vector of bias data, added to each sum.
  * @return              The function returns
  *                         <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
@@ -1700,6 +1701,7 @@ arm_cmsis_nn_status arm_vector_sum_s8(int32_t *vector_sum_buf,
                                       const int32_t vector_rows,
                                       const int8_t *vector_data,
                                       const int32_t lhs_offset,
+                                      const int32_t rhs_offset,
                                       const int32_t *bias_data);
 
 /**

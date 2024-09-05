@@ -19,7 +19,6 @@
 #include "arm_nnfunctions.h"
 #include "unity.h"
 
-#include "../TestData/ds_cnn_s/layer_12_fully_connected_kernel_sums_data.h"
 #include "../TestData/ds_cnn_s/test_data.h"
 #include "../Utils/validate.h"
 
@@ -101,6 +100,10 @@ int ds_cnn_s_s8_get_buffer_size(void)
 
     max_buffer = size > max_buffer ? size : max_buffer;
 
+    // Layer 12 - Fully connected
+    size = FULLY_CONNECTED_12_OUTPUT_W * sizeof(int32_t);
+    max_buffer = size > max_buffer ? size : max_buffer;
+
     return max_buffer;
 }
 
@@ -109,7 +112,6 @@ void ds_cnn_s_s8_inference(void)
     /* Test for a complete int8 DS_CNN_S keyword spotting network from https://github.com/ARM-software/ML-zoo &
      * Tag: 22.02 */
     cmsis_nn_context ctx;
-    cmsis_nn_context ctx_kernel_sum;
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
 
     ctx.size = ds_cnn_s_s8_get_buffer_size();
@@ -414,12 +416,16 @@ void ds_cnn_s_s8_inference(void)
     bias_dims.c = in_out_dim_1.c;
 
 #if defined(ARM_MATH_MVEI)
-    ctx_kernel_sum.buf = ds_cnn_s_layer_12_fully_connected_kernel_sums;
-#else
-    ctx_kernel_sum = ctx;
+    arm_vector_sum_s8(ctx.buf,
+                      conv_filter_dims.n,
+                      in_out_dim_1.c,
+                      ds_cnn_s_layer_12_fully_connected_weights,
+                      fc_params.input_offset,
+                      0,
+                      ds_cnn_s_layer_12_fully_connected_bias);
 #endif
 
-    status |= arm_fully_connected_s8(&ctx_kernel_sum,
+    status |= arm_fully_connected_s8(&ctx,
                                      &fc_params,
                                      &per_tensor_quant_params,
                                      &in_out_dim_0,

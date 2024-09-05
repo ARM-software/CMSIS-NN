@@ -56,24 +56,28 @@ void lstm_1(void)
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_input_gate_input_weights[0],
                       LSTM_1_INPUT_ZERO_POINT,
+                      0,
                       &lstm_1_input_gate_bias[0]);
     arm_vector_sum_s8(&forget_data_kernel_sum[0],
                       LSTM_1_INPUT_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_forget_gate_input_weights[0],
                       LSTM_1_INPUT_ZERO_POINT,
+                      0,
                       &lstm_1_forget_gate_bias[0]);
     arm_vector_sum_s8(&cell_data_kernel_sum[0],
                       LSTM_1_INPUT_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_cell_gate_input_weights[0],
                       LSTM_1_INPUT_ZERO_POINT,
+                      0,
                       &lstm_1_cell_gate_bias[0]);
     arm_vector_sum_s8(&output_data_kernel_sum[0],
                       LSTM_1_INPUT_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_output_gate_input_weights[0],
                       LSTM_1_INPUT_ZERO_POINT,
+                      0,
                       &lstm_1_output_gate_bias[0]);
 
     arm_vector_sum_s8(&input_hidden_kernel_sum[0],
@@ -81,24 +85,28 @@ void lstm_1(void)
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_input_gate_hidden_weights[0],
                       -LSTM_1_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&forget_hidden_kernel_sum[0],
                       LSTM_1_HIDDEN_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_forget_gate_hidden_weights[0],
                       -LSTM_1_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&cell_hidden_kernel_sum[0],
                       LSTM_1_HIDDEN_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_cell_gate_hidden_weights[0],
                       -LSTM_1_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&output_hidden_kernel_sum[0],
                       LSTM_1_HIDDEN_SIZE,
                       LSTM_1_HIDDEN_SIZE,
                       &lstm_1_output_gate_hidden_weights[0],
                       -LSTM_1_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
 
     // INPUT GATE
@@ -202,24 +210,28 @@ void lstm_2(void)
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_input_gate_input_weights[0],
                       LSTM_2_INPUT_ZERO_POINT,
+                      0,
                       &lstm_2_input_gate_bias[0]);
     arm_vector_sum_s8(&forget_data_kernel_sum[0],
                       LSTM_2_INPUT_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_forget_gate_input_weights[0],
                       LSTM_2_INPUT_ZERO_POINT,
+                      0,
                       &lstm_2_forget_gate_bias[0]);
     arm_vector_sum_s8(&cell_data_kernel_sum[0],
                       LSTM_2_INPUT_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_cell_gate_input_weights[0],
                       LSTM_2_INPUT_ZERO_POINT,
+                      0,
                       &lstm_2_cell_gate_bias[0]);
     arm_vector_sum_s8(&output_data_kernel_sum[0],
                       LSTM_2_INPUT_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_output_gate_input_weights[0],
                       LSTM_2_INPUT_ZERO_POINT,
+                      0,
                       &lstm_2_output_gate_bias[0]);
 
     arm_vector_sum_s8(&input_hidden_kernel_sum[0],
@@ -227,24 +239,28 @@ void lstm_2(void)
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_input_gate_hidden_weights[0],
                       -LSTM_2_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&forget_hidden_kernel_sum[0],
                       LSTM_2_HIDDEN_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_forget_gate_hidden_weights[0],
                       -LSTM_2_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&cell_hidden_kernel_sum[0],
                       LSTM_2_HIDDEN_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_cell_gate_hidden_weights[0],
                       -LSTM_2_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&output_hidden_kernel_sum[0],
                       LSTM_2_HIDDEN_SIZE,
                       LSTM_2_HIDDEN_SIZE,
                       &lstm_2_output_gate_hidden_weights[0],
                       -LSTM_2_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
 
     // INPUT GATE
@@ -349,24 +365,28 @@ void lstm_one_time_step(void)
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_input_gate_input_weights[0],
                       LSTM_ONE_TIME_STEP_INPUT_ZERO_POINT,
+                      0,
                       &lstm_one_time_step_input_gate_bias[0]);
     arm_vector_sum_s8(&forget_data_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_INPUT_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_forget_gate_input_weights[0],
                       LSTM_ONE_TIME_STEP_INPUT_ZERO_POINT,
+                      0,
                       &lstm_one_time_step_forget_gate_bias[0]);
     arm_vector_sum_s8(&cell_data_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_INPUT_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_cell_gate_input_weights[0],
                       LSTM_ONE_TIME_STEP_INPUT_ZERO_POINT,
+                      0,
                       &lstm_one_time_step_cell_gate_bias[0]);
     arm_vector_sum_s8(&output_data_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_INPUT_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_output_gate_input_weights[0],
                       LSTM_ONE_TIME_STEP_INPUT_ZERO_POINT,
+                      0,
                       &lstm_one_time_step_output_gate_bias[0]);
 
     arm_vector_sum_s8(&input_hidden_kernel_sum[0],
@@ -374,24 +394,28 @@ void lstm_one_time_step(void)
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_input_gate_hidden_weights[0],
                       -LSTM_ONE_TIME_STEP_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&forget_hidden_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_forget_gate_hidden_weights[0],
                       -LSTM_ONE_TIME_STEP_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&cell_hidden_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_cell_gate_hidden_weights[0],
                       -LSTM_ONE_TIME_STEP_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
     arm_vector_sum_s8(&output_hidden_kernel_sum[0],
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       LSTM_ONE_TIME_STEP_HIDDEN_SIZE,
                       &lstm_one_time_step_output_gate_hidden_weights[0],
                       -LSTM_ONE_TIME_STEP_OUTPUT_ZERO_POINT,
+                      0,
                       NULL);
 
     // INPUT GATE
