@@ -20,6 +20,7 @@ import Lib.op_conv
 import Lib.op_batch_matmul
 import Lib.op_fully_connected
 import Lib.op_pooling
+import Lib.op_maximum_minimum
 import tensorflow as tf
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
@@ -183,8 +184,10 @@ def get_op_type(op_type_string):
         return Lib.op_batch_matmul.Op_batch_matmul
     elif op_type_string == "fully_connected":
         return Lib.op_fully_connected.Op_fully_connected
-    if op_type_string == "avgpool" or op_type_string == "maxpool":
+    elif op_type_string == "avgpool" or op_type_string == "maxpool":
         return Lib.op_pooling.Op_pooling
+    elif op_type_string == "maximum_minimum":
+        return Lib.op_maximum_minimum.Op_maximum_minimum
     else:
         raise ValueError(f"Unknown op type '{op_type_string}'")
 

@@ -32,6 +32,8 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
 | Batch Matmul    | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
 | Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
+| Minimum         | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
+| Maximum         | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
 | Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
 | AvgPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
