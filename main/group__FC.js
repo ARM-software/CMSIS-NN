@@ -8,6 +8,6 @@ var group__FC =
     [ "arm_fully_connected_s4", "group__FC.html#gac12aea0ed93e4c513da62993b010d9b8", null ],
     [ "arm_fully_connected_s8", "group__FC.html#ga3d99c95dccc77351666b4a9baae564bd", null ],
     [ "arm_fully_connected_wrapper_s8", "group__FC.html#ga3f45f136732555a4c71f8e7d5334f1fe", null ],
-    [ "arm_vector_sum_s8", "group__FC.html#ga61c355b529a2113ecfd4dcea03d8c018", null ],
+    [ "arm_vector_sum_s8", "group__FC.html#ga16b16cfbb1b33fb258929988f898a2d0", null ],
     [ "arm_vector_sum_s8_s64", "group__FC.html#gada3d49fb970fd7754c81b353e1573609", null ]
 ];

@@ -163,9 +163,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3f45f136732555a4c71f8e7d5334f1fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga3f45f136732555a4c71f8e7d5334f1fe">arm_fully_connected_wrapper_s8</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params">cmsis_nn_fc_params</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__quant__params">cmsis_nn_quant_params</a> *quant_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const int8_t *input_data, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const int8_t *filter_data, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const int32_t *bias_data, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, int8_t *output_data)</td></tr>
 <tr class="memdesc:ga3f45f136732555a4c71f8e7d5334f1fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">s8 Fully Connected layer wrapper function  <br /></td></tr>
 <tr class="separator:ga3f45f136732555a4c71f8e7d5334f1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61c355b529a2113ecfd4dcea03d8c018"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga61c355b529a2113ecfd4dcea03d8c018">arm_vector_sum_s8</a> (int32_t *vector_sum_buf, const int32_t vector_cols, const int32_t vector_rows, const int8_t *vector_data, const int32_t lhs_offset, const int32_t *bias_data)</td></tr>
-<tr class="memdesc:ga61c355b529a2113ecfd4dcea03d8c018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s32 bias_data.  <br /></td></tr>
-<tr class="separator:ga61c355b529a2113ecfd4dcea03d8c018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16b16cfbb1b33fb258929988f898a2d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga16b16cfbb1b33fb258929988f898a2d0">arm_vector_sum_s8</a> (int32_t *vector_sum_buf, const int32_t vector_cols, const int32_t vector_rows, const int8_t *vector_data, const int32_t lhs_offset, const int32_t rhs_offset, const int32_t *bias_data)</td></tr>
+<tr class="memdesc:ga16b16cfbb1b33fb258929988f898a2d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s32 bias_data.  <br /></td></tr>
+<tr class="separator:ga16b16cfbb1b33fb258929988f898a2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada3d49fb970fd7754c81b353e1573609"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gada3d49fb970fd7754c81b353e1573609">arm_vector_sum_s8_s64</a> (int64_t *vector_sum_buf, const int32_t vector_cols, const int32_t vector_rows, const int8_t *vector_data, const int32_t lhs_offset, const int64_t *bias_data)</td></tr>
 <tr class="memdesc:gada3d49fb970fd7754c81b353e1573609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of each row in vector_data, multiply by lhs_offset and optionally add s64 bias_data.  <br /></td></tr>
 <tr class="separator:gada3d49fb970fd7754c81b353e1573609"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -876,8 +876,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga61c355b529a2113ecfd4dcea03d8c018" name="ga61c355b529a2113ecfd4dcea03d8c018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga61c355b529a2113ecfd4dcea03d8c018">&#9670;&#160;</a></span>arm_vector_sum_s8()</h2>
+<a id="ga16b16cfbb1b33fb258929988f898a2d0" name="ga16b16cfbb1b33fb258929988f898a2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga16b16cfbb1b33fb258929988f898a2d0">&#9670;&#160;</a></span>arm_vector_sum_s8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -915,6 +915,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int32_t *&#160;</td>
           <td class="paramname"><em>bias_data</em>&#160;</td>
         </tr>
@@ -934,6 +940,7 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">vector_rows</td><td>Number of vector rows </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">vector_data</td><td>Vector of weigths data </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Constant multiplied with each sum </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_offset</td><td>Constant added to each vector element before sum </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bias_data</td><td>Vector of bias data, added to each sum. </td></tr>
   </table>
   </dd>
