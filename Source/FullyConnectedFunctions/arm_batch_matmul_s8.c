@@ -21,8 +21,8 @@
  * Title:        arm_nn_batch_matmul_s8.c
  * Description:  Batch matrix multiplication. Does not perform transposes, see header file for details.
  *
- * $Date:        19 June 2024
- * $Revision:    V.1.0.0
+ * $Date:        5 Sep 2024
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -81,7 +81,13 @@ arm_cmsis_nn_status arm_batch_matmul_s8(const cmsis_nn_context *ctx,
         {
 
 #if defined(ARM_MATH_MVEI)
-            arm_vector_sum_s8(vector_sum_buf, rhs_cols, rhs_rows, input_rhs, 1, NULL);
+            arm_vector_sum_s8(vector_sum_buf,
+                              rhs_cols,
+                              rhs_rows,
+                              input_rhs,
+                              bmm_params->fc_params.input_offset,
+                              bmm_params->fc_params.filter_offset,
+                              NULL);
 #endif
             for (int i_lhs_rows = 0; i_lhs_rows < lhs_rows; i_lhs_rows++)
             {

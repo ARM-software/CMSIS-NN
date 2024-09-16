@@ -72,7 +72,14 @@ void fully_connected_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -140,7 +147,14 @@ void fully_connected_w_zp_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -203,7 +217,14 @@ void fully_connected_mve_0_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -265,7 +286,14 @@ void fully_connected_mve_1_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -338,7 +366,14 @@ void fully_connected_null_bias_0_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -400,7 +435,14 @@ void fully_connected_out_activation_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    TEST_ASSERT_EQUAL(expected,
+                      arm_vector_sum_s8(buf,
+                                        filter_dims.n,
+                                        output_dims.c,
+                                        kernel_data,
+                                        fc_params.input_offset,
+                                        fc_params.filter_offset,
+                                        bias_data));
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_s8(&ctx,
@@ -467,7 +509,8 @@ void fc_per_ch_arm_fully_connected_s8(void)
 
 #if defined(ARM_MATH_MVEI)
     int32_t *buf = ctx.buf;
-    TEST_ASSERT_EQUAL(expected, arm_vector_sum_s8(buf, filter_dims.n, output_dims.c, kernel_data, 1, NULL));
+    arm_vector_sum_s8(
+        buf, filter_dims.n, output_dims.c, kernel_data, fc_params.input_offset, fc_params.filter_offset, bias_data);
 #endif
 
     arm_cmsis_nn_status result = arm_fully_connected_per_channel_s8(&ctx,
