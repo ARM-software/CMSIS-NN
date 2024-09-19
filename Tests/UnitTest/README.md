@@ -23,7 +23,7 @@ If in a virtual environment just start by upgrading pip.
 pip install --upgrade pip
 ```
 
-After upgrading pip, the requirements file found in Tests/UnitTests can be installed. This contains all 
+After upgrading pip, the requirements file found in Tests/UnitTests can be installed. This contains all
 python modules required to run all of the scripts. This will install tensorflow and keras to allow the use of
 the generate_test_data.py script. If you have version specific requirements, it is reccomended to install this
 requirements.txt in a virtual environment.
@@ -74,11 +74,11 @@ The easiest way to run the unit tests on Corstone-300 is to use the build_and_ru
 
 Sample usage:
 ```
-./build_and_run_tests.sh -c cortex-m3,cortex-m7,cortex-m55 -o '-Ofast' 
+./build_and_run_tests.sh -c cortex-m3,cortex-m7,cortex-m55 -o '-Ofast'
 ```
 By default the script will download and target gcc. To use arm compiler ensure that arm compilers folder is located in path, export CC and use the -a option on the script.
 
-Downloaded dependencies including python venv can be found in Tests/UnitTests/downloads. Test elfs can be found in Tests/UnitTests/build-($cpu) directories. 
+Downloaded dependencies including python venv can be found in Tests/UnitTests/downloads. Test elfs can be found in Tests/UnitTests/build-($cpu) directories.
 
 Otherwise, you can build it manually:
 
@@ -150,6 +150,7 @@ Operator bit-exactness compability:
 | add             |   x             |  x        |
 | mul             |   x             |  x        |
 | batch matmul    |   x             |  x        |
+| pad             |   x             |  x        |
 
 ### Refactoring of generate_test_data.py
 Test data generation is in progress of incrementally moving over to the cleaned up scripts placed in `RefactoredTestGen`.
@@ -176,6 +177,7 @@ Current progress:
 | add             |  x   |     |
 | mul             |  x   |     |
 | batch matmul    |      |  x  |
+| pad             |      |  x  |
 
 
 ## Overview of the Folders

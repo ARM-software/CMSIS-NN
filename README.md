@@ -38,6 +38,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | Softmax         | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | No           | N/A          |
 | LSTM            | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
 | SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
+| Pad             | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 
 * int4 weights + int8 activations
 
@@ -89,7 +90,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain
 ```
 
 ### Compiler Options
-Default optimization level is set at Ofast. This can be overwritten with CMake on command line by using <nobr>*"-DCMSIS_OPTIMIZATION_LEVEL"*</nobr>. Please change according to project needs. 
+Default optimization level is set at Ofast. This can be overwritten with CMake on command line by using <nobr>*"-DCMSIS_OPTIMIZATION_LEVEL"*</nobr>. Please change according to project needs.
 Just bear in mind this can impact performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium
 Technology.
 

@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        5 Sep 2024
- * $Revision:    V.17.0.0
+ * $Date:        19 Sep 2024
+ * $Revision:    V.17.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -2780,6 +2780,30 @@ arm_cmsis_nn_status arm_batch_matmul_s16(const cmsis_nn_context *ctx,
                                          const cmsis_nn_dims *output_dims,
                                          int16_t *output);
 
+/**
+ * @defgroup Pad Pad Layer Functions:
+ *
+ */
+
+/**
+ * @brief Expands the size of the input by adding constant values before and after the data, in all dimensions.
+ *
+ * @param[in]   input                      Pointer to input data
+ * @param[out]  output                     Pointer to output data
+ * @param[in]   pad_value                  Value to pad with
+ * @param[in]   input_size                 Input tensor dimensions
+ * @param[in]   pre_pad                           Padding to apply before data in each dimension
+ * @param[in]        post_pad                   Padding to apply after data in each dimension
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ */
+arm_cmsis_nn_status arm_pad_s8(const int8_t *input,
+                               int8_t *output,
+                               const int8_t pad_value,
+                               const cmsis_nn_dims *input_size,
+                               const cmsis_nn_dims *pre_pad,
+                               const cmsis_nn_dims *post_pad);
 #ifdef __cplusplus
 }
 #endif

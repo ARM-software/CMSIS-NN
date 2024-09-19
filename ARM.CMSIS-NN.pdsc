@@ -147,6 +147,7 @@
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_u8.c"/>
+        <file category="source" name="Source/PadFunctions/arm_pad_s8.c"/>
       </files>
     </component>
   </components>
