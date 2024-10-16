@@ -44,25 +44,18 @@ static arm_cmsis_nn_status
 arm_min_no_broadcast_s8(const int8_t *input_1, const int8_t *input_2, int8_t *output, int32_t flat_size)
 {
 #if defined(ARM_MATH_MVEI)
-    while (flat_size >= 16)
-    {
-        int8x16_t vec1 = vldrbq_s8(input_1);
-        input_1 += 16;
-        int8x16_t vec2 = vldrbq_s8(input_2);
-        input_2 += 16;
-
-        vstrbq_s8(output, vminq_s8(vec1, vec2));
-        output += 16;
-        flat_size -= 16;
-    }
-    if (flat_size)
+    while (flat_size > 0)
     {
         mve_pred16_t p = vctp8q(flat_size);
 
         int8x16_t vec1 = vldrbq_z_s8(input_1, p);
+        input_1 += 16;
         int8x16_t vec2 = vldrbq_z_s8(input_2, p);
+        input_2 += 16;
 
         vstrbq_p_s8(output, vminq_s8(vec1, vec2), p);
+        output += 16;
+        flat_size -= 16;
     }
 #else
     while (flat_size > 0)
@@ -82,22 +75,17 @@ arm_min_scalar_s8(const int8_t *input_1, const int8_t *input_2, int8_t *output, 
 {
 #if defined(ARM_MATH_MVEI)
     int8x16_t scalar_vec = vdupq_n_s8(*input_1);
-    while (flat_size >= 16)
-    {
-        int8x16_t vec = vldrbq_s8(input_2);
-        input_2 += 16;
 
-        vstrbq_s8(output, vminq_s8(scalar_vec, vec));
-        output += 16;
-        flat_size -= 16;
-    }
-    if (flat_size)
+    while (flat_size > 0)
     {
         mve_pred16_t p = vctp8q(flat_size);
 
         int8x16_t vec = vldrbq_z_s8(input_2, p);
+        input_2 += 16;
 
         vstrbq_p_s8(output, vminq_s8(scalar_vec, vec), p);
+        output += 16;
+        flat_size -= 16;
     }
 #else
     int8_t in1 = *input_1;
