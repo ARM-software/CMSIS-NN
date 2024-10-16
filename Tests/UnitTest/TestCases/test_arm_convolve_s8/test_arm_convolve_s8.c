@@ -93,6 +93,7 @@ void basic_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -188,6 +189,7 @@ void stride2pad1_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -282,6 +284,7 @@ void conv_2_arm_convolve_s8(void)
                                                  conv_2_weights,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -376,6 +379,7 @@ void conv_3_arm_convolve_s8(void)
                                                  conv_3_weights,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -470,6 +474,7 @@ void conv_4_arm_convolve_s8(void)
                                                  conv_4_weights,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -630,6 +635,7 @@ void conv_2x2_dilation_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -723,6 +729,7 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
     if (ctx.buf)
@@ -815,6 +822,7 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
     if (ctx.buf)
@@ -907,6 +915,7 @@ void conv_2x3_dilation_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
     if (ctx.buf)
@@ -999,6 +1008,7 @@ void conv_3x2_dilation_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
     if (ctx.buf)
@@ -1091,6 +1101,7 @@ void conv_dilation_golden_arm_convolve_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
     if (ctx.buf)
@@ -1184,6 +1195,7 @@ void conv_5_arm_convolve_s8(void)
                                                  conv_5_weights,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 

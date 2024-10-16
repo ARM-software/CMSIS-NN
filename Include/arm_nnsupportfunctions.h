@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        08 November 2024
- * $Revision:    V.22.6.1
+ * $Date:        08 Nov 2024
+ * $Revision:    V.22.7.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -71,6 +71,10 @@ extern "C" {
 // For input of int16 when number of columns are above this limit int64 accumulation is needed
 // to not loose precision.
 #define MAX_COL_COUNT (512)
+
+// CMSIS-NN has two implementations of the transpose conv operator, selected depending on the number of input
+// channels. This is based on heuristics and may be finetuned depending on other parameters of the operator
+#define REVERSE_TCOL_EFFICIENT_THRESHOLD (16)
 
 // Threshold for number of output channels that decide whether to convert a depthwise conv to a
 // regular conv operation when number of input channels is one.
@@ -1013,6 +1017,47 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
                                         const uint16_t row_x_col,
                                         const int64_t *const output_bias,
                                         int16_t *out);
+
+/**
+ * @brief Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer.
+ * Helpfunction for transposed convolution.
+ *
+ * @param[in]      lhs             Input left-hand side scalars
+ * @param[in]      rhs             Input right-hand side matrix
+ * @param[out]     output_start    Output buffer start
+ * @param[in]      output_index    Output buffer current index
+ * @param[in]      output_max      Output buffer size
+ * @param[in]      rhs_rows        Number of rows in rhs matrix
+ * @param[in]      rhs_cols        Number of columns in rhs matrix
+ * @param[in]      input_channels  Number of input channels
+ * @param[in]      output_channels Number of output channels
+ * @param[in]      lhs_offset      Offset added to lhs before multiplication
+ * @param[in]      row_offset      Address offset between each row of data output
+ * @param[in]      input_x         Length of lhs scalar row.
+ * @param[in]      stride_x        Address offset between each scalar-matrix multiplication result.
+ * @param[in]      skip_row_top    Skip rows on top of the filter, used for padding.
+ * @param[in]      skip_row_bottom Skip rows in the bottom of the filter, used for padding.
+ *
+ * @return         The function returns ARM_CMSIS_NN_SUCCESS
+ *
+ * @note           Rolling buffer refers to how the function wraps around the scratch buffer, e.g. it starts writing at
+ * [output_start + output_index], writes to [output_start + output_max] and then continues at [output_start] again.
+ */
+arm_cmsis_nn_status arm_nn_transpose_conv_row_s8_s32(const int8_t *lhs,
+                                                     const int8_t *rhs,
+                                                     int32_t *output_start,
+                                                     const int32_t output_index,
+                                                     const int32_t output_max,
+                                                     const int32_t rhs_rows,
+                                                     const int32_t rhs_cols,
+                                                     const int32_t input_channels,
+                                                     const int32_t output_channels,
+                                                     const int32_t lhs_offset,
+                                                     const int32_t row_offset,
+                                                     const int32_t input_x,
+                                                     const int32_t stride_x,
+                                                     const int32_t skip_row_top,
+                                                     const int32_t skip_row_bottom);
 
 /**
   @brief         Read 2 s16 elements and post increment pointer.
