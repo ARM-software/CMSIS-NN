@@ -59,7 +59,8 @@ args:
 while getopts hc:o:qbreapfu:gC: flag
 do
     case "${flag}" in
-        h) echo "${usage}";;
+        h) echo "${usage}"
+           exit 1;;
         c) CPU=${OPTARG};;
         o) OPTIMIZATION=${OPTARG};;
         q) QUIET=1;;
