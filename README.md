@@ -41,6 +41,7 @@ Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 | LSTM            | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
 | SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
 | Pad             | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
+| Transpose       | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
 
 * int4 weights + int8 activations
 

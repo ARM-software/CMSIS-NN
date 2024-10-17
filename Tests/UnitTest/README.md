@@ -153,6 +153,7 @@ Operator bit-exactness compability:
 | pad             |   x             |  x        |
 | minimum         |   x             |  x        |
 | maximum         |   x             |  x        |
+| transpose       |   x             |  x        |
 
 ### Refactoring of generate_test_data.py
 Test data generation is in progress of incrementally moving over to the cleaned up scripts placed in `RefactoredTestGen`.
@@ -182,7 +183,7 @@ Current progress:
 | pad             |      |  x  |
 | minimum         |      |  x  |
 | maximum         |      |  x  |
-
+| transpose       |      |  x  |
 
 ## Overview of the Folders
 

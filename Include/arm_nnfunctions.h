@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        17 October 2024
- * $Revision:    V.17.2.0
+ * $Date:        23 October 2024
+ * $Revision:    V.17.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -2334,6 +2334,34 @@ void arm_softmax_u8(const uint8_t *input,
  *
  */
 void arm_reshape_s8(const int8_t *input, int8_t *output, const uint32_t total_size);
+
+/**
+ * @defgroup Transpose Transpose Functions
+ *
+ */
+
+/**
+ * @brief Basic transpose function
+ *
+ * @param[in]       input_data            Input (activation) data pointer. Data type: int8
+ * @param[out]      output_data           Output data pointer. Data type: int8
+ * @param[in]       input_dims            Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
+ * @param[in]       output_dims           Output tensor dimensions. Format may be arbitrary relative to input format.
+ *                                        The output dimension will depend on the permutation dimensions.
+ *                                        In other words the out dimensions are the result of applying the permutation
+ *                                        to the input dimensions.
+ * @param[in]       transpose_params      Transpose parameters. Contains permutation dimensions.
+ *
+ * @return          The function returns either
+ *                      <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail. or,
+ *                      <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ */
+arm_cmsis_nn_status arm_transpose_s8(const int8_t *input_data,
+                                     int8_t *const output_data,
+                                     const cmsis_nn_dims *const input_dims,
+                                     const cmsis_nn_dims *const output_dims,
+                                     const cmsis_nn_transpose_params *const transpose_params);
 
 /**
  * @defgroup Concatenation Concatenation Functions

@@ -1191,6 +1191,56 @@
     ]
 },
 {
+    "suite_name" : "test_arm_transpose_s8",
+    "op_type" : "transpose",
+    "input_data_type": "int8_t",
+    "bias_data_type": "int32_t",
+    "interpreter": "tensorflow",
+    "tflite_generator": "keras",
+    "tests" : [
+        {"name" : "transpose_default",
+           "in_dim" : [4, 3, 3, 2],
+         "perm" : [3, 2, 1, 0]
+        },
+        {"name" : "transpose_nhcw",
+         "in_dim" : [1, 1, 128, 128],
+         "perm" : [0, 1, 3, 2]
+        },
+        {"name" : "transpose_wchn",
+           "in_dim" : [4, 3, 3, 2],
+         "perm" : [2, 3, 1, 0]
+        },
+        {"name" : "transpose_nchw",
+           "in_dim" : [4, 3, 3, 2],
+         "perm" : [0, 3, 1, 2]
+        },
+        {"name" : "transpose_chwn",
+           "in_dim" : [5, 4, 3, 2],
+         "perm" : [3, 1, 2, 0]
+        },
+        {"name" : "transpose_matrix",
+           "in_dim" : [5, 4],
+         "perm" : [1, 0]
+        },
+        {"name" : "transpose_3dim",
+         "in_dim" : [5, 4, 3],
+         "perm" : [0, 2, 1]
+        },
+        {"name" : "transpose_3dim2",
+         "in_dim" : [5, 4, 3],
+         "perm" : [1, 2, 0]
+        },
+        {"name" : "transpose_ncwh",
+           "in_dim" : [5, 4, 3, 9],
+         "perm" : [0, 3, 2, 1]
+        },
+         {"name" : "transpose_nwhc",
+           "in_dim" : [1, 19, 3, 64],
+         "perm" : [0, 2, 1, 3]
+        }
+    ]
+},
+{
     "suite_name" : "test_arm_minimum_s8",
     "op_type" : "maximum_minimum",
     "layer_type": "minimum",

@@ -22,6 +22,7 @@ import Lib.op_fully_connected
 import Lib.op_pooling
 import Lib.op_pad
 import Lib.op_maximum_minimum
+import Lib.op_transpose
 import tensorflow as tf
 import numpy as np
 from tensorflow.lite.python.interpreter import Interpreter
@@ -191,6 +192,8 @@ def get_op_type(op_type_string):
         return Lib.op_pad.Op_pad
     elif op_type_string == "maximum_minimum":
         return Lib.op_maximum_minimum.Op_maximum_minimum
+    elif op_type_string == "transpose":
+        return Lib.op_transpose.Op_transpose
     else:
         raise ValueError(f"Unknown op type '{op_type_string}'")
 
@@ -282,11 +285,18 @@ def invoke_tflite_micro(tflite_path, input_tensor, arena_size=30000):
 
 
 def write_config(config_fpath, params, prefix, test_data_fpath, header):
+    config_fpath.parent.mkdir(parents=True, exist_ok=True)
     with config_fpath.open("w+") as f:
         f.write(header)
-        f.write("#pragma once\n")
+        f.write("#pragma once\n\n")
 
         for key, val in params.items():
+            if isinstance(val, list):
+                f.write("#define " + f"{prefix}_{key} ".upper() + "{")
+                for v in val:
+                    f.write(f"{v}, ")
+                f.write("}\n")
+                continue
             if isinstance(val, bool):
                 if val:
                     val = "true"
@@ -294,8 +304,10 @@ def write_config(config_fpath, params, prefix, test_data_fpath, header):
                     val = "false"
 
             f.write("#define " + f"{prefix}_{key} ".upper() + f"{val}\n")
+    format_output_file(config_fpath)
 
     with test_data_fpath.open("w") as f:
+        f.write(header)
         f.write(f'#include "{config_fpath.name}"\n')
 
 
