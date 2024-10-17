@@ -151,6 +151,8 @@ Operator bit-exactness compability:
 | mul             |   x             |  x        |
 | batch matmul    |   x             |  x        |
 | pad             |   x             |  x        |
+| minimum         |   x             |  x        |
+| maximum         |   x             |  x        |
 
 ### Refactoring of generate_test_data.py
 Test data generation is in progress of incrementally moving over to the cleaned up scripts placed in `RefactoredTestGen`.
@@ -178,6 +180,8 @@ Current progress:
 | mul             |  x   |     |
 | batch matmul    |      |  x  |
 | pad             |      |  x  |
+| minimum         |      |  x  |
+| maximum         |      |  x  |
 
 
 ## Overview of the Folders

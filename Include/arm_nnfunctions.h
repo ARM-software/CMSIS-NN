@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        19 Sep 2024
- * $Revision:    V.17.1.0
+ * $Date:        17 October 2024
+ * $Revision:    V.17.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -2804,6 +2804,59 @@ arm_cmsis_nn_status arm_pad_s8(const int8_t *input,
                                const cmsis_nn_dims *input_size,
                                const cmsis_nn_dims *pre_pad,
                                const cmsis_nn_dims *post_pad);
+
+/**
+ * @brief Elementwise binary minimum with 8bit data.
+ *
+ * @param[in]   ctx                   Temporary scratch buffer
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
+ * @param[in]   input_1_data          Pointer to input1 tensor
+ * @param[in]   input_1_dims          Input1 tensor dimensions
+ * @param[in]   input_2_data          Pointer to input2 tensor
+ * @param[in]   input_2_dims          Input2 tensor dimensions
+ * @param[out]  output_data           Pointer to the output tensor
+ * @param[in]   output_dims           Output tensor dimensions
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ * @details
+ *    1. Supported framework: TensorFlow Lite Micro
+ *
+ */
+arm_cmsis_nn_status arm_minimum_s8(const cmsis_nn_context *ctx,
+                                   const int8_t *input_1_data,
+                                   const cmsis_nn_dims *input_1_dims,
+                                   const int8_t *input_2_data,
+                                   const cmsis_nn_dims *input_2_dims,
+                                   int8_t *output_data,
+                                   const cmsis_nn_dims *output_dims);
+
+/**
+ * @brief Elementwise binary maximum with 8bit data.
+ *
+ * @param[in]   ctx                   Temporary scratch buffer
+ *                                    The caller is expected to clear the buffer, if applicable, for security reasons.
+ * @param[in]   input_1_data          Pointer to input1 tensor
+ * @param[in]   input_1_dims          Input1 tensor dimensions
+ * @param[in]   input_2_data          Pointer to input2 tensor
+ * @param[in]   input_2_dims          Input2 tensor dimensions
+ * @param[out]  output_data           Pointer to the output tensor
+ * @param[in]   output_dims           Output tensor dimensions
+ *
+ * @return     The function returns <code>ARM_CMSIS_NN_SUCCESS</code>
+ *
+ * @details
+ *    1. Supported framework: TensorFlow Lite Micro
+ *
+ */
+arm_cmsis_nn_status arm_maximum_s8(const cmsis_nn_context *ctx,
+                                   const int8_t *input_1_data,
+                                   const cmsis_nn_dims *input_1_dims,
+                                   const int8_t *input_2_data,
+                                   const cmsis_nn_dims *input_2_dims,
+                                   int8_t *output_data,
+                                   const cmsis_nn_dims *output_dims);
+
 #ifdef __cplusplus
 }
 #endif

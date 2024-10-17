@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        12 Jul 2024
- * $Revision:    V.22.3.0
+ * $Date:        08 October 2024
+ * $Revision:    V.22.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -2072,6 +2072,26 @@ arm_cmsis_nn_status arm_elementwise_mul_acc_s16(const int16_t *input_1_vect,
                                                 const int32_t out_activation_min,
                                                 const int32_t out_activation_max,
                                                 const int32_t block_size);
+
+/**
+ * @brief Check if a broadcast is required between 2 cmsis_nn_dims.
+ * @param[in]       shape_1             pointer to input tensor 1
+ * @param[in]       shape_2             pointer to input tensor 2
+ * @return          The function returns 1 if a broadcast is required, or 0 if not.
+ *
+ * @details   Compares each dimension and returns 1 if any dimension does not match.
+ *            This function does not check that broadcast rules are met.
+ */
+__STATIC_FORCEINLINE int32_t arm_check_broadcast_required(const cmsis_nn_dims *shape_1, const cmsis_nn_dims *shape_2)
+{
+    if ((shape_1->n != shape_2->n) || (shape_1->h != shape_2->h) || (shape_1->w != shape_2->w) ||
+        (shape_1->c != shape_2->c))
+    {
+        return 1;
+    }
+
+    return 0;
+}
 
 #ifdef __cplusplus
 }
