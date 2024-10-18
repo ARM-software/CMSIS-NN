@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__genPubTypes.html#structcmsis__nn__pool__params":[3,0,0,12],
+"group__genPubTypes.html#structcmsis__nn__quant__params":[3,0,0,7],
 "group__genPubTypes.html#structcmsis__nn__scaling":[3,0,0,17],
 "group__genPubTypes.html#structcmsis__nn__softmax__lut__s16":[3,0,0,16],
 "group__genPubTypes.html#structcmsis__nn__svdf__params":[3,0,0,15],

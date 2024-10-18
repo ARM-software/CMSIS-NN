@@ -8,6 +8,7 @@ var group__Public =
     [ "Convolution Functions", "group__NNConv.html", "group__NNConv" ],
     [ "Fully-connected Layer Functions", "group__FC.html", "group__FC" ],
     [ "LSTM Layer Functions", "group__LSTM.html", "group__LSTM" ],
+    [ "Pad Layer Functions:", "group__Pad.html", "group__Pad" ],
     [ "Pooling Functions", "group__Pooling.html", "group__Pooling" ],
     [ "Reshape Functions", "group__Reshape.html", "group__Reshape" ],
     [ "Softmax Functions", "group__Softmax.html", "group__Softmax" ],
