@@ -109,6 +109,7 @@ add_subdirectory(TestCases/test_arm_transpose_conv_s8)
 add_subdirectory(TestCases/test_arm_lstm_unidirectional_s16)
 add_subdirectory(TestCases/test_arm_batch_matmul_s8)
 add_subdirectory(TestCases/test_arm_batch_matmul_s16)
+add_subdirectory(TestCases/test_arm_pad_s8)
 
 set(MAKE_CMD "python3")
 set(MAKE_CMD_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/unittest_targets.py")
