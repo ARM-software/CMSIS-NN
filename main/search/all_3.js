@@ -30,7 +30,8 @@ var searchData=
   ['cmsis_5fnn_5fsvdf_5fparams_27',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
   ['cmsis_5fnn_5ftile_28',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
   ['cmsis_5fnn_5ftranspose_5fconv_5fparams_29',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]],
-  ['concatenation_20functions_30',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
-  ['convolution_31',['Convolution',['../group__supportConvolution.html',1,'']]],
-  ['convolution_20functions_32',['Convolution Functions',['../group__NNConv.html',1,'']]]
+  ['cmsis_5fnn_5ftranspose_5fparams_30',['cmsis_nn_transpose_params',['../group__genPubTypes.html#structcmsis__nn__transpose__params',1,'']]],
+  ['concatenation_20functions_31',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
+  ['convolution_32',['Convolution',['../group__supportConvolution.html',1,'']]],
+  ['convolution_20functions_33',['Convolution Functions',['../group__NNConv.html',1,'']]]
 ];

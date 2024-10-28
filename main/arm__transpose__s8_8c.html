@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: Data Structure Index</title>
+<title>CMSIS-NN: arm_transpose_s8.c File Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classes.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__transpose__s8_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -128,23 +128,24 @@ $(document).ready(function(){initNavTree('classes.html',''); initResizable(); })
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Data Structure Index</div></div>
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">arm_transpose_s8.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="qindex"><a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a></div>
-<div class="classindex">
-<dl class="classindex even">
-<dt class="alphachar"><a id="letter_C" name="letter_C">C</a></dt>
-<dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__activation">cmsis_nn_activation</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__bias__data">cmsis_nn_bias_data</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__conv__params">cmsis_nn_conv_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__dw__conv__params">cmsis_nn_dw_conv_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params">cmsis_nn_fc_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__dims">cmsis_nn_lstm_dims</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__per__channel__quant__params">cmsis_nn_per_channel_quant_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__pool__params">cmsis_nn_pool_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__quant__params">cmsis_nn_quant_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__scaling">cmsis_nn_scaling</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__softmax__lut__s16">cmsis_nn_softmax_lut_s16</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__svdf__params">cmsis_nn_svdf_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__tile">cmsis_nn_tile</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__conv__params">cmsis_nn_transpose_conv_params</a></dd><dd><a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__params">cmsis_nn_transpose_params</a></dd></dl>
-<dl class="classindex odd">
-<dt class="alphachar"><a id="letter_N" name="letter_N">N</a></dt>
-<dd><a class="el" href="group__genPrivTypes.html#structarm__nn__double">arm_nn_double</a></dd><dd><a class="el" href="group__genPrivTypes.html#unionarm__nn__long__long">arm_nn_long_long</a></dd><dd><a class="el" href="group__genPrivTypes.html#unionarm__nnword">arm_nnword</a></dd></dl>
-</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga627b52a75fe48dadc1cb4a23f856b2e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Transpose.html#ga627b52a75fe48dadc1cb4a23f856b2e3">arm_transpose_s8</a> (const int8_t *input, int8_t *const output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *const input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *const output_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__params">cmsis_nn_transpose_params</a> *const transpose_params)</td></tr>
+<tr class="memdesc:ga627b52a75fe48dadc1cb4a23f856b2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic transpose function.  <br /></td></tr>
+<tr class="separator:ga627b52a75fe48dadc1cb4a23f856b2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_23dabfba4412a0baf69d6c053fb5bbdc.html">TransposeFunctions</a></li><li class="navelem"><a class="el" href="arm__transpose__s8_8c.html">arm_transpose_s8.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

@@ -12,5 +12,6 @@ var group__Public =
     [ "Pooling Functions", "group__Pooling.html", "group__Pooling" ],
     [ "Reshape Functions", "group__Reshape.html", "group__Reshape" ],
     [ "Softmax Functions", "group__Softmax.html", "group__Softmax" ],
-    [ "SVDF Functions", "group__SVDF.html", "group__SVDF" ]
+    [ "SVDF Functions", "group__SVDF.html", "group__SVDF" ],
+    [ "Transpose Functions", "group__Transpose.html", "group__Transpose" ]
 ];

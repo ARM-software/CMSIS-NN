@@ -170,6 +170,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:structcmsis__nn__fc__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__bmm__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a></td></tr>
 <tr class="separator:structcmsis__nn__bmm__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structcmsis__nn__transpose__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__params">cmsis_nn_transpose_params</a></td></tr>
+<tr class="separator:structcmsis__nn__transpose__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__svdf__params"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__svdf__params">cmsis_nn_svdf_params</a></td></tr>
 <tr class="separator:structcmsis__nn__svdf__params"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structcmsis__nn__softmax__lut__s16"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__genPubTypes.html#structcmsis__nn__softmax__lut__s16">cmsis_nn_softmax_lut_s16</a></td></tr>
@@ -818,6 +820,37 @@ adj_y</td>
 <td class="fieldname">
 fc_params</td>
 <td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structcmsis__nn__transpose__params" id="structcmsis__nn__transpose__params"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structcmsis__nn__transpose__params">&#9670;&#160;</a></span>cmsis_nn_transpose_params</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cmsis_nn_transpose_params</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>CMSIS-NN object for Transpose layer parameters </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a1d63773d2fc7551401f04825b433aa57" name="a1d63773d2fc7551401f04825b433aa57"></a>const int32_t</td>
+<td class="fieldname">
+num_dims</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="acc33a20f428609429030979e20b35209" name="acc33a20f428609429030979e20b35209"></a>const uint32_t *</td>
+<td class="fieldname">
+permutations</td>
+<td class="fielddoc">
+<p>The dimensions applied to the input dimensions </p>
 </td></tr>
 </table>
 

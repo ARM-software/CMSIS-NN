@@ -83,6 +83,10 @@ var group__genPubTypes =
       [ "adj_y", "group__genPubTypes.html#ae96cb7f5df330c44dfea3db05dda8267", null ],
       [ "fc_params", "group__genPubTypes.html#a95a09263de54d691990992674a618c07", null ]
     ] ],
+    [ "cmsis_nn_transpose_params", "group__genPubTypes.html#structcmsis__nn__transpose__params", [
+      [ "num_dims", "group__genPubTypes.html#a1d63773d2fc7551401f04825b433aa57", null ],
+      [ "permutations", "group__genPubTypes.html#acc33a20f428609429030979e20b35209", null ]
+    ] ],
     [ "cmsis_nn_svdf_params", "group__genPubTypes.html#structcmsis__nn__svdf__params", [
       [ "input_activation", "group__genPubTypes.html#a8a665458804b985b49ede339efb6f86e", null ],
       [ "input_offset", "group__genPubTypes.html#ad4670fdc658d0517928e6b2c10b2259d", null ],

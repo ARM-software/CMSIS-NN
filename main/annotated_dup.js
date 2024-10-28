@@ -23,5 +23,6 @@ var annotated_dup =
     [ "cmsis_nn_softmax_lut_s16", "group__genPubTypes.html#structcmsis__nn__softmax__lut__s16", "group__genPubTypes_structcmsis__nn__softmax__lut__s16" ],
     [ "cmsis_nn_svdf_params", "group__genPubTypes.html#structcmsis__nn__svdf__params", "group__genPubTypes_structcmsis__nn__svdf__params" ],
     [ "cmsis_nn_tile", "group__genPubTypes.html#structcmsis__nn__tile", "group__genPubTypes_structcmsis__nn__tile" ],
-    [ "cmsis_nn_transpose_conv_params", "group__genPubTypes.html#structcmsis__nn__transpose__conv__params", "group__genPubTypes_structcmsis__nn__transpose__conv__params" ]
+    [ "cmsis_nn_transpose_conv_params", "group__genPubTypes.html#structcmsis__nn__transpose__conv__params", "group__genPubTypes_structcmsis__nn__transpose__conv__params" ],
+    [ "cmsis_nn_transpose_params", "group__genPubTypes.html#structcmsis__nn__transpose__params", "group__genPubTypes_structcmsis__nn__transpose__params" ]
 ];

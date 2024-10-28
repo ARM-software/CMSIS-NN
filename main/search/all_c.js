@@ -9,6 +9,7 @@ var searchData=
   ['nn_5fq7_5fmin_6',['NN_Q7_MIN',['../arm__nn__math__types_8h.html#a342199b16a4abf4da4a7607a3a552b4f',1,'arm_nn_math_types.h']]],
   ['nn_5fround_7',['NN_ROUND',['../arm__nnsupportfunctions_8h.html#a4cbd428a2b4a4f6b2a6e4219520c7ce0',1,'arm_nnsupportfunctions.h']]],
   ['num_5fbatches_8',['num_batches',['../group__genPubTypes.html#a05623f7d6acf5344f2d6596ec22fb926',1,'cmsis_nn_lstm_dims']]],
-  ['num_5finputs_9',['num_inputs',['../group__genPubTypes.html#a9268585658223810aabb899898d06bcd',1,'cmsis_nn_lstm_dims']]],
-  ['num_5foutputs_10',['num_outputs',['../group__genPubTypes.html#a23ba5409f3d68aa9dfb9118f2574aec6',1,'cmsis_nn_lstm_dims']]]
+  ['num_5fdims_9',['num_dims',['../group__genPubTypes.html#a1d63773d2fc7551401f04825b433aa57',1,'cmsis_nn_transpose_params']]],
+  ['num_5finputs_10',['num_inputs',['../group__genPubTypes.html#a9268585658223810aabb899898d06bcd',1,'cmsis_nn_lstm_dims']]],
+  ['num_5foutputs_11',['num_outputs',['../group__genPubTypes.html#a23ba5409f3d68aa9dfb9118f2574aec6',1,'cmsis_nn_lstm_dims']]]
 ];
