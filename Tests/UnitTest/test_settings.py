@@ -503,7 +503,6 @@ class TestSettings(ABC):
 
         return interpreter
 
-    # TODO: make it a more generic function and remove reference to svdf specific names
     def generate_json_from_template(self,
                                     weights_feature_data=None,
                                     weights_time_data=None,

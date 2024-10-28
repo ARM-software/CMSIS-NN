@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the CMSIS-NN structs for the
  *               TensorFlowLite micro compliant functions
  *
- * $Date:        19 Aug 2024
- * $Revision:    V.3.4.0
+ * $Date:        21 Oct 2024
+ * $Revision:    V.3.5.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -188,6 +188,13 @@ typedef struct
     const bool adj_y;
     cmsis_nn_fc_params fc_params;
 } cmsis_nn_bmm_params;
+
+/** CMSIS-NN object for Transpose layer parameters */
+typedef struct
+{
+    const int32_t num_dims;
+    const uint32_t *permutations; /**< The dimensions applied to the input dimensions */
+} cmsis_nn_transpose_params;
 
 /** CMSIS-NN object for SVDF layer parameters */
 typedef struct
