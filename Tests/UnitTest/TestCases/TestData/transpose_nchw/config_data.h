@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_NCHW_IN_DIM                                                                                          \
     {                                                                                                                  \
-        4, 3, 3, 2,                                                                                                    \
+        4, 9, 3, 19,                                                                                                   \
     }
 #define TRANSPOSE_NCHW_PERM                                                                                            \
     {                                                                                                                  \
         0, 3, 1, 2,                                                                                                    \
     }
-#define TRANSPOSE_NCHW_SIZE 72
+#define TRANSPOSE_NCHW_SIZE 2052
 #define TRANSPOSE_NCHW_PERM_SIZE 4
 #define TRANSPOSE_NCHW_OUT_DIM                                                                                         \
     {                                                                                                                  \
-        4, 2, 3, 3,                                                                                                    \
+        4, 19, 9, 3,                                                                                                   \
     }

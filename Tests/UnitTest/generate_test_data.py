@@ -1619,6 +1619,23 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           interpreter=interpreter)
 
     type_of_test = 'depthwise_conv'
+    dataset = 'in_ch_one_out_ch_plus_eight'
+    testdata_sets[dataset] = ConvSettings(dataset,
+                                          type_of_test,
+                                          regenerate_weights,
+                                          regenerate_input,
+                                          regenerate_biases,
+                                          schema_file,
+                                          in_ch=1,
+                                          out_ch=16,
+                                          x_in=49,
+                                          y_in=40,
+                                          w_x=8,
+                                          w_y=10,
+                                          stride_x=2,
+                                          stride_y=1,
+                                          pad=True,
+                                          interpreter=interpreter)
     dataset = 'depthwise_2'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,

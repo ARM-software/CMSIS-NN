@@ -21,8 +21,8 @@
  * Title:        arm_transpose_s8.c
  * Description:  Transpose a s8 vector
  *
- * $Date:        21 October 2024
- * $Revision:    V.1.0.0
+ * $Date:        30 October 2024
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -134,42 +134,6 @@ static arm_cmsis_nn_status arm_transpose_s8_default(const int8_t *input,
     const int32_t w = input_dims->w;
     const int32_t c = input_dims->c;
 
-#if defined(ARM_MATH_MVEI)
-    int8x16_t vector_in;
-    uint8x16_t vector_offset = vidupq_u8((uint32_t)0, 1);
-    vector_offset = vector_offset * (const int8_t)out_strides[3];
-
-    for (int32_t i = 0; i < n; i++)
-    {
-        for (int32_t y = 0; y < h; y++)
-        {
-            for (int32_t x = 0; x < w; x++)
-            {
-
-                const int32_t input_index = i * in_strides[0] + y * in_strides[1] + x * in_strides[2];
-                const int32_t output_index = i * out_strides[0] + y * out_strides[1] + x * out_strides[2];
-
-                const int8_t *input_ptr = &input[input_index];
-                int8_t *output_ptr = &output[output_index];
-                int32_t block_count = c;
-
-                while (block_count > 0)
-                {
-                    mve_pred16_t p = vctp8q(block_count);
-
-                    vector_in = vldrbq_z_s8(input_ptr, p);
-                    vstrbq_scatter_offset_p_s8(output_ptr, vector_offset, vector_in, p);
-
-                    input_ptr += 16;
-                    output_ptr += out_strides[3] * 16;
-                    block_count -= 16;
-                }
-            }
-        }
-    }
-
-#else
-
     for (int32_t i = 0; i < n; i++)
     {
         for (int32_t y = 0; y < h; y++)
@@ -190,7 +154,6 @@ static arm_cmsis_nn_status arm_transpose_s8_default(const int8_t *input,
         }
     }
 
-#endif
     return ARM_CMSIS_NN_SUCCESS;
 }
 
@@ -224,6 +187,8 @@ arm_cmsis_nn_status arm_transpose_s8(const int8_t *input,
     if (transpose_params->num_dims == 1)
     {
         arm_memcpy_s8(output, input, input_dims->n);
+
+        return ARM_CMSIS_NN_SUCCESS;
     }
     else if (transpose_params->num_dims == 2)
     {

@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_3DIM_IN_DIM                                                                                          \
     {                                                                                                                  \
-        5, 4, 3, 0,                                                                                                    \
+        5, 4, 20, 0,                                                                                                   \
     }
 #define TRANSPOSE_3DIM_PERM                                                                                            \
     {                                                                                                                  \
         0, 2, 1,                                                                                                       \
     }
-#define TRANSPOSE_3DIM_SIZE 60
+#define TRANSPOSE_3DIM_SIZE 400
 #define TRANSPOSE_3DIM_PERM_SIZE 3
 #define TRANSPOSE_3DIM_OUT_DIM                                                                                         \
     {                                                                                                                  \
-        5, 3, 4, 0,                                                                                                    \
+        5, 20, 4, 0,                                                                                                   \
     }
