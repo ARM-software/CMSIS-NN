@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_WCHN_IN_DIM                                                                                          \
     {                                                                                                                  \
-        4, 3, 3, 2,                                                                                                    \
+        4, 3, 3, 21,                                                                                                   \
     }
 #define TRANSPOSE_WCHN_PERM                                                                                            \
     {                                                                                                                  \
         2, 3, 1, 0,                                                                                                    \
     }
-#define TRANSPOSE_WCHN_SIZE 72
+#define TRANSPOSE_WCHN_SIZE 756
 #define TRANSPOSE_WCHN_PERM_SIZE 4
 #define TRANSPOSE_WCHN_OUT_DIM                                                                                         \
     {                                                                                                                  \
-        3, 2, 3, 4,                                                                                                    \
+        3, 21, 3, 4,                                                                                                   \
     }

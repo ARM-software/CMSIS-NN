@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_DEFAULT_IN_DIM                                                                                       \
     {                                                                                                                  \
-        4, 3, 3, 2,                                                                                                    \
+        4, 3, 3, 22,                                                                                                   \
     }
 #define TRANSPOSE_DEFAULT_PERM                                                                                         \
     {                                                                                                                  \
         3, 2, 1, 0,                                                                                                    \
     }
-#define TRANSPOSE_DEFAULT_SIZE 72
+#define TRANSPOSE_DEFAULT_SIZE 792
 #define TRANSPOSE_DEFAULT_PERM_SIZE 4
 #define TRANSPOSE_DEFAULT_OUT_DIM                                                                                      \
     {                                                                                                                  \
-        2, 3, 3, 4,                                                                                                    \
+        22, 3, 3, 4,                                                                                                   \
     }

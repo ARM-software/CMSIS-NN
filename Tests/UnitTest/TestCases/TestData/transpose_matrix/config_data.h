@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_MATRIX_IN_DIM                                                                                        \
     {                                                                                                                  \
-        5, 4, 0, 0,                                                                                                    \
+        5, 20, 0, 0,                                                                                                   \
     }
 #define TRANSPOSE_MATRIX_PERM                                                                                          \
     {                                                                                                                  \
         1, 0,                                                                                                          \
     }
-#define TRANSPOSE_MATRIX_SIZE 20
+#define TRANSPOSE_MATRIX_SIZE 100
 #define TRANSPOSE_MATRIX_PERM_SIZE 2
 #define TRANSPOSE_MATRIX_OUT_DIM                                                                                       \
     {                                                                                                                  \
-        4, 5, 0, 0,                                                                                                    \
+        20, 5, 0, 0,                                                                                                   \
     }

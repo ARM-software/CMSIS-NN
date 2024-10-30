@@ -4,15 +4,15 @@
 
 #define TRANSPOSE_CHWN_IN_DIM                                                                                          \
     {                                                                                                                  \
-        5, 4, 3, 2,                                                                                                    \
+        5, 4, 12, 17,                                                                                                  \
     }
 #define TRANSPOSE_CHWN_PERM                                                                                            \
     {                                                                                                                  \
         3, 1, 2, 0,                                                                                                    \
     }
-#define TRANSPOSE_CHWN_SIZE 120
+#define TRANSPOSE_CHWN_SIZE 4080
 #define TRANSPOSE_CHWN_PERM_SIZE 4
 #define TRANSPOSE_CHWN_OUT_DIM                                                                                         \
     {                                                                                                                  \
-        2, 4, 3, 5,                                                                                                    \
+        17, 4, 12, 5,                                                                                                  \
     }
