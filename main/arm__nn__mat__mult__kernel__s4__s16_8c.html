@@ -136,13 +136,12 @@ $(document).ready(function(){initNavTree('arm__nn__mat__mult__kernel__s4__s16_8c
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2f842abb35a5f253c29febb0ffff37b6"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s4__s16_8c.html#a2f842abb35a5f253c29febb0ffff37b6">arm_nn_mat_mult_kernel_s4_s16</a> (const int8_t *packed_input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const int32_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
-<tr class="memdesc:a2f842abb35a5f253c29febb0ffff37b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization and 4 bit weights.  <br /></td></tr>
-<tr class="separator:a2f842abb35a5f253c29febb0ffff37b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528738da0aeee449732274557dc0d36c"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__mat__mult__kernel__s4__s16_8c.html#a528738da0aeee449732274557dc0d36c">arm_nn_mat_mult_kernel_s4_s16</a> (const int8_t *packed_input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const int32_t num_col_a, const int32_t *const output_bias, int8_t *<a class="el" href="arm__nnsupportfunctions_8h.html#a7aefb6245b900616a68ab131774459c0">OPTIONAL_RESTRICT_KEYWORD</a> out_0)</td></tr>
+<tr class="separator:a528738da0aeee449732274557dc0d36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a2f842abb35a5f253c29febb0ffff37b6" name="a2f842abb35a5f253c29febb0ffff37b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f842abb35a5f253c29febb0ffff37b6">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s4_s16()</h2>
+<a id="a528738da0aeee449732274557dc0d36c" name="a528738da0aeee449732274557dc0d36c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528738da0aeee449732274557dc0d36c">&#9670;&#160;</a></span>arm_nn_mat_mult_kernel_s4_s16()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +150,7 @@ Functions</h2></td></tr>
           <td class="memname">int8_t * arm_nn_mat_mult_kernel_s4_s16 </td>
           <td>(</td>
           <td class="paramtype">const int8_t *&#160;</td>
-          <td class="paramname"><em>input_a</em>, </td>
+          <td class="paramname"><em>packed_input_a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -210,7 +209,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int8_t *&#160;</td>
+          <td class="paramtype">int8_t *<a class="el" href="arm__nnsupportfunctions_8h.html#a7aefb6245b900616a68ab131774459c0">OPTIONAL_RESTRICT_KEYWORD</a>&#160;</td>
           <td class="paramname"><em>out_0</em>&#160;</td>
         </tr>
         <tr>
@@ -220,31 +219,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Matrix-multiplication function for convolution with per-channel requantization and 4 bit weights. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">input_a</td><td>pointer to operand A, int8 packed with 2x int4. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">input_b</td><td>pointer to operand B, always consists of 2 vectors. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">output_ch</td><td>number of rows of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">out_shift</td><td>pointer to per output channel requantization shift parameter. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">out_mult</td><td>pointer to per output channel requantization multiplier parameter. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">out_offset</td><td>output tensor offset. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>minimum value to clamp the output to. Range : int8 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>maximum value to clamp the output to. Range : int8 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">num_col_a</td><td>number of columns of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">output_bias</td><td>per output channel bias. Range : int32 </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">out_0</td><td>pointer to output </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The function returns one of the two<ol type="1">
-<li>The incremented output pointer for a successful operation or</li>
-<li><p class="startli">NULL if implementation is not available.</p>
-<p class="startli">This function does the matrix multiplication of weight matrix for all output channels with 2 columns from im2col and produces two elements/output_channel. The outputs are clamped in the range provided by activation min and max. Supported framework: TensorFlow Lite micro. </p>
-</li>
-</ol>
-</dd></dl>
 
 </div>
 </div>
