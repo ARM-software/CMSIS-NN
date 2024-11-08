@@ -1619,7 +1619,7 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                           interpreter=interpreter)
 
     type_of_test = 'depthwise_conv'
-    dataset = 'in_ch_one_out_ch_plus_eight'
+    dataset = 'in_ch_one_out_ch_larger_one'
     testdata_sets[dataset] = ConvSettings(dataset,
                                           type_of_test,
                                           regenerate_weights,

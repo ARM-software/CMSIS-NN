@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -23,6 +23,7 @@
 #include "../TestData/depthwise_dilation/test_data.h"
 #include "../TestData/depthwise_mult_batches/test_data.h"
 #include "../TestData/depthwise_null_bias_1/test_data.h"
+#include "../TestData/in_ch_one_out_ch_larger_one/test_data.h"
 #include "../Utils/utils.h"
 #include "../Utils/validate.h"
 
@@ -481,4 +482,88 @@ void buffer_size_dsp_arm_depthwise_conv_s8(void)
 
     TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
 #endif
+}
+
+void in_ch_one_out_ch_larger_one_arm_depthwise_conv_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[IN_CH_ONE_OUT_CH_LARGER_ONE_DST_SIZE] = {0};
+    cmsis_nn_context ctx;
+    cmsis_nn_dw_conv_params dw_conv_params;
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims bias_dims = {};
+    cmsis_nn_dims output_dims;
+    const int32_t output_ref_size = IN_CH_ONE_OUT_CH_LARGER_ONE_DST_SIZE;
+    const int32_t *bias_data = get_bias_address(in_ch_one_out_ch_larger_one_biases, IN_CH_ONE_OUT_CH_LARGER_ONE_OUT_CH);
+    const int8_t *kernel_data = in_ch_one_out_ch_larger_one_weights;
+    const int8_t *input_data = in_ch_one_out_ch_larger_one_input;
+    input_dims.n = IN_CH_ONE_OUT_CH_LARGER_ONE_INPUT_BATCHES;
+    input_dims.w = IN_CH_ONE_OUT_CH_LARGER_ONE_INPUT_W;
+    input_dims.h = IN_CH_ONE_OUT_CH_LARGER_ONE_INPUT_H;
+    input_dims.c = IN_CH_ONE_OUT_CH_LARGER_ONE_IN_CH;
+    filter_dims.n = IN_CH_ONE_OUT_CH_LARGER_ONE_IN_CH;
+    filter_dims.w = IN_CH_ONE_OUT_CH_LARGER_ONE_FILTER_X;
+    filter_dims.h = IN_CH_ONE_OUT_CH_LARGER_ONE_FILTER_Y;
+    filter_dims.c = IN_CH_ONE_OUT_CH_LARGER_ONE_OUT_CH;
+    output_dims.w = IN_CH_ONE_OUT_CH_LARGER_ONE_OUTPUT_W;
+    output_dims.h = IN_CH_ONE_OUT_CH_LARGER_ONE_OUTPUT_H;
+    output_dims.c = IN_CH_ONE_OUT_CH_LARGER_ONE_OUT_CH;
+    dw_conv_params.padding.w = IN_CH_ONE_OUT_CH_LARGER_ONE_PAD_X;
+    dw_conv_params.padding.h = IN_CH_ONE_OUT_CH_LARGER_ONE_PAD_Y;
+    dw_conv_params.stride.w = IN_CH_ONE_OUT_CH_LARGER_ONE_STRIDE_X;
+    dw_conv_params.stride.h = IN_CH_ONE_OUT_CH_LARGER_ONE_STRIDE_Y;
+    dw_conv_params.dilation.w = IN_CH_ONE_OUT_CH_LARGER_ONE_DILATION_X;
+    dw_conv_params.dilation.h = IN_CH_ONE_OUT_CH_LARGER_ONE_DILATION_Y;
+    dw_conv_params.ch_mult = IN_CH_ONE_OUT_CH_LARGER_ONE_CH_MULT;
+    dw_conv_params.input_offset = IN_CH_ONE_OUT_CH_LARGER_ONE_INPUT_OFFSET;
+    dw_conv_params.output_offset = IN_CH_ONE_OUT_CH_LARGER_ONE_OUTPUT_OFFSET;
+    dw_conv_params.activation.min = IN_CH_ONE_OUT_CH_LARGER_ONE_OUT_ACTIVATION_MIN;
+    dw_conv_params.activation.max = IN_CH_ONE_OUT_CH_LARGER_ONE_OUT_ACTIVATION_MAX;
+    quant_params.multiplier = (int32_t *)in_ch_one_out_ch_larger_one_output_mult;
+    quant_params.shift = (int32_t *)in_ch_one_out_ch_larger_one_output_shift;
+    ctx.buf = NULL;
+    ctx.size = 0;
+    arm_cmsis_nn_status result = arm_depthwise_conv_s8(&ctx,
+                                                       &dw_conv_params,
+                                                       &quant_params,
+                                                       &input_dims,
+                                                       input_data,
+                                                       &filter_dims,
+                                                       kernel_data,
+                                                       &bias_dims,
+                                                       bias_data,
+                                                       &output_dims,
+                                                       output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, ctx.size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, in_ch_one_out_ch_larger_one_output_ref, output_ref_size));
+    memset(output, 0, sizeof(output));
+    const int32_t buf_size =
+        arm_depthwise_conv_wrapper_s8_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+    ctx.size = buf_size;
+    result = arm_depthwise_conv_wrapper_s8(&ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           bias_data,
+                                           &output_dims,
+                                           output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, in_ch_one_out_ch_larger_one_output_ref, output_ref_size));
 }

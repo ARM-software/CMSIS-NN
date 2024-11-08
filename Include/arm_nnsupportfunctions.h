@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        04 November 2024
- * $Revision:    V.22.5.0
+ * $Date:        08 November 2024
+ * $Revision:    V.22.6.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -72,8 +72,16 @@ extern "C" {
 // to not loose precision.
 #define MAX_COL_COUNT (512)
 
-// By default this will have not effect. During compilation this may be set to __restrict, which may be beneficial for
-// performance. See README.md for more intformation.
+// Threshold for number of output channels that decide whether to convert a depthwise conv to a
+// regular conv operation when number of input channels is one.
+// Only applicable for processors with MVE extension.
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+    #define CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD (8)
+#else
+    #define CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD (1)
+
+// By default this will have no effect. During compilation this may be set to __restrict,
+// which may be beneficial for performance. See README.md for more intformation.
 #ifndef OPTIONAL_RESTRICT_KEYWORD
     #define OPTIONAL_RESTRICT_KEYWORD
 #endif
