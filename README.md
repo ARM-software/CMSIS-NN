@@ -104,6 +104,8 @@ The compiler option *'-fno-builtin'* does not utilize optimized implementations 
 
 Another option is to enable CMSIS_NN_USE_SINGLE_ROUNDING. This may affect the output. If enabling this the equivalent flag should be enabled in TFL/TFLM.
 
+For processors with DSP extension, int4 and int8 convolutions make use of the restrict keyword for the output pointer. This can allow the compiler to make optimizations but the actual performance result depends on the Arm(R) Cortex(R)-M processor, the compiler and the model. This optimization can be enabled by providing the compiler with a defition of OPTIONAL_RESTRICT_KEYWORD=__restrict . In general Arm Cortex-M7 will benefit from this. Similar Arm Cortex-M4 and Cortex-M33, will generally not benefit from it, but it may still bring an uplift depending on the model and compiler. It is recommended to enable this for Cortex-M7.
+
 ### Supported Compilers
 * CMSIS-NN is tested on Arm Compiler 6 and on Arm GNU Toolchain.
 * IAR compiler is not tested and there can be compilation and/or performance issues.
