@@ -84,6 +84,7 @@ void grouped_conv_arm_grouped_convolve_1_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -155,6 +156,7 @@ void grouped_conv_arm_grouped_convolve_2_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -226,6 +228,7 @@ void grouped_conv_arm_grouped_convolve_3_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 
@@ -297,6 +300,7 @@ void grouped_conv_arm_grouped_convolve_4_s8(void)
                                                  kernel_data,
                                                  &bias_dims,
                                                  bias_data,
+                                                 NULL,
                                                  &output_dims,
                                                  output);
 

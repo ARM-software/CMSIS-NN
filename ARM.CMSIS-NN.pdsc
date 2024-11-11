@@ -76,6 +76,7 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_wrapper_s8.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_w.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_y.c"/>
@@ -121,6 +122,7 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nntables.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_transpose_conv_row_s8_s32.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s4.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s4.c"/>

@@ -32,7 +32,7 @@ void transpose_conv_1_arm_transpose_conv_s8(void)
     int8_t output[TRANSPOSE_CONV_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_context output_ctx;
+    cmsis_nn_context reverse_conv_ctx;
     cmsis_nn_transpose_conv_params transpose_conv_params;
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
@@ -52,13 +52,12 @@ void transpose_conv_1_arm_transpose_conv_s8(void)
     input_dims.c = TRANSPOSE_CONV_1_IN_CH;
     filter_dims.w = TRANSPOSE_CONV_1_FILTER_X;
     filter_dims.h = TRANSPOSE_CONV_1_FILTER_Y;
+    filter_dims.n = TRANSPOSE_CONV_1_OUT_CH;
+    filter_dims.c = TRANSPOSE_CONV_1_IN_CH;
     output_dims.n = TRANSPOSE_CONV_1_INPUT_BATCHES;
     output_dims.w = TRANSPOSE_CONV_1_OUTPUT_W;
     output_dims.h = TRANSPOSE_CONV_1_OUTPUT_H;
     output_dims.c = TRANSPOSE_CONV_1_OUT_CH;
-
-    output_ctx.size = output_dims.w * output_dims.h * output_dims.c * sizeof(int32_t);
-    output_ctx.buf = malloc(output_ctx.size);
 
     transpose_conv_params.padding.w = TRANSPOSE_CONV_1_PAD_X;
     transpose_conv_params.padding.h = TRANSPOSE_CONV_1_PAD_Y;
@@ -77,28 +76,34 @@ void transpose_conv_1_arm_transpose_conv_s8(void)
     quant_params.multiplier = (int32_t *)transpose_conv_1_output_mult;
     quant_params.shift = (int32_t *)transpose_conv_1_output_shift;
 
-    const int32_t buf_size = arm_transpose_conv_s8_get_buffer_size(&input_dims, &filter_dims, &output_dims);
+    const int32_t buf_size =
+        arm_transpose_conv_s8_get_buffer_size(&transpose_conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
 
-    arm_cmsis_nn_status result = arm_transpose_conv_s8(&ctx,
-                                                       &output_ctx,
-                                                       &transpose_conv_params,
-                                                       &quant_params,
-                                                       &input_dims,
-                                                       input_data,
-                                                       &filter_dims,
-                                                       kernel_data,
-                                                       &bias_dims,
-                                                       bias_data,
-                                                       &output_dims,
-                                                       output);
+    const int32_t reverse_conv_buf_size =
+        arm_transpose_conv_s8_get_reverse_conv_buffer_size(&transpose_conv_params, &input_dims, &filter_dims);
+    reverse_conv_ctx.buf = malloc(reverse_conv_buf_size);
+    reverse_conv_ctx.size = reverse_conv_buf_size;
 
-    if (output_ctx.buf)
+    arm_cmsis_nn_status result = arm_transpose_conv_wrapper_s8(&ctx,
+                                                               &reverse_conv_ctx,
+                                                               &transpose_conv_params,
+                                                               &quant_params,
+                                                               &input_dims,
+                                                               input_data,
+                                                               &filter_dims,
+                                                               kernel_data,
+                                                               &bias_dims,
+                                                               bias_data,
+                                                               &output_dims,
+                                                               output);
+
+    if (reverse_conv_ctx.buf)
     {
         // The caller is responsible to clear the scratch buffers for security reasons if applicable.
-        memset(output_ctx.buf, 0, output_ctx.size);
-        free(output_ctx.buf);
+        memset(reverse_conv_ctx.buf, 0, reverse_conv_ctx.size);
+        free(reverse_conv_ctx.buf);
     }
 
     if (ctx.buf)
@@ -118,7 +123,7 @@ void transpose_conv_2_arm_transpose_conv_s8(void)
     int8_t output[TRANSPOSE_CONV_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_context output_ctx;
+    cmsis_nn_context reverse_conv_ctx;
     cmsis_nn_transpose_conv_params transpose_conv_params;
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
@@ -138,13 +143,12 @@ void transpose_conv_2_arm_transpose_conv_s8(void)
     input_dims.c = TRANSPOSE_CONV_2_IN_CH;
     filter_dims.w = TRANSPOSE_CONV_2_FILTER_X;
     filter_dims.h = TRANSPOSE_CONV_2_FILTER_Y;
+    filter_dims.n = TRANSPOSE_CONV_2_OUT_CH;
+    filter_dims.c = TRANSPOSE_CONV_2_IN_CH;
     output_dims.n = TRANSPOSE_CONV_2_INPUT_BATCHES;
     output_dims.w = TRANSPOSE_CONV_2_OUTPUT_W;
     output_dims.h = TRANSPOSE_CONV_2_OUTPUT_H;
     output_dims.c = TRANSPOSE_CONV_2_OUT_CH;
-
-    output_ctx.size = output_dims.w * output_dims.h * output_dims.c * sizeof(int32_t);
-    output_ctx.buf = malloc(output_ctx.size);
 
     transpose_conv_params.padding.w = TRANSPOSE_CONV_2_PAD_X;
     transpose_conv_params.padding.h = TRANSPOSE_CONV_2_PAD_Y;
@@ -163,28 +167,34 @@ void transpose_conv_2_arm_transpose_conv_s8(void)
     quant_params.multiplier = (int32_t *)transpose_conv_2_output_mult;
     quant_params.shift = (int32_t *)transpose_conv_2_output_shift;
 
-    const int32_t buf_size = arm_transpose_conv_s8_get_buffer_size(&input_dims, &filter_dims, &output_dims);
+    const int32_t buf_size =
+        arm_transpose_conv_s8_get_buffer_size(&transpose_conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
 
-    arm_cmsis_nn_status result = arm_transpose_conv_s8(&ctx,
-                                                       &output_ctx,
-                                                       &transpose_conv_params,
-                                                       &quant_params,
-                                                       &input_dims,
-                                                       input_data,
-                                                       &filter_dims,
-                                                       kernel_data,
-                                                       &bias_dims,
-                                                       bias_data,
-                                                       &output_dims,
-                                                       output);
+    const int32_t reverse_conv_buf_size =
+        arm_transpose_conv_s8_get_reverse_conv_buffer_size(&transpose_conv_params, &input_dims, &filter_dims);
+    reverse_conv_ctx.buf = malloc(reverse_conv_buf_size);
+    reverse_conv_ctx.size = reverse_conv_buf_size;
 
-    if (output_ctx.buf)
+    arm_cmsis_nn_status result = arm_transpose_conv_wrapper_s8(&ctx,
+                                                               &reverse_conv_ctx,
+                                                               &transpose_conv_params,
+                                                               &quant_params,
+                                                               &input_dims,
+                                                               input_data,
+                                                               &filter_dims,
+                                                               kernel_data,
+                                                               &bias_dims,
+                                                               bias_data,
+                                                               &output_dims,
+                                                               output);
+
+    if (reverse_conv_ctx.buf)
     {
         // The caller is responsible to clear the scratch buffers for security reasons if applicable.
-        memset(output_ctx.buf, 0, output_ctx.size);
-        free(output_ctx.buf);
+        memset(reverse_conv_ctx.buf, 0, reverse_conv_ctx.size);
+        free(reverse_conv_ctx.buf);
     }
 
     if (ctx.buf)
@@ -203,7 +213,7 @@ void transpose_conv_3_arm_transpose_conv_s8(void)
     int8_t output[TRANSPOSE_CONV_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_context output_ctx;
+    cmsis_nn_context reverse_conv_ctx;
     cmsis_nn_transpose_conv_params transpose_conv_params;
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
@@ -223,13 +233,12 @@ void transpose_conv_3_arm_transpose_conv_s8(void)
     input_dims.c = TRANSPOSE_CONV_3_IN_CH;
     filter_dims.w = TRANSPOSE_CONV_3_FILTER_X;
     filter_dims.h = TRANSPOSE_CONV_3_FILTER_Y;
+    filter_dims.n = TRANSPOSE_CONV_3_OUT_CH;
+    filter_dims.c = TRANSPOSE_CONV_3_IN_CH;
     output_dims.n = TRANSPOSE_CONV_3_INPUT_BATCHES;
     output_dims.w = TRANSPOSE_CONV_3_OUTPUT_W;
     output_dims.h = TRANSPOSE_CONV_3_OUTPUT_H;
     output_dims.c = TRANSPOSE_CONV_3_OUT_CH;
-
-    output_ctx.size = output_dims.w * output_dims.h * output_dims.c * sizeof(int32_t);
-    output_ctx.buf = malloc(output_ctx.size);
 
     transpose_conv_params.padding.w = TRANSPOSE_CONV_3_PAD_X;
     transpose_conv_params.padding.h = TRANSPOSE_CONV_3_PAD_Y;
@@ -248,28 +257,34 @@ void transpose_conv_3_arm_transpose_conv_s8(void)
     quant_params.multiplier = (int32_t *)transpose_conv_3_output_mult;
     quant_params.shift = (int32_t *)transpose_conv_3_output_shift;
 
-    const int32_t buf_size = arm_transpose_conv_s8_get_buffer_size(&input_dims, &filter_dims, &output_dims);
+    const int32_t buf_size =
+        arm_transpose_conv_s8_get_buffer_size(&transpose_conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
 
-    arm_cmsis_nn_status result = arm_transpose_conv_s8(&ctx,
-                                                       &output_ctx,
-                                                       &transpose_conv_params,
-                                                       &quant_params,
-                                                       &input_dims,
-                                                       input_data,
-                                                       &filter_dims,
-                                                       kernel_data,
-                                                       &bias_dims,
-                                                       bias_data,
-                                                       &output_dims,
-                                                       output);
+    const int32_t reverse_conv_buf_size =
+        arm_transpose_conv_s8_get_reverse_conv_buffer_size(&transpose_conv_params, &input_dims, &filter_dims);
+    reverse_conv_ctx.buf = malloc(reverse_conv_buf_size);
+    reverse_conv_ctx.size = reverse_conv_buf_size;
 
-    if (output_ctx.buf)
+    arm_cmsis_nn_status result = arm_transpose_conv_wrapper_s8(&ctx,
+                                                               &reverse_conv_ctx,
+                                                               &transpose_conv_params,
+                                                               &quant_params,
+                                                               &input_dims,
+                                                               input_data,
+                                                               &filter_dims,
+                                                               kernel_data,
+                                                               &bias_dims,
+                                                               bias_data,
+                                                               &output_dims,
+                                                               output);
+
+    if (reverse_conv_ctx.buf)
     {
         // The caller is responsible to clear the scratch buffers for security reasons if applicable.
-        memset(output_ctx.buf, 0, output_ctx.size);
-        free(output_ctx.buf);
+        memset(reverse_conv_ctx.buf, 0, reverse_conv_ctx.size);
+        free(reverse_conv_ctx.buf);
     }
 
     if (ctx.buf)
@@ -288,7 +303,7 @@ void transpose_conv_4_arm_transpose_conv_s8(void)
     int8_t output[TRANSPOSE_CONV_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_context output_ctx;
+    cmsis_nn_context reverse_conv_ctx;
     cmsis_nn_transpose_conv_params transpose_conv_params;
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
@@ -308,13 +323,12 @@ void transpose_conv_4_arm_transpose_conv_s8(void)
     input_dims.c = TRANSPOSE_CONV_4_IN_CH;
     filter_dims.w = TRANSPOSE_CONV_4_FILTER_X;
     filter_dims.h = TRANSPOSE_CONV_4_FILTER_Y;
+    filter_dims.n = TRANSPOSE_CONV_4_OUT_CH;
+    filter_dims.c = TRANSPOSE_CONV_4_IN_CH;
     output_dims.n = TRANSPOSE_CONV_4_INPUT_BATCHES;
     output_dims.w = TRANSPOSE_CONV_4_OUTPUT_W;
     output_dims.h = TRANSPOSE_CONV_4_OUTPUT_H;
     output_dims.c = TRANSPOSE_CONV_4_OUT_CH;
-
-    output_ctx.size = output_dims.w * output_dims.h * output_dims.c * sizeof(int32_t);
-    output_ctx.buf = malloc(output_ctx.size);
 
     transpose_conv_params.padding.w = TRANSPOSE_CONV_4_PAD_X;
     transpose_conv_params.padding.h = TRANSPOSE_CONV_4_PAD_Y;
@@ -333,28 +347,34 @@ void transpose_conv_4_arm_transpose_conv_s8(void)
     quant_params.multiplier = (int32_t *)transpose_conv_4_output_mult;
     quant_params.shift = (int32_t *)transpose_conv_4_output_shift;
 
-    const int32_t buf_size = arm_transpose_conv_s8_get_buffer_size(&input_dims, &filter_dims, &output_dims);
+    const int32_t buf_size =
+        arm_transpose_conv_s8_get_buffer_size(&transpose_conv_params, &input_dims, &filter_dims, &output_dims);
     ctx.buf = malloc(buf_size);
     ctx.size = buf_size;
 
-    arm_cmsis_nn_status result = arm_transpose_conv_s8(&ctx,
-                                                       &output_ctx,
-                                                       &transpose_conv_params,
-                                                       &quant_params,
-                                                       &input_dims,
-                                                       input_data,
-                                                       &filter_dims,
-                                                       kernel_data,
-                                                       &bias_dims,
-                                                       bias_data,
-                                                       &output_dims,
-                                                       output);
+    const int32_t reverse_conv_buf_size =
+        arm_transpose_conv_s8_get_reverse_conv_buffer_size(&transpose_conv_params, &input_dims, &filter_dims);
+    reverse_conv_ctx.buf = malloc(reverse_conv_buf_size);
+    reverse_conv_ctx.size = reverse_conv_buf_size;
 
-    if (output_ctx.buf)
+    arm_cmsis_nn_status result = arm_transpose_conv_wrapper_s8(&ctx,
+                                                               &reverse_conv_ctx,
+                                                               &transpose_conv_params,
+                                                               &quant_params,
+                                                               &input_dims,
+                                                               input_data,
+                                                               &filter_dims,
+                                                               kernel_data,
+                                                               &bias_dims,
+                                                               bias_data,
+                                                               &output_dims,
+                                                               output);
+
+    if (reverse_conv_ctx.buf)
     {
         // The caller is responsible to clear the scratch buffers for security reasons if applicable.
-        memset(output_ctx.buf, 0, output_ctx.size);
-        free(output_ctx.buf);
+        memset(reverse_conv_ctx.buf, 0, reverse_conv_ctx.size);
+        free(reverse_conv_ctx.buf);
     }
 
     if (ctx.buf)

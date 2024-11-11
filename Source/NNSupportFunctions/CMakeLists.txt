@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2019-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -19,7 +19,7 @@
 file(GLOB SRC_S4 "./*_s4*.c")
 file(GLOB SRC_S8 "./*_s8*.c")
 file(GLOB SRC_S16 "./*_s16*.c")
-target_sources(cmsis-nn PRIVATE ${SRC_S4} ${SRC_S8} ${SRC_S16} arm_nntables.c
+file(GLOB SRC_S32 "./*_s32*.c")
+target_sources(cmsis-nn PRIVATE ${SRC_S4} ${SRC_S8} ${SRC_S16} ${SRC_S32} arm_nntables.c
   arm_q7_to_q15_with_offset.c
-  arm_nn_mat_mult_nt_t_s8_s32.c
   arm_s8_to_s16_unordered_with_offset.c)
