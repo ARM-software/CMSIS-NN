@@ -12,5 +12,6 @@ var group__supportConvolution =
     [ "arm_nn_mat_mult_nt_t_s16", "group__supportConvolution.html#gabd91877357d8c36954d00c33add65e1d", null ],
     [ "arm_nn_mat_mult_nt_t_s4", "group__supportConvolution.html#ga9a5bbacc830176ced95c98d2d4100041", null ],
     [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#ga6e946ce01dca21f5d1b2f6d1dfeabb4a", null ],
-    [ "arm_nn_mat_mult_nt_t_s8_s32", "group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a", null ]
+    [ "arm_nn_mat_mult_nt_t_s8_s32", "group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a", null ],
+    [ "arm_nn_transpose_conv_row_s8_s32", "group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9", null ]
 ];

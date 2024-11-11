@@ -226,15 +226,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gadb59b0426b44c62f5b081bd91521e274"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274">arm_depthwise_conv_wrapper_s8_get_buffer_size_mve</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dw__conv__params">cmsis_nn_dw_conv_params</a> *dw_conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims)</td></tr>
 <tr class="memdesc:gadb59b0426b44c62f5b081bd91521e274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#gac85edb96c9e214c558a4bdb69883712d" title="Wrapper function to pick the right optimized s8 depthwise convolution function.">arm_depthwise_conv_wrapper_s8()</a> for Arm(R) Helium Architecture case. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#ga100b66e41b8fdf1eeb0c108bca6b6deb" title="Get size of additional buffer required by arm_depthwise_conv_wrapper_s8()">arm_depthwise_conv_wrapper_s8_get_buffer_size()</a> for function argument details.  <br /></td></tr>
 <tr class="separator:gadb59b0426b44c62f5b081bd91521e274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf19eac987240244c334b58341dfec1b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b">arm_transpose_conv_s8_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *out_dims)</td></tr>
-<tr class="memdesc:gadf19eac987240244c334b58341dfec1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for s8 transpose conv function.  <br /></td></tr>
-<tr class="separator:gadf19eac987240244c334b58341dfec1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf78596a8df3a90dab2d9ebe6d960a506"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#gaf78596a8df3a90dab2d9ebe6d960a506">arm_transpose_conv_s8_get_buffer_size_dsp</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims)</td></tr>
-<tr class="memdesc:gaf78596a8df3a90dab2d9ebe6d960a506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7" title="Basic s8 transpose convolution function.">arm_transpose_conv_s8()</a> for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a> for function argument details.  <br /></td></tr>
-<tr class="separator:gaf78596a8df3a90dab2d9ebe6d960a506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga764395c4f8b85bb1e8d18690accc0624"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga764395c4f8b85bb1e8d18690accc0624">arm_transpose_conv_s8_get_buffer_size_mve</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims)</td></tr>
-<tr class="memdesc:ga764395c4f8b85bb1e8d18690accc0624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get size of additional buffer required by <a class="el" href="group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7" title="Basic s8 transpose convolution function.">arm_transpose_conv_s8()</a> for Arm(R) Helium Architecture case. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a> for function argument details.  <br /></td></tr>
-<tr class="separator:ga764395c4f8b85bb1e8d18690accc0624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga531ba80b45164c94ac3a2f1217709636"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga531ba80b45164c94ac3a2f1217709636">arm_transpose_conv_s8_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__conv__params">cmsis_nn_transpose_conv_params</a> *transpose_conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *out_dims)</td></tr>
+<tr class="memdesc:ga531ba80b45164c94ac3a2f1217709636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for ctx in s8 transpose conv function.  <br /></td></tr>
+<tr class="separator:ga531ba80b45164c94ac3a2f1217709636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bd4db501a2182f7111a41f2f7577218"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GetBufferSizeNNConv.html#ga0bd4db501a2182f7111a41f2f7577218">arm_transpose_conv_s8_get_reverse_conv_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__conv__params">cmsis_nn_transpose_conv_params</a> *transpose_conv_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims)</td></tr>
+<tr class="memdesc:ga0bd4db501a2182f7111a41f2f7577218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the required buffer size for output_ctx in s8 transpose conv function.  <br /></td></tr>
+<tr class="separator:ga0bd4db501a2182f7111a41f2f7577218"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
@@ -1514,8 +1511,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gadf19eac987240244c334b58341dfec1b" name="gadf19eac987240244c334b58341dfec1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadf19eac987240244c334b58341dfec1b">&#9670;&#160;</a></span>arm_transpose_conv_s8_get_buffer_size()</h2>
+<a id="ga531ba80b45164c94ac3a2f1217709636" name="ga531ba80b45164c94ac3a2f1217709636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga531ba80b45164c94ac3a2f1217709636">&#9670;&#160;</a></span>arm_transpose_conv_s8_get_buffer_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1523,6 +1520,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int32_t arm_transpose_conv_s8_get_buffer_size </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__conv__params">cmsis_nn_transpose_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>transposed_conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
           <td class="paramname"><em>input_dims</em>, </td>
         </tr>
@@ -1546,9 +1549,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the required buffer size for s8 transpose conv function. </p>
+<p>Get the required buffer size for ctx in s8 transpose conv function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">transposed_conv_params</td><td>Transposed convolution parameters </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [N, H, W, C_IN] </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the spatial filter dimensions </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">out_dims</td><td>Output tensor dimensions. Format: [N, H, W, C_OUT] </td></tr>
@@ -1559,15 +1563,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gaf78596a8df3a90dab2d9ebe6d960a506" name="gaf78596a8df3a90dab2d9ebe6d960a506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf78596a8df3a90dab2d9ebe6d960a506">&#9670;&#160;</a></span>arm_transpose_conv_s8_get_buffer_size_dsp()</h2>
+<a id="ga0bd4db501a2182f7111a41f2f7577218" name="ga0bd4db501a2182f7111a41f2f7577218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0bd4db501a2182f7111a41f2f7577218">&#9670;&#160;</a></span>arm_transpose_conv_s8_get_reverse_conv_buffer_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int32_t arm_transpose_conv_s8_get_buffer_size_dsp </td>
+          <td class="memname">int32_t arm_transpose_conv_s8_get_reverse_conv_buffer_size </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__transpose__conv__params">cmsis_nn_transpose_conv_params</a> *&#160;</td>
+          <td class="paramname"><em>transposed_conv_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
           <td class="paramname"><em>input_dims</em>, </td>
         </tr>
@@ -1575,13 +1585,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>filter_dims</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>out_dims</em>&#160;</td>
+          <td class="paramname"><em>filter_dims</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1591,45 +1595,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get size of additional buffer required by <a class="el" href="group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7" title="Basic s8 transpose convolution function.">arm_transpose_conv_s8()</a> for processors with DSP extension. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a> for function argument details. </p>
-<dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a>. </dd></dl>
-
-</div>
-</div>
-<a id="ga764395c4f8b85bb1e8d18690accc0624" name="ga764395c4f8b85bb1e8d18690accc0624"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga764395c4f8b85bb1e8d18690accc0624">&#9670;&#160;</a></span>arm_transpose_conv_s8_get_buffer_size_mve()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t arm_transpose_conv_s8_get_buffer_size_mve </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>input_dims</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>filter_dims</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
-          <td class="paramname"><em>out_dims</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get size of additional buffer required by <a class="el" href="group__NNConv.html#ga3afc899d52c1335cf09f4ae1952c5af7" title="Basic s8 transpose convolution function.">arm_transpose_conv_s8()</a> for Arm(R) Helium Architecture case. Refer to <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a> for function argument details. </p>
-<dl class="section note"><dt>Note</dt><dd>Intended for compilation on Host. If compiling for an Arm target, use <a class="el" href="group__GetBufferSizeNNConv.html#gadf19eac987240244c334b58341dfec1b" title="Get the required buffer size for s8 transpose conv function.">arm_transpose_conv_s8_get_buffer_size()</a>. </dd></dl>
+<p>Get the required buffer size for output_ctx in s8 transpose conv function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">transposed_conv_params</td><td>Transposed convolution parameters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input (activation) tensor dimensions. Format: [N, H, W, C_IN] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK are the spatial filter dimensions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns required buffer size(bytes) </dd></dl>
 
 </div>
 </div>

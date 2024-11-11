@@ -175,6 +175,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae6a91b1c854a59478f251e5209fef17a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a">arm_nn_mat_mult_nt_t_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *dst, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_idx_offset)</td></tr>
 <tr class="memdesc:gae6a91b1c854a59478f251e5209fef17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with int8 input and int32 output. This function assumes:  <br /></td></tr>
 <tr class="separator:gae6a91b1c854a59478f251e5209fef17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9">arm_nn_transpose_conv_row_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *output_start, const int32_t output_index, const int32_t output_max, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t input_channels, const int32_t output_channels, const int32_t lhs_offset, const int32_t row_offset, const int32_t input_x, const int32_t stride_x, const int32_t skip_rows_top, const int32_t skip_rows_bottom)</td></tr>
+<tr class="memdesc:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer. Helpfunction for transposed convolution.  <br /></td></tr>
+<tr class="separator:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Support functions for Convolution and DW Convolution </p>
@@ -1609,6 +1612,136 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> </dd></dl>
+
+</div>
+</div>
+<a id="ga4150aa4b2a79efccc2a1258bda068ba9" name="ga4150aa4b2a79efccc2a1258bda068ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4150aa4b2a79efccc2a1258bda068ba9">&#9670;&#160;</a></span>arm_nn_transpose_conv_row_s8_s32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_transpose_conv_row_s8_s32 </td>
+          <td>(</td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int8_t *&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>output_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>output_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>output_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_channels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>output_channels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>lhs_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>row_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>stride_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>skip_row_top</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>skip_row_bottom</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer. Helpfunction for transposed convolution. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Input left-hand side scalars </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Input right-hand side matrix </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output_start</td><td>Output buffer start </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_index</td><td>Output buffer current index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_max</td><td>Output buffer size </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of rows in rhs matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of columns in rhs matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_channels</td><td>Number of input channels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_channels</td><td>Number of output channels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_offset</td><td>Offset added to lhs before multiplication </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_offset</td><td>Address offset between each row of data output </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_x</td><td>Length of lhs scalar row. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stride_x</td><td>Address offset between each scalar-matrix multiplication result. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">skip_row_top</td><td>Skip rows on top of the filter, used for padding. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">skip_row_bottom</td><td>Skip rows in the bottom of the filter, used for padding.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Rolling buffer refers to how the function wraps around the scratch buffer, e.g. it starts writing at [output_start + output_index], writes to [output_start + output_max] and then continues at [output_start] again. </dd></dl>
 
 </div>
 </div>

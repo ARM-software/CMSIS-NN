@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-NN: Globals</title>
+<title>CMSIS-NN: arm_nn_transpose_conv_row_s8_s32.c File Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('globals_r.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('arm__nn__transpose__conv__row__s8__s32_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -127,23 +127,25 @@ $(document).ready(function(){initNavTree('globals_r.html',''); initResizable(); 
 </div>
 </div>
 
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">arm_nn_transpose_conv_row_s8_s32.c File Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
-
-<h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>arm_relu6_s8()&#160;:&#160;<a class="el" href="group__Acti.html#ga0544841b10230a12d685074767e39787">arm_nnfunctions.h</a>, <a class="el" href="group__Acti.html#ga0544841b10230a12d685074767e39787">arm_relu6_s8.c</a></li>
-<li>arm_relu_q15()&#160;:&#160;<a class="el" href="group__Acti.html#gafc6c8b5546413c46e25f3bfbf99cb15b">arm_nnfunctions.h</a>, <a class="el" href="group__Acti.html#gafc6c8b5546413c46e25f3bfbf99cb15b">arm_relu_q15.c</a></li>
-<li>arm_relu_q7()&#160;:&#160;<a class="el" href="group__Acti.html#ga7048d8facd52dcefb14f6a2a87718cfb">arm_nnfunctions.h</a>, <a class="el" href="group__Acti.html#ga7048d8facd52dcefb14f6a2a87718cfb">arm_relu_q7.c</a></li>
-<li>arm_reshape_s8()&#160;:&#160;<a class="el" href="group__Reshape.html#ga8cc1dfb7b2b083935a97dc4f24d0533c">arm_nnfunctions.h</a>, <a class="el" href="group__Reshape.html#ga8cc1dfb7b2b083935a97dc4f24d0533c">arm_reshape_s8.c</a></li>
-<li>REDUCE_MULTIPLIER&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a19343832dbe881d527496171f69dc0c3">arm_nnsupportfunctions.h</a></li>
-<li>REVERSE_TCOL_EFFICIENT_THRESHOLD&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a71001d400c6ca2379965f8cfa77cfb5e">arm_nnsupportfunctions.h</a></li>
-<li>RIGHT_SHIFT&#160;:&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4">arm_nnsupportfunctions.h</a></li>
-</ul>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9">arm_nn_transpose_conv_row_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *output_start, const int32_t output_index, const int32_t output_max, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t input_channels, const int32_t output_channels, const int32_t lhs_offset, const int32_t row_offset, const int32_t input_x, const int32_t stride_x, const int32_t skip_rows_top, const int32_t skip_rows_bottom)</td></tr>
+<tr class="memdesc:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer. Helpfunction for transposed convolution.  <br /></td></tr>
+<tr class="separator:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_bb2dd6db4a0c79be92b22f2a6c9ec055.html">NNSupportFunctions</a></li><li class="navelem"><a class="el" href="arm__nn__transpose__conv__row__s8__s32_8c.html">arm_nn_transpose_conv_row_s8_s32.c</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

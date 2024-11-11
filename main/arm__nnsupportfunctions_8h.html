@@ -175,6 +175,8 @@ Macros</h2></td></tr>
 <tr class="separator:afd8f6a47120a40681ebddb3705c776b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6cf185995a44514fff7ea4871e26fc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ab6cf185995a44514fff7ea4871e26fc2">MAX_COL_COUNT</a>&#160;&#160;&#160;(512)</td></tr>
 <tr class="separator:ab6cf185995a44514fff7ea4871e26fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71001d400c6ca2379965f8cfa77cfb5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a71001d400c6ca2379965f8cfa77cfb5e">REVERSE_TCOL_EFFICIENT_THRESHOLD</a>&#160;&#160;&#160;(16)</td></tr>
+<tr class="separator:a71001d400c6ca2379965f8cfa77cfb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c0bf77866d5d657dbffdf7822d91cbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a9c0bf77866d5d657dbffdf7822d91cbf">CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD</a>&#160;&#160;&#160;(1)</td></tr>
 <tr class="separator:a9c0bf77866d5d657dbffdf7822d91cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7aefb6245b900616a68ab131774459c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a7aefb6245b900616a68ab131774459c0">OPTIONAL_RESTRICT_KEYWORD</a></td></tr>
@@ -279,6 +281,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb">arm_nn_depthwise_conv_nt_t_s16</a> (const int16_t *lhs, const int8_t *rhs, const uint16_t num_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int64_t *const output_bias, int16_t *out)</td></tr>
 <tr class="memdesc:ga933ea191be663ab1761e78cc0c08bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in non-padded cases. Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga933ea191be663ab1761e78cc0c08bbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9">arm_nn_transpose_conv_row_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *output_start, const int32_t output_index, const int32_t output_max, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t input_channels, const int32_t output_channels, const int32_t lhs_offset, const int32_t row_offset, const int32_t input_x, const int32_t stride_x, const int32_t skip_row_top, const int32_t skip_row_bottom)</td></tr>
+<tr class="memdesc:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer. Helpfunction for transposed convolution.  <br /></td></tr>
+<tr class="separator:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea6097dd5262fe8eeb37fbaf509a59c2"><td class="memItemLeft" align="right" valign="top">int8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#aea6097dd5262fe8eeb37fbaf509a59c2">arm_nn_mat_mult_kernel_s4_s16</a> (const int8_t *input_a, const int16_t *input_b, const uint16_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const int32_t num_col_a, const int32_t *const output_bias, int8_t *out_0)</td></tr>
 <tr class="memdesc:aea6097dd5262fe8eeb37fbaf509a59c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization and 4 bit weights.  <br /></td></tr>
 <tr class="separator:aea6097dd5262fe8eeb37fbaf509a59c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -802,6 +807,20 @@ Functions</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">_mult</td><td>)</td>
           <td>&#160;&#160;&#160;((_mult &lt; 0x7FFF0000) ? ((_mult + (1 &lt;&lt; 15)) &gt;&gt; 16) : 0x7FFF)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71001d400c6ca2379965f8cfa77cfb5e" name="a71001d400c6ca2379965f8cfa77cfb5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71001d400c6ca2379965f8cfa77cfb5e">&#9670;&#160;</a></span>REVERSE_TCOL_EFFICIENT_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REVERSE_TCOL_EFFICIENT_THRESHOLD&#160;&#160;&#160;(16)</td>
         </tr>
       </table>
 </div><div class="memdoc">
