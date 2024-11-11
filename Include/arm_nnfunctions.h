@@ -563,7 +563,7 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
 /**
  * @brief Get the required buffer size for ctx in s8 transpose conv function
  *
- * @param[in9       transposed_conv_params  Transposed convolution parameters
+ * @param[in]       transposed_conv_params  Transposed convolution parameters
  * @param[in]       input_dims              Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims             Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
  *                                          are the spatial filter dimensions
@@ -579,7 +579,7 @@ int32_t arm_transpose_conv_s8_get_buffer_size(const cmsis_nn_transpose_conv_para
 /**
  * @brief Get the required buffer size for output_ctx in s8 transpose conv function
  *
- * @param[in9       transposed_conv_params  Transposed convolution parameters
+ * @param[in]       transposed_conv_params  Transposed convolution parameters
  * @param[in]       input_dims              Input (activation) tensor dimensions. Format: [N, H, W, C_IN]
  * @param[in]       filter_dims             Filter tensor dimensions. Format: [C_OUT, HK, WK, C_IN] where HK and WK
  *                                        are the spatial filter dimensions
