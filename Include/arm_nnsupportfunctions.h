@@ -1455,7 +1455,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, 
     mult.word.high = 0;
 
     // Gets resolved as a SMLAL instruction
-    mult.long_long = mult.long_long + (int64_t)m1 * m2;
+    mult.long_long = 0x0000000040000000 + (int64_t)m1 * m2;
 
     // Utilize all of the upper 32 bits. This is the doubling step
     // as well.
