@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['cmsis_5fnn_5factivation_0',['cmsis_nn_activation',['../group__genPubTypes.html#structcmsis__nn__activation',1,'']]],
+  ['cmsis_5fnn_5fbias_5fdata_1',['cmsis_nn_bias_data',['../group__genPubTypes.html#structcmsis__nn__bias__data',1,'']]],
+  ['cmsis_5fnn_5fbmm_5fparams_2',['cmsis_nn_bmm_params',['../group__genPubTypes.html#structcmsis__nn__bmm__params',1,'']]],
+  ['cmsis_5fnn_5fcontext_3',['cmsis_nn_context',['../group__genPubTypes.html#structcmsis__nn__context',1,'']]],
+  ['cmsis_5fnn_5fconv_5fparams_4',['cmsis_nn_conv_params',['../group__genPubTypes.html#structcmsis__nn__conv__params',1,'']]],
+  ['cmsis_5fnn_5fdims_5',['cmsis_nn_dims',['../group__genPubTypes.html#structcmsis__nn__dims',1,'']]],
+  ['cmsis_5fnn_5fdw_5fconv_5fparams_6',['cmsis_nn_dw_conv_params',['../group__genPubTypes.html#structcmsis__nn__dw__conv__params',1,'']]],
+  ['cmsis_5fnn_5ffc_5fparams_7',['cmsis_nn_fc_params',['../group__genPubTypes.html#structcmsis__nn__fc__params',1,'']]],
+  ['cmsis_5fnn_5flstm_5fcontext_8',['cmsis_nn_lstm_context',['../group__genPubTypes.html#structcmsis__nn__lstm__context',1,'']]],
+  ['cmsis_5fnn_5flstm_5fdims_9',['cmsis_nn_lstm_dims',['../group__genPubTypes.html#structcmsis__nn__lstm__dims',1,'']]],
+  ['cmsis_5fnn_5flstm_5fgate_10',['cmsis_nn_lstm_gate',['../group__genPubTypes.html#structcmsis__nn__lstm__gate',1,'']]],
+  ['cmsis_5fnn_5flstm_5fparams_11',['cmsis_nn_lstm_params',['../group__genPubTypes.html#structcmsis__nn__lstm__params',1,'']]],
+  ['cmsis_5fnn_5fper_5fchannel_5fquant_5fparams_12',['cmsis_nn_per_channel_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__channel__quant__params',1,'']]],
+  ['cmsis_5fnn_5fper_5ftensor_5fquant_5fparams_13',['cmsis_nn_per_tensor_quant_params',['../group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params',1,'']]],
+  ['cmsis_5fnn_5fpool_5fparams_14',['cmsis_nn_pool_params',['../group__genPubTypes.html#structcmsis__nn__pool__params',1,'']]],
+  ['cmsis_5fnn_5fquant_5fparams_15',['cmsis_nn_quant_params',['../group__genPubTypes.html#structcmsis__nn__quant__params',1,'']]],
+  ['cmsis_5fnn_5fscaling_16',['cmsis_nn_scaling',['../group__genPubTypes.html#structcmsis__nn__scaling',1,'']]],
+  ['cmsis_5fnn_5fsoftmax_5flut_5fs16_17',['cmsis_nn_softmax_lut_s16',['../group__genPubTypes.html#structcmsis__nn__softmax__lut__s16',1,'']]],
+  ['cmsis_5fnn_5fsvdf_5fparams_18',['cmsis_nn_svdf_params',['../group__genPubTypes.html#structcmsis__nn__svdf__params',1,'']]],
+  ['cmsis_5fnn_5ftile_19',['cmsis_nn_tile',['../group__genPubTypes.html#structcmsis__nn__tile',1,'']]],
+  ['cmsis_5fnn_5ftranspose_5fconv_5fparams_20',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]],
+  ['cmsis_5fnn_5ftranspose_5fparams_21',['cmsis_nn_transpose_params',['../group__genPubTypes.html#structcmsis__nn__transpose__params',1,'']]]
+];
