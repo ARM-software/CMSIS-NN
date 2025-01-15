@@ -62,7 +62,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_to_conv_s8(const cmsis_nn_context 
                                               dw_conv_params->activation};
     const cmsis_nn_dims filter_output_dims = {filter_dims->c, filter_dims->h, filter_dims->w, filter_dims->n};
     int8_t *w_buf =
-        ctx->buf + arm_convolve_wrapper_s8_get_buffer_size(&conv_params, input_dims, &filter_output_dims, output_dims);
+        (int8_t*)ctx->buf + arm_convolve_wrapper_s8_get_buffer_size(&conv_params, input_dims, &filter_output_dims, output_dims);
     const uint32_t perm[4] = {3, 1, 2, 0};
     const cmsis_nn_transpose_params transpose_params = {4, perm};
 
