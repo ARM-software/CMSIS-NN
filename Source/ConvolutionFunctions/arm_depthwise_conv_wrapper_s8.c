@@ -22,7 +22,7 @@
  * Description:  Wrapper API to select appropriate depthwise conv API based
  *               on dimensions.
  *
- * $Date:        04 November 2024
+ * $Date:        17 January 2025
  * $Revision:    V.2.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
