@@ -1558,6 +1558,28 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_
  */
 __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividend, const int32_t exponent)
 {
+#if __ARM_ARCH_ISA_THUMB >= 2
+    // We use arithmetic right shift (ASR) as signed division. ASR rounds midpoints towards negative infinity.
+    // To correct this, we subtract 1 from negative numbers and unconditionally add the carry bit to both
+    // positive and negative numbers in the same way.
+
+    // GCC and Clang assemble this into a conditional "add r0, r0, r0 asr #31".
+    // INT32_MIN can be encoded into the immediate of a CMP instruction.
+    // I.e. this gives 3 instructions, no branch.
+    int32_t temp = dividend;
+    if (temp < 0 && temp != INT32_MIN) {
+        temp--;
+    }
+    // INT32_MIN is even, so we do not depend on the decrement.
+
+    int32_t result;
+    __asm volatile("asrs\t%0, %1, %2\n\t"
+                   "adc\t%0, %0, 0\n\t" // rounding
+                   : "=r"(result)
+                   : "r"(temp), "r"(exponent)
+                   : "cc");
+    return result;
+#else
     int32_t result = 0;
     const int32_t remainder_mask = (1 << exponent) - 1;
     int32_t remainder = remainder_mask & dividend;
@@ -1577,6 +1599,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
     }
 
     return result;
+#endif
 }
 
 /**
