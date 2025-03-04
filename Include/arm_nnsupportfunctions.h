@@ -1632,8 +1632,13 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t 
 
     return result;
 #else
-    return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val * (1 << LEFT_SHIFT(shift)), multiplier),
-                                         RIGHT_SHIFT(shift));
+    if (shift > 0) {
+        // left shift
+        return arm_nn_doubling_high_mult_no_sat(val * (1 << shift), multiplier);
+    } else {
+        // right shift
+        return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val, multiplier), -shift);
+    }
 #endif
 }
 
