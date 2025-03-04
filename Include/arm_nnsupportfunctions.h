@@ -1505,8 +1505,31 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult(const int32_t m1, const i
  *                  this function.
  *
  */
-__STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, const int32_t m2)
+__STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_t m2)
 {
+#if __ARM_ARCH_ISA_THUMB >= 2
+    // upper32bit_rounded(2*m1*m2)
+    //  == (2*m1*m2 + 0x80000000) >> 32
+    //  == (m1 * m2 + 0x40000000) >> 31
+    //  == (m1*m2) >> 31 + rounding,         where "rounding" is the 30-th bit of m1*m2
+    //
+    // Let the upper 32 bits of (m1 * m2) be "u" and the lower 32-bits "l".
+    // Then,
+    // (m1*m2) >> 31 + rounding
+    //  == ((u << 1) | (l >> 31)) + rounding
+    //  ==  (u << 1) + (l >> 31) + rounding          (bits are non-overlapping)
+    //  ==  (u << 1) + (l >> 31) + ((l >> 30) & 1)
+    //                             --------------- = Carry bit of l>>31
+    //
+    // These instructions require Thumb-2
+    __asm volatile("smull\t%1, %0, %0, %1\n\t"
+                   "lsrs\t%1, %1, #31\n\t"
+                   "adc\t%0, %1, %0, lsl #1\n\t"
+                   : "+r"(m1), "+r"(m2) /* We also garble m2 */
+                   : 
+                   : "cc");
+    return m1;
+#else
     int32_t result = 0;
     union arm_nn_long_long mult;
 
@@ -1522,6 +1545,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, 
     result = (int32_t)(mult.long_long >> 31);
 
     return result;
+#endif
 }
 
 /**
