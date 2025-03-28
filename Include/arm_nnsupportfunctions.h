@@ -1507,7 +1507,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult(const int32_t m1, const i
  */
 __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_t m2)
 {
-#if __ARM_ARCH_ISA_THUMB >= 2
+#ifdef CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY
     // upper32bit_rounded(2*m1*m2)
     //  == (2*m1*m2 + 0x80000000) >> 32
     //  == (m1 * m2 + 0x40000000) >> 31
@@ -1558,7 +1558,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_
  */
 __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividend, const int32_t exponent)
 {
-#if __ARM_ARCH_ISA_THUMB >= 2
+#ifdef CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY
     // We use arithmetic right shift (ASR) as signed division. ASR rounds midpoints towards negative infinity.
     // To correct this, we subtract 1 from negative numbers and unconditionally add the carry bit to both
     // positive and negative numbers in the same way.
@@ -1623,7 +1623,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
  */
 __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t multiplier, const int32_t shift)
 {
-#ifdef CMSIS_NN_USE_SINGLE_ROUNDING
+#if defined(CMSIS_NN_USE_SINGLE_ROUNDING)
     const int64_t total_shift = 31 - shift;
     const int64_t new_val = val * (int64_t)multiplier;
 
@@ -1631,14 +1631,17 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t 
     result = (result + 1) >> 1;
 
     return result;
-#else
-    if (shift > 0) {
+#elif defined(CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY)
+    if (shift >= 0) {
         // left shift
         return arm_nn_doubling_high_mult_no_sat(val * (1 << shift), multiplier);
     } else {
         // right shift
         return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val, multiplier), -shift);
     }
+#else
+    return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val * (1 << LEFT_SHIFT(shift)), multiplier),
+                                         RIGHT_SHIFT(shift));
 #endif
 }
 
