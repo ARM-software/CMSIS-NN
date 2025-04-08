@@ -130,7 +130,7 @@
     #endif
 #endif
 
-#if defined(__ARM_FEATURE_MVE) && ((__ARM_FEATURE_MVE & 3) == 3) || (__ARM_FEATURE_MVE & 1)
+#if defined(__ARM_FEATURE_MVE) && (((__ARM_FEATURE_MVE & 3) == 3) || (__ARM_FEATURE_MVE & 1))
     #include <arm_mve.h>
 #endif
 
