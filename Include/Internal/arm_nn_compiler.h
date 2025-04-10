@@ -21,8 +21,8 @@
  * Title:        arm_nn_compiler.h
  * Description:  Generic compiler header
  *
- * $Date:        20 June 2024
- * $Revision:    V.1.3.0
+ * $Date:        10 April 2025
+ * $Revision:    V.1.3.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
