@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2024-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -253,22 +253,24 @@ class Op_conv(Lib.op_utils.Op_type):
                 data_min = min(data_min, 0.0)
                 data_max = max(data_max, 0.0)
 
-                scale = (data_max - data_min) / (pow(2, quantization_bit_range) - 1)
+                scale = np.divide((data_max - data_min), pow(2, quantization_bit_range) - 1, dtype=np.float32)
                 zero_point = -(round(data_max * scale)) - pow(2, quantization_bit_range - 1)
                 zero_point = max(zero_point, pow(quantization_bit_range - 1) - 1)
                 zero_point = min(zero_point, -pow(quantization_bit_range - 1))
 
             elif quantization_type.lower() == "symmetric":
                 absolute_max = max(abs(data_min), abs(data_max))
-                scale = absolute_max / (pow(2, quantization_bit_range - 1) - 1)
+                scale = np.divide(absolute_max, (pow(2, quantization_bit_range - 1) - 1), dtype=np.float32)
                 zero_point = 0
 
             else:
                 raise RuntimeError("Quantization scheme not supported")
 
             scale = 0.1 if scale == 0 else scale
+            if isinstance(scale, np.float32):
+                scale = scale.item()
             quantized_data = [(x // scale) + zero_point for x in data]
-            return np.array(quantized_data), scale, zero_point
+            return (np.array(quantized_data), scale, zero_point)
 
         if params["generate_bias"]:
             quant_bias, bias_scale, bias_zp = quantize_float_data(

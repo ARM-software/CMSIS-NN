@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -364,7 +364,7 @@ def download_unity(force=False):
     current_dir = os.getcwd()
     os.chdir(download_dir)
     process = subprocess.Popen(
-        'curl -LJ https://api.github.com/repos/ThrowTheSwitch/Unity/tarball/v2.5.0 --output unity_tarball.tar.gz'.split(
+        'curl -LJ https://api.github.com/repos/ThrowTheSwitch/Unity/tarball/v2.6.1 --output unity_tarball.tar.gz'.split(
         ),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
