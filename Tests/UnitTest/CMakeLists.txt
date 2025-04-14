@@ -50,7 +50,9 @@ if(BUILD_CMSIS_NN_UNIT_TESTS_FOR_FVP_BASED_CORSTONE_300)
 endif()
 
 # Build the functions to be tested.
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../.. cmsis-nn)
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../.. cmsis-nn)
+endif()
 add_compile_options(${CMSIS_OPTIMIZATION_LEVEL})
 
 # Target for all unit tests.
@@ -63,10 +65,11 @@ function(add_cmsis_nn_unit_test_executable)
     foreach(target ${ARGV})
         set(tmp "${tmp} ${target}")
         add_executable(${target})
-        if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
             target_link_options(${target} PRIVATE "--specs=nosys.specs")
         endif()
         add_dependencies(cmsis_nn_unit_tests ${target})
+        add_test(NAME ${target} COMMAND ${target})
     endforeach()
     set_property(GLOBAL PROPERTY cmsis_nn_unit_test_executables "${tmp}")
 endfunction(add_cmsis_nn_unit_test_executable)

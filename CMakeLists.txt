@@ -17,7 +17,10 @@
 #
 
 cmake_minimum_required(VERSION 3.15.6)
-set(CMSIS_OPTIMIZATION_LEVEL "-Ofast" CACHE STRING "Compiler optimization level.")
+
+if (CMAKE_BUILD_TYPE MATCHES Release)
+    set(CMSIS_OPTIMIZATION_LEVEL "-Ofast" CACHE STRING "Compiler optimization level.")
+endif ()
 
 project(CMSISNN)
 
@@ -28,3 +31,18 @@ target_compile_options(cmsis-nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 target_include_directories(cmsis-nn PUBLIC "Include")
 
 add_subdirectory(Source)
+
+if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX)
+    list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+    include(CodeCoverage)
+    set(CODE_COVERAGE_VERBOSE ON)
+    append_coverage_compiler_flags()
+    set(COVERAGE_EXCLUDES "*build*" "Tests")
+    setup_target_for_coverage_gcovr_xml(NAME coverage-xml EXECUTABLE ctest)
+    setup_target_for_coverage_gcovr_html(NAME coverage-html EXECUTABLE ctest)
+
+    enable_testing()
+    set(CMSIS_PATH ${CMAKE_BINARY_DIR} CACHE PATH "Path to CMSIS.")
+    set(BUILD_CMSIS_NN_UNIT ON)
+    add_subdirectory(Tests/UnitTest)
+endif ()
