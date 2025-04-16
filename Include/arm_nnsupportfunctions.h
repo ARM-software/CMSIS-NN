@@ -1526,7 +1526,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_
                    "lsrs\t%1, %1, #31\n\t"
                    "adc\t%0, %1, %0, lsl #1\n\t"
                    : "+r"(m1), "+r"(m2) /* We also garble m2 */
-                   : 
+                   :
                    : "cc");
     return m1;
 #else
@@ -1567,7 +1567,8 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
     // INT32_MIN can be encoded into the immediate of a CMP instruction.
     // I.e. this gives 3 instructions, no branch.
     int32_t temp = dividend;
-    if (temp < 0 && temp != INT32_MIN) {
+    if (temp < 0 && temp != INT32_MIN)
+    {
         temp--;
     }
     // INT32_MIN is even, so we do not depend on the decrement.
@@ -1632,10 +1633,13 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t 
 
     return result;
 #elif defined(CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY)
-    if (shift >= 0) {
+    if (shift >= 0)
+    {
         // left shift
         return arm_nn_doubling_high_mult_no_sat(val * (1 << shift), multiplier);
-    } else {
+    }
+    else
+    {
         // right shift
         return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val, multiplier), -shift);
     }
