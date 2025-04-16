@@ -22,7 +22,7 @@
  * Description:  Public header file of support functions for CMSIS NN Library
  *
  * $Date:        08 Nov 2024
- * $Revision:    V.22.7.0
+ * $Revision:    V.22.8.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
