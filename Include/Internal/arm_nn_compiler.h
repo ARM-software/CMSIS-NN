@@ -21,8 +21,8 @@
  * Title:        arm_nn_compiler.h
  * Description:  Generic compiler header
  *
- * $Date:        20 June 2024
- * $Revision:    V.1.3.0
+ * $Date:        10 April 2025
+ * $Revision:    V.1.3.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -130,7 +130,7 @@
     #endif
 #endif
 
-#if defined(__ARM_FEATURE_MVE) && ((__ARM_FEATURE_MVE & 3) == 3) || (__ARM_FEATURE_MVE & 1)
+#if defined(__ARM_FEATURE_MVE) && (((__ARM_FEATURE_MVE & 3) == 3) || (__ARM_FEATURE_MVE & 1))
     #include <arm_mve.h>
 #endif
 
