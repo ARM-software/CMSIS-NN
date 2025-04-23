@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        08 Nov 2024
- * $Revision:    V.22.7.0
+ * $Date:        23 Apr 2025
+ * $Revision:    V.22.8.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1505,8 +1505,31 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult(const int32_t m1, const i
  *                  this function.
  *
  */
-__STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, const int32_t m2)
+__STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_t m2)
 {
+#ifdef CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY
+    // upper32bit_rounded(2*m1*m2)
+    //  == (2*m1*m2 + 0x80000000) >> 32
+    //  == (m1 * m2 + 0x40000000) >> 31
+    //  == (m1*m2) >> 31 + rounding,         where "rounding" is the 30-th bit of m1*m2
+    //
+    // Let the upper 32 bits of (m1 * m2) be "u" and the lower 32-bits "l".
+    // Then,
+    // (m1*m2) >> 31 + rounding
+    //  == ((u << 1) | (l >> 31)) + rounding
+    //  ==  (u << 1) + (l >> 31) + rounding          (bits are non-overlapping)
+    //  ==  (u << 1) + (l >> 31) + ((l >> 30) & 1)
+    //                             --------------- = Carry bit of l>>31
+    //
+    // These instructions require Thumb-2
+    __asm volatile("smull\t%1, %0, %0, %1\n\t"
+                   "lsrs\t%1, %1, #31\n\t"
+                   "adc\t%0, %1, %0, lsl #1\n\t"
+                   : "+r"(m1), "+r"(m2) /* We also garble m2 */
+                   :
+                   : "cc");
+    return m1;
+#else
     int32_t result = 0;
     union arm_nn_long_long mult;
 
@@ -1522,6 +1545,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, 
     result = (int32_t)(mult.long_long >> 31);
 
     return result;
+#endif
 }
 
 /**
@@ -1534,6 +1558,29 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(const int32_t m1, 
  */
 __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividend, const int32_t exponent)
 {
+#ifdef CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY
+    // We use arithmetic right shift (ASR) as signed division. ASR rounds midpoints towards negative infinity.
+    // To correct this, we subtract 1 from negative numbers and unconditionally add the carry bit to both
+    // positive and negative numbers in the same way.
+
+    // GCC and Clang assemble this into a conditional "add r0, r0, r0 asr #31".
+    // INT32_MIN can be encoded into the immediate of a CMP instruction.
+    // I.e. this gives 3 instructions, no branch.
+    int32_t temp = dividend;
+    if (temp < 0 && temp != INT32_MIN)
+    {
+        temp--;
+    }
+    // INT32_MIN is even, so we do not depend on the decrement.
+
+    int32_t result;
+    __asm volatile("asrs\t%0, %1, %2\n\t"
+                   "adc\t%0, %0, 0\n\t" // rounding
+                   : "=r"(result)
+                   : "r"(temp), "r"(exponent)
+                   : "cc");
+    return result;
+#else
     int32_t result = 0;
     const int32_t remainder_mask = (1 << exponent) - 1;
     int32_t remainder = remainder_mask & dividend;
@@ -1553,6 +1600,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
     }
 
     return result;
+#endif
 }
 
 /**
@@ -1576,7 +1624,7 @@ __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividen
  */
 __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t multiplier, const int32_t shift)
 {
-#ifdef CMSIS_NN_USE_SINGLE_ROUNDING
+#if defined(CMSIS_NN_USE_SINGLE_ROUNDING)
     const int64_t total_shift = 31 - shift;
     const int64_t new_val = val * (int64_t)multiplier;
 
@@ -1584,6 +1632,17 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize(const int32_t val, const int32_t 
     result = (result + 1) >> 1;
 
     return result;
+#elif defined(CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY)
+    if (shift >= 0)
+    {
+        // left shift
+        return arm_nn_doubling_high_mult_no_sat(val * (1 << shift), multiplier);
+    }
+    else
+    {
+        // right shift
+        return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val, multiplier), -shift);
+    }
 #else
     return arm_nn_divide_by_power_of_two(arm_nn_doubling_high_mult_no_sat(val * (1 << LEFT_SHIFT(shift)), multiplier),
                                          RIGHT_SHIFT(shift));

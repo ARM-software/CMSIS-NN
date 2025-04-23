@@ -102,9 +102,17 @@ you may need to specify '-fomit-frame-pointer'.
 
 The compiler option *'-fno-builtin'* does not utilize optimized implementations of e.g. memcpy and memset, which are heavily used by CMSIS-NN. It can significantly downgrade performance. So this should be avoided. The compiler option *'-ffreestanding'* should also be avoided as it enables '-fno-builtin' implicitly.
 
-Another option is to enable CMSIS_NN_USE_SINGLE_ROUNDING. This may affect the output. If enabling this the equivalent flag should be enabled in TFL/TFLM.
-
 For processors with DSP extension, int4 and int8 convolutions make use of the restrict keyword for the output pointer. This can allow the compiler to make optimizations but the actual performance result depends on the Arm(R) Cortex(R)-M processor, the compiler and the model. This optimization can be enabled by providing the compiler with a defition of OPTIONAL_RESTRICT_KEYWORD=__restrict . In general Arm Cortex-M7 will benefit from this. Similar Arm Cortex-M4 and Cortex-M33, will generally not benefit from it, but it may still bring an uplift depending on the model and compiler. It is recommended to enable this for Cortex-M7.
+
+Further compile-time options:
+
+| Name | Explanation | Affects headers(*) |
+|------|-----|-----|
+| CMSIS_NN_USE_SINGLE_ROUNDING | Use a single instead of double rounding in requantizazion. This may affect the output. | Yes |
+| CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY | Use inline assembly for `arm_nn_requantize`. This code branch is faster on Cortex-M4, but slower on others. Results should be bit-identical, but was observed to cause differences with Arm Compiler and Cortex-M7. | Yes |
+
+(*) If you enable an option that affects headers, also enable the equivalent option in TFL/TFLM.
+
 
 ### Supported Compilers
 * CMSIS-NN is tested on Arm Compiler 6 and on Arm GNU Toolchain.
