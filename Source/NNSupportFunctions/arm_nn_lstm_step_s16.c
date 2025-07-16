@@ -21,8 +21,8 @@
  * Title:        arm_nn_lstm_step_s16.c
  * Description:  Update LSTM function for a single iteration step.
  *
- * $Date:        26 March 2024
- * $Revision:    V.1.0.0
+ * $Date:        16 July 2025
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
