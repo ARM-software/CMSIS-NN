@@ -21,8 +21,8 @@
  * Title:        arm_nn_lstm_step_s8.c
  * Description:  Update LSTM function for a single iteration step.
  *
- * $Date:        19 January 2024
- * $Revision:    V.1.0.0
+ * $Date:        16 July 2025
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -76,7 +76,7 @@ arm_cmsis_nn_status arm_nn_lstm_step_s8(const int8_t *data_in,
     arm_nn_lstm_calculate_gate_s8_s16(data_in, hidden_in, &params->cell_gate, params, cell_gate, batch_offset);
 
     // Reminder of cell state calculation, multiply and add to previous result.
-    arm_elementwise_mul_acc_s16(forget_gate,
+    arm_elementwise_mul_acc_s16(input_gate,
                                 cell_gate,
                                 0,
                                 0,
