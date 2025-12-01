@@ -105,7 +105,7 @@ jobs:
           gh -R ${{ github.repository }} release download -p "*.pack" -D Platform_FVP_Corstone_SSE-300_Ethos-U55
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v5.1.0
+        uses: aws-actions/configure-aws-credentials@v5.1.1
         with:
           role-to-assume: ${{ env.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
