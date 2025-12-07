@@ -84,18 +84,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          mkdir -p artifacts && cd artifacts
-
-          artifacts_url=${{ github.event.workflow_run.artifacts_url }}
-
-          gh api "$artifacts_url" -q '.artifacts[] | select(.name=="artifact") | [.name, .archive_download_url] | @tsv' | \
-          while read artifact; do
-            IFS=$'\t' read name url <<< "$artifact"
-            gh api $url > "$name.zip"
-            unzip -d "$name" "$name.zip"
-          done
-
-          cp artifact/ARM.CMSIS-NN.*.pack ../Platform_FVP_Corstone_SSE-300_Ethos-U55/
+          gh run download -R ${{ github.repository }} -n pack -D artifacts
+          cp artifacts/ARM.CMSIS-NN.*.pack Platform_FVP_Corstone_SSE-300_Ethos-U55/
 
       - name: Download latest release pack
         if: ${{ ! github.event.workflow_run }}
