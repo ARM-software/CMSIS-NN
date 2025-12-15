@@ -2,8 +2,15 @@
 
 All CMSIS-NN examples are external, please follow the links to the respective repositories to find how they were implemented.
 
-## Image recognition on STMicroelectonics(R) STM32F4 using Arm(R) Mbed(TM) CLI 2
+## Micro Speech Example
 
-Image recognition on the STM32F4 board utilizing CMSIS-NN and Mbed CLI 2.
+End-to-end example wiht speech recognition on an Arm Cortex-M0 running in the QEMU emulator utilizing CMSIS-NN deployed through TensorFlow Lite Micro.
 
-Visit [here](https://github.com/ARM-software/ML-examples/tree/master/tflm-cmsisnn-mbed-image-recognition) for more information and the source code. There is also a [blog post](https://community.arm.com/arm-community-blogs/b/ai-and-ml-blog/posts/image-recognition-on-arm-powered-microcontrollers) for this demo.
+Visit [here](https://github.com/tensorflow/tflite-micro/tree/main/tensorflow/lite/micro/examples/micro_speech) for more information.
+
+## Arm FVP example
+
+Running a single convolution example on the [Arm(R) Corstone(TM)-300 fixed virtual platform (FVP)](https://developer.arm.com/Processors/Corstone-300):
+
+Visit [here](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/kernels/cmsis_nn/README.md) for more information.
+
