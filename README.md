@@ -95,6 +95,47 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain
 cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain/armclang.cmake -DTARGET_CPU=cortex-m3
 ```
 
+## Python bindings (optional)
+The Python helpers are built as a `cmsis_nn` extension module using pybind11.
+
+The purpose is to expose the CMSIS-NN host buffer size getter functions so they can be accessed and used from Python.
+
+Build the extension with CMake:
+```
+cmake -S . -B build -DCMSISNN_BUILD_PYBIND=ON
+cmake --build build
+```
+
+This produces a `cmsis_nn` shared library in the build tree. For a pip-installable wheel, use:
+```
+pip wheel . -w dist
+pip install dist/cmsis_nn-*.whl
+```
+
+Example usage:
+```
+import cmsis_nn
+
+backend = cmsis_nn.Backend.MVE
+
+buf_size = cmsis_nn.convolve_wrapper_buffer_size(
+    backend,
+    cmsis_nn.DataType.A8W8,
+    input_nhwc=[1, 8, 8, 16],
+    filter_nhwc=[8, 3, 3, 16],
+    output_nhwc=[1, 6, 6, 8],
+    padding_hw=[0, 0],
+    stride_hw=[1, 1],
+    dilation_hw=[1, 1],
+)
+```
+
+Optionally backend can be derived, e.g.:
+```
+backend = cmsis_nn.resolve_backend(cmsis_nn.CortexM.M55)
+```
+
+
 ### Compiler Options
 Default optimization level is set at Ofast. This can be overwritten with CMake on command line by using <nobr>*"-DCMSIS_OPTIMIZATION_LEVEL"*</nobr>. Please change according to project needs.
 Just bear in mind this can impact performance. With only optimization level -O0, *ARM_MATH_AUTOVECTORIZE* needs to be defined for processors with Helium
