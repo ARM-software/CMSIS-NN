@@ -1,3 +1,6 @@
+[![License Apache--2.0](https://img.shields.io/badge/License-Apache--2.0-green?label=License)](https://github.com/Arm-Software/CMSIS-NN/blob/main/LICENSE)
+[![Build pack](https://img.shields.io/github/actions/workflow/status/Arm-Software/CMSIS-NN/pack.yml?logo=arm&logoColor=0091bd&label=Build%20pack)](./.github/workflows/pack.yml)
+
 # CMSIS NN
 CMSIS NN software library is a collection of efficient neural network kernels developed to maximize the
 performance and minimize the memory footprint of neural networks on Arm Cortex-M processors.
