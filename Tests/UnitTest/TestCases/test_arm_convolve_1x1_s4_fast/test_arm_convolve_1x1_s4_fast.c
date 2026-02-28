@@ -584,6 +584,7 @@ void buffer_size_arm_convolve_1x1_s4_fast(void)
     input_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_X;
     filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_Y;
+    filter_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     output_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_W;
     output_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_H;
     output_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_OUT_CH;
@@ -621,6 +622,7 @@ void buffer_size_mve_arm_convolve_1x1_s4_fast(void)
     input_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_X;
     filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_Y;
+    filter_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     output_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_W;
     output_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_H;
     output_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_OUT_CH;
@@ -660,6 +662,7 @@ void buffer_size_dsp_arm_convolve_1x1_s4_fast(void)
     input_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_X;
     filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_FILTER_Y;
+    filter_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_IN_CH;
     output_dims.w = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_W;
     output_dims.h = KERNEL1X1_STRIDE_X_Y_2_INT4_OUTPUT_H;
     output_dims.c = KERNEL1X1_STRIDE_X_Y_2_INT4_OUT_CH;
