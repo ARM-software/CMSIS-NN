@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,7 +22,7 @@
  * Description:  Public header file of support functions for CMSIS NN Library
  *
  * $Date:        27 Feb 2026
- * $Revision:    V.22.9.0
+ * $Revision:    V.22.8.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -43,28 +43,6 @@ extern "C" {
 #define USE_FAST_DW_CONV_S16_FUNCTION(dw_conv_params, filter_dims, input_dims)                                         \
     (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
      filter_dims->w * filter_dims->h < 512)
-
-__STATIC_INLINE bool arm_nn_is_convolve_1x1(const cmsis_nn_conv_params *conv_params,
-                                            const cmsis_nn_dims *input_dims,
-                                            const cmsis_nn_dims *filter_dims)
-{
-    return (conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
-        (filter_dims->h == 1) && (conv_params->dilation.w == 1) && (conv_params->dilation.h == 1) &&
-        (input_dims->c == filter_dims->c);
-}
-
-__STATIC_INLINE bool arm_nn_is_convolve_1x1_fast(const cmsis_nn_conv_params *conv_params)
-{
-    return (conv_params->stride.w == 1) && (conv_params->stride.h == 1);
-}
-
-__STATIC_INLINE bool arm_nn_is_convolve_1_x_n(const cmsis_nn_conv_params *conv_params,
-                                               const cmsis_nn_dims *input_dims,
-                                               const cmsis_nn_dims *filter_dims)
-{
-    return (input_dims->h == 1) && (conv_params->dilation.w == 1) && (filter_dims->h == 1) &&
-        ((conv_params->stride.w * input_dims->c) % 4 == 0) && (input_dims->c == filter_dims->c);
-}
 
 #define LEFT_SHIFT(_shift) (_shift > 0 ? _shift : 0)
 #define RIGHT_SHIFT(_shift) (_shift > 0 ? 0 : -_shift)
@@ -131,6 +109,49 @@ __STATIC_INLINE bool arm_nn_is_convolve_1_x_n(const cmsis_nn_conv_params *conv_p
  * Internal Support functions. Not intended to be called direclty by a CMSIS-NN user.
  *
  */
+
+/**
+ * @brief Check if convolution parameters correspond to a 1x1 convolution.
+ * @param[in]   conv_params   Convolution parameters
+ * @param[in]   input_dims    Input dimensions
+ * @param[in]   filter_dims   Filter dimensions
+ * @return      true if parameters describe a 1x1 convolution, false otherwise.
+ */
+__STATIC_INLINE bool arm_nn_is_convolve_1x1(const cmsis_nn_conv_params *conv_params,
+                                            const cmsis_nn_dims *input_dims,
+                                            const cmsis_nn_dims *filter_dims)
+{
+    return (conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
+        (filter_dims->h == 1) && (conv_params->dilation.w == 1) && (conv_params->dilation.h == 1) &&
+        (input_dims->c == filter_dims->c);
+}
+
+/**
+ * @brief Check if a 1x1 convolution qualifies for the fast (unit stride) path.
+ * @param[in]   conv_params   Convolution parameters
+ * @return      true if stride is 1x1, false otherwise.
+ *
+ * @note Does not validate that the kernel is 1x1. Call arm_nn_is_convolve_1x1() first.
+ */
+__STATIC_INLINE bool arm_nn_is_convolve_1x1_fast(const cmsis_nn_conv_params *conv_params)
+{
+    return (conv_params->stride.w == 1) && (conv_params->stride.h == 1);
+}
+
+/**
+ * @brief Check if convolution parameters correspond to a 1xN convolution.
+ * @param[in]   conv_params   Convolution parameters
+ * @param[in]   input_dims    Input dimensions
+ * @param[in]   filter_dims   Filter dimensions
+ * @return      true if parameters describe a 1xN convolution, false otherwise.
+ */
+__STATIC_INLINE bool arm_nn_is_convolve_1_x_n(const cmsis_nn_conv_params *conv_params,
+                                              const cmsis_nn_dims *input_dims,
+                                              const cmsis_nn_dims *filter_dims)
+{
+    return (input_dims->h == 1) && (conv_params->dilation.w == 1) && (filter_dims->h == 1) &&
+        ((conv_params->stride.w * input_dims->c) % 4 == 0) && (input_dims->c == filter_dims->c);
+}
 
 /**
  * @defgroup genPrivTypes Structure Types

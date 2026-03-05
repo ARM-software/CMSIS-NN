@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -23,7 +23,7 @@
  *               cmsis-nn to perform the convolution. See header files for details.
  *
  * $Date:        27 Feb 2026
- * $Revision:    V.1.3.0
+ * $Revision:    V.1.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
