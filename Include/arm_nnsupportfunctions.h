@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        27 Feb 2026
- * $Revision:    V.22.8.1
+ * $Date:        6 Mars 2026
+ * $Revision:    V.22.9.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -244,6 +244,18 @@ void arm_q7_to_q15_with_offset(const int8_t *src, int16_t *dst, int32_t block_si
 void arm_s8_to_s16_unordered_with_offset(const int8_t *src, int16_t *dst, int32_t block_size, int16_t offset);
 
 #endif
+
+/**
+ * @brief Get the required buffer size for optimized s8 convolution.
+ *        This is for processors with MVE extension.
+ *        Refer to arm_convolve_s8_get_buffer_size() for function argument details.
+ *
+ * @note  Intended for compilation on Host. If compiling for an Arm target, use
+ *        arm_convolve_s8_get_buffer_size(). Note also this is a support function,
+ *        so not recommended to call directly even on Host.
+ *
+ */
+int32_t arm_convolve_s8_get_buffer_size_mve(const cmsis_nn_dims *input_dims, const cmsis_nn_dims *filter_dims);
 
 /**
  * @brief Get the required buffer size for optimized s8 depthwise convolution

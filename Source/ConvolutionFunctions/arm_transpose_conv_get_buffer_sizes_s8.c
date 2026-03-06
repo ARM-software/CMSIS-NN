@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_transpose_conv_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the transpose convolution layer functions.
  *
- * $Date:        29 October 2024
- * $Revision:    V.2.0.0
+ * $Date:        9 Mars 2026
+ * $Revision:    V.2.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -53,7 +53,9 @@ int32_t arm_transpose_conv_s8_get_buffer_size(const cmsis_nn_transpose_conv_para
                                               const cmsis_nn_dims *filter_dims,
                                               const cmsis_nn_dims *out_dims)
 {
-
+#if defined(ARM_MATH_MVEI)
+    return arm_transpose_conv_s8_get_buffer_size_mve(transpose_conv_params, input_dims, filter_dims, out_dims);
+#else
     const bool reverse_conv_possible =
         ((transpose_conv_params->stride.w <= 2) && (transpose_conv_params->stride.h <= 2));
     const bool reverse_conv_efficient = (input_dims->c > REVERSE_TCOL_EFFICIENT_THRESHOLD);
@@ -65,6 +67,36 @@ int32_t arm_transpose_conv_s8_get_buffer_size(const cmsis_nn_transpose_conv_para
                                                        input_dims->w * transpose_conv_params->stride.w,
                                                        input_dims->c};
         return arm_convolve_s8_get_buffer_size(&reverse_conv_input_dims, filter_dims);
+    }
+    else
+    {
+        const int32_t buf_x = ((input_dims->w - 1) * transpose_conv_params->stride.w +
+                               MAX(filter_dims->w, transpose_conv_params->stride.h)) *
+            out_dims->c;
+        const int32_t buf_y = MAX(filter_dims->h, transpose_conv_params->stride.h);
+        return buf_x * buf_y * sizeof(int32_t);
+    }
+#endif
+}
+
+int32_t arm_transpose_conv_s8_get_buffer_size_mve(const cmsis_nn_transpose_conv_params *transpose_conv_params,
+                                                  const cmsis_nn_dims *input_dims,
+                                                  const cmsis_nn_dims *filter_dims,
+                                                  const cmsis_nn_dims *out_dims)
+{
+
+    const bool reverse_conv_possible =
+        ((transpose_conv_params->stride.w <= 2) && (transpose_conv_params->stride.h <= 2));
+    const bool reverse_conv_efficient = (input_dims->c > REVERSE_TCOL_EFFICIENT_THRESHOLD);
+
+    if (reverse_conv_possible && reverse_conv_efficient)
+    {
+        const cmsis_nn_dims reverse_conv_input_dims = {input_dims->n,
+                                                       input_dims->h * transpose_conv_params->stride.h,
+                                                       input_dims->w * transpose_conv_params->stride.w,
+                                                       input_dims->c};
+
+        return arm_convolve_s8_get_buffer_size_mve(&reverse_conv_input_dims, filter_dims);
     }
     else
     {
