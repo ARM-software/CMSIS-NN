@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s4.c
  * Description:  Collection of get buffer size functions for the various s4 convolution layer functions.
  *
- * $Date:        10 April 2024
- * $Revision:    V.1.1.0
+ * $Date:        27 Feb 2026
+ * $Revision:    V.1.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -117,13 +117,12 @@ int32_t arm_convolve_wrapper_s4_get_buffer_size(const cmsis_nn_conv_params *conv
                                                 const cmsis_nn_dims *output_dims)
 {
 #if defined(ARM_MATH_MVEI)
-    return arm_convolve_wrapper_s8_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
+    return arm_convolve_wrapper_s4_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
 #else
     (void)output_dims;
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
-        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
+    if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
-        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
+        if (arm_nn_is_convolve_1x1_fast(conv_params))
         {
             return arm_convolve_1x1_s4_fast_get_buffer_size(input_dims);
         }
@@ -146,10 +145,9 @@ int32_t arm_convolve_wrapper_s4_get_buffer_size_mve(const cmsis_nn_conv_params *
 
 {
     (void)output_dims;
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
-        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1))
+    if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
-        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
+        if (arm_nn_is_convolve_1x1_fast(conv_params))
         {
             return arm_convolve_1x1_s4_fast_get_buffer_size(input_dims);
         }
@@ -158,8 +156,7 @@ int32_t arm_convolve_wrapper_s4_get_buffer_size_mve(const cmsis_nn_conv_params *
             return 0;
         }
     }
-    else if ((input_dims->h == 1) && (conv_params->dilation.w == 1) && (filter_dims->h == 1) &&
-             (conv_params->stride.w * input_dims->c % 4 == 0))
+    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims))
     {
         return arm_convolve_1_x_n_s4_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
     }

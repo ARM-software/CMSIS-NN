@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -425,6 +425,7 @@ void buffer_size_arm_convolve_1x1_s8_fast(void)
     input_dims.c = KERNEL1X1_IN_CH;
     filter_dims.w = KERNEL1X1_FILTER_X;
     filter_dims.h = KERNEL1X1_FILTER_Y;
+    filter_dims.c = KERNEL1X1_IN_CH;
     output_dims.w = KERNEL1X1_OUTPUT_W;
     output_dims.h = KERNEL1X1_OUTPUT_H;
     output_dims.c = KERNEL1X1_OUT_CH;
@@ -465,6 +466,7 @@ void buffer_size_mve_arm_convolve_1x1_s8_fast(void)
     input_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
     filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_FILTER_X;
     filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_FILTER_Y;
+    filter_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
     output_dims.w = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_W;
     output_dims.h = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_H;
     output_dims.c = KERNEL1X1_STRIDE_X_Y_2_OUT_CH;
@@ -504,6 +506,7 @@ void buffer_size_dsp_arm_convolve_1x1_s8_fast(void)
     input_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
     filter_dims.w = KERNEL1X1_STRIDE_X_Y_2_FILTER_X;
     filter_dims.h = KERNEL1X1_STRIDE_X_Y_2_FILTER_Y;
+    filter_dims.c = KERNEL1X1_STRIDE_X_Y_2_IN_CH;
     output_dims.w = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_W;
     output_dims.h = KERNEL1X1_STRIDE_X_Y_2_OUTPUT_H;
     output_dims.c = KERNEL1X1_STRIDE_X_Y_2_OUT_CH;

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,14 +22,15 @@
  * Description:  s8 convolution layer wrapper function with the main purpose to call the optimal kernel available in
  * cmsis-nn to perform the convolution.
  *
- * $Date:        04 November 2024
- * $Revision:    V.2.5.1
+ * $Date:        27 Feb 2026
+ * $Revision:    V.2.5.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
+#include "arm_nnsupportfunctions.h"
 
 /**
  *  @ingroup Public
@@ -59,11 +60,9 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
                                             const cmsis_nn_dims *output_dims,
                                             int8_t *output_data)
 {
-    if ((conv_params->padding.w == 0) && (conv_params->padding.h == 0) && (filter_dims->w == 1) &&
-        (filter_dims->h == 1) && (conv_params->dilation.w == 1 && conv_params->dilation.h == 1) &&
-        (input_dims->c == filter_dims->c))
+    if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
-        if ((conv_params->stride.w == 1) && (conv_params->stride.h == 1))
+        if (arm_nn_is_convolve_1x1_fast(conv_params))
         {
             return arm_convolve_1x1_s8_fast(ctx,
                                             conv_params,
@@ -92,8 +91,7 @@ arm_cmsis_nn_status arm_convolve_wrapper_s8(const cmsis_nn_context *ctx,
                                        output_data);
         }
     }
-    else if ((input_dims->h == 1) && conv_params->dilation.w == 1 && (filter_dims->h == 1) &&
-             ((conv_params->stride.w * input_dims->c) % 4 == 0) && (input_dims->c == filter_dims->c))
+    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims))
     {
         return arm_convolve_1_x_n_s8(ctx,
                                      conv_params,
