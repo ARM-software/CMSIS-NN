@@ -7,6 +7,7 @@ var group__GetBufferSizeNNConv =
     [ "arm_convolve_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#gaf8ee642967e4b1b05465621979de1baa", null ],
     [ "arm_convolve_s4_get_buffer_size", "group__GetBufferSizeNNConv.html#ga24715d51ff3f0fc127e39b95f8387e66", null ],
     [ "arm_convolve_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#gac057b0749e2a6828ae21f762f3fa0c85", null ],
+    [ "arm_convolve_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gaa474b2a8f93d8018961206ce85fefeb9", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size", "group__GetBufferSizeNNConv.html#ga818dfca6a26af7cc8abb91d43fb16930", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#ga02801066bbac2f02861552963d768fa4", null ],
     [ "arm_convolve_wrapper_s16_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga7b50bcf770926ce15d70aad0d027d309", null ],
@@ -31,5 +32,6 @@ var group__GetBufferSizeNNConv =
     [ "arm_depthwise_conv_wrapper_s8_get_buffer_size_dsp", "group__GetBufferSizeNNConv.html#ga9c60a9f3762d3ce1ab36f118ad74529b", null ],
     [ "arm_depthwise_conv_wrapper_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#gadb59b0426b44c62f5b081bd91521e274", null ],
     [ "arm_transpose_conv_s8_get_buffer_size", "group__GetBufferSizeNNConv.html#ga531ba80b45164c94ac3a2f1217709636", null ],
+    [ "arm_transpose_conv_s8_get_buffer_size_mve", "group__GetBufferSizeNNConv.html#ga3f4257a1d9986213407e8e5c02f48c0e", null ],
     [ "arm_transpose_conv_s8_get_reverse_conv_buffer_size", "group__GetBufferSizeNNConv.html#ga0bd4db501a2182f7111a41f2f7577218", null ]
 ];

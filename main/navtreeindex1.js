@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__genPubTypes.html#structcmsis__nn__lstm__context":[3,0,0,21],
+"group__genPubTypes.html#structcmsis__nn__lstm__dims":[3,0,0,4],
 "group__genPubTypes.html#structcmsis__nn__lstm__gate":[3,0,0,19],
 "group__genPubTypes.html#structcmsis__nn__lstm__params":[3,0,0,20],
 "group__genPubTypes.html#structcmsis__nn__per__channel__quant__params":[3,0,0,5],
