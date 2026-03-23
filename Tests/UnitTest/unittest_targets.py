@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2010-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -224,15 +224,18 @@ def test_target_with_unity(target, args, main_test):
             str_line = inputQueue.get()
             print(str_line)
             test = None
+            test_status = None
             try:
-                test = str_line.split(':')[2]
-                test_result = ':'.join(str_line.split(':')[2:4])
+                match = re.match(r"^[^:]+:[^:]+:([^:]+):(PASS|FAIL|IGNORE)\b", str_line)
+                if match:
+                    test = match.group(1)
+                    test_status = match.group(2)
             except IndexError:
                 pass
             if test in tests:
                 tests.remove(test)
                 target[test]["tested"] = True
-                if test_result == test + ':PASS':
+                if test_status == 'PASS':
                     target[test]["pass"] = True
             if len(tests) == 0:
                 break
@@ -405,6 +408,10 @@ def parse_generated_test_runner(test_runner):
     with open(test_runner, "w") as f:
         for line in lines:
             sline = line.strip('\n')
+            if sline.strip() == 'return UNITY_END();':
+                indent = line[:len(line) - len(line.lstrip())]
+                f.write(f"{indent}exit(UNITY_END());\n")
+                continue
             if not re.search(r"\(void\);", sline):
                 f.write(line)
             else:

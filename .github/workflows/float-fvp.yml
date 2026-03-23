@@ -1,0 +1,161 @@
+# SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the License); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+name: CMSIS NN Float CM55 FVP Regression
+
+on:
+  workflow_dispatch:
+    inputs:
+      tests:
+        description: Comma-separated float test families to run
+        required: false
+        default: all
+      dtypes:
+        description: Comma-separated dtype list
+        required: false
+        default: f32,f16
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, cmsis_nn_float]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  fvp:
+    name: FVP ${{ matrix.toolchain_label }}
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - key: ac6
+            toolchain: AC6
+            toolchain_label: AC6@6.24.0
+          - key: clang
+            toolchain: CLANG
+            toolchain_label: CLANG@20.1.0
+
+    env:
+      FLOAT_TESTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tests || 'all' }}
+      FLOAT_DTYPES: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dtypes || 'f32,f16' }}
+      CMSIS_PACK_ROOT: /home/runner/.cache/arm/packs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy termcolor pyserial
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+
+      - name: Install Arm tools
+        uses: ARM-software/cmsis-actions/vcpkg@v1
+
+      - name: Activate Arm tool license
+        if: matrix.toolchain == 'AC6'
+        uses: ARM-software/cmsis-actions/armlm@v1
+
+      - name: Cache CMSIS packs
+        uses: actions/cache@v5
+        with:
+          key: cmsis-packs
+          path: /home/runner/.cache/arm/packs
+
+      - name: Register local CMSIS-NN pack
+        run: |
+          rm -rf "${CMSIS_PACK_ROOT}/.Local"
+          cpackget add ARM.CMSIS-NN.pdsc -R "${CMSIS_PACK_ROOT}" -F
+
+      - name: Bootstrap Unity test runners
+        working-directory: Tests/UnitTest
+        run: |
+          python3 unittest_targets.py --download-and-generate-test-runners
+
+      - name: Export generic toolchain aliases
+        run: |
+          if [[ -n "${GCC_TOOLCHAIN_14_3_1:-}" ]]; then
+            echo "GCC_TOOLCHAIN=${GCC_TOOLCHAIN_14_3_1}" >> "${GITHUB_ENV}"
+          fi
+          if [[ -n "${AC6_TOOLCHAIN_6_24_0:-}" ]]; then
+            echo "AC6_TOOLCHAIN=${AC6_TOOLCHAIN_6_24_0}" >> "${GITHUB_ENV}"
+          fi
+          if [[ -n "${CLANG_TOOLCHAIN_20_1_0:-}" ]]; then
+            echo "CLANG_TOOLCHAIN=${CLANG_TOOLCHAIN_20_1_0}" >> "${GITHUB_ENV}"
+          fi
+
+      - name: Run float CMSIS/FVP regression
+        working-directory: Tests/UnitTest
+        run: |
+          # GCC is intentionally omitted here until the arm-none-eabi-gcc
+          # internal compiler error on the float f16 min/max path is fixed.
+          # FVP runs are already executed sequentially by run_float_unit_tests.py.
+          set +e
+          set -o pipefail
+
+          python3 -u run_float_unit_tests.py \
+            --tests "${FLOAT_TESTS}" \
+            --dtypes "${FLOAT_DTYPES}" \
+            --build-cmsis \
+            --run-fvp \
+            --toolchains "${{ matrix.toolchain }}" \
+            --jobs 4 \
+            --fvp-timeout 120 \
+            --cbuild-packs \
+            --fvp-bin FVP_Corstone_SSE-300 \
+            --fvp-image-arg=-a | tee float_fvp.log
+
+          status=${PIPESTATUS[0]}
+
+          {
+            echo "## ${{ matrix.toolchain_label }}"
+            echo ""
+            echo "- Tests: \`${FLOAT_TESTS}\`"
+            echo "- DTypes: \`${FLOAT_DTYPES}\`"
+            echo ""
+            echo '```text'
+            if grep -q '^Float Unit-Test Summary' float_fvp.log; then
+              sed -n '/^Float Unit-Test Summary/,$p' float_fvp.log
+            else
+              cat float_fvp.log
+            fi
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          exit "${status}"
+
+      - name: Upload float FVP logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: float-fvp-${{ matrix.key }}
+          path: |
+            Tests/UnitTest/float_fvp.log
+            Tests/UnitTest/cmsis/**/*.log

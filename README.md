@@ -9,6 +9,24 @@ performance and minimize the memory footprint of neural networks on Arm Cortex-M
 The library follows the [int8](https://www.tensorflow.org/lite/performance/quantization_spec) and int16 quantization specification of TensorFlow Lite for Microcontrollers.
 This means CMSIS-NN is bit-exact with Tensorflow Lite reference kernels. In some cases TFL and TFLM reference kernels may not be bit-exact. In that case CMSIS-NN follows TFLM reference kernels. The unit test readme provides an [overview](https://github.com/ARM-software/CMSIS-NN/blob/main/Tests/UnitTest/README.md#tests-depending-on-tflm-interpreter).
 
+### Experimental Float API
+CMSIS-NN also provides experimental float32 and float16 APIs. The float API intentionally follows the same CMSIS-NN integer style, which is itself shaped by TFLM integration patterns, to keep the public surface consistent across data types. This includes float16 even though TFLM does not define a float16 operator contract.
+
+The float API is primarily intended for Cortex-M CPUs with Arm Helium Technology (MVE). Pure C scalar reference implementations are provided for correctness, bring-up, and fallback, but practical deployment is expected to target MVE-enabled CPUs. In general, float kernels should be reserved for specific use cases where integer quantization is not possible or not acceptable, and where the neural network remains modest enough for Cortex-M class devices. CMSIS-NN float support is intended to integrate with frameworks that can carry float16 operator flows, such as [ExecuTorch](https://executorch.ai/).
+
+For the float operators that support `arm_nn_weight_format_flt`, MVE
+performance is generally better when constant weights are provided in the
+packed `NTxN` layout instead of the standard `NT x T` layout. This avoids the
+gather-heavy RHS access pattern of the standard formulation and is therefore
+the preferred deployment format when offline repacking is available.
+
+The floating-point scalar code can also be compiled for Arm A-class CPUs with `float16`
+support and may benefit from NEON or SVE auto-vectorization. However, this is
+not an intended deployment target for CMSIS-NN float support, and the resulting
+performance is expected to be suboptimal compared to libraries designed for that
+class of processor. For Arm A-class CPUs, prefer optimized inference libraries
+such as Arm Compute Library or XNNPACK.
+
 ## Branches and Tags
 There is a single branch called 'main'.
 Tags are created during a release. Two releases are planned to be done in a year. The releases can be found
@@ -27,24 +45,26 @@ processors here are Cortex-M4 or a Cortex-M33 configured with optional DSP exten
 Processors with Arm Helium Technology use the Arm M-profile Vector Extension(MVE) instructions for optimization.
 Examples are Cortex-M55 or Cortex-M85 configured with MVE.
 
-| Operator        | C <br> int8 | C<br>int16 | C<br>int4* | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 | MVE<br>int4* |
-| --------------- | ----------- | ---------- |------------|-------------| -------------|--------------|-------------| -------------|--------------|
-| Conv2D          | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
-| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
-| TransposeConv2D | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
-| Fully Connected | Yes         | Yes        | Yes        | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          |
-| Batch Matmul    | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
-| Add             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
-| Minimum         | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
-| Maximum         | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
-| Mul             | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
-| MaxPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
-| AvgPooling      | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          |
-| Softmax         | Yes         | Yes        | N/A        | Yes         | Yes          | N/A          | Yes         | No           | N/A          |
-| LSTM            | Yes         | Yes        | No         | Yes         | Yes          | No           | Yes         | Yes          | No           |
-| SVDF            | Yes         | No         | No         | Yes         | No           | No           | Yes         | No           | No           |
-| Pad             | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
-| Transpose       | Yes         | No         | N/A        | No          | No           | N/A          | Yes         | No           | N/A          |
+The float columns below summarize the current experimental float coverage. Float kernels are available in pure C reference form and, for the operators listed below, in Helium-optimized form where available. Float support is primarily intended for cores with Helium and hardware floating-point support; on cores that only provide the classic DSP extension, float kernels may still compile through the scalar C path but are not a performance target.
+
+| Operator        | C <br> int8 | C<br>int16 | C<br>int4* | C<br>float16/float32 | DSP<br>int8 | DSP<br>int16 | DSP<br>int4* | MVE<br>int8 | MVE<br>int16 | MVE<br>int4* | MVE<br>float16/float32 |
+| --------------- | ----------- | ---------- |------------|----------------------|-------------| -------------|--------------|-------------| -------------|--------------|------------------------|
+| Conv2D          | Yes         | Yes        | Yes        | Yes                  | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          | Yes                    |
+| DepthwiseConv2D | Yes         | Yes        | Yes        | Yes                  | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          | Yes                    |
+| TransposeConv2D | Yes         | No         | No         | Yes                  | Yes         | No           | No           | Yes         | No           | No           | Yes                    |
+| Fully Connected | Yes         | Yes        | Yes        | Yes                  | Yes         | Yes          | Yes          | Yes         | Yes          | Yes          | Yes                    |
+| Batch Matmul    | Yes         | Yes        | No         | Yes                  | Yes         | Yes          | No           | Yes         | Yes          | No           | Yes                    |
+| Add             | Yes         | Yes        | N/A        | Yes                  | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          | Yes                    |
+| Minimum         | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
+| Maximum         | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
+| Mul             | Yes         | Yes        | N/A        | Yes                  | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          | Yes                    |
+| MaxPooling      | Yes         | Yes        | N/A        | Yes                  | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          | Yes                    |
+| AvgPooling      | Yes         | Yes        | N/A        | Yes                  | Yes         | Yes          | N/A          | Yes         | Yes          | N/A          | Yes                    |
+| Softmax         | Yes         | Yes        | N/A        | Yes                  | Yes         | Yes          | N/A          | Yes         | No           | N/A          | Yes                    |
+| LSTM            | Yes         | Yes        | No         | Yes                  | Yes         | Yes          | No           | Yes         | Yes          | No           | Yes                    |
+| SVDF            | Yes         | No         | No         | Yes                  | Yes         | No           | No           | Yes         | No           | No           | Yes                    |
+| Pad             | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
+| Transpose       | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
 
 * int4 weights + int8 activations
 
@@ -69,6 +89,13 @@ script in the Documentation/Doxygen folder to check that no errors are introduce
 For any new features and bug fixes, new unit tests are needed. Improvements have to be verifed by unit tests. If you do
 not have the means to execute the tests, you can still make the PR and comment that you need help in completing/executing
 the unit tests.
+
+The repository also provides a `vcpkg-configuration.json` used to provision the
+tool environment required by the unit-test and CI flows. This is consumed by
+the `vcpkg` package manager, locally or in the cloud, to avoid manual setup of
+CMSIS-Toolbox, compilers, and FVP dependencies. The same setup is used by the
+GitHub Actions CI workflows that run the unit-test regressions on pushes and
+pull requests.
 
 ### Version & Date
 Each File has a version number and a date field that must be updated when making any change to that file. The versioning
@@ -148,10 +175,33 @@ The compiler option *'-fno-builtin'* does not utilize optimized implementations 
 
 For processors with DSP extension, int4 and int8 convolutions make use of the restrict keyword for the output pointer. This can allow the compiler to make optimizations but the actual performance result depends on the Arm(R) Cortex(R)-M processor, the compiler and the model. This optimization can be enabled by providing the compiler with a defition of OPTIONAL_RESTRICT_KEYWORD=__restrict . In general Arm Cortex-M7 will benefit from this. Similar Arm Cortex-M4 and Cortex-M33, will generally not benefit from it, but it may still bring an uplift depending on the model and compiler. It is recommended to enable this for Cortex-M7.
 
+Experimental float support is disabled by default. This is intentional to keep the library code size and public API surface small for integer-only builds. Enable the float options only when the application strictly needs them.
+
+For performance reasons, the current floating-point kernels do not
+specifically target IEEE edge cases such as `NaN`, `Inf`,
+denormals/subnormals, or signed zero. The intended use is that the neural
+network pre-processing stage provides finite, numerically safe input data and
+that the model weights and biases do not contain aberrant values.
+
+For the scalar floating-point softmax path, the LUT-based exp approximation is
+enabled by default for performance. This improves speed on supported targets,
+but it adds one 257-entry lookup table per enabled float precision:
+
+- float16: 257 half-words, about 514 bytes
+- float32: 257 words, about 1028 bytes
+
+Define `ARM_NN_USE_EXP_TAYLOR` to avoid the extra lookup-table storage. Do not
+define both `ARM_NN_USE_EXP_LUT` and `ARM_NN_USE_EXP_TAYLOR` at the same time.
+
 Further compile-time options:
 
 | Name | Explanation | Affects headers(*) |
 |------|-----|-----|
+| ARM_NN_ENABLE_F32 | Enable experimental float32 operator support. Leave disabled unless the application needs float32 kernels. | Yes |
+| ARM_NN_ENABLE_F16 | Enable experimental float16 operator support. Leave disabled unless the application needs float16 kernels and the toolchain/target support them. | Yes |
+| NN_DISABLE_SPECIALIZATION | Disable optional shape/layout-specific fast paths and force the corresponding generic implementations. Useful for debugging or validating specialized kernels against the generic path. | No |
+| ARM_NN_USE_EXP_LUT | Select the LUT-based scalar float softmax exp approximation. This is the default if no softmax exp macro is defined. | No |
+| ARM_NN_USE_EXP_TAYLOR | Select the Taylor/Estrin scalar float softmax exp approximation to avoid the extra LUT storage. | No |
 | CMSIS_NN_USE_SINGLE_ROUNDING | Use a single instead of double rounding in requantizazion. This may affect the output. | Yes |
 | CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY | Use inline assembly for `arm_nn_requantize`. This code branch is faster on Cortex-M4, but slower on others. Results should be bit-identical, but was observed to cause differences with Arm Compiler and Cortex-M7. | Yes |
 

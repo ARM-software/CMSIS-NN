@@ -1,0 +1,260 @@
+/*
+ * SPDX-FileCopyrightText: Copyright 2019 Keith Packard
+ * SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#define __STACKSEAL_SIZE   ( 8 )
+#else
+#define __STACKSEAL_SIZE   ( 0 )
+#endif
+
+#define ITCM_BASE S_CODE_START
+#define ITCM_SIZE S_CODE_SIZE
+#define DTCM_BASE S_DATA_START
+#define DTCM_SIZE S_DATA_SIZE
+#define ISRAM_BASE S_ISRAM_START
+#define ISRAM_SIZE S_ISRAM_SIZE
+#define DDR_BASE  S_DDR4_START
+#define DDR_SIZE  S_DDR4_SIZE
+
+MEMORY
+{
+  ITCM  (rx!w)  : ORIGIN = ITCM_BASE, LENGTH = ITCM_SIZE
+  DTCM  (w!rx)  : ORIGIN = DTCM_BASE, LENGTH = DTCM_SIZE
+  ISRAM (w!rx)  : ORIGIN = ISRAM_BASE, LENGTH = ISRAM_SIZE
+  DDR   (w!rx)  : ORIGIN = DDR_BASE, LENGTH = DDR_SIZE
+}
+
+ENTRY(Reset_Handler)
+
+PHDRS
+{
+  text PT_LOAD;
+  ram PT_LOAD;
+  ram_init PT_LOAD;
+  isram PT_LOAD;
+  ddr PT_LOAD;
+  tls PT_TLS;
+}
+
+SECTIONS
+{
+  .init : {
+    KEEP (*(.vectors))
+    KEEP (*(.text.init.enter))
+    KEEP (*(.data.init.enter))
+    KEEP (*(SORT_BY_NAME(.init) SORT_BY_NAME(.init.*)))
+  } >ITCM AT>ITCM :text
+
+  .text : {
+    *(.text.unlikely .text.unlikely.*)
+    *(.text.startup .text.startup.*)
+    *(.text .text.* .opd .opd.*)
+    *(.gnu.linkonce.t.*)
+    KEEP (*(.fini .fini.*))
+    __text_end = .;
+
+    PROVIDE (__etext = __text_end);
+    PROVIDE (_etext = __text_end);
+    PROVIDE (etext = __text_end);
+
+    *(.rdata)
+    *(.gnu.linkonce.r.*)
+    *(.srodata.cst16)
+    *(.srodata.cst8)
+    *(.srodata.cst4)
+    *(.srodata.cst2)
+    *(.srodata .srodata.*)
+    *(.data.rel.ro .data.rel.ro.*)
+    *(.got .got.*)
+
+    . = ALIGN(8);
+
+    PROVIDE_HIDDEN ( __preinit_array_start = . );
+    KEEP (*(.preinit_array))
+    PROVIDE_HIDDEN ( __preinit_array_end = . );
+
+    PROVIDE_HIDDEN ( __init_array_start = . );
+    KEEP (*(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*)))
+    KEEP (*(.init_array .ctors))
+    PROVIDE_HIDDEN ( __init_array_end = . );
+
+    PROVIDE_HIDDEN ( __fini_array_start = . );
+    KEEP (*(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*)))
+    KEEP (*(.fini_array .dtors))
+    PROVIDE_HIDDEN ( __fini_array_end = . );
+  } >ITCM AT>ITCM :text
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  .veneers :
+  {
+    . = ALIGN(32);
+    KEEP(*(.gnu.sgstubs))
+  } > ITCM AT>ITCM :text
+#endif
+
+  .toc : {
+    *(.toc .toc.*)
+  } >ITCM AT>ITCM :text
+
+  .except_ordered : {
+    *(.gcc_except_table *.gcc_except_table.*)
+    KEEP (*(.eh_frame .eh_frame.*))
+    *(.ARM.extab* .gnu.linkonce.armextab.*)
+  } >ITCM AT>ITCM :text
+
+  .except_unordered : {
+    . = ALIGN(8);
+    PROVIDE(__exidx_start = .);
+    *(.ARM.exidx*)
+    PROVIDE(__exidx_end = .);
+  } >ITCM AT>ITCM :text
+
+  .preserve (NOLOAD) : {
+    PROVIDE(__preserve_start__ = .);
+    KEEP(*(SORT_BY_NAME(.preserve.*)))
+    KEEP(*(.preserve))
+    PROVIDE(__preserve_end__ = .);
+  } >DTCM AT>DTCM :ram
+
+  .isram (NOLOAD): {
+    *(.bss.NoInit.ethos_u_cache)
+    *(.bss.NoInit.activation_buf_sram)
+  } > ISRAM : isram
+
+  .data : {
+    *(.data .data.*)
+    *(.gnu.linkonce.d.*)
+    *(.rodata .rodata.*)
+
+    . = ALIGN(8);
+    PROVIDE(__global_pointer$ = . + 0x800);
+    *(.sdata .sdata.* .sdata2.*)
+    *(.gnu.linkonce.s.*)
+  } >DTCM AT>ITCM :ram_init
+  PROVIDE(__data_start = ADDR(.data));
+  PROVIDE(__data_source = LOADADDR(.data));
+
+  .tdata : {
+    *(.tdata .tdata.* .gnu.linkonce.td.*)
+    PROVIDE(__data_end = .);
+    PROVIDE(__tdata_end = .);
+  } >DTCM AT>ITCM :tls :ram_init
+  PROVIDE(__tls_base = ADDR(.tdata));
+  PROVIDE(__tdata_start = ADDR(.tdata));
+  PROVIDE(__tdata_source = LOADADDR(.tdata));
+  PROVIDE(__tdata_source_end = LOADADDR(.tdata) + SIZEOF(.tdata));
+  PROVIDE(__data_source_end = __tdata_source_end);
+  PROVIDE(__tdata_size = SIZEOF(.tdata));
+  PROVIDE(__tls_align = MAX(ALIGNOF(.tdata), ALIGNOF(.tbss)));
+
+  PROVIDE(__edata = __data_end);
+  PROVIDE(_edata = __data_end);
+  PROVIDE(edata = __data_end);
+  PROVIDE(__data_size = __data_end - __data_start);
+  PROVIDE(__data_source_size = __data_source_end - __data_source);
+
+  .tbss (NOLOAD) : {
+    *(.tbss .tbss.* .gnu.linkonce.tb.*)
+    *(.tcommon)
+    PROVIDE(__tls_end = .);
+    PROVIDE(__tbss_end = .);
+  } >DTCM AT>DTCM :tls :ram
+  PROVIDE(__bss_start = ADDR(.tbss));
+  PROVIDE(__tbss_start = ADDR(.tbss));
+  PROVIDE(__tbss_offset = ADDR(.tbss) - ADDR(.tdata));
+  PROVIDE(__tbss_size = SIZEOF(.tbss));
+  PROVIDE(__tls_size = __tls_end - __tls_base);
+  PROVIDE(__tls_align = MAX(ALIGNOF(.tdata), ALIGNOF(.tbss)));
+  PROVIDE(__arm32_tls_tcb_offset = MAX(8, __tls_align));
+  PROVIDE(__arm64_tls_tcb_offset = MAX(16, __tls_align));
+
+  .bss (NOLOAD) : {
+    *(.sbss*)
+    *(.gnu.linkonce.sb.*)
+    *(.bss .bss.*)
+    *(.gnu.linkonce.b.*)
+    *(COMMON)
+    . = ALIGN(8);
+    __bss_end = .;
+  } >DTCM AT>DTCM :ram
+  PROVIDE(__non_tls_bss_start = ADDR(.bss));
+  PROVIDE(__end = __bss_end);
+  PROVIDE(_end = __bss_end);
+  PROVIDE(end = __bss_end);
+  PROVIDE(__bss_size = __bss_end - __bss_start);
+
+  PROVIDE(__heap_start = __end);
+#ifdef HEAP_SIZE
+  PROVIDE(__heap_end = __heap_start + HEAP_SIZE);
+#else
+  PROVIDE(__heap_end = __stack - STACK_SIZE);
+  PROVIDE(HEAP_SIZE = __heap_end - __heap_start);
+#endif
+  .heap (NOLOAD) : {
+    . += HEAP_SIZE;
+  } >DTCM :ram
+
+  PROVIDE(__stack = ORIGIN(DTCM) + LENGTH(DTCM) - __STACKSEAL_SIZE);
+  PROVIDE(__stack_limit = __stack - STACK_SIZE);
+  .stack (__stack_limit) (NOLOAD) : {
+    . += STACK_SIZE;
+  } >DTCM :ram
+
+#if __STACKSEAL_SIZE > 0
+  PROVIDE(__stack_seal = __stack);
+  .stackseal (__stack) (NOLOAD) : {
+    . += __STACKSEAL_SIZE;
+  } >DTCM :ram
+#endif
+
+  .ddr : {
+    *(ifm)
+    *(nn_model)
+    *(labels)
+    *(.bss.NoInit.activation_buf_dram)
+  } > DDR : ddr
+
+  .stab          0 : { *(.stab) }
+  .stabstr       0 : { *(.stabstr) }
+  .stab.excl     0 : { *(.stab.excl) }
+  .stab.exclstr  0 : { *(.stab.exclstr) }
+  .stab.index    0 : { *(.stab.index) }
+  .stab.indexstr 0 : { *(.stab.indexstr) }
+  .comment       0 : { *(.comment) }
+  .gnu.build.attributes : { *(.gnu.build.attributes .gnu.build.attributes.*) }
+  .debug          0 : { *(.debug) }
+  .line           0 : { *(.line) }
+  .debug_srcinfo  0 : { *(.debug_srcinfo) }
+  .debug_sfnames  0 : { *(.debug_sfnames) }
+  .debug_aranges  0 : { *(.debug_aranges) }
+  .debug_pubnames 0 : { *(.debug_pubnames) }
+  .debug_info     0 : { *(.debug_info .gnu.linkonce.wi.*) }
+  .debug_abbrev   0 : { *(.debug_abbrev) }
+  .debug_line     0 : { *(.debug_line .debug_line.* .debug_line_end) }
+  .debug_frame    0 : { *(.debug_frame) }
+  .debug_str      0 : { *(.debug_str) }
+  .debug_loc      0 : { *(.debug_loc) }
+  .debug_macinfo  0 : { *(.debug_macinfo) }
+  .debug_weaknames 0 : { *(.debug_weaknames) }
+  .debug_funcnames 0 : { *(.debug_funcnames) }
+  .debug_typenames 0 : { *(.debug_typenames) }
+  .debug_varnames  0 : { *(.debug_varnames) }
+  .debug_pubtypes 0 : { *(.debug_pubtypes) }
+  .debug_ranges   0 : { *(.debug_ranges) }
+  .debug_addr     0 : { *(.debug_addr) }
+  .debug_line_str 0 : { *(.debug_line_str) }
+  .debug_loclists 0 : { *(.debug_loclists) }
+  .debug_macro    0 : { *(.debug_macro) }
+  .debug_names    0 : { *(.debug_names) }
+  .debug_rnglists 0 : { *(.debug_rnglists) }
+  .debug_str_offsets 0 : { *(.debug_str_offsets) }
+  .debug_sup      0 : { *(.debug_sup) }
+  .gnu.attributes 0 : { KEEP (*(.gnu.attributes)) }
+}
+
+ASSERT(__data_size == __data_source_size,
+       "ERROR: .data/.tdata flash size does not match RAM size");

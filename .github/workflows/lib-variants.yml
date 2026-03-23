@@ -1,0 +1,176 @@
+# SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the License); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: CMSIS NN Library Variant Matrix
+
+on:
+  workflow_dispatch:
+    inputs:
+      toolchains:
+        description: Comma-separated toolchains to run (no spaces)
+        required: false
+        default: GCC@14.3.1,AC6@6.24.0
+      variants:
+        description: Comma-separated variant keys to build
+        required: false
+        default: all
+      cpu:
+        description: Target CPU passed to the toolchain
+        required: false
+        default: cortex-m55
+      optimization:
+        description: Value forwarded to CMSIS_OPTIMIZATION_LEVEL
+        required: false
+        default: -Ofast
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, cmsis_nn_float]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  variants:
+    name: ${{ matrix.toolchain_label }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - key: gcc
+            toolchain: GCC
+            toolchain_label: GCC@14.3.1
+          - key: ac6
+            toolchain: AC6
+            toolchain_label: AC6@6.24.0
+
+    env:
+      SELECTED_TOOLCHAINS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.toolchains || 'GCC@14.3.1,AC6@6.24.0' }}
+      LIB_VARIANTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.variants || 'all' }}
+      LIB_CPU: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.cpu || 'cortex-m55' }}
+      LIB_OPTIMIZATION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.optimization || '' }}
+      LIB_BUILD_ROOT: ${{ github.workspace }}/.ci-tmp/cmsis-nn-lib-variants
+      CMSIS_PACK_ROOT: /home/runner/.cache/arm/packs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check toolchain selection
+        id: select
+        run: |
+          if [[ ",${SELECTED_TOOLCHAINS}," == *",${{ matrix.toolchain_label }},"* ]]; then
+            echo "enabled=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "enabled=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Skip unselected toolchain
+        if: steps.select.outputs.enabled != 'true'
+        run: |
+          {
+            echo "## ${{ matrix.toolchain_label }}"
+            echo ""
+            echo "Skipped by workflow_dispatch filter."
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Install Arm tools
+        if: steps.select.outputs.enabled == 'true'
+        uses: ARM-software/cmsis-actions/vcpkg@v1
+
+      - name: Cache CMSIS packs
+        if: steps.select.outputs.enabled == 'true'
+        uses: actions/cache@v5
+        with:
+          key: cmsis-packs
+          path: /home/runner/.cache/arm/packs
+
+      - name: Install required CMSIS packs
+        if: steps.select.outputs.enabled == 'true'
+        run: |
+          cpackget add "ARM::CMSIS@6.3.0" -R "${CMSIS_PACK_ROOT}"
+
+      - name: Activate Arm tool license
+        if: steps.select.outputs.enabled == 'true' && matrix.toolchain == 'AC6'
+        uses: ARM-software/cmsis-actions/armlm@v1
+
+      - name: Export generic toolchain aliases
+        if: steps.select.outputs.enabled == 'true'
+        run: |
+          if [[ -n "${GCC_TOOLCHAIN_14_3_1:-}" ]]; then
+            echo "GCC_TOOLCHAIN=${GCC_TOOLCHAIN_14_3_1}" >> "${GITHUB_ENV}"
+          fi
+          if [[ -n "${AC6_TOOLCHAIN_6_24_0:-}" ]]; then
+            echo "AC6_TOOLCHAIN=${AC6_TOOLCHAIN_6_24_0}" >> "${GITHUB_ENV}"
+          fi
+
+      - name: Build library variants
+        if: steps.select.outputs.enabled == 'true'
+        run: |
+          # Keep this matrix on the toolchains that are already stable with the
+          # direct CMake library build path. Embedded CLANG is validated in the
+          # CMSIS/FVP workflow instead.
+          set +e
+          set -o pipefail
+
+          optimization_args=()
+          if [[ -n "${LIB_OPTIMIZATION}" ]]; then
+            optimization_args=(--optimization "${LIB_OPTIMIZATION}")
+          fi
+
+          python3 Tests/UnitTest/build_lib_variants.py \
+            --toolchain "${{ matrix.toolchain }}" \
+            --variants "${LIB_VARIANTS}" \
+            --cpu "${LIB_CPU}" \
+            --cmsis-pack-root "${CMSIS_PACK_ROOT}" \
+            "${optimization_args[@]}" \
+            --jobs 4 \
+            --build-root "${LIB_BUILD_ROOT}" | tee build_lib_variants.log
+
+          status=${PIPESTATUS[0]}
+
+          {
+            echo "## ${{ matrix.toolchain_label }}"
+            echo ""
+            echo "- CPU: \`${LIB_CPU}\`"
+            echo "- Variants: \`${LIB_VARIANTS}\`"
+            echo "- Optimization: \`${LIB_OPTIMIZATION:-script default}\`"
+            echo ""
+            echo '```text'
+            sed -n '/^CMSIS-NN library variant summary/,$p' build_lib_variants.log
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          exit "${status}"
+
+      - name: Upload build logs
+        if: always() && steps.select.outputs.enabled == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lib-variants-${{ matrix.key }}
+          path: |
+            build_lib_variants.log
+            ${{ env.LIB_BUILD_ROOT }}/${{ matrix.key }}/**/*.log

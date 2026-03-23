@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        9 Mars 2026
- * $Revision:    V.19.0.0
+ * $Date:        27 March 2026
+ * $Revision:    V.19.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -38,6 +38,10 @@
 
 #include "arm_nn_math_types.h"
 #include "arm_nn_types.h"
+
+#if ARM_NN_FLOAT_API_ENABLED
+    #include "arm_nnfunctions_flt.h"
+#endif
 
 #define USE_INTRINSIC
 

@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+project:
+  define:
+    - ARM_NN_ENABLE_F32
+    - ARM_NN_ENABLE_F16
+    - ARM_NN_USE_EXP_LUT
+
+  setups:
+    - setup: avg-pool-f32
+      for-context: .F32+Corstone-300-FVP
+      output:
+        base-name: test_arm_avg_pool_f32
+
+    - setup: avg-pool-f16
+      for-context: .F16+Corstone-300-FVP
+      output:
+        base-name: test_arm_avg_pool_f16
+
+  groups:
+    - group: Unity
+      files:
+        - file: ../../Unity/src/unity.c
+
+    - group: Avg Pool F32 Test
+      for-context: .F32+Corstone-300-FVP
+      files:
+        - file: ../../TestCases/test_arm_avg_pool_f32/Unity/unity_test_arm_avg_pool_f32.c
+        - file: ../../TestCases/test_arm_avg_pool_f32/Unity/TestRunner/unity_test_arm_avg_pool_f32_runner.c
+
+    - group: Avg Pool F16 Test
+      for-context: .F16+Corstone-300-FVP
+      files:
+        - file: ../../TestCases/test_arm_avg_pool_f16/Unity/unity_test_arm_avg_pool_f16.c
+        - file: ../../TestCases/test_arm_avg_pool_f16/Unity/TestRunner/unity_test_arm_avg_pool_f16_runner.c
+
+  add-path:
+    - ../../Unity/src
+    - ../../Corstone-300
+
+  components:
+    - component: ARM::CMSIS:NN Lib
+
+  layers:
+    - layer: ../corstone300_unittest.clayer.yml

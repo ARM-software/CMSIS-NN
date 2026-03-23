@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+default:
+  misc:
+    - for-compiler: GCC
+      C:
+        # Temporary workaround for an Arm GNU 14.3.1 ICE in the float16
+        # min/max path on Cortex-M55 until the compiler is fixed upstream.
+        - -fdisable-rtl-ce1
+        - -fdisable-rtl-ce2
+    - for-compiler: CLANG
+      C:
+        - -std=gnu11
+      Link:
+        - -Wl,-Map=$elf()$.map

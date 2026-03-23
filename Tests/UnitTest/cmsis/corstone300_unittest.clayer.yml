@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+layer:
+  description: Corstone-300 FVP support for CMSIS-NN float unit tests
+
+  groups:
+    - group: Corstone-300
+      files:
+        - file: ../Corstone-300/retarget.c
+        - file: ../Corstone-300/stdout_uart.c
+        - file: ../Corstone-300/uart.c
+        - file: ../Corstone-300/wait.c
+
+  components:
+    - component: ARM::CMSIS:CORE
+      define:
+        - ARM_MATH_LOOPUNROLL
+    - component: ARM::CMSIS-Compiler:CORE
+    - component: ARM::CMSIS-Compiler:STDOUT:Custom
+    - component: ARM::CMSIS-Compiler:STDERR:Custom
+    - component: ARM::Device:Definition
+    - component: ARM::Device:Startup&C Startup
+    - component: ARM::Device:Native Driver:Timeout
+    - component: ARM::Device:Native Driver:SysCounter
+    - component: ARM::Device:Native Driver:SysTimer
+
+  linker:
+    - script: ../Corstone-300/linker.scatter
+      for-compiler: AC6
+    - script: ../Corstone-300/linker_clang.sct
+      for-compiler: CLANG
+    - script: ../Corstone-300/linker.ld
+      for-compiler: GCC
+    - regions: ../Corstone-300/region_defs.h
+      for-compiler: CLANG

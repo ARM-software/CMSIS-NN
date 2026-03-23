@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2022 Arm Limited.
+# Copyright (c) 2019-2022, 2026 Arm Limited.
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,7 +18,14 @@
 
 file(GLOB SRC "./*_s8.c")
 file(GLOB SRC_S16 "./*_s16.c")
-target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16})
-
-
+set(SRC_FLT "")
+if (ARM_NN_ENABLE_F32)
+  list(APPEND SRC_FLT arm_avg_pool_f32.c
+                      arm_max_pool_f32.c)
+endif()
+if (ARM_NN_ENABLE_F16)
+  list(APPEND SRC_FLT arm_avg_pool_f16.c
+                      arm_max_pool_f16.c)
+endif()
+target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_S16} ${SRC_FLT})
 

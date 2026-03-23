@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2023, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nn_math_types.h
  * Description:  Compiler include and basic types
  *
- * $Date:        15 August 2023
- * $Revision:    V.1.3.3
+ * $Date:        2 April 2026
+ * $Revision:    V.1.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -32,8 +32,15 @@
 #define ARM_NN_MATH_TYPES_H
 
 #include <limits.h>
+#include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+
+#include "Internal/arm_nn_config.h"
+
+#if ARM_NN_FLOAT_API_ENABLED
+    #include "arm_nn_math_types_flt.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,6 +63,49 @@ extern "C" {
     #ifndef ARM_MATH_MVEI
         #define ARM_MATH_MVEI 1
     #endif
+#endif
+
+/*
+ * Align floating-point Helium feature defines with CMSIS-DSP style while
+ * preserving the current CMSIS-NN integer behavior where ARM_MATH_MVEI
+ * remains available even when ARM_MATH_AUTOVECTORIZE is defined.
+ */
+#if !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(__ARM_FEATURE_MVE)
+        #if (__ARM_FEATURE_MVE & 2)
+            #ifndef ARM_MATH_MVEF
+                #define ARM_MATH_MVEF 1
+            #endif
+            #ifndef ARM_MATH_MVE_FLOAT16
+                #define ARM_MATH_MVE_FLOAT16 1
+            #endif
+        #endif
+    #endif
+#endif
+
+#if defined(ARM_MATH_HELIUM)
+    #ifndef ARM_MATH_MVEF
+        #define ARM_MATH_MVEF 1
+    #endif
+    #ifndef ARM_MATH_MVEI
+        #define ARM_MATH_MVEI 1
+    #endif
+    #ifndef ARM_MATH_MVE_FLOAT16
+        #define ARM_MATH_MVE_FLOAT16 1
+    #endif
+#endif
+
+#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    /*
+     * Float16 MVE gather intrinsics use 16-bit per-lane offsets. For a regular
+     * strided gather, the furthest lane touches (lanes - 1) * stride, so the
+     * stride must fit within UINT16_MAX / (lanes - 1).
+     */
+    #define ARM_NN_MVE_F16_GATHER_OFFSET_MAX ((size_t)UINT16_MAX)
+    #define ARM_NN_MVE_F16_MAX_GATHER_STRIDE(_lanes) (ARM_NN_MVE_F16_GATHER_OFFSET_MAX / ((size_t)(_lanes)-1U))
+    #define ARM_NN_MVE_F16_MAX_GATHER_STRIDE_4 ARM_NN_MVE_F16_MAX_GATHER_STRIDE(4U)
+    #define ARM_NN_MVE_F16_MAX_GATHER_STRIDE_8 ARM_NN_MVE_F16_MAX_GATHER_STRIDE(8U)
+    #define ARM_NN_MVE_F16_MAX_GATHER_STRIDE_16 ARM_NN_MVE_F16_MAX_GATHER_STRIDE(16U)
 #endif
 
 /**
