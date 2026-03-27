@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -53,7 +53,7 @@ class TestSettings(ABC):
 
     REQUIRED_MINIMUM_TENSORFLOW_VERSION = version.parse("2.10")
 
-    CLANG_FORMAT = 'clang-format-12 -i'  # For formatting generated headers.
+    CLANG_FORMAT = 'clang-format -i'  # For formatting generated headers.
 
     def __init__(self,
                  dataset,

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -360,7 +360,7 @@ def append_alias_to_c_array_file(fname, dtype, prefix, tensor_name, alias_name):
 
 
 def format_output_file(file):
-    CLANG_FORMAT = 'clang-format-12 -i'  # For formatting generated headers.
+    CLANG_FORMAT = 'clang-format -i'  # For formatting generated headers.
     command_list = CLANG_FORMAT.split(' ')
     command_list.append(file)
     try:
