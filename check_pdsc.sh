@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -16,8 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Version: 1.0
-# Date: 2024-03-27
+# Version: 1.1
+# Date: 2026-02-25
 # This bash script checks that ARM.CMSIS-NN.pdsc is up to date.
 #
 # Pre-requisites:
@@ -29,6 +29,8 @@ ACTUAL_SOURCE_FILES=$(mktemp -d)/actual_src_files
 
 cat ARM.CMSIS-NN.pdsc | grep 'file category="source" ' | sed -r -E 's/.*name="(.*)".*/\1/g' | sort > \
                                                                                                    $LISTED_SOURCE_FILES
-git ls-files  ':(glob)Source/' | grep "\.c" | sort > $ACTUAL_SOURCE_FILES
+
+# Source/Bindings/ is optional
+git ls-files  ':(glob)Source/' | grep -v Source/Bindings | grep "\.c" | sort > $ACTUAL_SOURCE_FILES
 
 diff $LISTED_SOURCE_FILES $ACTUAL_SOURCE_FILES
