@@ -6,5 +6,6 @@ var searchData=
   ['forget_5fto_5fcell_5fmultiplier_3',['forget_to_cell_multiplier',['../group__genPubTypes.html#aae27a4af6dc69f23aee1058b2adcef93',1,'cmsis_nn_lstm_params']]],
   ['forget_5fto_5fcell_5fshift_4',['forget_to_cell_shift',['../group__genPubTypes.html#a6b333b295490b4ab194c6c4d2502879e',1,'cmsis_nn_lstm_params']]],
   ['fully_20connected_5',['Fully Connected',['../group__supportFC.html',1,'']]],
-  ['fully_2dconnected_20layer_20functions_6',['Fully-connected Layer Functions',['../group__FC.html',1,'']]]
+  ['fully_2dconnected_20layer_20functions_6',['Fully-connected Layer Functions',['../group__FC.html',1,'']]],
+  ['fully_5fconnected_5fbuffer_5fsize_7',['fully_connected_buffer_size',['../arm__py__fully__connected__buffer__size_8cpp.html#a91593c5d78fb852f410c713706797284',1,'fully_connected_buffer_size(py::module_ &amp;m):&#160;arm_py_fully_connected_buffer_size.cpp'],['../arm__py__module_8cpp.html#a91593c5d78fb852f410c713706797284',1,'fully_connected_buffer_size(py::module_ &amp;m):&#160;arm_py_fully_connected_buffer_size.cpp']]]
 ];

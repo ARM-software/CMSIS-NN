@@ -8,5 +8,6 @@ var searchData=
   ['permutations_5',['permutations',['../group__genPubTypes.html#acc33a20f428609429030979e20b35209',1,'cmsis_nn_transpose_params']]],
   ['pooling_20functions_6',['Pooling Functions',['../group__Pooling.html',1,'']]],
   ['private_7',['Private',['../group__groupSupport.html',1,'']]],
-  ['public_8',['Public',['../group__Public.html',1,'']]]
+  ['public_8',['Public',['../group__Public.html',1,'']]],
+  ['pybind11_5fmodule_9',['PYBIND11_MODULE',['../arm__py__module_8cpp.html#a988612f15d9bd851b8e837dd3fdc5ba1',1,'arm_py_module.cpp']]]
 ];

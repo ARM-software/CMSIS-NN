@@ -5,5 +5,6 @@ var searchData=
   ['time_5fmajor_2',['time_major',['../group__genPubTypes.html#a74829caaad7e7abc7f8c2dfa3cea700e',1,'cmsis_nn_lstm_params']]],
   ['time_5fsteps_3',['time_steps',['../group__genPubTypes.html#a56343a20df4d7e71c6b05bd13e60205c',1,'cmsis_nn_lstm_params']]],
   ['todo_20list_4',['Todo List',['../todo.html',1,'']]],
-  ['transpose_20functions_5',['Transpose Functions',['../group__Transpose.html',1,'']]]
+  ['transpose_20functions_5',['Transpose Functions',['../group__Transpose.html',1,'']]],
+  ['transpose_5fconv_5fbuffer_5fsize_6',['transpose_conv_buffer_size',['../arm__py__module_8cpp.html#adb6bc7a194f3e8874851af9e89adee9e',1,'transpose_conv_buffer_size(py::module_ &amp;m):&#160;arm_py_transpose_conv_buffer_size.cpp'],['../arm__py__transpose__conv__buffer__size_8cpp.html#adb6bc7a194f3e8874851af9e89adee9e',1,'transpose_conv_buffer_size(py::module_ &amp;m):&#160;arm_py_transpose_conv_buffer_size.cpp']]]
 ];

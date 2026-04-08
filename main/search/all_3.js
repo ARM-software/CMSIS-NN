@@ -32,7 +32,9 @@ var searchData=
   ['cmsis_5fnn_5ftranspose_5fconv_5fparams_29',['cmsis_nn_transpose_conv_params',['../group__genPubTypes.html#structcmsis__nn__transpose__conv__params',1,'']]],
   ['cmsis_5fnn_5ftranspose_5fparams_30',['cmsis_nn_transpose_params',['../group__genPubTypes.html#structcmsis__nn__transpose__params',1,'']]],
   ['concatenation_20functions_31',['Concatenation Functions',['../group__Concatenation.html',1,'']]],
-  ['convert_5fdw_5fconv_5fwith_5fone_5finput_5fch_5fand_5foutput_5fch_5fabove_5fthreshold_32',['CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD',['../arm__nnsupportfunctions_8h.html#a9c0bf77866d5d657dbffdf7822d91cbf',1,'arm_nnsupportfunctions.h']]],
-  ['convolution_33',['Convolution',['../group__supportConvolution.html',1,'']]],
-  ['convolution_20functions_34',['Convolution Functions',['../group__NNConv.html',1,'']]]
+  ['conv_5fbuffer_5fsize_32',['conv_buffer_size',['../arm__py__conv__buffer__size_8cpp.html#a11f6ba2391c8423492ad2b9dcfda09fb',1,'conv_buffer_size(py::module_ &amp;m):&#160;arm_py_conv_buffer_size.cpp'],['../arm__py__module_8cpp.html#a11f6ba2391c8423492ad2b9dcfda09fb',1,'conv_buffer_size(py::module_ &amp;m):&#160;arm_py_conv_buffer_size.cpp']]],
+  ['convert_5fdw_5fconv_5fwith_5fone_5finput_5fch_5fand_5foutput_5fch_5fabove_5fthreshold_33',['CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD',['../arm__nnsupportfunctions_8h.html#a9c0bf77866d5d657dbffdf7822d91cbf',1,'arm_nnsupportfunctions.h']]],
+  ['convolution_34',['Convolution',['../group__supportConvolution.html',1,'']]],
+  ['convolution_20functions_35',['Convolution Functions',['../group__NNConv.html',1,'']]],
+  ['cortexm_36',['CortexM',['../arm__py__common_8hpp.html#ad99b2c0abf8e8bc1917f1481b4ee29ff',1,'arm_py_common.hpp']]]
 ];
