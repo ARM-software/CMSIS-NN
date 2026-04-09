@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2019-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -29,6 +29,10 @@ add_compile_options(-fomit-frame-pointer
                     -Wunused-function
                     -Wno-redundant-decls
                     -Wvla)
+
+if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-Wjump-misses-init)
+endif()
 
 option(BUILD_CMSIS_NN_UNIT "If building the unit tests from another project, i.e. \
 platform dependencies need to be provided externally." OFF)
