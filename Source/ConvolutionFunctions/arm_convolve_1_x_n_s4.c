@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s4.c
  * Description:  s4 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        10 April 2024
- * $Revision:    V.1.0.0
+ * $Date:        9 April 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -64,8 +64,7 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
     if ((input_dims->h != 1) || conv_params->dilation.w != 1 || (buffer_size != 0 && ctx->buf == NULL) ||
         conv_params->stride.w == 0 || (conv_params->stride.w * input_dims->c % 4 != 0))
     {
-        status = ARM_CMSIS_NN_ARG_ERROR;
-        goto out;
+        return ARM_CMSIS_NN_ARG_ERROR;
     }
 
 #if defined(ARM_MATH_MVEI)
@@ -191,7 +190,6 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
 
 #endif
 
-out:
     /* Return to application */
     return status;
 }
