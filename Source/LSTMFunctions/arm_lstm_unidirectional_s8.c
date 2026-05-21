@@ -52,8 +52,13 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s8(const int8_t *input,
                                                cmsis_nn_lstm_context *buffers)
 {
 
-    int8_t *hidden_in = NULL;
-    memset(buffers->cell_state, 0, params->batch_size * params->hidden_size * sizeof(int16_t));
+    int8_t *hidden_in = (int8_t *)buffers->hidden_state;
+
+    if (buffers->hidden_state == NULL)
+    {
+        memset(buffers->cell_state, 0, params->batch_size * params->hidden_size * sizeof(int16_t));
+    }
+
     if (params->time_major)
     {
         // First dimension is time, input/output for each time step is stored continously in memory
@@ -69,22 +74,51 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s8(const int8_t *input,
             // Output is used as recurrent input/hidden state for the next timestep.
             hidden_in = &hidden_out[0];
         }
+
+        if (buffers->hidden_state != NULL && params->time_steps > 0)
+        {
+            memcpy(buffers->hidden_state, hidden_in, params->batch_size * params->hidden_size * sizeof(int8_t));
+        }
     }
     else
     {
-        // First dimension is time, add batch_offset to jump in memory for each batch
-        for (int t = 0; t < params->time_steps; t++)
+        // Batch major: [batch, time, size]
+        // arm_nn_lstm_step_s8 expects data_in and hidden_in to have the same batch_offset.
+        // Since the initial hidden_state is contiguous, we must process one batch at a time.
+        cmsis_nn_lstm_params step_params = *params;
+        step_params.batch_size = 1;
+
+        for (int b = 0; b < params->batch_size; b++)
         {
-            const int8_t *data_in = input + (t * params->input_size);
-            int8_t *hidden_out = output + (t * params->hidden_size);
-            arm_cmsis_nn_status status =
-                arm_nn_lstm_step_s8(data_in, hidden_in, hidden_out, params, buffers, params->time_steps);
-            if (status != ARM_CMSIS_NN_SUCCESS)
+            int8_t *step_hidden_in = (buffers->hidden_state != NULL)
+                ? ((int8_t *)buffers->hidden_state + b * params->hidden_size)
+                : NULL;
+
+            cmsis_nn_lstm_context step_buffers = *buffers;
+            step_buffers.cell_state = (int16_t *)buffers->cell_state + b * params->hidden_size;
+
+            for (int t = 0; t < params->time_steps; t++)
             {
-                return status;
+                const int8_t *data_in = input + (b * params->time_steps + t) * params->input_size;
+                int8_t *hidden_out = output + (b * params->time_steps + t) * params->hidden_size;
+
+                arm_cmsis_nn_status status = arm_nn_lstm_step_s8(
+                    data_in, step_hidden_in, hidden_out, &step_params, &step_buffers, 1);
+
+                if (status != ARM_CMSIS_NN_SUCCESS)
+                {
+                    return status;
+                }
+
+                step_hidden_in = hidden_out;
             }
-            // Output is used as recurrent input/hidden state for the next timestep.
-            hidden_in = &hidden_out[0];
+
+            if (buffers->hidden_state != NULL && params->time_steps > 0)
+            {
+                memcpy((int8_t *)buffers->hidden_state + b * params->hidden_size,
+                       step_hidden_in,
+                       params->hidden_size * sizeof(int8_t));
+            }
         }
     }
     return ARM_CMSIS_NN_SUCCESS;
