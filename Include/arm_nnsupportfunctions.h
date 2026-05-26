@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        6 Mars 2026
- * $Revision:    V.22.9.0
+ * $Date:        21 May 2026
+ * $Revision:    V.22.9.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
