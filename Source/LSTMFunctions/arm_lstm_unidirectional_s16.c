@@ -21,8 +21,8 @@
  * Title:        arm_lstm_unidirectional_s16.c
  * Description:  S16 LSTM function with S16 gate output
  *
- * $Date:        26 March 2024
- * $Revision:    V.1.0.0
+ * $Date:        21 May 2026
+ * $Revision:    V.1.0.1
  *
  * Target Processor:  Cortex-M processors
  *
