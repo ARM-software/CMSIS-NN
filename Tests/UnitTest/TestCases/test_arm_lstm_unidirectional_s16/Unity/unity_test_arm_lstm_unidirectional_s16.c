@@ -46,3 +46,4 @@ void tearDown(void) {}
 void test_lstm_1_s16(void) { lstm_1_s16(); }
 void test_lstm_2_s16(void) { lstm_2_s16(); }
 void test_lstm_one_time_step_s16(void) { lstm_one_time_step_s16(); }
+void test_lstm_stateful_batch_major_multibatch_s16(void) { lstm_stateful_batch_major_multibatch_s16(); }

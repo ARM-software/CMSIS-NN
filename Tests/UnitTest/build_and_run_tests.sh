@@ -76,6 +76,8 @@ do
     esac
 done
 
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd -P)
+
 Setup_Environment() {
     set -e
     echo "++ Downloading Corstone300"
@@ -125,7 +127,7 @@ Setup_Environment() {
     if [[ -d ${WORKING_DIR}/ethos-u-core-platform ]]; then
         echo "Ethos-U core platform already installed. If you wish to install a new version, please delete the old folder."
     else
-        git clone https://review.mlplatform.org/ml/ethos-u/ethos-u-core-platform
+        git clone https://gitlab.arm.com/artificial-intelligence/ethos-u/ethos-u-core-platform
     fi
 
     echo "++ Setting up python environment"
@@ -134,7 +136,7 @@ Setup_Environment() {
     else
         python3 -m venv cmsis_nn_venv
         source cmsis_nn_venv/bin/activate
-        pip3 install -r ../requirements.txt
+        pip3 install -r ${SCRIPT_DIR}/requirements.txt
         deactivate
     fi
 }
@@ -192,6 +194,7 @@ fi
 
 mkdir -p downloads
 pushd downloads
+cd $(pwd -P)
 WORKING_DIR=$(pwd)
 
 if [[ ${SETUP_ENVIRONMENT} -eq 1 ]]; then
