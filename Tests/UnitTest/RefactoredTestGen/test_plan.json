@@ -542,6 +542,14 @@
          "input_size" : 22,
          "hidden_size" : 3,
          "json_template": "lstm_s16.json"
+        },
+        {"name" : "lstm_stateful_batch_major_multibatch_s16",
+         "time_major" : false,
+         "batch_size" : 2,
+         "time_steps" : 2,
+         "input_size" : 6,
+         "hidden_size" : 7,
+         "json_template": "lstm_s16.json"
         }
     ]
 },
@@ -574,6 +582,13 @@
          "time_steps" : 1,
          "input_size" : 22,
          "hidden_size" : 3
+        },
+        {"name" : "lstm_stateful_batch_major_multibatch",
+         "time_major" : false,
+         "batch_size" : 2,
+         "time_steps" : 2,
+         "input_size" : 6,
+         "hidden_size" : 7
         }
     ]
 },

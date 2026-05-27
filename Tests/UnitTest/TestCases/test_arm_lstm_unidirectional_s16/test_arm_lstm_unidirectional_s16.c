@@ -19,6 +19,7 @@
 #include "../TestData/lstm_1_s16/test_data.h"
 #include "../TestData/lstm_2_s16/test_data.h"
 #include "../TestData/lstm_one_time_step_s16/test_data.h"
+#include "../TestData/lstm_stateful_batch_major_multibatch_s16/test_data.h"
 #include "../Utils/validate.h"
 #include <arm_nnfunctions.h>
 #include <stdbool.h>
@@ -173,6 +174,7 @@ void lstm_1_s16(void)
     buffers.temp1 = buffer1;
     buffers.temp2 = buffer2;
     buffers.cell_state = buffer3;
+    buffers.hidden_state = NULL;
 
     arm_cmsis_nn_status result = arm_lstm_unidirectional_s16(lstm_1_s16_input_tensor, output, &params, &buffers);
 
@@ -319,6 +321,7 @@ void lstm_2_s16(void)
     buffers.temp1 = buffer1;
     buffers.temp2 = buffer2;
     buffers.cell_state = buffer3;
+    buffers.hidden_state = NULL;
 
     arm_cmsis_nn_status result = arm_lstm_unidirectional_s16(lstm_2_s16_input_tensor, output, &params, &buffers);
 
@@ -467,9 +470,164 @@ void lstm_one_time_step_s16(void)
     buffers.temp1 = buffer1;
     buffers.temp2 = buffer2;
     buffers.cell_state = buffer3;
+    buffers.hidden_state = NULL;
 
     arm_cmsis_nn_status result =
         arm_lstm_unidirectional_s16(lstm_one_time_step_s16_input_tensor, output, &params, &buffers);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+}
+
+void lstm_stateful_batch_major_multibatch_s16(void)
+{
+    int16_t output[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    const int16_t *output_ref = &lstm_stateful_batch_major_multibatch_s16_output[0];
+    const int32_t output_ref_size = LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE;
+
+    int64_t input_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t forget_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t cell_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t output_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+
+    int64_t input_hidden_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t forget_hidden_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t cell_hidden_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+    int64_t output_hidden_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
+
+    arm_vector_sum_s8_s64(&input_data_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_input_gate_input_weights[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_ZERO_POINT,
+                          &lstm_stateful_batch_major_multibatch_s16_input_gate_bias[0]);
+    arm_vector_sum_s8_s64(&forget_data_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_forget_gate_input_weights[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_ZERO_POINT,
+                          &lstm_stateful_batch_major_multibatch_s16_forget_gate_bias[0]);
+    arm_vector_sum_s8_s64(&cell_data_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_input_weights[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_ZERO_POINT,
+                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_bias[0]);
+    arm_vector_sum_s8_s64(&output_data_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_output_gate_input_weights[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_ZERO_POINT,
+                          &lstm_stateful_batch_major_multibatch_s16_output_gate_bias[0]);
+
+    arm_vector_sum_s8_s64(&input_hidden_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_input_gate_hidden_weights[0],
+                          -LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_ZERO_POINT,
+                          NULL);
+    arm_vector_sum_s8_s64(&forget_hidden_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_forget_gate_hidden_weights[0],
+                          -LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_ZERO_POINT,
+                          NULL);
+    arm_vector_sum_s8_s64(&cell_hidden_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_hidden_weights[0],
+                          -LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_ZERO_POINT,
+                          NULL);
+    arm_vector_sum_s8_s64(&output_hidden_kernel_sum[0],
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                          &lstm_stateful_batch_major_multibatch_s16_output_gate_hidden_weights[0],
+                          -LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_ZERO_POINT,
+                          NULL);
+
+    // INPUT GATE
+    const cmsis_nn_lstm_gate gate_input = {LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_GATE_INPUT_MULTIPLIER,
+                                           LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_GATE_INPUT_SHIFT,
+                                           &lstm_stateful_batch_major_multibatch_s16_input_gate_input_weights[0],
+                                           &input_data_kernel_sum[0],
+                                           LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_GATE_HIDDEN_MULTIPLIER,
+                                           LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_GATE_HIDDEN_SHIFT,
+                                           &lstm_stateful_batch_major_multibatch_s16_input_gate_hidden_weights[0],
+                                           &input_hidden_kernel_sum[0],
+                                           &lstm_stateful_batch_major_multibatch_s16_input_gate_bias[0],
+                                           ARM_SIGMOID};
+
+    // FORGET GATE
+    const cmsis_nn_lstm_gate gate_forget = {LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_GATE_INPUT_MULTIPLIER,
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_GATE_INPUT_SHIFT,
+                                            &lstm_stateful_batch_major_multibatch_s16_forget_gate_input_weights[0],
+                                            &forget_data_kernel_sum[0],
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_GATE_HIDDEN_MULTIPLIER,
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_GATE_HIDDEN_SHIFT,
+                                            &lstm_stateful_batch_major_multibatch_s16_forget_gate_hidden_weights[0],
+                                            &forget_hidden_kernel_sum[0],
+                                            &lstm_stateful_batch_major_multibatch_s16_forget_gate_bias[0],
+                                            ARM_SIGMOID};
+
+    // CELL GATE
+    const cmsis_nn_lstm_gate gate_cell = {LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_GATE_INPUT_MULTIPLIER,
+                                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_GATE_INPUT_SHIFT,
+                                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_input_weights[0],
+                                          &cell_data_kernel_sum[0],
+                                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_GATE_HIDDEN_MULTIPLIER,
+                                          LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_GATE_HIDDEN_SHIFT,
+                                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_hidden_weights[0],
+                                          &cell_hidden_kernel_sum[0],
+                                          &lstm_stateful_batch_major_multibatch_s16_cell_gate_bias[0],
+                                          ARM_TANH};
+
+    // OUTPUT GATE
+    const cmsis_nn_lstm_gate gate_output = {LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_GATE_INPUT_MULTIPLIER,
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_GATE_INPUT_SHIFT,
+                                            &lstm_stateful_batch_major_multibatch_s16_output_gate_input_weights[0],
+                                            &output_data_kernel_sum[0],
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_GATE_HIDDEN_MULTIPLIER,
+                                            LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_GATE_HIDDEN_SHIFT,
+                                            &lstm_stateful_batch_major_multibatch_s16_output_gate_hidden_weights[0],
+                                            &output_hidden_kernel_sum[0],
+                                            &lstm_stateful_batch_major_multibatch_s16_output_gate_bias[0],
+                                            ARM_SIGMOID};
+
+    // LSTM DATA
+    const cmsis_nn_lstm_params params = {LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_MAJOR,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_SIZE,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_ZERO_POINT,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_TO_CELL_MULTIPLIER,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_FORGET_TO_CELL_SHIFT,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_TO_CELL_MULTIPLIER,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_INPUT_TO_CELL_SHIFT,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_CLIP,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_CELL_SCALE_POWER,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_MULTIPLIER,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_SHIFT,
+                                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_OUTPUT_ZERO_POINT,
+                                         gate_forget,
+                                         gate_input,
+                                         gate_cell,
+                                         gate_output};
+
+    // Allocate zero-initialized hidden state buffer to test the non-null path!
+    int16_t hidden_state[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
+
+    memset(buffer3, 0, sizeof(buffer3));
+
+    cmsis_nn_lstm_context buffers;
+    buffers.temp1 = buffer1;
+    buffers.temp2 = buffer2;
+    buffers.cell_state = buffer3;
+    buffers.hidden_state = hidden_state;
+
+    arm_cmsis_nn_status result =
+        arm_lstm_unidirectional_s16(lstm_stateful_batch_major_multibatch_s16_input_tensor, output, &params, &buffers);
 
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
