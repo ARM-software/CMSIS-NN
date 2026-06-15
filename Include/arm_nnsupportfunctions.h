@@ -53,7 +53,7 @@ extern "C" {
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define CLAMP(x, h, l) MAX(MIN((x), (h)), (l))
-#define ARM_NN_ROUND_UP(x, multiple) ((((x) + (multiple)-1) / (multiple)) * (multiple))
+#define ARM_NN_ROUND_UP(x, multiple) ((((x) + (multiple) - 1) / (multiple)) * (multiple))
 #define REDUCE_MULTIPLIER(_mult) ((_mult < 0x7FFF0000) ? ((_mult + (1 << 15)) >> 16) : 0x7FFF)
 
 // Number of channels processed in a block for DW Conv with Int8 weights(MVE)

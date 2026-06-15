@@ -92,7 +92,7 @@ jobs:
       - name: Register local CMSIS-NN pack
         run: |
           rm -rf "${CMSIS_PACK_ROOT}/.Local"
-          cpackget add ARM.CMSIS-NN.pdsc -R "${CMSIS_PACK_ROOT}" -F
+          cpackget add ARM.CMSIS-NN.pdsc -R "${CMSIS_PACK_ROOT}" -F --agree-embedded-license
 
       - name: Bootstrap Unity test runners
         working-directory: Tests/UnitTest

@@ -98,7 +98,7 @@ typedef _Float16 float16_t;
     /**
      * @brief Lowest finite float16 value representable by the toolchain.
      */
-    #define ARM_NN_F16_FINITE_LOWEST ((float16_t)-ARM_NN_F16_FINITE_MAX)
+    #define ARM_NN_F16_FINITE_LOWEST ((float16_t) - ARM_NN_F16_FINITE_MAX)
 
 #endif
 

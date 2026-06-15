@@ -111,7 +111,7 @@ jobs:
       - name: Install required CMSIS packs
         if: steps.select.outputs.enabled == 'true'
         run: |
-          cpackget add "ARM::CMSIS@6.3.0" -R "${CMSIS_PACK_ROOT}"
+          cpackget add "ARM::CMSIS@6.3.0" -R "${CMSIS_PACK_ROOT}" --agree-embedded-license
 
       - name: Activate Arm tool license
         if: steps.select.outputs.enabled == 'true' && matrix.toolchain == 'AC6'

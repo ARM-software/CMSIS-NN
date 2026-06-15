@@ -111,8 +111,8 @@ jobs:
       - name: Install required CMSIS packs
         if: steps.select.outputs.enabled == 'true'
         run: |
-          cpackget add "ARM::CMSIS@6.3.0" -R "${CMSIS_PACK_ROOT}"
-          cpackget add "ARM::Cortex_DFP@1.1.0" -R "${CMSIS_PACK_ROOT}"
+          cpackget add "ARM::CMSIS@6.3.0" -R "${CMSIS_PACK_ROOT}" --agree-embedded-license
+          cpackget add "ARM::Cortex_DFP@1.1.0" -R "${CMSIS_PACK_ROOT}" --agree-embedded-license
 
       - name: Export generic toolchain aliases
         if: steps.select.outputs.enabled == 'true'
