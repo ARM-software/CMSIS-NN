@@ -167,6 +167,8 @@ Macros</h2></td></tr>
 <tr class="separator:adcd021ac91d43a62b2cdecf9a5b971a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe05f0e80d965ae31dec16ba4063f48a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#abe05f0e80d965ae31dec16ba4063f48a">CLAMP</a>(x,  h,  l)&#160;&#160;&#160;<a class="el" href="arm__nnsupportfunctions_8h.html#ad935f1ff1a50822e317bdb321ce991ad">MAX</a>(<a class="el" href="arm__nnsupportfunctions_8h.html#adcd021ac91d43a62b2cdecf9a5b971a7">MIN</a>((x), (h)), (l))</td></tr>
 <tr class="separator:abe05f0e80d965ae31dec16ba4063f48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384f092d826757c509f32b054aff719d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a384f092d826757c509f32b054aff719d">ARM_NN_ROUND_UP</a>(x,  multiple)&#160;&#160;&#160;((((x) + (multiple) - 1) / (multiple)) * (multiple))</td></tr>
+<tr class="separator:a384f092d826757c509f32b054aff719d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19343832dbe881d527496171f69dc0c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#a19343832dbe881d527496171f69dc0c3">REDUCE_MULTIPLIER</a>(_mult)&#160;&#160;&#160;((_mult &lt; 0x7FFF0000) ? ((_mult + (1 &lt;&lt; 15)) &gt;&gt; 16) : 0x7FFF)</td></tr>
 <tr class="separator:a19343832dbe881d527496171f69dc0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace380daf8e374d9ab4aa50095d1b39b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nnsupportfunctions_8h.html#ace380daf8e374d9ab4aa50095d1b39b1">CH_IN_BLOCK_MVE</a>&#160;&#160;&#160;(124)</td></tr>
@@ -328,6 +330,34 @@ Functions</h2></td></tr>
 <tr class="separator:gad838647ccac0201dd1be97b6a50a28af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a384f092d826757c509f32b054aff719d" name="a384f092d826757c509f32b054aff719d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384f092d826757c509f32b054aff719d">&#9670;&#160;</a></span>ARM_NN_ROUND_UP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARM_NN_ROUND_UP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">multiple&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((((x) + (multiple) - 1) / (multiple)) * (multiple))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ace380daf8e374d9ab4aa50095d1b39b1" name="ace380daf8e374d9ab4aa50095d1b39b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace380daf8e374d9ab4aa50095d1b39b1">&#9670;&#160;</a></span>CH_IN_BLOCK_MVE</h2>
 

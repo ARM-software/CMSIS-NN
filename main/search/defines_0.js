@@ -1,4 +1,29 @@
 var searchData=
 [
-  ['accum_5fbits_0',['ACCUM_BITS',['../arm__nn__softmax__common__s8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_nn_softmax_common_s8.c'],['../arm__softmax__s8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_softmax_s8.c'],['../arm__softmax__u8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_softmax_u8.c']]]
+  ['accum_5fbits_0',['ACCUM_BITS',['../arm__softmax__s8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_softmax_s8.c'],['../arm__softmax__u8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_softmax_u8.c'],['../arm__nn__softmax__common__s8_8c.html#a401e2dfaf6a8f0ef34f15295e026fd79',1,'ACCUM_BITS():&#160;arm_nn_softmax_common_s8.c']]],
+  ['arm_5fconcatenation_5fdefine_1',['ARM_CONCATENATION_DEFINE',['../arm__concatenation__common_8h.html#a230d9ad4a021a05156a916859dc37cd5',1,'arm_concatenation_common.h']]],
+  ['arm_5fconv1x1_5farray_5fsize_2',['ARM_CONV1X1_ARRAY_SIZE',['../arm__conv1x1__opt__common_8h.html#af6042f6eb243342b03cd693f6edaccbd',1,'arm_conv1x1_opt_common.h']]],
+  ['arm_5fconv1x1_5fdispatch_3',['ARM_CONV1X1_DISPATCH',['../arm__conv1x1__opt__common_8h.html#a325aaa9541fe6a65a13e8b9c4d1029b7',1,'arm_conv1x1_opt_common.h']]],
+  ['arm_5fconv1x1_5fspec_5fentry_4',['ARM_CONV1X1_SPEC_ENTRY',['../arm__conv1x1__opt__common_8h.html#a7b13ae9c0f0ae4a7704d633d35becd92',1,'arm_conv1x1_opt_common.h']]],
+  ['arm_5fconv_5farray_5fsize_5',['ARM_CONV_ARRAY_SIZE',['../arm__conv__opt__common_8h.html#a3286accede5f7351f5a187594594ee6e',1,'arm_conv_opt_common.h']]],
+  ['arm_5fconv_5fdispatch_6',['ARM_CONV_DISPATCH',['../arm__conv__opt__common_8h.html#a948e2366425c8be6e7beb15b2ad8294a',1,'arm_conv_opt_common.h']]],
+  ['arm_5fconv_5fspec_5fentry_7',['ARM_CONV_SPEC_ENTRY',['../arm__conv__opt__common_8h.html#a84fa5153be66893883b813d46d11af52',1,'arm_conv_opt_common.h']]],
+  ['arm_5fdw_5farray_5fsize_8',['ARM_DW_ARRAY_SIZE',['../arm__depthwise__conv__opt__common_8h.html#a29dc95823f92bced514b686a000e8219',1,'arm_depthwise_conv_opt_common.h']]],
+  ['arm_5fdw_5fdispatch_9',['ARM_DW_DISPATCH',['../arm__depthwise__conv__opt__common_8h.html#a1b2994da231839f2de1f4ca085c10da6',1,'arm_depthwise_conv_opt_common.h']]],
+  ['arm_5fdw_5fspec_5fentry_10',['ARM_DW_SPEC_ENTRY',['../arm__depthwise__conv__opt__common_8h.html#a6e5562c201d07f8802a95cbf6c1b5397',1,'arm_depthwise_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff16_5fmax_5ftile_5frows_11',['ARM_NN_CONV_NHWC_PATCH_GEMM_F16_MAX_TILE_ROWS',['../arm__conv__opt__common_8h.html#ad49acc9f521ac01767b817dbef736c2d',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff16_5fmin_5fk_12',['ARM_NN_CONV_NHWC_PATCH_GEMM_F16_MIN_K',['../arm__conv__opt__common_8h.html#a3093c665a9d9357e9aa121998678514f',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff16_5fmin_5foc_13',['ARM_NN_CONV_NHWC_PATCH_GEMM_F16_MIN_OC',['../arm__conv__opt__common_8h.html#a75cf98b368f4819a6ce116dbd24a50d7',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff16_5fmin_5fpos_14',['ARM_NN_CONV_NHWC_PATCH_GEMM_F16_MIN_POS',['../arm__conv__opt__common_8h.html#aed880293401fd64f47d79fa976f24708',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmax_5ftile_5frows_15',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MAX_TILE_ROWS',['../arm__conv__opt__common_8h.html#ae4012110fa942cd1b46c13e7b3e69b89',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5fk_16',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_K',['../arm__conv__opt__common_8h.html#af738868d80df929d68eabd33ad7641c4',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5foc_17',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_OC',['../arm__conv__opt__common_8h.html#a956573652c006dda49caa746da9cb07e',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5fpos_18',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_POS',['../arm__conv__opt__common_8h.html#af878397b07dddc35e97c7de3ff26ebe9',1,'arm_conv_opt_common.h']]],
+  ['arm_5fnn_5ff16_5ffinite_5flowest_19',['ARM_NN_F16_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a7fd9ed6ddad98a14b3531eac12d4ce9b',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff16_5ffinite_5fmax_20',['ARM_NN_F16_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#ad49ae19194289fe580222043931a994e',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff32_5ffinite_5flowest_21',['ARM_NN_F32_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a3bd445f3beafc7af99a2497ce8e3e83b',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff32_5ffinite_5fmax_22',['ARM_NN_F32_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#a0c165eefed53ed471bb81e2a9d3bd0d1',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ffloat_5fapi_5fenabled_23',['ARM_NN_FLOAT_API_ENABLED',['../arm__nn__config_8h.html#ab0c41045456c8a4d7828bbbaa7abd1bc',1,'arm_nn_config.h']]],
+  ['arm_5fnn_5fround_5fup_24',['ARM_NN_ROUND_UP',['../arm__nnsupportfunctions_8h.html#a384f092d826757c509f32b054aff719d',1,'arm_nnsupportfunctions.h']]],
+  ['arm_5ftranspose_5fdefine_25',['ARM_TRANSPOSE_DEFINE',['../arm__transpose__common_8h.html#a45d698ff7f7bd373950ed51580c470a2',1,'arm_transpose_common.h']]]
 ];

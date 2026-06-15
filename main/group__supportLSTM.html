@@ -142,6 +142,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gab74db498894202ab9d39b6474adbefec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gab74db498894202ab9d39b6474adbefec">arm_nn_lstm_calculate_gate_s8_s16</a> (const int8_t *data_in, const int8_t *hidden_in, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__gate">cmsis_nn_lstm_gate</a> *gate, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, int16_t *output, const int32_t batch_offset)</td></tr>
 <tr class="memdesc:gab74db498894202ab9d39b6474adbefec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a LSTM gate for an iteration step of LSTM function, int8x8_16 version.  <br /></td></tr>
 <tr class="separator:gab74db498894202ab9d39b6474adbefec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ff95fea0dc872643134eea99c8ea07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gaa3ff95fea0dc872643134eea99c8ea07">arm_nn_lstm_step_f16</a> (const float16_t *data_in, const float16_t *hidden_in, float16_t *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *buffers, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:gaa3ff95fea0dc872643134eea99c8ea07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step using float16 input, output and state.  <br /></td></tr>
+<tr class="separator:gaa3ff95fea0dc872643134eea99c8ea07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43df1026db96b72a0586c609e03d0431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#ga43df1026db96b72a0586c609e03d0431">arm_nn_lstm_step_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *data_in, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *hidden_in, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *buffers, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:ga43df1026db96b72a0586c609e03d0431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step using float32 input, output and state.  <br /></td></tr>
+<tr class="separator:ga43df1026db96b72a0586c609e03d0431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafdabd141d9632bcfc4bf16351d843772"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportLSTM.html#gafdabd141d9632bcfc4bf16351d843772">arm_nn_lstm_step_s16</a> (const int16_t *data_in, const int16_t *hidden_in, int16_t *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *buffers, const int32_t batch_offset)</td></tr>
 <tr class="memdesc:gafdabd141d9632bcfc4bf16351d843772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step using s16 input and output, and s16 internally.  <br /></td></tr>
 <tr class="separator:gafdabd141d9632bcfc4bf16351d843772"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,6 +290,138 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS </dd></dl>
+
+</div>
+</div>
+<a id="gaa3ff95fea0dc872643134eea99c8ea07" name="gaa3ff95fea0dc872643134eea99c8ea07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa3ff95fea0dc872643134eea99c8ea07">&#9670;&#160;</a></span>arm_nn_lstm_step_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_lstm_step_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>data_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>hidden_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>hidden_out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update LSTM function for an iteration step using float16 input, output and state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_in</td><td>Data input pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hidden_in</td><td>Hidden state / recurrent input pointer. May be NULL for the first step. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">hidden_out</td><td>Hidden state / recurrent output pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>Struct containing all information about the LSTM operator. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffers</td><td>Struct containing pointers to mutable cell-state storage. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS. </dd></dl>
+
+</div>
+</div>
+<a id="ga43df1026db96b72a0586c609e03d0431" name="ga43df1026db96b72a0586c609e03d0431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43df1026db96b72a0586c609e03d0431">&#9670;&#160;</a></span>arm_nn_lstm_step_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_lstm_step_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>data_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>hidden_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>hidden_out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update LSTM function for an iteration step using float32 input, output and state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_in</td><td>Data input pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hidden_in</td><td>Hidden state / recurrent input pointer. May be NULL for the first step. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">hidden_out</td><td>Hidden state / recurrent output pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>Struct containing all information about the LSTM operator. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffers</td><td>Struct containing pointers to mutable cell-state storage. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS. </dd></dl>
 
 </div>
 </div>

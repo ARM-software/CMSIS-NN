@@ -140,6 +140,160 @@ var group__genPubTypes =
       [ "temp1", "group__genPubTypes.html#a2d581fce179cb2c1e6d47ac512bcb635", null ],
       [ "temp2", "group__genPubTypes.html#a56a0d3a71c6f4fe5e89247abc6697771", null ]
     ] ],
+    [ "cmsis_nn_activation_f32", "group__genPubTypes.html#structcmsis__nn__activation__f32", [
+      [ "max", "group__genPubTypes.html#acb1d5de6b83d109567311efad32fd7bd", null ],
+      [ "min", "group__genPubTypes.html#a42ab6e7764467cf86a5fd7c06d53edcf", null ]
+    ] ],
+    [ "cmsis_nn_conv_params_f32", "group__genPubTypes.html#structcmsis__nn__conv__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ],
+      [ "weight_format", "group__genPubTypes.html#a828780cd179c34fc3f700b62ae8a0483", null ]
+    ] ],
+    [ "cmsis_nn_transpose_conv_params_f32", "group__genPubTypes.html#structcmsis__nn__transpose__conv__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "padding_offsets", "group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_dw_conv_params_f32", "group__genPubTypes.html#structcmsis__nn__dw__conv__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "ch_mult", "group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_pool_params_f32", "group__genPubTypes.html#structcmsis__nn__pool__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_fc_params_f32", "group__genPubTypes.html#structcmsis__nn__fc__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "weight_format", "group__genPubTypes.html#a828780cd179c34fc3f700b62ae8a0483", null ]
+    ] ],
+    [ "cmsis_nn_bmm_params_f32", "group__genPubTypes.html#structcmsis__nn__bmm__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ],
+      [ "adj_x", "group__genPubTypes.html#a3f232fedc315dc2572d83b88d89b74f9", null ],
+      [ "adj_y", "group__genPubTypes.html#ae96cb7f5df330c44dfea3db05dda8267", null ],
+      [ "rhs_format", "group__genPubTypes.html#a6c2e564bab7bbf5e69545445ee3cf5cf", null ]
+    ] ],
+    [ "cmsis_nn_ew_params_f32", "group__genPubTypes.html#structcmsis__nn__ew__params__f32", [
+      [ "activation", "group__genPubTypes.html#aa5245cb1600eff667284f051c6c3009d", null ]
+    ] ],
+    [ "cmsis_nn_transpose_params_f32", "group__genPubTypes.html#structcmsis__nn__transpose__params__f32", [
+      [ "layout", "group__genPubTypes.html#a49a79c47dce0e8c9dc55aa970e875f92", null ],
+      [ "num_dims", "group__genPubTypes.html#a06dcc5ef61ac6a65b65ea844629ba734", null ],
+      [ "perm", "group__genPubTypes.html#a6137b16244c51b57ce40fc035762b7f0", null ]
+    ] ],
+    [ "cmsis_nn_svdf_params_f32", "group__genPubTypes.html#structcmsis__nn__svdf__params__f32", [
+      [ "input_activation", "group__genPubTypes.html#a95d16201f374477bf77ee2a407ab1c08", null ],
+      [ "output_activation", "group__genPubTypes.html#a21c607ba8fa7e2c36a65e27a602a1904", null ],
+      [ "rank", "group__genPubTypes.html#a59af5cb2404da5d33f54e62b4c9d1813", null ]
+    ] ],
+    [ "cmsis_nn_lstm_gate_f32", "group__genPubTypes.html#structcmsis__nn__lstm__gate__f32", [
+      [ "activation_type", "group__genPubTypes.html#a0d0718ec163d37377bb522a89c65575c", null ],
+      [ "bias", "group__genPubTypes.html#a650657ffe72b681ef38564084f99f6c2", null ],
+      [ "hidden_weights", "group__genPubTypes.html#a98ffd3b1a353c047bedfe88693e079cf", null ],
+      [ "input_weights", "group__genPubTypes.html#a75f8b8c55f8dc94ab281d86bf8097f1e", null ]
+    ] ],
+    [ "cmsis_nn_lstm_params_f32", "group__genPubTypes.html#structcmsis__nn__lstm__params__f32", [
+      [ "batch_size", "group__genPubTypes.html#ae3682826b55b5b638223e24154dae150", null ],
+      [ "cell_clip", "group__genPubTypes.html#aab1a660961790f2b5489c3f1030a4b43", null ],
+      [ "cell_gate", "group__genPubTypes.html#ae48f120c08e854183a9fee7adc02ba89", null ],
+      [ "forget_gate", "group__genPubTypes.html#a92ace4de8e469dde9a1af6967fd660f6", null ],
+      [ "hidden_size", "group__genPubTypes.html#ae321ba52f11af4f02b52480dc8a04644", null ],
+      [ "input_gate", "group__genPubTypes.html#a6c6bd7310acb2696a4670b451cbd0584", null ],
+      [ "input_size", "group__genPubTypes.html#a56f49c6b551e4aec18e30116c206dd5b", null ],
+      [ "output_gate", "group__genPubTypes.html#a01dea0e712d7fca202da67e789ac3748", null ],
+      [ "time_major", "group__genPubTypes.html#a74829caaad7e7abc7f8c2dfa3cea700e", null ],
+      [ "time_steps", "group__genPubTypes.html#a56343a20df4d7e71c6b05bd13e60205c", null ]
+    ] ],
+    [ "cmsis_nn_lstm_context_f32", "group__genPubTypes.html#structcmsis__nn__lstm__context__f32", [
+      [ "cell_state", "group__genPubTypes.html#afecae43eda1feb5b52f4d7b12f09d041", null ],
+      [ "temp1", "group__genPubTypes.html#a61eb213fc22afe19ac84455a2382e5db", null ],
+      [ "temp2", "group__genPubTypes.html#a31bde51acf87e91a58d00a0fd084c067", null ]
+    ] ],
+    [ "cmsis_nn_activation_f16", "group__genPubTypes.html#structcmsis__nn__activation__f16", [
+      [ "max", "group__genPubTypes.html#aa461fdbc8cae20e452ad610b751df276", null ],
+      [ "min", "group__genPubTypes.html#a4b4acc45d4533e484c9babcea87dc0cc", null ]
+    ] ],
+    [ "cmsis_nn_conv_params_f16", "group__genPubTypes.html#structcmsis__nn__conv__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ],
+      [ "weight_format", "group__genPubTypes.html#a828780cd179c34fc3f700b62ae8a0483", null ]
+    ] ],
+    [ "cmsis_nn_transpose_conv_params_f16", "group__genPubTypes.html#structcmsis__nn__transpose__conv__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "padding_offsets", "group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_dw_conv_params_f16", "group__genPubTypes.html#structcmsis__nn__dw__conv__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "ch_mult", "group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55", null ],
+      [ "dilation", "group__genPubTypes.html#aa4aac59b38f994a48f8012b11256a1ca", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_pool_params_f16", "group__genPubTypes.html#structcmsis__nn__pool__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "padding", "group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630", null ],
+      [ "stride", "group__genPubTypes.html#a6f5c217856d767bd50556d1d4763d18f", null ]
+    ] ],
+    [ "cmsis_nn_fc_params_f16", "group__genPubTypes.html#structcmsis__nn__fc__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "weight_format", "group__genPubTypes.html#a828780cd179c34fc3f700b62ae8a0483", null ]
+    ] ],
+    [ "cmsis_nn_bmm_params_f16", "group__genPubTypes.html#structcmsis__nn__bmm__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ],
+      [ "adj_x", "group__genPubTypes.html#a3f232fedc315dc2572d83b88d89b74f9", null ],
+      [ "adj_y", "group__genPubTypes.html#ae96cb7f5df330c44dfea3db05dda8267", null ],
+      [ "rhs_format", "group__genPubTypes.html#a6c2e564bab7bbf5e69545445ee3cf5cf", null ]
+    ] ],
+    [ "cmsis_nn_ew_params_f16", "group__genPubTypes.html#structcmsis__nn__ew__params__f16", [
+      [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ]
+    ] ],
+    [ "cmsis_nn_transpose_params_f16", "group__genPubTypes.html#structcmsis__nn__transpose__params__f16", [
+      [ "layout", "group__genPubTypes.html#a49a79c47dce0e8c9dc55aa970e875f92", null ],
+      [ "num_dims", "group__genPubTypes.html#a06dcc5ef61ac6a65b65ea844629ba734", null ],
+      [ "perm", "group__genPubTypes.html#a6137b16244c51b57ce40fc035762b7f0", null ]
+    ] ],
+    [ "cmsis_nn_svdf_params_f16", "group__genPubTypes.html#structcmsis__nn__svdf__params__f16", [
+      [ "input_activation", "group__genPubTypes.html#aa570cad1486875665f3e578e2d257440", null ],
+      [ "output_activation", "group__genPubTypes.html#a8b6b0efa0f8a72e019a3c54fa1c0c8c4", null ],
+      [ "rank", "group__genPubTypes.html#a59af5cb2404da5d33f54e62b4c9d1813", null ]
+    ] ],
+    [ "cmsis_nn_lstm_gate_f16", "group__genPubTypes.html#structcmsis__nn__lstm__gate__f16", [
+      [ "activation_type", "group__genPubTypes.html#a0d0718ec163d37377bb522a89c65575c", null ],
+      [ "bias", "group__genPubTypes.html#a35168d4395bec7ef5ae3f879f1f7e992", null ],
+      [ "hidden_weights", "group__genPubTypes.html#a9ee227a5be189426ad35a99b471f7071", null ],
+      [ "input_weights", "group__genPubTypes.html#aecdcea6bbff67cb6e71e2f33da32f2b3", null ]
+    ] ],
+    [ "cmsis_nn_lstm_params_f16", "group__genPubTypes.html#structcmsis__nn__lstm__params__f16", [
+      [ "batch_size", "group__genPubTypes.html#ae3682826b55b5b638223e24154dae150", null ],
+      [ "cell_clip", "group__genPubTypes.html#afc38be02f78df09d4562389be10b7cc5", null ],
+      [ "cell_gate", "group__genPubTypes.html#a19f59ea3215a60e71070a22dc6c0ec0b", null ],
+      [ "forget_gate", "group__genPubTypes.html#a2cf4f9d1d4976f6ca41028fd46af851d", null ],
+      [ "hidden_size", "group__genPubTypes.html#ae321ba52f11af4f02b52480dc8a04644", null ],
+      [ "input_gate", "group__genPubTypes.html#abff92ec912c0594861a4aa70ee9214e5", null ],
+      [ "input_size", "group__genPubTypes.html#a56f49c6b551e4aec18e30116c206dd5b", null ],
+      [ "output_gate", "group__genPubTypes.html#a545b10490ef9473f4017964b1ef37a96", null ],
+      [ "time_major", "group__genPubTypes.html#a74829caaad7e7abc7f8c2dfa3cea700e", null ],
+      [ "time_steps", "group__genPubTypes.html#a56343a20df4d7e71c6b05bd13e60205c", null ]
+    ] ],
+    [ "cmsis_nn_lstm_context_f16", "group__genPubTypes.html#structcmsis__nn__lstm__context__f16", [
+      [ "cell_state", "group__genPubTypes.html#ac0d4369f383519d49c0024ae7ee5ab3a", null ],
+      [ "temp1", "group__genPubTypes.html#a31dc3903b2862e52f3bf9f7cb662c9ff", null ],
+      [ "temp2", "group__genPubTypes.html#aa544e097829276ef9f553769878f035c", null ]
+    ] ],
+    [ "arm_nn_dw_kernel_layout_f16", "group__genPubTypes.html#gaa52593c619dd1fa81371e2079bc9e59c", null ],
+    [ "arm_nn_static_assert___LINE__", "group__genPubTypes.html#ga0d1035e1d75a49cc8645b369cb9a7b62", null ],
     [ "arm_cmsis_nn_status", "group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184", [
       [ "ARM_CMSIS_NN_SUCCESS", "group__genPubTypes.html#gga67ac3e1e650a7040b0f706fb83ea6184a3ba593df6b92214112a5e752c95ae016", null ],
       [ "ARM_CMSIS_NN_ARG_ERROR", "group__genPubTypes.html#gga67ac3e1e650a7040b0f706fb83ea6184a36cebf184635d8a5c74c0057fa64e042", null ],
@@ -149,5 +303,25 @@ var group__genPubTypes =
     [ "arm_nn_activation_type", "group__genPubTypes.html#ga7f41aa78cd9a0552fae9b348ee4831a0", [
       [ "ARM_SIGMOID", "group__genPubTypes.html#gga7f41aa78cd9a0552fae9b348ee4831a0a49b307e029715fbaa6f3101c806b8c54", null ],
       [ "ARM_TANH", "group__genPubTypes.html#gga7f41aa78cd9a0552fae9b348ee4831a0ac24e4db95c986f16c10dca71a4b4e1c5", null ]
+    ] ],
+    [ "arm_nn_activation_type_flt", "group__genPubTypes.html#ga255fcc3cbfecf31bf92bb7b3b2416372", [
+      [ "ARM_NN_FLT_ACT_NONE", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a34d79cbdc27930ab31063740e5e862c7", null ],
+      [ "ARM_NN_FLT_ACT_SIGMOID", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a06fc15d0eb532b8c5debb9071056b89c", null ],
+      [ "ARM_NN_FLT_ACT_TANH", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a7b2dc241154445eb9af3e486bdd4514c", null ],
+      [ "ARM_NN_FLT_ACT_RELU", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a1cba5f18a92a767a3a781408345864bc", null ],
+      [ "ARM_NN_FLT_ACT_RELU6", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a02a25ae22befd540679db4208f156ee7", null ],
+      [ "ARM_NN_FLT_ACT_HARDSWISH", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372a603a4fc4e2137722968b0b66b3bc9911", null ],
+      [ "ARM_NN_FLT_ACT_LEAKY_RELU", "group__genPubTypes.html#gga255fcc3cbfecf31bf92bb7b3b2416372ad3f3fcdee52931c2ea955bf66bb13820", null ]
+    ] ],
+    [ "arm_nn_dw_kernel_layout_f32", "group__genPubTypes.html#gaa6e36d9bc1768aecc01b4a1d0e9a7b7c", [
+      [ "ARM_NN_DW_KERNEL_KC", "group__genPubTypes.html#ggaa6e36d9bc1768aecc01b4a1d0e9a7b7caeb189af67fba7302b087eba937e8dfa9", null ],
+      [ "ARM_NN_DW_KERNEL_CK", "group__genPubTypes.html#ggaa6e36d9bc1768aecc01b4a1d0e9a7b7ca4b8955d656fdf3f8bbdbb62c19095ab2", null ]
+    ] ],
+    [ "arm_nn_tensor_layout", "group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366", [
+      [ "ARM_NN_LAYOUT_NHWC", "group__genPubTypes.html#ggaad81fefccdab7eeafac503dd70328366acdcd5fcecca55b311afc016e364e3ac6", null ]
+    ] ],
+    [ "arm_nn_weight_format_flt", "group__genPubTypes.html#ga97e7360a42ab66c749a7a02850cfcd3e", [
+      [ "ARM_NN_WEIGHT_FORMAT_STANDARD", "group__genPubTypes.html#gga97e7360a42ab66c749a7a02850cfcd3ea9c905974ba74d34d3f68489eab45b5d1", null ],
+      [ "ARM_NN_WEIGHT_FORMAT_NT_N_PACKED", "group__genPubTypes.html#gga97e7360a42ab66c749a7a02850cfcd3eaab5ae39ecb88430ea009379d4d77334c", null ]
     ] ]
 ];

@@ -139,6 +139,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gac4a9067f3e3b4af2a1036dcfb9a60bdc"><td class="memItemLeft" align="right" valign="top">int16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gac4a9067f3e3b4af2a1036dcfb9a60bdc">arm_nn_mat_mult_kernel_s16</a> (const int8_t *input_a, const int16_t *input_b, const int32_t output_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t activation_min, const int32_t activation_max, const int32_t num_col_a, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bias__data">cmsis_nn_bias_data</a> *const bias_data, int16_t *out_0)</td></tr>
 <tr class="memdesc:gac4a9067f3e3b4af2a1036dcfb9a60bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix-multiplication function for convolution with per-channel requantization for 16 bits convolution.  <br /></td></tr>
 <tr class="separator:gac4a9067f3e3b4af2a1036dcfb9a60bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga3ba6fa9243dc48d60b5f15a5e6f4cd52">arm_nn_depthwise_conv3x3_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t batches, int32_t in_c, int32_t in_h, int32_t in_w, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t stride_x, int32_t stride_y, int32_t pad_x, int32_t pad_y, int32_t out_h, int32_t out_w, float16_t act_min, float16_t act_max)</td></tr>
+<tr class="memdesc:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).    <br /></td></tr>
+<tr class="separator:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a165ca751f3e230a2089c3e14b99c59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4a165ca751f3e230a2089c3e14b99c59">arm_nn_depthwise_conv3x3_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t batches, int32_t in_c, int32_t in_h, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t stride_x, int32_t stride_y, int32_t pad_x, int32_t pad_y, int32_t out_h, int32_t out_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_max)</td></tr>
+<tr class="memdesc:ga4a165ca751f3e230a2089c3e14b99c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).  <br /></td></tr>
+<tr class="separator:ga4a165ca751f3e230a2089c3e14b99c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga94299a67f5d3b06fee47d0ed89c91c84">arm_nn_depthwise_conv_nt_t_f16</a> (const float16_t *__RESTRICT lhs, const float16_t *__RESTRICT rhs, const float16_t *__RESTRICT bias, float16_t *__RESTRICT out, int32_t lhs_rows, int32_t total_ch, int32_t row_x_col, int32_t out_row_stride, float16_t activation_min, float16_t activation_max)</td></tr>
+<tr class="memdesc:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).    <br /></td></tr>
+<tr class="separator:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga91f2da1cf6fe1845940ab172cbbb6998">arm_nn_depthwise_conv_nt_t_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT lhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT rhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT bias, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t lhs_rows, int32_t total_ch, int32_t row_x_col, int32_t out_row_stride, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_max)</td></tr>
+<tr class="memdesc:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).  <br /></td></tr>
+<tr class="separator:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89d46677ad9046bee67cee7add8e9c04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04">arm_nn_depthwise_conv_nt_t_padded_s8</a> (const int8_t *lhs, const int8_t *rhs, const int32_t input_offset, const int32_t active_ch, const int32_t total_ch, const int32_t *out_shift, const int32_t *out_mult, const int32_t out_offset, const int32_t activation_min, const int32_t activation_max, const uint16_t row_x_col, const int32_t *const output_bias, int8_t *out)</td></tr>
 <tr class="memdesc:ga89d46677ad9046bee67cee7add8e9c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depthwise convolution of transposed rhs matrix with 4 lhs matrices. To be used in padded cases where the padding is -lhs_offset(Range: int8). Dimensions are the same for lhs and rhs.  <br /></td></tr>
 <tr class="separator:ga89d46677ad9046bee67cee7add8e9c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,6 +187,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gae6a91b1c854a59478f251e5209fef17a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a">arm_nn_mat_mult_nt_t_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *dst, const int32_t lhs_rows, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t lhs_offset, const int32_t dst_idx_offset)</td></tr>
 <tr class="memdesc:gae6a91b1c854a59478f251e5209fef17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">General Matrix-multiplication function with int8 input and int32 output. This function assumes:  <br /></td></tr>
 <tr class="separator:gae6a91b1c854a59478f251e5209fef17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81336bbfcbb9825545c0448c6fbdc113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga81336bbfcbb9825545c0448c6fbdc113">arm_nn_pack_conv_patch_f16</a> (const float16_t *__RESTRICT input, int32_t in_h, int32_t in_w, int32_t in_c, int32_t kernel_h, int32_t kernel_w, int32_t stride_h, int32_t stride_w, int32_t pad_h, int32_t pad_w, int32_t dilation_h, int32_t dilation_w, int32_t out_y, int32_t out_x, float16_t pad_value, float16_t *__RESTRICT patch_row)</td></tr>
+<tr class="memdesc:ga81336bbfcbb9825545c0448c6fbdc113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack a single convolution patch into one row of a contiguous float32 patch matrix.    <br /></td></tr>
+<tr class="separator:ga81336bbfcbb9825545c0448c6fbdc113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f4dcf443d384ec9719f5a5293240925"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4f4dcf443d384ec9719f5a5293240925">arm_nn_pack_conv_patch_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT input, int32_t in_h, int32_t in_w, int32_t in_c, int32_t kernel_h, int32_t kernel_w, int32_t stride_h, int32_t stride_w, int32_t pad_h, int32_t pad_w, int32_t dilation_h, int32_t dilation_w, int32_t out_y, int32_t out_x, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> pad_value, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT patch_row)</td></tr>
+<tr class="memdesc:ga4f4dcf443d384ec9719f5a5293240925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack a single convolution patch into one row of a contiguous float32 patch matrix.  <br /></td></tr>
+<tr class="separator:ga4f4dcf443d384ec9719f5a5293240925"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9">arm_nn_transpose_conv_row_s8_s32</a> (const int8_t *lhs, const int8_t *rhs, int32_t *output_start, const int32_t output_index, const int32_t output_max, const int32_t rhs_rows, const int32_t rhs_cols, const int32_t input_channels, const int32_t output_channels, const int32_t lhs_offset, const int32_t row_offset, const int32_t input_x, const int32_t stride_x, const int32_t skip_rows_top, const int32_t skip_rows_bottom)</td></tr>
 <tr class="memdesc:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row of s8 scalars multiplicated with a s8 matrix ad accumulated into a s32 rolling scratch buffer. Helpfunction for transposed convolution.  <br /></td></tr>
 <tr class="separator:ga4150aa4b2a79efccc2a1258bda068ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,6 +200,390 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Support functions for Convolution and DW Convolution </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga3ba6fa9243dc48d60b5f15a5e6f4cd52" name="ga3ba6fa9243dc48d60b5f15a5e6f4cd52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ba6fa9243dc48d60b5f15a5e6f4cd52">&#9670;&#160;</a></span>arm_nn_depthwise_conv3x3_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv3x3_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>batches</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).   </p>
+
+</div>
+</div>
+<a id="ga4a165ca751f3e230a2089c3e14b99c59" name="ga4a165ca751f3e230a2089c3e14b99c59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a165ca751f3e230a2089c3e14b99c59">&#9670;&#160;</a></span>arm_nn_depthwise_conv3x3_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv3x3_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>batches</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>). </p>
+
+</div>
+</div>
+<a id="ga94299a67f5d3b06fee47d0ed89c91c84" name="ga94299a67f5d3b06fee47d0ed89c91c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga94299a67f5d3b06fee47d0ed89c91c84">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_depthwise_conv_nt_t_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>total_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_x_col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_row_stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).   </p>
+
+</div>
+</div>
+<a id="ga91f2da1cf6fe1845940ab172cbbb6998" name="ga91f2da1cf6fe1845940ab172cbbb6998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga91f2da1cf6fe1845940ab172cbbb6998">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_depthwise_conv_nt_t_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>total_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_x_col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_row_stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32). </p>
+
+</div>
+</div>
 <a id="ga89d46677ad9046bee67cee7add8e9c04" name="ga89d46677ad9046bee67cee7add8e9c04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga89d46677ad9046bee67cee7add8e9c04">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_padded_s8()</h2>
 
@@ -1612,6 +2014,236 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The function returns <code>ARM_CMSIS_NN_SUCCESS</code> </dd></dl>
+
+</div>
+</div>
+<a id="ga81336bbfcbb9825545c0448c6fbdc113" name="ga81336bbfcbb9825545c0448c6fbdc113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81336bbfcbb9825545c0448c6fbdc113">&#9670;&#160;</a></span>arm_nn_pack_conv_patch_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_pack_conv_patch_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>patch_row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pack a single convolution patch into one row of a contiguous float32 patch matrix.   </p>
+<p>Developers familiar with im2row/im2col terminology can think of this as packing one output patch into one row.   </p>
+
+</div>
+</div>
+<a id="ga4f4dcf443d384ec9719f5a5293240925" name="ga4f4dcf443d384ec9719f5a5293240925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f4dcf443d384ec9719f5a5293240925">&#9670;&#160;</a></span>arm_nn_pack_conv_patch_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_pack_conv_patch_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>patch_row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pack a single convolution patch into one row of a contiguous float32 patch matrix. </p>
+<p>Developers familiar with im2row/im2col terminology can think of this as packing one output patch into one row. </p>
 
 </div>
 </div>

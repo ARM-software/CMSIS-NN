@@ -1,6 +1,8 @@
 var index =
 [
-    [ "Introduction", "index.html#intro", null ],
+    [ "Introduction", "index.html#intro", [
+      [ "Experimental Floating-Point Extension", "index.html#FloatSupport", null ]
+    ] ],
     [ "Supported Processors", "index.html#Processors", null ],
     [ "Access to CMSIS-NN", "index.html#pack", null ],
     [ "Quantization Specification", "index.html#Framework", null ],

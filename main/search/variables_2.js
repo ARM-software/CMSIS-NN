@@ -1,9 +1,10 @@
 var searchData=
 [
   ['c_0',['c',['../group__genPubTypes.html#a3c6f6f6780d5503e1bc87fc432c3af69',1,'cmsis_nn_dims']]],
-  ['cell_5fclip_1',['cell_clip',['../group__genPubTypes.html#a4991bc5b842b96232566243c0bfd4c94',1,'cmsis_nn_lstm_params']]],
-  ['cell_5fgate_2',['cell_gate',['../group__genPubTypes.html#acd208e3c48b975f358d9ad705c296f8a',1,'cmsis_nn_lstm_params']]],
-  ['cell_5fscale_5fpower_3',['cell_scale_power',['../group__genPubTypes.html#a75abf1a91aca9e0407c861f01150f52a',1,'cmsis_nn_lstm_params']]],
-  ['cell_5fstate_4',['cell_state',['../group__genPubTypes.html#a34cb41690c431bd9a3a8241edde8a22e',1,'cmsis_nn_lstm_context']]],
-  ['ch_5fmult_5',['ch_mult',['../group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55',1,'cmsis_nn_dw_conv_params']]]
+  ['call_1',['call',['../arm__conv1x1__opt__f16_8h.html#ad91607004efbd0d3e409d57795178c23',1,'arm_conv1x1_spec_f16::call()'],['../arm__conv1x1__opt__f32_8h.html#a3f6759626bb3e5e9ffc52acfa5932513',1,'arm_conv1x1_spec_f32::call()'],['../arm__conv__opt__f16_8h.html#acd8939012fe37264663c8fcd2360bf82',1,'arm_conv_spec_f16::call()'],['../arm__conv__opt__f32_8h.html#acc2776644269edff7d102565548f2e2d',1,'arm_conv_spec_f32::call()'],['../arm__depthwise__conv__opt__f16_8h.html#a1264ca096f2926e13831b6248635227a',1,'arm_dw_spec_f16::call()'],['../arm__depthwise__conv__opt__f32_8h.html#a6a6f4d429e26cd566b3a9abe457430f0',1,'arm_dw_spec_f32::call()']]],
+  ['cell_5fclip_2',['cell_clip',['../group__genPubTypes.html#a4991bc5b842b96232566243c0bfd4c94',1,'cmsis_nn_lstm_params::cell_clip()'],['../group__genPubTypes.html#aab1a660961790f2b5489c3f1030a4b43',1,'cmsis_nn_lstm_params_f32::cell_clip()'],['../group__genPubTypes.html#afc38be02f78df09d4562389be10b7cc5',1,'cmsis_nn_lstm_params_f16::cell_clip()']]],
+  ['cell_5fgate_3',['cell_gate',['../group__genPubTypes.html#acd208e3c48b975f358d9ad705c296f8a',1,'cmsis_nn_lstm_params::cell_gate()'],['../group__genPubTypes.html#a19f59ea3215a60e71070a22dc6c0ec0b',1,'cmsis_nn_lstm_params_f16::cell_gate()'],['../group__genPubTypes.html#ae48f120c08e854183a9fee7adc02ba89',1,'cmsis_nn_lstm_params_f32::cell_gate()']]],
+  ['cell_5fscale_5fpower_4',['cell_scale_power',['../group__genPubTypes.html#a75abf1a91aca9e0407c861f01150f52a',1,'cmsis_nn_lstm_params']]],
+  ['cell_5fstate_5',['cell_state',['../group__genPubTypes.html#a34cb41690c431bd9a3a8241edde8a22e',1,'cmsis_nn_lstm_context::cell_state()'],['../group__genPubTypes.html#afecae43eda1feb5b52f4d7b12f09d041',1,'cmsis_nn_lstm_context_f32::cell_state()'],['../group__genPubTypes.html#ac0d4369f383519d49c0024ae7ee5ab3a',1,'cmsis_nn_lstm_context_f16::cell_state()']]],
+  ['ch_5fmult_6',['ch_mult',['../group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55',1,'cmsis_nn_dw_conv_params::ch_mult()'],['../group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55',1,'cmsis_nn_dw_conv_params_f32::ch_mult()'],['../group__genPubTypes.html#ae5ebf7e8da576d0475859ec74be90b55',1,'cmsis_nn_dw_conv_params_f16::ch_mult()']]]
 ];

@@ -3,11 +3,12 @@ var searchData=
   ['pack_5fq15x2_5f32x1_0',['PACK_Q15x2_32x1',['../arm__nnsupportfunctions_8h.html#aed1da44adc8e0378f6508b8eea94a40e',1,'arm_nnsupportfunctions.h']]],
   ['pack_5fs8x4_5f32x1_1',['PACK_S8x4_32x1',['../arm__nnsupportfunctions_8h.html#a4bde61046c9d2729f56054cafba589c6',1,'arm_nnsupportfunctions.h']]],
   ['pad_20layer_20functions_3a_2',['Pad Layer Functions:',['../group__Pad.html',1,'']]],
-  ['padding_3',['padding',['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_conv_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_transpose_conv_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_dw_conv_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_pool_params::padding()']]],
-  ['padding_5foffsets_4',['padding_offsets',['../group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795',1,'cmsis_nn_transpose_conv_params']]],
-  ['permutations_5',['permutations',['../group__genPubTypes.html#acc33a20f428609429030979e20b35209',1,'cmsis_nn_transpose_params']]],
-  ['pooling_20functions_6',['Pooling Functions',['../group__Pooling.html',1,'']]],
-  ['private_7',['Private',['../group__groupSupport.html',1,'']]],
-  ['public_8',['Public',['../group__Public.html',1,'']]],
-  ['pybind11_5fmodule_9',['PYBIND11_MODULE',['../arm__py__module_8cpp.html#a988612f15d9bd851b8e837dd3fdc5ba1',1,'arm_py_module.cpp']]]
+  ['padding_3',['padding',['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_transpose_conv_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_dw_conv_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_pool_params::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_conv_params_f32::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_transpose_conv_params_f32::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_dw_conv_params_f32::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_pool_params_f32::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_conv_params_f16::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_transpose_conv_params_f16::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_dw_conv_params_f16::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_pool_params_f16::padding()'],['../group__genPubTypes.html#afc7f24c6d2ffbb0d512256b3d4e19630',1,'cmsis_nn_conv_params::padding()']]],
+  ['padding_5foffsets_4',['padding_offsets',['../group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795',1,'cmsis_nn_transpose_conv_params::padding_offsets()'],['../group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795',1,'cmsis_nn_transpose_conv_params_f16::padding_offsets()'],['../group__genPubTypes.html#a76f1b609bbe8b6bfa2c040cacbd89795',1,'cmsis_nn_transpose_conv_params_f32::padding_offsets()']]],
+  ['perm_5',['perm',['../group__genPubTypes.html#a6137b16244c51b57ce40fc035762b7f0',1,'cmsis_nn_transpose_params_f16::perm()'],['../group__genPubTypes.html#a6137b16244c51b57ce40fc035762b7f0',1,'cmsis_nn_transpose_params_f32::perm()']]],
+  ['permutations_6',['permutations',['../group__genPubTypes.html#acc33a20f428609429030979e20b35209',1,'cmsis_nn_transpose_params']]],
+  ['pooling_20functions_7',['Pooling Functions',['../group__Pooling.html',1,'']]],
+  ['private_8',['Private',['../group__groupSupport.html',1,'']]],
+  ['public_9',['Public',['../group__Public.html',1,'']]],
+  ['pybind11_5fmodule_10',['PYBIND11_MODULE',['../arm__py__module_8cpp.html#a988612f15d9bd851b8e837dd3fdc5ba1',1,'arm_py_module.cpp']]]
 ];

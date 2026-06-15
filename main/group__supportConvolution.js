@@ -1,5 +1,9 @@
 var group__supportConvolution =
 [
+    [ "arm_nn_depthwise_conv3x3_nhwc_f16", "group__supportConvolution.html#ga3ba6fa9243dc48d60b5f15a5e6f4cd52", null ],
+    [ "arm_nn_depthwise_conv3x3_nhwc_f32", "group__supportConvolution.html#ga4a165ca751f3e230a2089c3e14b99c59", null ],
+    [ "arm_nn_depthwise_conv_nt_t_f16", "group__supportConvolution.html#ga94299a67f5d3b06fee47d0ed89c91c84", null ],
+    [ "arm_nn_depthwise_conv_nt_t_f32", "group__supportConvolution.html#ga91f2da1cf6fe1845940ab172cbbb6998", null ],
     [ "arm_nn_depthwise_conv_nt_t_padded_s8", "group__supportConvolution.html#ga89d46677ad9046bee67cee7add8e9c04", null ],
     [ "arm_nn_depthwise_conv_nt_t_s16", "group__supportConvolution.html#ga933ea191be663ab1761e78cc0c08bbdb", null ],
     [ "arm_nn_depthwise_conv_nt_t_s4", "group__supportConvolution.html#ga269fb73ffdff3f10a6d8e9a17b27179b", null ],
@@ -13,5 +17,7 @@ var group__supportConvolution =
     [ "arm_nn_mat_mult_nt_t_s4", "group__supportConvolution.html#ga9a5bbacc830176ced95c98d2d4100041", null ],
     [ "arm_nn_mat_mult_nt_t_s8", "group__supportConvolution.html#ga6e946ce01dca21f5d1b2f6d1dfeabb4a", null ],
     [ "arm_nn_mat_mult_nt_t_s8_s32", "group__supportConvolution.html#gae6a91b1c854a59478f251e5209fef17a", null ],
+    [ "arm_nn_pack_conv_patch_f16", "group__supportConvolution.html#ga81336bbfcbb9825545c0448c6fbdc113", null ],
+    [ "arm_nn_pack_conv_patch_f32", "group__supportConvolution.html#ga4f4dcf443d384ec9719f5a5293240925", null ],
     [ "arm_nn_transpose_conv_row_s8_s32", "group__supportConvolution.html#ga4150aa4b2a79efccc2a1258bda068ba9", null ]
 ];

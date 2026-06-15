@@ -136,6 +136,12 @@ $(document).ready(function(){initNavTree('group__Acti.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga5044d5d0dab9d4a694a0c5d88199491c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga5044d5d0dab9d4a694a0c5d88199491c">arm_nn_activation_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output, int32_t size, <a class="el" href="group__genPubTypes.html#ga255fcc3cbfecf31bf92bb7b3b2416372">arm_nn_activation_type_flt</a> type, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_param)</td></tr>
+<tr class="memdesc:ga5044d5d0dab9d4a694a0c5d88199491c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise activation.  <br /></td></tr>
+<tr class="separator:ga5044d5d0dab9d4a694a0c5d88199491c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb334e94f77c11603120219f4a4f5608"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#gabb334e94f77c11603120219f4a4f5608">arm_nn_activation_f16</a> (const float16_t *input, float16_t *output, int32_t size, <a class="el" href="group__genPubTypes.html#ga255fcc3cbfecf31bf92bb7b3b2416372">arm_nn_activation_type_flt</a> type, float16_t act_param)</td></tr>
+<tr class="memdesc:gabb334e94f77c11603120219f4a4f5608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elementwise activation.    <br /></td></tr>
+<tr class="separator:gabb334e94f77c11603120219f4a4f5608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5f84aed104cadf145fd3d15144f3c93e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Acti.html#ga5f84aed104cadf145fd3d15144f3c93e">arm_nn_activation_s16</a> (const int16_t *input, int16_t *output, const int32_t size, const int32_t left_shift, const <a class="el" href="group__genPubTypes.html#ga7f41aa78cd9a0552fae9b348ee4831a0">arm_nn_activation_type</a> type)</td></tr>
 <tr class="memdesc:ga5f84aed104cadf145fd3d15144f3c93e"><td class="mdescLeft">&#160;</td><td class="mdescRight">s16 neural network activation function using direct table look-up  <br /></td></tr>
 <tr class="separator:ga5f84aed104cadf145fd3d15144f3c93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,6 +158,124 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Perform activation layers, including ReLU (Rectified Linear Unit), sigmoid and tanh </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gabb334e94f77c11603120219f4a4f5608" name="gabb334e94f77c11603120219f4a4f5608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabb334e94f77c11603120219f4a4f5608">&#9670;&#160;</a></span>arm_nn_activation_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_activation_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#ga255fcc3cbfecf31bf92bb7b3b2416372">arm_nn_activation_type_flt</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elementwise activation.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input samples. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output samples. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Number of elements to process. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Activation selector. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">act_param</td><td>Extra activation parameter. Used for parameterized activations such as leaky ReLU.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga5044d5d0dab9d4a694a0c5d88199491c" name="ga5044d5d0dab9d4a694a0c5d88199491c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5044d5d0dab9d4a694a0c5d88199491c">&#9670;&#160;</a></span>arm_nn_activation_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_activation_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#ga255fcc3cbfecf31bf92bb7b3b2416372">arm_nn_activation_type_flt</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elementwise activation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input samples. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output samples. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Number of elements to process. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Activation selector. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">act_param</td><td>Extra activation parameter. Used for parameterized activations such as leaky ReLU.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
 <a id="ga5f84aed104cadf145fd3d15144f3c93e" name="ga5f84aed104cadf145fd3d15144f3c93e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5f84aed104cadf145fd3d15144f3c93e">&#9670;&#160;</a></span>arm_nn_activation_s16()</h2>
 

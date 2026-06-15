@@ -136,12 +136,90 @@ $(document).ready(function(){initNavTree('group__Reshape.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga5763cb1a5f0e89dc789dfc7a1102f572"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Reshape.html#ga5763cb1a5f0e89dc789dfc7a1102f572">arm_reshape_f16</a> (const float16_t *input, float16_t *output, const uint32_t total_size)</td></tr>
+<tr class="memdesc:ga5763cb1a5f0e89dc789dfc7a1102f572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reshape by copying data without changing element order.    <br /></td></tr>
+<tr class="separator:ga5763cb1a5f0e89dc789dfc7a1102f572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga070bd5a13d8a177c4ca8849898298329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Reshape.html#ga070bd5a13d8a177c4ca8849898298329">arm_reshape_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output, const uint32_t total_size)</td></tr>
+<tr class="memdesc:ga070bd5a13d8a177c4ca8849898298329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reshape by copying data without changing element order.  <br /></td></tr>
+<tr class="separator:ga070bd5a13d8a177c4ca8849898298329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8cc1dfb7b2b083935a97dc4f24d0533c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Reshape.html#ga8cc1dfb7b2b083935a97dc4f24d0533c">arm_reshape_s8</a> (const int8_t *input, int8_t *output, const uint32_t total_size)</td></tr>
 <tr class="memdesc:ga8cc1dfb7b2b083935a97dc4f24d0533c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reshape a s8 vector into another with different shape.  <br /></td></tr>
 <tr class="separator:ga8cc1dfb7b2b083935a97dc4f24d0533c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga5763cb1a5f0e89dc789dfc7a1102f572" name="ga5763cb1a5f0e89dc789dfc7a1102f572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5763cb1a5f0e89dc789dfc7a1102f572">&#9670;&#160;</a></span>arm_reshape_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_reshape_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>total_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reshape by copying data without changing element order.   </p>
+
+</div>
+</div>
+<a id="ga070bd5a13d8a177c4ca8849898298329" name="ga070bd5a13d8a177c4ca8849898298329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga070bd5a13d8a177c4ca8849898298329">&#9670;&#160;</a></span>arm_reshape_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_reshape_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>total_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reshape by copying data without changing element order. </p>
+
+</div>
+</div>
 <a id="ga8cc1dfb7b2b083935a97dc4f24d0533c" name="ga8cc1dfb7b2b083935a97dc4f24d0533c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8cc1dfb7b2b083935a97dc4f24d0533c">&#9670;&#160;</a></span>arm_reshape_s8()</h2>
 

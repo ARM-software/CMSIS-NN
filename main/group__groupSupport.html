@@ -129,7 +129,9 @@ $(document).ready(function(){initNavTree('group__groupSupport.html',''); initRes
 
 <div class="header">
   <div class="summary">
-<a href="#groups">Content</a>  </div>
+<a href="#groups">Content</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Private</div></div>
 </div><!--header-->
 <div class="contents">
@@ -151,9 +153,2741 @@ Content</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__supportConversion"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__supportConversion.html">Data Conversion</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad2ce3f1750e2718b52bfa5ea7fac4a96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gad2ce3f1750e2718b52bfa5ea7fac4a96">arm_nn_depthwise_conv1d_k3_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:gad2ce3f1750e2718b52bfa5ea7fac4a96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise 1D kernel for <code>k=3</code>, <code>ch_mult=1</code> (float32).  <br /></td></tr>
+<tr class="separator:gad2ce3f1750e2718b52bfa5ea7fac4a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a165ca751f3e230a2089c3e14b99c59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga4a165ca751f3e230a2089c3e14b99c59">arm_nn_depthwise_conv3x3_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t batches, int32_t in_c, int32_t in_h, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t stride_x, int32_t stride_y, int32_t pad_x, int32_t pad_y, int32_t out_h, int32_t out_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_max)</td></tr>
+<tr class="memdesc:ga4a165ca751f3e230a2089c3e14b99c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).  <br /></td></tr>
+<tr class="separator:ga4a165ca751f3e230a2089c3e14b99c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga91f2da1cf6fe1845940ab172cbbb6998">arm_nn_depthwise_conv_nt_t_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT lhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT rhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT bias, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t lhs_rows, int32_t total_ch, int32_t row_x_col, int32_t out_row_stride, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_max)</td></tr>
+<tr class="memdesc:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).  <br /></td></tr>
+<tr class="separator:ga91f2da1cf6fe1845940ab172cbbb6998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa6b0a1416dd9ab4747ecafd476c8824"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gaaa6b0a1416dd9ab4747ecafd476c8824">arm_nn_conv1d_k5_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:gaaa6b0a1416dd9ab4747ecafd476c8824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32).  <br /></td></tr>
+<tr class="separator:gaaa6b0a1416dd9ab4747ecafd476c8824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga422aa2470e5e57e691cfc6e897a42d79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga422aa2470e5e57e691cfc6e897a42d79">arm_nn_conv1d_k5_packed_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel_packed, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:ga422aa2470e5e57e691cfc6e897a42d79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32, packed weights).  <br /></td></tr>
+<tr class="separator:ga422aa2470e5e57e691cfc6e897a42d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga221083ef8b87b2849727c2cf2c54a661"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga221083ef8b87b2849727c2cf2c54a661">arm_nn_conv1d_k3_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:ga221083ef8b87b2849727c2cf2c54a661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32).  <br /></td></tr>
+<tr class="separator:ga221083ef8b87b2849727c2cf2c54a661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga884e68a9b7bcbff2304f0ed77085cab7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga884e68a9b7bcbff2304f0ed77085cab7">arm_nn_conv1d_k3_packed_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT kernel_packed, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT b, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:ga884e68a9b7bcbff2304f0ed77085cab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32, packed weights).  <br /></td></tr>
+<tr class="separator:ga884e68a9b7bcbff2304f0ed77085cab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c605d823c20cc74d1ab98e64741a0b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga0c605d823c20cc74d1ab98e64741a0b2">arm_nn_maxpool1d_k3s3_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:ga0c605d823c20cc74d1ab98e64741a0b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=3</code>, <code>s=3</code> (float32).  <br /></td></tr>
+<tr class="separator:ga0c605d823c20cc74d1ab98e64741a0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24dc012939d4357a8463c053593a15e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga24dc012939d4357a8463c053593a15e5">arm_nn_maxpool1d_k2s2_nhwc_noclip_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:ga24dc012939d4357a8463c053593a15e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> without output clamp (float32).  <br /></td></tr>
+<tr class="separator:ga24dc012939d4357a8463c053593a15e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c6aab742d94e599ac2200f18e887e0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga2c6aab742d94e599ac2200f18e887e0c">arm_nn_maxpool1d_k2s2_nhwc_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT out, int32_t out_w, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> act_max)</td></tr>
+<tr class="memdesc:ga2c6aab742d94e599ac2200f18e887e0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> with clamp (float32).  <br /></td></tr>
+<tr class="separator:ga2c6aab742d94e599ac2200f18e887e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5476fbb6c4417ba1718ae2be0555f8a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga5476fbb6c4417ba1718ae2be0555f8a9">arm_nn_mat_mult_nt_t_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT lhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT rhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT bias, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT dst, int32_t lhs_rows, int32_t rhs_rows, int32_t rhs_cols, int32_t row_address_offset, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_max)</td></tr>
+<tr class="memdesc:ga5476fbb6c4417ba1718ae2be0555f8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiply with non-transposed lhs and transposed rhs rows (float32).  <br /></td></tr>
+<tr class="separator:ga5476fbb6c4417ba1718ae2be0555f8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c19d9e55bd7bdfe3664203aa3e92a57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga8c19d9e55bd7bdfe3664203aa3e92a57">arm_nn_mat_mult_nt_n_packed_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT lhs, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT rhs_packed, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT bias, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT dst, int32_t lhs_rows, int32_t rhs_rows, int32_t rhs_cols, int32_t row_address_offset, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_min, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> activation_max)</td></tr>
+<tr class="memdesc:ga8c19d9e55bd7bdfe3664203aa3e92a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiply with non-transposed lhs and packed non-transposed rhs (float32).  <br /></td></tr>
+<tr class="separator:ga8c19d9e55bd7bdfe3664203aa3e92a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f4dcf443d384ec9719f5a5293240925"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga4f4dcf443d384ec9719f5a5293240925">arm_nn_pack_conv_patch_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT input, int32_t in_h, int32_t in_w, int32_t in_c, int32_t kernel_h, int32_t kernel_w, int32_t stride_h, int32_t stride_w, int32_t pad_h, int32_t pad_w, int32_t dilation_h, int32_t dilation_w, int32_t out_y, int32_t out_x, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> pad_value, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT patch_row)</td></tr>
+<tr class="memdesc:ga4f4dcf443d384ec9719f5a5293240925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack a single convolution patch into one row of a contiguous float32 patch matrix.  <br /></td></tr>
+<tr class="separator:ga4f4dcf443d384ec9719f5a5293240925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga447c63c72105d2707e8aebff511195e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga447c63c72105d2707e8aebff511195e5">arm_nn_softmax_1x2_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> in[2], <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> out[2])</td></tr>
+<tr class="memdesc:ga447c63c72105d2707e8aebff511195e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized softmax helper for a single float32 row of length 2.  <br /></td></tr>
+<tr class="separator:ga447c63c72105d2707e8aebff511195e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c5d8c2b526c28b266607d50d758ef36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga7c5d8c2b526c28b266607d50d758ef36">arm_nn_depthwise_conv2x5_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t batches, int32_t in_c, int32_t in_w, int32_t ch_mult, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_w, float16_t act_min, float16_t act_max)</td></tr>
+<tr class="memdesc:ga7c5d8c2b526c28b266607d50d758ef36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise <code>2x5</code> kernel (float16).  <br /></td></tr>
+<tr class="separator:ga7c5d8c2b526c28b266607d50d758ef36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga763a89bc6a9a58ceb58e1b54caa764a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga763a89bc6a9a58ceb58e1b54caa764a4">arm_nn_depthwise_conv1d_k3_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:ga763a89bc6a9a58ceb58e1b54caa764a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise 1D kernel for <code>k=3</code>, <code>ch_mult=1</code> (float32).    <br /></td></tr>
+<tr class="separator:ga763a89bc6a9a58ceb58e1b54caa764a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga3ba6fa9243dc48d60b5f15a5e6f4cd52">arm_nn_depthwise_conv3x3_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t batches, int32_t in_c, int32_t in_h, int32_t in_w, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t stride_x, int32_t stride_y, int32_t pad_x, int32_t pad_y, int32_t out_h, int32_t out_w, float16_t act_min, float16_t act_max)</td></tr>
+<tr class="memdesc:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).    <br /></td></tr>
+<tr class="separator:ga3ba6fa9243dc48d60b5f15a5e6f4cd52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga94299a67f5d3b06fee47d0ed89c91c84">arm_nn_depthwise_conv_nt_t_f16</a> (const float16_t *__RESTRICT lhs, const float16_t *__RESTRICT rhs, const float16_t *__RESTRICT bias, float16_t *__RESTRICT out, int32_t lhs_rows, int32_t total_ch, int32_t row_x_col, int32_t out_row_stride, float16_t activation_min, float16_t activation_max)</td></tr>
+<tr class="memdesc:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).    <br /></td></tr>
+<tr class="separator:ga94299a67f5d3b06fee47d0ed89c91c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ab730346b74f156ac6e672a253fa710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga3ab730346b74f156ac6e672a253fa710">arm_nn_conv1d_k5_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:ga3ab730346b74f156ac6e672a253fa710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32).    <br /></td></tr>
+<tr class="separator:ga3ab730346b74f156ac6e672a253fa710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73237110aaf791cdfee6de4b0bddc32f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga73237110aaf791cdfee6de4b0bddc32f">arm_nn_conv1d_k5_packed_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const float16_t *__RESTRICT kernel_packed, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:ga73237110aaf791cdfee6de4b0bddc32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=5</code> (float16, packed weights).  <br /></td></tr>
+<tr class="separator:ga73237110aaf791cdfee6de4b0bddc32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf7f51807dedd02a3deeff0b2525ac96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gacf7f51807dedd02a3deeff0b2525ac96">arm_nn_conv1d_k3_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const float16_t *__RESTRICT kernel, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:gacf7f51807dedd02a3deeff0b2525ac96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32).    <br /></td></tr>
+<tr class="separator:gacf7f51807dedd02a3deeff0b2525ac96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac05b1060f1497fdfddcabdef23af1fb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gac05b1060f1497fdfddcabdef23af1fb2">arm_nn_conv1d_k3_packed_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, const float16_t *__RESTRICT kernel_packed, const float16_t *__RESTRICT b, float16_t *__RESTRICT out, int32_t out_c, int32_t out_w)</td></tr>
+<tr class="memdesc:gac05b1060f1497fdfddcabdef23af1fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC 1D convolution kernel for <code>k=3</code> (float16, packed weights).  <br /></td></tr>
+<tr class="separator:gac05b1060f1497fdfddcabdef23af1fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga32f6cca710a22eec924862cc61da0090"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga32f6cca710a22eec924862cc61da0090">arm_nn_maxpool1d_k3s3_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, float16_t *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:ga32f6cca710a22eec924862cc61da0090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=3</code>, <code>s=3</code> (float16).  <br /></td></tr>
+<tr class="separator:ga32f6cca710a22eec924862cc61da0090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada510913c457e5c1fc63f68a7fe541a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gada510913c457e5c1fc63f68a7fe541a4">arm_nn_maxpool1d_k2s2_nhwc_noclip_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, float16_t *__RESTRICT out, int32_t out_w)</td></tr>
+<tr class="memdesc:gada510913c457e5c1fc63f68a7fe541a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> without output clamp (float16).  <br /></td></tr>
+<tr class="separator:gada510913c457e5c1fc63f68a7fe541a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6f34c9c41cf5d82a09737ca3a0ee5c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gaf6f34c9c41cf5d82a09737ca3a0ee5c5">arm_nn_maxpool1d_k2s2_nhwc_f16</a> (const float16_t *__RESTRICT x_nhwc, int32_t in_c, int32_t in_w, float16_t *__RESTRICT out, int32_t out_w, float16_t act_min, float16_t act_max)</td></tr>
+<tr class="memdesc:gaf6f34c9c41cf5d82a09737ca3a0ee5c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> with clamp (float16).  <br /></td></tr>
+<tr class="separator:gaf6f34c9c41cf5d82a09737ca3a0ee5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc9e31097e50450e1c0794979a07b987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gadc9e31097e50450e1c0794979a07b987">arm_nn_mat_mult_nt_t_f16</a> (const float16_t *__RESTRICT lhs, const float16_t *__RESTRICT rhs, const float16_t *__RESTRICT bias, float16_t *__RESTRICT dst, int32_t lhs_rows, int32_t rhs_rows, int32_t rhs_cols, int32_t row_address_offset, float16_t activation_min, float16_t activation_max)</td></tr>
+<tr class="memdesc:gadc9e31097e50450e1c0794979a07b987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiply with non-transposed lhs and transposed rhs rows (float32).    <br /></td></tr>
+<tr class="separator:gadc9e31097e50450e1c0794979a07b987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c7ba0fe568bfaefe857e11fcd4bf032"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga5c7ba0fe568bfaefe857e11fcd4bf032">arm_nn_mat_mult_nt_n_packed_f16</a> (const float16_t *__RESTRICT lhs, const float16_t *__RESTRICT rhs_packed, const float16_t *__RESTRICT bias, float16_t *__RESTRICT dst, int32_t lhs_rows, int32_t rhs_rows, int32_t rhs_cols, int32_t row_address_offset, float16_t activation_min, float16_t activation_max)</td></tr>
+<tr class="memdesc:ga5c7ba0fe568bfaefe857e11fcd4bf032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiply with non-transposed lhs and packed non-transposed rhs (float16).  <br /></td></tr>
+<tr class="separator:ga5c7ba0fe568bfaefe857e11fcd4bf032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ff95fea0dc872643134eea99c8ea07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gaa3ff95fea0dc872643134eea99c8ea07">arm_nn_lstm_step_f16</a> (const float16_t *data_in, const float16_t *hidden_in, float16_t *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *buffers, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:gaa3ff95fea0dc872643134eea99c8ea07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step using float16 input, output and state.  <br /></td></tr>
+<tr class="separator:gaa3ff95fea0dc872643134eea99c8ea07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81336bbfcbb9825545c0448c6fbdc113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga81336bbfcbb9825545c0448c6fbdc113">arm_nn_pack_conv_patch_f16</a> (const float16_t *__RESTRICT input, int32_t in_h, int32_t in_w, int32_t in_c, int32_t kernel_h, int32_t kernel_w, int32_t stride_h, int32_t stride_w, int32_t pad_h, int32_t pad_w, int32_t dilation_h, int32_t dilation_w, int32_t out_y, int32_t out_x, float16_t pad_value, float16_t *__RESTRICT patch_row)</td></tr>
+<tr class="memdesc:ga81336bbfcbb9825545c0448c6fbdc113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack a single convolution patch into one row of a contiguous float32 patch matrix.    <br /></td></tr>
+<tr class="separator:ga81336bbfcbb9825545c0448c6fbdc113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga385d95893b6aef5040cee51a0ec48ca4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga385d95893b6aef5040cee51a0ec48ca4">arm_nn_softmax_1x2_f16</a> (const float16_t in[2], float16_t out[2])</td></tr>
+<tr class="memdesc:ga385d95893b6aef5040cee51a0ec48ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized softmax helper for a single float32 row of length 2.    <br /></td></tr>
+<tr class="separator:ga385d95893b6aef5040cee51a0ec48ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43df1026db96b72a0586c609e03d0431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga43df1026db96b72a0586c609e03d0431">arm_nn_lstm_step_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *data_in, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *hidden_in, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *hidden_out, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *buffers, const int32_t batch_offset)</td></tr>
+<tr class="memdesc:ga43df1026db96b72a0586c609e03d0431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update LSTM function for an iteration step using float32 input, output and state.  <br /></td></tr>
+<tr class="separator:ga43df1026db96b72a0586c609e03d0431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga195b36e24c367aecf405820a8f8f1d60"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga195b36e24c367aecf405820a8f8f1d60">arm_nn_exp_poly_coeffs_f32</a> [8]</td></tr>
+<tr class="memdesc:ga195b36e24c367aecf405820a8f8f1d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polynomial coefficients used by the float32 MVE exp approximation.  <br /></td></tr>
+<tr class="separator:ga195b36e24c367aecf405820a8f8f1d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2772f37decde4ef92e5533a7e635ea2f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga2772f37decde4ef92e5533a7e635ea2f">arm_nn_exp2_lut256_f32</a> [257]</td></tr>
+<tr class="memdesc:ga2772f37decde4ef92e5533a7e635ea2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">LUT for <code>2^(i/256)</code> used by the float32 LUT softmax approximation.  <br /></td></tr>
+<tr class="separator:ga2772f37decde4ef92e5533a7e635ea2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed2b84c175c22534045ca866b818d241"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gaed2b84c175c22534045ca866b818d241">arm_nn_tanh_lut256_f32</a> [257]</td></tr>
+<tr class="memdesc:gaed2b84c175c22534045ca866b818d241"><td class="mdescLeft">&#160;</td><td class="mdescRight">LUT for tanh(x) sampled over <code>x in [0, 4]</code> for float32 helpers.  <br /></td></tr>
+<tr class="separator:gaed2b84c175c22534045ca866b818d241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a104f85e4919db1e858da1726965ded"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga8a104f85e4919db1e858da1726965ded">arm_nn_exp_poly_coeffs_f16</a> [8]</td></tr>
+<tr class="memdesc:ga8a104f85e4919db1e858da1726965ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polynomial coefficients used by the float16 MVE exp approximation.  <br /></td></tr>
+<tr class="separator:ga8a104f85e4919db1e858da1726965ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc1f529657d82c3ef70a34f406921c0e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gabc1f529657d82c3ef70a34f406921c0e">arm_nn_tanh_approx_coeffs_f16</a> [3]</td></tr>
+<tr class="memdesc:gabc1f529657d82c3ef70a34f406921c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients used by the float16 tanh rational approximation.  <br /></td></tr>
+<tr class="separator:gabc1f529657d82c3ef70a34f406921c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gacfd8fe5fb8fb3f73bbe776201ce25d93">arm_nn_exp2_lut256_f16</a> [257]</td></tr>
+<tr class="memdesc:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quantized binary16 LUT for <code>2^(i/256)</code> used by float16 helpers.  <br /></td></tr>
+<tr class="separator:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8c003c8c32c291852e1ee1612501098"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gac8c003c8c32c291852e1ee1612501098">arm_nn_tanh_lut256_f16</a> [257]</td></tr>
+<tr class="memdesc:gac8c003c8c32c291852e1ee1612501098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quantized binary16 LUT for tanh(x) with <code>x in [0, 4]</code>.  <br /></td></tr>
+<tr class="separator:gac8c003c8c32c291852e1ee1612501098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga195b36e24c367aecf405820a8f8f1d60"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga195b36e24c367aecf405820a8f8f1d60">arm_nn_exp_poly_coeffs_f32</a> [8]</td></tr>
+<tr class="memdesc:ga195b36e24c367aecf405820a8f8f1d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polynomial coefficients used by the float32 MVE exp approximation.  <br /></td></tr>
+<tr class="separator:ga195b36e24c367aecf405820a8f8f1d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2772f37decde4ef92e5533a7e635ea2f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga2772f37decde4ef92e5533a7e635ea2f">arm_nn_exp2_lut256_f32</a> [257]</td></tr>
+<tr class="memdesc:ga2772f37decde4ef92e5533a7e635ea2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">LUT for <code>2^(i/256)</code> used by the float32 LUT softmax approximation.  <br /></td></tr>
+<tr class="separator:ga2772f37decde4ef92e5533a7e635ea2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed2b84c175c22534045ca866b818d241"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gaed2b84c175c22534045ca866b818d241">arm_nn_tanh_lut256_f32</a> [257]</td></tr>
+<tr class="memdesc:gaed2b84c175c22534045ca866b818d241"><td class="mdescLeft">&#160;</td><td class="mdescRight">LUT for tanh(x) sampled over <code>x in [0, 4]</code> for float32 helpers.  <br /></td></tr>
+<tr class="separator:gaed2b84c175c22534045ca866b818d241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a104f85e4919db1e858da1726965ded"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#ga8a104f85e4919db1e858da1726965ded">arm_nn_exp_poly_coeffs_f16</a> [8]</td></tr>
+<tr class="memdesc:ga8a104f85e4919db1e858da1726965ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polynomial coefficients used by the float16 MVE exp approximation.  <br /></td></tr>
+<tr class="separator:ga8a104f85e4919db1e858da1726965ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc1f529657d82c3ef70a34f406921c0e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gabc1f529657d82c3ef70a34f406921c0e">arm_nn_tanh_approx_coeffs_f16</a> [3]</td></tr>
+<tr class="memdesc:gabc1f529657d82c3ef70a34f406921c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients used by the float16 tanh rational approximation.  <br /></td></tr>
+<tr class="separator:gabc1f529657d82c3ef70a34f406921c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gacfd8fe5fb8fb3f73bbe776201ce25d93">arm_nn_exp2_lut256_f16</a> [257]</td></tr>
+<tr class="memdesc:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quantized binary16 LUT for <code>2^(i/256)</code> used by float16 helpers.  <br /></td></tr>
+<tr class="separator:gacfd8fe5fb8fb3f73bbe776201ce25d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8c003c8c32c291852e1ee1612501098"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__groupSupport.html#gac8c003c8c32c291852e1ee1612501098">arm_nn_tanh_lut256_f16</a> [257]</td></tr>
+<tr class="memdesc:gac8c003c8c32c291852e1ee1612501098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quantized binary16 LUT for tanh(x) with <code>x in [0, 4]</code>.  <br /></td></tr>
+<tr class="separator:gac8c003c8c32c291852e1ee1612501098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>Internal Support functions. Not intended to be called direclty by a CMSIS-NN user. </p>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gacf7f51807dedd02a3deeff0b2525ac96" name="gacf7f51807dedd02a3deeff0b2525ac96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacf7f51807dedd02a3deeff0b2525ac96">&#9670;&#160;</a></span>arm_nn_conv1d_k3_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k3_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32).   </p>
+
+</div>
+</div>
+<a id="ga221083ef8b87b2849727c2cf2c54a661" name="ga221083ef8b87b2849727c2cf2c54a661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga221083ef8b87b2849727c2cf2c54a661">&#9670;&#160;</a></span>arm_nn_conv1d_k3_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k3_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32). </p>
+
+</div>
+</div>
+<a id="gac05b1060f1497fdfddcabdef23af1fb2" name="gac05b1060f1497fdfddcabdef23af1fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac05b1060f1497fdfddcabdef23af1fb2">&#9670;&#160;</a></span>arm_nn_conv1d_k3_packed_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k3_packed_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=3</code> (float16, packed weights). </p>
+<p>The packed kernel uses the same <code>NTxN</code> RHS layout as <code>arm_nn_mat_mult_nt_n_packed_f16</code>, i.e. <code>[(3 * in_c)][out_c_block_of_8]</code>. </p>
+
+</div>
+</div>
+<a id="ga884e68a9b7bcbff2304f0ed77085cab7" name="ga884e68a9b7bcbff2304f0ed77085cab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga884e68a9b7bcbff2304f0ed77085cab7">&#9670;&#160;</a></span>arm_nn_conv1d_k3_packed_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k3_packed_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=3</code> (float32, packed weights). </p>
+<p>The packed kernel uses the same <code>NTxN</code> RHS layout as <code>arm_nn_mat_mult_nt_n_packed_f32</code>, i.e. <code>[(3 * in_c)][out_c_block_of_4]</code>. </p>
+
+</div>
+</div>
+<a id="ga3ab730346b74f156ac6e672a253fa710" name="ga3ab730346b74f156ac6e672a253fa710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ab730346b74f156ac6e672a253fa710">&#9670;&#160;</a></span>arm_nn_conv1d_k5_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k5_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32).   </p>
+
+</div>
+</div>
+<a id="gaaa6b0a1416dd9ab4747ecafd476c8824" name="gaaa6b0a1416dd9ab4747ecafd476c8824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaa6b0a1416dd9ab4747ecafd476c8824">&#9670;&#160;</a></span>arm_nn_conv1d_k5_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k5_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32). </p>
+
+</div>
+</div>
+<a id="ga73237110aaf791cdfee6de4b0bddc32f" name="ga73237110aaf791cdfee6de4b0bddc32f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga73237110aaf791cdfee6de4b0bddc32f">&#9670;&#160;</a></span>arm_nn_conv1d_k5_packed_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k5_packed_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=5</code> (float16, packed weights). </p>
+<p>The packed kernel uses the same <code>NTxN</code> RHS layout as <code>arm_nn_mat_mult_nt_n_packed_f16</code>, i.e. <code>[(5 * in_c)][out_c_block_of_8]</code>. </p>
+
+</div>
+</div>
+<a id="ga422aa2470e5e57e691cfc6e897a42d79" name="ga422aa2470e5e57e691cfc6e897a42d79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga422aa2470e5e57e691cfc6e897a42d79">&#9670;&#160;</a></span>arm_nn_conv1d_k5_packed_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_conv1d_k5_packed_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC 1D convolution kernel for <code>k=5</code> (float32, packed weights). </p>
+<p>The packed kernel uses the same <code>NTxN</code> RHS layout as <code>arm_nn_mat_mult_nt_n_packed_f32</code>, i.e. <code>[(5 * in_c)][out_c_block_of_4]</code>. </p>
+
+</div>
+</div>
+<a id="ga763a89bc6a9a58ceb58e1b54caa764a4" name="ga763a89bc6a9a58ceb58e1b54caa764a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga763a89bc6a9a58ceb58e1b54caa764a4">&#9670;&#160;</a></span>arm_nn_depthwise_conv1d_k3_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv1d_k3_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise 1D kernel for <code>k=3</code>, <code>ch_mult=1</code> (float32).   </p>
+
+</div>
+</div>
+<a id="gad2ce3f1750e2718b52bfa5ea7fac4a96" name="gad2ce3f1750e2718b52bfa5ea7fac4a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad2ce3f1750e2718b52bfa5ea7fac4a96">&#9670;&#160;</a></span>arm_nn_depthwise_conv1d_k3_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv1d_k3_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise 1D kernel for <code>k=3</code>, <code>ch_mult=1</code> (float32). </p>
+
+</div>
+</div>
+<a id="ga7c5d8c2b526c28b266607d50d758ef36" name="ga7c5d8c2b526c28b266607d50d758ef36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c5d8c2b526c28b266607d50d758ef36">&#9670;&#160;</a></span>arm_nn_depthwise_conv2x5_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv2x5_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>batches</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>ch_mult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise <code>2x5</code> kernel (float16). </p>
+
+</div>
+</div>
+<a id="ga3ba6fa9243dc48d60b5f15a5e6f4cd52" name="ga3ba6fa9243dc48d60b5f15a5e6f4cd52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ba6fa9243dc48d60b5f15a5e6f4cd52">&#9670;&#160;</a></span>arm_nn_depthwise_conv3x3_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv3x3_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>batches</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>).   </p>
+
+</div>
+</div>
+<a id="ga4a165ca751f3e230a2089c3e14b99c59" name="ga4a165ca751f3e230a2089c3e14b99c59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a165ca751f3e230a2089c3e14b99c59">&#9670;&#160;</a></span>arm_nn_depthwise_conv3x3_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_depthwise_conv3x3_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>batches</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC depthwise <code>3x3</code> kernel (float32, <code>ch_mult=1</code>). </p>
+
+</div>
+</div>
+<a id="ga94299a67f5d3b06fee47d0ed89c91c84" name="ga94299a67f5d3b06fee47d0ed89c91c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga94299a67f5d3b06fee47d0ed89c91c84">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_depthwise_conv_nt_t_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>total_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_x_col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_row_stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32).   </p>
+
+</div>
+</div>
+<a id="ga91f2da1cf6fe1845940ab172cbbb6998" name="ga91f2da1cf6fe1845940ab172cbbb6998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga91f2da1cf6fe1845940ab172cbbb6998">&#9670;&#160;</a></span>arm_nn_depthwise_conv_nt_t_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_depthwise_conv_nt_t_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>total_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_x_col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_row_stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic depthwise helper with packed lhs tiles and transposed rhs layout (float32). </p>
+
+</div>
+</div>
+<a id="gaa3ff95fea0dc872643134eea99c8ea07" name="gaa3ff95fea0dc872643134eea99c8ea07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa3ff95fea0dc872643134eea99c8ea07">&#9670;&#160;</a></span>arm_nn_lstm_step_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_lstm_step_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>data_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>hidden_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>hidden_out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update LSTM function for an iteration step using float16 input, output and state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_in</td><td>Data input pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hidden_in</td><td>Hidden state / recurrent input pointer. May be NULL for the first step. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">hidden_out</td><td>Hidden state / recurrent output pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>Struct containing all information about the LSTM operator. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffers</td><td>Struct containing pointers to mutable cell-state storage. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS. </dd></dl>
+
+</div>
+</div>
+<a id="ga43df1026db96b72a0586c609e03d0431" name="ga43df1026db96b72a0586c609e03d0431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43df1026db96b72a0586c609e03d0431">&#9670;&#160;</a></span>arm_nn_lstm_step_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_lstm_step_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>data_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>hidden_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>hidden_out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>batch_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update LSTM function for an iteration step using float32 input, output and state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_in</td><td>Data input pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hidden_in</td><td>Hidden state / recurrent input pointer. May be NULL for the first step. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">hidden_out</td><td>Hidden state / recurrent output pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>Struct containing all information about the LSTM operator. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffers</td><td>Struct containing pointers to mutable cell-state storage. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">batch_offset</td><td>Number of timesteps between consecutive batches. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns ARM_CMSIS_NN_SUCCESS. </dd></dl>
+
+</div>
+</div>
+<a id="ga5c7ba0fe568bfaefe857e11fcd4bf032" name="ga5c7ba0fe568bfaefe857e11fcd4bf032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5c7ba0fe568bfaefe857e11fcd4bf032">&#9670;&#160;</a></span>arm_nn_mat_mult_nt_n_packed_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_n_packed_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matrix multiply with non-transposed lhs and packed non-transposed rhs (float16). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Left-hand matrix stored row-major with logical shape <code>[lhs_rows, rhs_cols]</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_packed</td><td>Right-hand matrix with logical shape <code>[rhs_cols, rhs_rows]</code>, packed in column blocks of 8. The final block uses the same packed stride and inactive tail lanes are ignored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias vector. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of rows in <code>lhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of logical output columns in the unpacked rhs matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Shared reduction dimension <code>K</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_address_offset</td><td>Output row stride, expressed in elements. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Lower clamp bound. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Upper clamp bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
+<a id="ga8c19d9e55bd7bdfe3664203aa3e92a57" name="ga8c19d9e55bd7bdfe3664203aa3e92a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8c19d9e55bd7bdfe3664203aa3e92a57">&#9670;&#160;</a></span>arm_nn_mat_mult_nt_n_packed_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_n_packed_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs_packed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matrix multiply with non-transposed lhs and packed non-transposed rhs (float32). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Left-hand matrix stored row-major with logical shape <code>[lhs_rows, rhs_cols]</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_packed</td><td>Right-hand matrix with logical shape <code>[rhs_cols, rhs_rows]</code>, packed in column blocks of 4. The final block uses the same packed stride and inactive tail lanes are ignored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias vector. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of rows in <code>lhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of logical output columns in the unpacked rhs matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Shared reduction dimension <code>K</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_address_offset</td><td>Output row stride, expressed in elements. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Lower clamp bound. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Upper clamp bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
+<a id="gadc9e31097e50450e1c0794979a07b987" name="gadc9e31097e50450e1c0794979a07b987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc9e31097e50450e1c0794979a07b987">&#9670;&#160;</a></span>arm_nn_mat_mult_nt_t_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_t_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matrix multiply with non-transposed lhs and transposed rhs rows (float32).   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Left-hand matrix stored row-major. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Right-hand matrix stored row-major, one row per output channel. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias vector. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of rows in <code>lhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of rows in <code>rhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of columns in <code>rhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_address_offset</td><td>Output row stride, expressed in elements. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Lower clamp bound. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Upper clamp bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga5476fbb6c4417ba1718ae2be0555f8a9" name="ga5476fbb6c4417ba1718ae2be0555f8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5476fbb6c4417ba1718ae2be0555f8a9">&#9670;&#160;</a></span>arm_nn_mat_mult_nt_t_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_nn_mat_mult_nt_t_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>rhs_cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_address_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>activation_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matrix multiply with non-transposed lhs and transposed rhs rows (float32). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>Left-hand matrix stored row-major. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>Right-hand matrix stored row-major, one row per output channel. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias vector. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>Output matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs_rows</td><td>Number of rows in <code>lhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_rows</td><td>Number of rows in <code>rhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs_cols</td><td>Number of columns in <code>rhs</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_address_offset</td><td>Output row stride, expressed in elements. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_min</td><td>Lower clamp bound. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">activation_max</td><td>Upper clamp bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
+<a id="gaf6f34c9c41cf5d82a09737ca3a0ee5c5" name="gaf6f34c9c41cf5d82a09737ca3a0ee5c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6f34c9c41cf5d82a09737ca3a0ee5c5">&#9670;&#160;</a></span>arm_nn_maxpool1d_k2s2_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k2s2_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> with clamp (float16). </p>
+
+</div>
+</div>
+<a id="ga2c6aab742d94e599ac2200f18e887e0c" name="ga2c6aab742d94e599ac2200f18e887e0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2c6aab742d94e599ac2200f18e887e0c">&#9670;&#160;</a></span>arm_nn_maxpool1d_k2s2_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k2s2_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>act_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> with clamp (float32). </p>
+
+</div>
+</div>
+<a id="gada510913c457e5c1fc63f68a7fe541a4" name="gada510913c457e5c1fc63f68a7fe541a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada510913c457e5c1fc63f68a7fe541a4">&#9670;&#160;</a></span>arm_nn_maxpool1d_k2s2_nhwc_noclip_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k2s2_nhwc_noclip_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> without output clamp (float16). </p>
+
+</div>
+</div>
+<a id="ga24dc012939d4357a8463c053593a15e5" name="ga24dc012939d4357a8463c053593a15e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24dc012939d4357a8463c053593a15e5">&#9670;&#160;</a></span>arm_nn_maxpool1d_k2s2_nhwc_noclip_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k2s2_nhwc_noclip_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=2</code>, <code>s=2</code> without output clamp (float32). </p>
+
+</div>
+</div>
+<a id="ga32f6cca710a22eec924862cc61da0090" name="ga32f6cca710a22eec924862cc61da0090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga32f6cca710a22eec924862cc61da0090">&#9670;&#160;</a></span>arm_nn_maxpool1d_k3s3_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k3s3_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=3</code>, <code>s=3</code> (float16). </p>
+
+</div>
+</div>
+<a id="ga0c605d823c20cc74d1ab98e64741a0b2" name="ga0c605d823c20cc74d1ab98e64741a0b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0c605d823c20cc74d1ab98e64741a0b2">&#9670;&#160;</a></span>arm_nn_maxpool1d_k3s3_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_maxpool1d_k3s3_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>x_nhwc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized NHWC max-pool 1D kernel for <code>k=3</code>, <code>s=3</code> (float32). </p>
+
+</div>
+</div>
+<a id="ga81336bbfcbb9825545c0448c6fbdc113" name="ga81336bbfcbb9825545c0448c6fbdc113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81336bbfcbb9825545c0448c6fbdc113">&#9670;&#160;</a></span>arm_nn_pack_conv_patch_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_pack_conv_patch_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *__RESTRICT&#160;</td>
+          <td class="paramname"><em>patch_row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pack a single convolution patch into one row of a contiguous float32 patch matrix.   </p>
+<p>Developers familiar with im2row/im2col terminology can think of this as packing one output patch into one row.   </p>
+
+</div>
+</div>
+<a id="ga4f4dcf443d384ec9719f5a5293240925" name="ga4f4dcf443d384ec9719f5a5293240925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f4dcf443d384ec9719f5a5293240925">&#9670;&#160;</a></span>arm_nn_pack_conv_patch_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_pack_conv_patch_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>in_c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>kernel_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>stride_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>pad_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>dilation_w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>out_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *__RESTRICT&#160;</td>
+          <td class="paramname"><em>patch_row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pack a single convolution patch into one row of a contiguous float32 patch matrix. </p>
+<p>Developers familiar with im2row/im2col terminology can think of this as packing one output patch into one row. </p>
+
+</div>
+</div>
+<a id="ga385d95893b6aef5040cee51a0ec48ca4" name="ga385d95893b6aef5040cee51a0ec48ca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga385d95893b6aef5040cee51a0ec48ca4">&#9670;&#160;</a></span>arm_nn_softmax_1x2_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_softmax_1x2_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t&#160;</td>
+          <td class="paramname"><em>in</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>out</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized softmax helper for a single float32 row of length 2.   </p>
+
+</div>
+</div>
+<a id="ga447c63c72105d2707e8aebff511195e5" name="ga447c63c72105d2707e8aebff511195e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga447c63c72105d2707e8aebff511195e5">&#9670;&#160;</a></span>arm_nn_softmax_1x2_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_softmax_1x2_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>in</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>out</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized softmax helper for a single float32 row of length 2. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="gacfd8fe5fb8fb3f73bbe776201ce25d93" name="gacfd8fe5fb8fb3f73bbe776201ce25d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfd8fe5fb8fb3f73bbe776201ce25d93">&#9670;&#160;</a></span>arm_nn_exp2_lut256_f16 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t arm_nn_exp2_lut256_f16[257]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Quantized binary16 LUT for <code>2^(i/256)</code> used by float16 helpers. </p>
+<p>Stores 257 samples for <code>i = 0..256</code> so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments. </p>
+
+</div>
+</div>
+<a id="gacfd8fe5fb8fb3f73bbe776201ce25d93" name="gacfd8fe5fb8fb3f73bbe776201ce25d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfd8fe5fb8fb3f73bbe776201ce25d93">&#9670;&#160;</a></span>arm_nn_exp2_lut256_f16 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t arm_nn_exp2_lut256_f16[257]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    0x3C00u, 0x3C03u, 0x3C06u, 0x3C08u, 0x3C0Bu, 0x3C0Eu, 0x3C11u, 0x3C14u, 0x3C16u, 0x3C19u, 0x3C1Cu, 0x3C1Fu, 0x3C22u,</div>
+<div class="line">    0x3C25u, 0x3C28u, 0x3C2Au, 0x3C2Du, 0x3C30u, 0x3C33u, 0x3C36u, 0x3C39u, 0x3C3Cu, 0x3C3Fu, 0x3C42u, 0x3C45u, 0x3C48u,</div>
+<div class="line">    0x3C4Bu, 0x3C4Eu, 0x3C51u, 0x3C54u, 0x3C57u, 0x3C5Au, 0x3C5Du, 0x3C60u, 0x3C63u, 0x3C66u, 0x3C69u, 0x3C6Cu, 0x3C6Fu,</div>
+<div class="line">    0x3C72u, 0x3C75u, 0x3C78u, 0x3C7Bu, 0x3C7Eu, 0x3C82u, 0x3C85u, 0x3C88u, 0x3C8Bu, 0x3C8Eu, 0x3C91u, 0x3C94u, 0x3C98u,</div>
+<div class="line">    0x3C9Bu, 0x3C9Eu, 0x3CA1u, 0x3CA4u, 0x3CA8u, 0x3CABu, 0x3CAEu, 0x3CB1u, 0x3CB5u, 0x3CB8u, 0x3CBBu, 0x3CBEu, 0x3CC2u,</div>
+<div class="line">    0x3CC5u, 0x3CC8u, 0x3CCCu, 0x3CCFu, 0x3CD2u, 0x3CD6u, 0x3CD9u, 0x3CDCu, 0x3CE0u, 0x3CE3u, 0x3CE7u, 0x3CEAu, 0x3CEDu,</div>
+<div class="line">    0x3CF1u, 0x3CF4u, 0x3CF8u, 0x3CFBu, 0x3CFFu, 0x3D02u, 0x3D06u, 0x3D09u, 0x3D0Cu, 0x3D10u, 0x3D14u, 0x3D17u, 0x3D1Bu,</div>
+<div class="line">    0x3D1Eu, 0x3D22u, 0x3D25u, 0x3D29u, 0x3D2Cu, 0x3D30u, 0x3D34u, 0x3D37u, 0x3D3Bu, 0x3D3Eu, 0x3D42u, 0x3D46u, 0x3D49u,</div>
+<div class="line">    0x3D4Du, 0x3D51u, 0x3D54u, 0x3D58u, 0x3D5Cu, 0x3D60u, 0x3D63u, 0x3D67u, 0x3D6Bu, 0x3D6Fu, 0x3D72u, 0x3D76u, 0x3D7Au,</div>
+<div class="line">    0x3D7Eu, 0x3D81u, 0x3D85u, 0x3D89u, 0x3D8Du, 0x3D91u, 0x3D95u, 0x3D99u, 0x3D9Cu, 0x3DA0u, 0x3DA4u, 0x3DA8u, 0x3DACu,</div>
+<div class="line">    0x3DB0u, 0x3DB4u, 0x3DB8u, 0x3DBCu, 0x3DC0u, 0x3DC4u, 0x3DC8u, 0x3DCCu, 0x3DD0u, 0x3DD4u, 0x3DD8u, 0x3DDCu, 0x3DE0u,</div>
+<div class="line">    0x3DE4u, 0x3DE8u, 0x3DECu, 0x3DF0u, 0x3DF5u, 0x3DF9u, 0x3DFDu, 0x3E01u, 0x3E05u, 0x3E09u, 0x3E0Eu, 0x3E12u, 0x3E16u,</div>
+<div class="line">    0x3E1Au, 0x3E1Eu, 0x3E23u, 0x3E27u, 0x3E2Bu, 0x3E30u, 0x3E34u, 0x3E38u, 0x3E3Cu, 0x3E41u, 0x3E45u, 0x3E49u, 0x3E4Eu,</div>
+<div class="line">    0x3E52u, 0x3E57u, 0x3E5Bu, 0x3E5Fu, 0x3E64u, 0x3E68u, 0x3E6Du, 0x3E71u, 0x3E76u, 0x3E7Au, 0x3E7Fu, 0x3E83u, 0x3E88u,</div>
+<div class="line">    0x3E8Cu, 0x3E91u, 0x3E95u, 0x3E9Au, 0x3E9Eu, 0x3EA3u, 0x3EA8u, 0x3EACu, 0x3EB1u, 0x3EB5u, 0x3EBAu, 0x3EBFu, 0x3EC4u,</div>
+<div class="line">    0x3EC8u, 0x3ECDu, 0x3ED2u, 0x3ED6u, 0x3EDBu, 0x3EE0u, 0x3EE5u, 0x3EE9u, 0x3EEEu, 0x3EF3u, 0x3EF8u, 0x3EFDu, 0x3F02u,</div>
+<div class="line">    0x3F06u, 0x3F0Bu, 0x3F10u, 0x3F15u, 0x3F1Au, 0x3F1Fu, 0x3F24u, 0x3F29u, 0x3F2Eu, 0x3F33u, 0x3F38u, 0x3F3Du, 0x3F42u,</div>
+<div class="line">    0x3F47u, 0x3F4Cu, 0x3F51u, 0x3F56u, 0x3F5Bu, 0x3F60u, 0x3F65u, 0x3F6Au, 0x3F70u, 0x3F75u, 0x3F7Au, 0x3F7Fu, 0x3F84u,</div>
+<div class="line">    0x3F8Au, 0x3F8Fu, 0x3F94u, 0x3F99u, 0x3F9Fu, 0x3FA4u, 0x3FA9u, 0x3FAEu, 0x3FB4u, 0x3FB9u, 0x3FBFu, 0x3FC4u, 0x3FC9u,</div>
+<div class="line">    0x3FCFu, 0x3FD4u, 0x3FDAu, 0x3FDFu, 0x3FE4u, 0x3FEAu, 0x3FEFu, 0x3FF5u, 0x3FFAu, 0x4000u,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Quantized binary16 LUT for <code>2^(i/256)</code> used by float16 helpers. </p>
+<p>Stores 257 samples for <code>i = 0..256</code> so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments. </p>
+
+</div>
+</div>
+<a id="ga2772f37decde4ef92e5533a7e635ea2f" name="ga2772f37decde4ef92e5533a7e635ea2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2772f37decde4ef92e5533a7e635ea2f">&#9670;&#160;</a></span>arm_nn_exp2_lut256_f32 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp2_lut256_f32[257]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>LUT for <code>2^(i/256)</code> used by the float32 LUT softmax approximation. </p>
+<p>Stores 257 samples for <code>i = 0..256</code> so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments. </p>
+
+</div>
+</div>
+<a id="ga2772f37decde4ef92e5533a7e635ea2f" name="ga2772f37decde4ef92e5533a7e635ea2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2772f37decde4ef92e5533a7e635ea2f">&#9670;&#160;</a></span>arm_nn_exp2_lut256_f32 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp2_lut256_f32[257]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LUT for <code>2^(i/256)</code> used by the float32 LUT softmax approximation. </p>
+<p>Stores 257 samples for <code>i = 0..256</code> so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments. </p>
+
+</div>
+</div>
+<a id="ga8a104f85e4919db1e858da1726965ded" name="ga8a104f85e4919db1e858da1726965ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a104f85e4919db1e858da1726965ded">&#9670;&#160;</a></span>arm_nn_exp_poly_coeffs_f16 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp_poly_coeffs_f16[8]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Polynomial coefficients used by the float16 MVE exp approximation. </p>
+<p>The float16 MVE helper evaluates the polynomial in widened float32 lanes, but it uses a dedicated coefficient table to keep the float16 path isolated from the float32 feature gate and softmax support stack. </p>
+
+</div>
+</div>
+<a id="ga8a104f85e4919db1e858da1726965ded" name="ga8a104f85e4919db1e858da1726965ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a104f85e4919db1e858da1726965ded">&#9670;&#160;</a></span>arm_nn_exp_poly_coeffs_f16 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp_poly_coeffs_f16[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    1.0f,</div>
+<div class="line">    0.0416598916054f,</div>
+<div class="line">    0.500000596046f,</div>
+<div class="line">    0.0014122662833f,</div>
+<div class="line">    1.00000011921f,</div>
+<div class="line">    0.00833693705499f,</div>
+<div class="line">    0.166665703058f,</div>
+<div class="line">    0.000195780929062f,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Polynomial coefficients used by the float16 MVE exp approximation. </p>
+<p>The float16 MVE helper evaluates the polynomial in widened float32 lanes, but it uses a dedicated coefficient table to keep the float16 path isolated from the float32 feature gate and softmax support stack. </p>
+
+</div>
+</div>
+<a id="ga195b36e24c367aecf405820a8f8f1d60" name="ga195b36e24c367aecf405820a8f8f1d60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga195b36e24c367aecf405820a8f8f1d60">&#9670;&#160;</a></span>arm_nn_exp_poly_coeffs_f32 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp_poly_coeffs_f32[8]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Polynomial coefficients used by the float32 MVE exp approximation. </p>
+
+</div>
+</div>
+<a id="ga195b36e24c367aecf405820a8f8f1d60" name="ga195b36e24c367aecf405820a8f8f1d60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga195b36e24c367aecf405820a8f8f1d60">&#9670;&#160;</a></span>arm_nn_exp_poly_coeffs_f32 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_exp_poly_coeffs_f32[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    1.0f,</div>
+<div class="line">    0.0416598916054f,</div>
+<div class="line">    0.500000596046f,</div>
+<div class="line">    0.0014122662833f,</div>
+<div class="line">    1.00000011921f,</div>
+<div class="line">    0.00833693705499f,</div>
+<div class="line">    0.166665703058f,</div>
+<div class="line">    0.000195780929062f,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Polynomial coefficients used by the float32 MVE exp approximation. </p>
+
+</div>
+</div>
+<a id="gabc1f529657d82c3ef70a34f406921c0e" name="gabc1f529657d82c3ef70a34f406921c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc1f529657d82c3ef70a34f406921c0e">&#9670;&#160;</a></span>arm_nn_tanh_approx_coeffs_f16 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_tanh_approx_coeffs_f16[3]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Coefficients used by the float16 tanh rational approximation. </p>
+
+</div>
+</div>
+<a id="gabc1f529657d82c3ef70a34f406921c0e" name="gabc1f529657d82c3ef70a34f406921c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc1f529657d82c3ef70a34f406921c0e">&#9670;&#160;</a></span>arm_nn_tanh_approx_coeffs_f16 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_tanh_approx_coeffs_f16[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    3.0f,</div>
+<div class="line">    27.0f,</div>
+<div class="line">    9.0f,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Coefficients used by the float16 tanh rational approximation. </p>
+
+</div>
+</div>
+<a id="gac8c003c8c32c291852e1ee1612501098" name="gac8c003c8c32c291852e1ee1612501098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac8c003c8c32c291852e1ee1612501098">&#9670;&#160;</a></span>arm_nn_tanh_lut256_f16 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t arm_nn_tanh_lut256_f16[257]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Quantized binary16 LUT for tanh(x) with <code>x in [0, 4]</code>. </p>
+<p>Stores 257 samples so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments across the interval. </p>
+
+</div>
+</div>
+<a id="gac8c003c8c32c291852e1ee1612501098" name="gac8c003c8c32c291852e1ee1612501098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac8c003c8c32c291852e1ee1612501098">&#9670;&#160;</a></span>arm_nn_tanh_lut256_f16 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t arm_nn_tanh_lut256_f16[257]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    0x0000u, 0x2400u, 0x27FFu, 0x29FFu, 0x2BFDu, 0x2CFDu, 0x2DFCu, 0x2EF9u, 0x2FF5u, 0x3078u, 0x30F6u, 0x3172u, 0x31EEu,</div>
+<div class="line">    0x3269u, 0x32E4u, 0x335Eu, 0x33D6u, 0x3427u, 0x3463u, 0x349Du, 0x34D8u, 0x3512u, 0x354Bu, 0x3584u, 0x35BCu, 0x35F3u,</div>
+<div class="line">    0x362Au, 0x3660u, 0x3696u, 0x36CBu, 0x36FFu, 0x3732u, 0x3765u, 0x3797u, 0x37C8u, 0x37F9u, 0x3814u, 0x382Cu, 0x3843u,</div>
+<div class="line">    0x3859u, 0x3870u, 0x3886u, 0x389Bu, 0x38B1u, 0x38C5u, 0x38DAu, 0x38EEu, 0x3902u, 0x3915u, 0x3928u, 0x393Au, 0x394Cu,</div>
+<div class="line">    0x395Eu, 0x3970u, 0x3981u, 0x3991u, 0x39A2u, 0x39B2u, 0x39C1u, 0x39D0u, 0x39DFu, 0x39EEu, 0x39FCu, 0x3A0Au, 0x3A18u,</div>
+<div class="line">    0x3A25u, 0x3A32u, 0x3A3Fu, 0x3A4Bu, 0x3A57u, 0x3A63u, 0x3A6Eu, 0x3A79u, 0x3A84u, 0x3A8Fu, 0x3A99u, 0x3AA3u, 0x3AADu,</div>
+<div class="line">    0x3AB7u, 0x3AC0u, 0x3AC9u, 0x3AD2u, 0x3ADBu, 0x3AE3u, 0x3AEBu, 0x3AF3u, 0x3AFBu, 0x3B03u, 0x3B0Au, 0x3B11u, 0x3B18u,</div>
+<div class="line">    0x3B1Fu, 0x3B25u, 0x3B2Cu, 0x3B32u, 0x3B38u, 0x3B3Eu, 0x3B43u, 0x3B49u, 0x3B4Eu, 0x3B54u, 0x3B59u, 0x3B5Eu, 0x3B62u,</div>
+<div class="line">    0x3B67u, 0x3B6Cu, 0x3B70u, 0x3B74u, 0x3B78u, 0x3B7Du, 0x3B80u, 0x3B84u, 0x3B88u, 0x3B8Cu, 0x3B8Fu, 0x3B92u, 0x3B96u,</div>
+<div class="line">    0x3B99u, 0x3B9Cu, 0x3B9Fu, 0x3BA2u, 0x3BA5u, 0x3BA7u, 0x3BAAu, 0x3BADu, 0x3BAFu, 0x3BB2u, 0x3BB4u, 0x3BB6u, 0x3BB9u,</div>
+<div class="line">    0x3BBBu, 0x3BBDu, 0x3BBFu, 0x3BC1u, 0x3BC3u, 0x3BC5u, 0x3BC6u, 0x3BC8u, 0x3BCAu, 0x3BCBu, 0x3BCDu, 0x3BCFu, 0x3BD0u,</div>
+<div class="line">    0x3BD2u, 0x3BD3u, 0x3BD4u, 0x3BD6u, 0x3BD7u, 0x3BD8u, 0x3BD9u, 0x3BDBu, 0x3BDCu, 0x3BDDu, 0x3BDEu, 0x3BDFu, 0x3BE0u,</div>
+<div class="line">    0x3BE1u, 0x3BE2u, 0x3BE3u, 0x3BE4u, 0x3BE5u, 0x3BE5u, 0x3BE6u, 0x3BE7u, 0x3BE8u, 0x3BE9u, 0x3BE9u, 0x3BEAu, 0x3BEBu,</div>
+<div class="line">    0x3BEBu, 0x3BECu, 0x3BEDu, 0x3BEDu, 0x3BEEu, 0x3BEEu, 0x3BEFu, 0x3BEFu, 0x3BF0u, 0x3BF0u, 0x3BF1u, 0x3BF1u, 0x3BF2u,</div>
+<div class="line">    0x3BF2u, 0x3BF3u, 0x3BF3u, 0x3BF3u, 0x3BF4u, 0x3BF4u, 0x3BF5u, 0x3BF5u, 0x3BF5u, 0x3BF6u, 0x3BF6u, 0x3BF6u, 0x3BF6u,</div>
+<div class="line">    0x3BF7u, 0x3BF7u, 0x3BF7u, 0x3BF8u, 0x3BF8u, 0x3BF8u, 0x3BF8u, 0x3BF9u, 0x3BF9u, 0x3BF9u, 0x3BF9u, 0x3BF9u, 0x3BFAu,</div>
+<div class="line">    0x3BFAu, 0x3BFAu, 0x3BFAu, 0x3BFAu, 0x3BFBu, 0x3BFBu, 0x3BFBu, 0x3BFBu, 0x3BFBu, 0x3BFBu, 0x3BFBu, 0x3BFCu, 0x3BFCu,</div>
+<div class="line">    0x3BFCu, 0x3BFCu, 0x3BFCu, 0x3BFCu, 0x3BFCu, 0x3BFCu, 0x3BFDu, 0x3BFDu, 0x3BFDu, 0x3BFDu, 0x3BFDu, 0x3BFDu, 0x3BFDu,</div>
+<div class="line">    0x3BFDu, 0x3BFDu, 0x3BFDu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu,</div>
+<div class="line">    0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFEu, 0x3BFFu, 0x3BFFu, 0x3BFFu,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Quantized binary16 LUT for tanh(x) with <code>x in [0, 4]</code>. </p>
+<p>Stores 257 samples so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments across the interval. </p>
+
+</div>
+</div>
+<a id="gaed2b84c175c22534045ca866b818d241" name="gaed2b84c175c22534045ca866b818d241"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed2b84c175c22534045ca866b818d241">&#9670;&#160;</a></span>arm_nn_tanh_lut256_f32 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_tanh_lut256_f32[257]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>LUT for tanh(x) sampled over <code>x in [0, 4]</code> for float32 helpers. </p>
+<p>Stores 257 samples so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments across the interval. </p>
+
+</div>
+</div>
+<a id="gaed2b84c175c22534045ca866b818d241" name="gaed2b84c175c22534045ca866b818d241"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed2b84c175c22534045ca866b818d241">&#9670;&#160;</a></span>arm_nn_tanh_lut256_f32 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> arm_nn_tanh_lut256_f32[257]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LUT for tanh(x) sampled over <code>x in [0, 4]</code> for float32 helpers. </p>
+<p>Stores 257 samples so interpolation can safely read <code>lut[idx + 1]</code> while indexing the 256 fractional segments across the interval. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

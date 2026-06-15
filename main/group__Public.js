@@ -4,6 +4,7 @@ var group__Public =
     [ "Activation Functions", "group__Acti.html", "group__Acti" ],
     [ "Elementwise Functions", "group__groupElementwise.html", "group__groupElementwise" ],
     [ "MinimumMaximum", "group__minimumMaximum.html", "group__minimumMaximum" ],
+    [ "NNSupport", "group__NNSupport.html", "group__NNSupport" ],
     [ "Concatenation Functions", "group__Concatenation.html", "group__Concatenation" ],
     [ "Convolution Functions", "group__NNConv.html", "group__NNConv" ],
     [ "Fully-connected Layer Functions", "group__FC.html", "group__FC" ],

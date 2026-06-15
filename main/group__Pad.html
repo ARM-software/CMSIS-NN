@@ -136,12 +136,126 @@ $(document).ready(function(){initNavTree('group__Pad.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaf69022e57f847035b53e6d87f77a67dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Pad.html#gaf69022e57f847035b53e6d87f77a67dc">arm_pad_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> pad_value, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_size, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *pre_pad, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *post_pad)</td></tr>
+<tr class="memdesc:gaf69022e57f847035b53e6d87f77a67dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pad a tensor with a constant value.  <br /></td></tr>
+<tr class="separator:gaf69022e57f847035b53e6d87f77a67dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga717e375dbf520f83a49b33cee85823dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Pad.html#ga717e375dbf520f83a49b33cee85823dd">arm_pad_f16</a> (const float16_t *input, float16_t *output, float16_t pad_value, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_size, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *pre_pad, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *post_pad)</td></tr>
+<tr class="memdesc:ga717e375dbf520f83a49b33cee85823dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pad a tensor with a constant value.    <br /></td></tr>
+<tr class="separator:ga717e375dbf520f83a49b33cee85823dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5782d361307794acd336274f2e14fc3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Pad.html#ga5782d361307794acd336274f2e14fc3e">arm_pad_s8</a> (const int8_t *input, int8_t *output, const int8_t pad_value, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_size, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *pre_pad, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *post_pad)</td></tr>
 <tr class="memdesc:ga5782d361307794acd336274f2e14fc3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the size of the input by adding constant values before and after the data, in all dimensions.  <br /></td></tr>
 <tr class="separator:ga5782d361307794acd336274f2e14fc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga717e375dbf520f83a49b33cee85823dd" name="ga717e375dbf520f83a49b33cee85823dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga717e375dbf520f83a49b33cee85823dd">&#9670;&#160;</a></span>arm_pad_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_pad_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>pre_pad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>post_pad</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pad a tensor with a constant value.   </p>
+
+</div>
+</div>
+<a id="gaf69022e57f847035b53e6d87f77a67dc" name="gaf69022e57f847035b53e6d87f77a67dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf69022e57f847035b53e6d87f77a67dc">&#9670;&#160;</a></span>arm_pad_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_pad_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>pad_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>pre_pad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>post_pad</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pad a tensor with a constant value. </p>
+
+</div>
+</div>
 <a id="ga5782d361307794acd336274f2e14fc3e" name="ga5782d361307794acd336274f2e14fc3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5782d361307794acd336274f2e14fc3e">&#9670;&#160;</a></span>arm_pad_s8()</h2>
 

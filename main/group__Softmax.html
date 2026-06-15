@@ -136,6 +136,18 @@ $(document).ready(function(){initNavTree('group__Softmax.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga789346454a7f1c01c6a3f8135b4dc712"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Softmax.html#ga789346454a7f1c01c6a3f8135b4dc712">arm_softmax_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, int32_t num_rows, int32_t row_size, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output)</td></tr>
+<tr class="memdesc:ga789346454a7f1c01c6a3f8135b4dc712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Softmax using the float-native API signature.  <br /></td></tr>
+<tr class="separator:ga789346454a7f1c01c6a3f8135b4dc712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e8820bbc74989492901355faadfc823"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Softmax.html#ga5e8820bbc74989492901355faadfc823">arm_softmax_f16</a> (const float16_t *input, int32_t num_rows, int32_t row_size, float16_t *output)</td></tr>
+<tr class="memdesc:ga5e8820bbc74989492901355faadfc823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Softmax using the float-native API signature.    <br /></td></tr>
+<tr class="separator:ga5e8820bbc74989492901355faadfc823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga385d95893b6aef5040cee51a0ec48ca4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Softmax.html#ga385d95893b6aef5040cee51a0ec48ca4">arm_nn_softmax_1x2_f16</a> (const float16_t in[2], float16_t out[2])</td></tr>
+<tr class="memdesc:ga385d95893b6aef5040cee51a0ec48ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized softmax helper for a single float32 row of length 2.    <br /></td></tr>
+<tr class="separator:ga385d95893b6aef5040cee51a0ec48ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga447c63c72105d2707e8aebff511195e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Softmax.html#ga447c63c72105d2707e8aebff511195e5">arm_nn_softmax_1x2_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> in[2], <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> out[2])</td></tr>
+<tr class="memdesc:ga447c63c72105d2707e8aebff511195e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized softmax helper for a single float32 row of length 2.  <br /></td></tr>
+<tr class="separator:ga447c63c72105d2707e8aebff511195e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6baa03c1cb473b02abe83ed2c9d41d66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Softmax.html#ga6baa03c1cb473b02abe83ed2c9d41d66">arm_softmax_s16</a> (const int16_t *input, const int32_t num_rows, const int32_t row_size, const int32_t mult, const int32_t shift, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__softmax__lut__s16">cmsis_nn_softmax_lut_s16</a> *softmax_params, int16_t *output)</td></tr>
 <tr class="memdesc:ga6baa03c1cb473b02abe83ed2c9d41d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">S16 softmax function.  <br /></td></tr>
 <tr class="separator:ga6baa03c1cb473b02abe83ed2c9d41d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +163,170 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga385d95893b6aef5040cee51a0ec48ca4" name="ga385d95893b6aef5040cee51a0ec48ca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga385d95893b6aef5040cee51a0ec48ca4">&#9670;&#160;</a></span>arm_nn_softmax_1x2_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_softmax_1x2_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t&#160;</td>
+          <td class="paramname"><em>in</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t&#160;</td>
+          <td class="paramname"><em>out</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized softmax helper for a single float32 row of length 2.   </p>
+
+</div>
+</div>
+<a id="ga447c63c72105d2707e8aebff511195e5" name="ga447c63c72105d2707e8aebff511195e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga447c63c72105d2707e8aebff511195e5">&#9670;&#160;</a></span>arm_nn_softmax_1x2_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arm_nn_softmax_1x2_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>in</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a>&#160;</td>
+          <td class="paramname"><em>out</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized softmax helper for a single float32 row of length 2. </p>
+
+</div>
+</div>
+<a id="ga5e8820bbc74989492901355faadfc823" name="ga5e8820bbc74989492901355faadfc823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e8820bbc74989492901355faadfc823">&#9670;&#160;</a></span>arm_softmax_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_softmax_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>num_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Softmax using the float-native API signature.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input matrix stored as <code>num_rows</code> rows of <code>row_size</code> values. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_rows</td><td>Number of rows in the input matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_size</td><td>Number of columns per row. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output matrix.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga789346454a7f1c01c6a3f8135b4dc712" name="ga789346454a7f1c01c6a3f8135b4dc712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga789346454a7f1c01c6a3f8135b4dc712">&#9670;&#160;</a></span>arm_softmax_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_softmax_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>num_rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>row_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Softmax using the float-native API signature. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input matrix stored as <code>num_rows</code> rows of <code>row_size</code> values. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_rows</td><td>Number of rows in the input matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row_size</td><td>Number of columns per row. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output matrix.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
 <a id="ga6baa03c1cb473b02abe83ed2c9d41d66" name="ga6baa03c1cb473b02abe83ed2c9d41d66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga6baa03c1cb473b02abe83ed2c9d41d66">&#9670;&#160;</a></span>arm_softmax_s16()</h2>
 

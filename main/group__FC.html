@@ -142,6 +142,36 @@ Content</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaf7caca0408ac87cf81b14129b535fd4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gaf7caca0408ac87cf81b14129b535fd4f">arm_fully_connected_nhwc_f32</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *kernel, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *bias, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output)</td></tr>
+<tr class="memdesc:gaf7caca0408ac87cf81b14129b535fd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully connected layer, NHWC layout.  <br /></td></tr>
+<tr class="separator:gaf7caca0408ac87cf81b14129b535fd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21a77f02465be372810ce9f87d4e04b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga21a77f02465be372810ce9f87d4e04b8">arm_fully_connected_f32</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *kernel, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *bias, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output, <a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a> layout)</td></tr>
+<tr class="memdesc:ga21a77f02465be372810ce9f87d4e04b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully connected layer, dispatch by layout.  <br /></td></tr>
+<tr class="separator:ga21a77f02465be372810ce9f87d4e04b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9459c8164c522304e5901cee5803c3a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gad9459c8164c522304e5901cee5803c3a">arm_fully_connected_f32_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, <a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a> layout)</td></tr>
+<tr class="memdesc:gad9459c8164c522304e5901cee5803c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the temporary buffer size required by the fully connected layer.  <br /></td></tr>
+<tr class="separator:gad9459c8164c522304e5901cee5803c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7b3a9268b118acdb79e4ec264cc0a32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gab7b3a9268b118acdb79e4ec264cc0a32">arm_batch_matmul_f32</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f32">cmsis_nn_bmm_params_f32</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input_lhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input_rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output)</td></tr>
+<tr class="memdesc:gab7b3a9268b118acdb79e4ec264cc0a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batched matrix multiplication.  <br /></td></tr>
+<tr class="separator:gab7b3a9268b118acdb79e4ec264cc0a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5308bd5e9508cc4d9eb0d4d34bab5c9a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga5308bd5e9508cc4d9eb0d4d34bab5c9a">arm_batch_matmul_f32_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f32">cmsis_nn_bmm_params_f32</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims)</td></tr>
+<tr class="memdesc:ga5308bd5e9508cc4d9eb0d4d34bab5c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the temporary buffer size required by batched matrix multiplication.  <br /></td></tr>
+<tr class="separator:ga5308bd5e9508cc4d9eb0d4d34bab5c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fb15d4c9a37447d37cb54de74095ac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga3fb15d4c9a37447d37cb54de74095ac5">arm_fully_connected_nhwc_f16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const float16_t *input, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const float16_t *kernel, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const float16_t *bias, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, float16_t *output)</td></tr>
+<tr class="memdesc:ga3fb15d4c9a37447d37cb54de74095ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully connected layer, NHWC layout.    <br /></td></tr>
+<tr class="separator:ga3fb15d4c9a37447d37cb54de74095ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5da7df3bc85f87628aa9c0e69fa5d38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gaa5da7df3bc85f87628aa9c0e69fa5d38">arm_fully_connected_f16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const float16_t *input, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const float16_t *kernel, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *bias_dims, const float16_t *bias, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, float16_t *output, <a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a> layout)</td></tr>
+<tr class="memdesc:gaa5da7df3bc85f87628aa9c0e69fa5d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully connected layer, dispatch by layout.    <br /></td></tr>
+<tr class="separator:gaa5da7df3bc85f87628aa9c0e69fa5d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga543e47a90a78fdf88190a6bd57156cf4"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga543e47a90a78fdf88190a6bd57156cf4">arm_fully_connected_f16_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *fc_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *filter_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, <a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a> layout)</td></tr>
+<tr class="memdesc:ga543e47a90a78fdf88190a6bd57156cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the temporary buffer size required by the fully connected layer.    <br /></td></tr>
+<tr class="separator:ga543e47a90a78fdf88190a6bd57156cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b6429b3021d7bf0eb1d47b1cbb69efe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga7b6429b3021d7bf0eb1d47b1cbb69efe">arm_batch_matmul_f16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f16">cmsis_nn_bmm_params_f16</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const float16_t *input_lhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const float16_t *input_rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, float16_t *output)</td></tr>
+<tr class="memdesc:ga7b6429b3021d7bf0eb1d47b1cbb69efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batched matrix multiplication.    <br /></td></tr>
+<tr class="separator:ga7b6429b3021d7bf0eb1d47b1cbb69efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d04c6a4bb74ee20a0f1ad15e7666473"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#ga6d04c6a4bb74ee20a0f1ad15e7666473">arm_batch_matmul_f16_get_buffer_size</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f16">cmsis_nn_bmm_params_f16</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims)</td></tr>
+<tr class="memdesc:ga6d04c6a4bb74ee20a0f1ad15e7666473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the temporary buffer size required by batched matrix multiplication.    <br /></td></tr>
+<tr class="separator:ga6d04c6a4bb74ee20a0f1ad15e7666473"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FC.html#gaf2cd866eb2adc67d53ff71f60c0d2b8b">arm_batch_matmul_s16</a> (const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *ctx, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params">cmsis_nn_bmm_params</a> *bmm_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__per__tensor__quant__params">cmsis_nn_per_tensor_quant_params</a> *quant_params, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_lhs_dims, const int16_t *input_lhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *input_rhs_dims, const int16_t *input_rhs, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *output_dims, int16_t *output)</td></tr>
 <tr class="memdesc:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batch matmul function with 16 bit input and output.  <br /></td></tr>
 <tr class="separator:gaf2cd866eb2adc67d53ff71f60c0d2b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,6 +204,270 @@ Functions</h2></td></tr>
 <p>Collection of fully-connected and matrix multiplication functions.</p>
 <p>Fully-connected layer is basically a matrix-vector multiplication with bias. The matrix is the weights and the input/output vectors are the activation values. Supported {weight, activation} precisions include {8-bit, 8-bit} and {8-bit, 16-bit} </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga7b6429b3021d7bf0eb1d47b1cbb69efe" name="ga7b6429b3021d7bf0eb1d47b1cbb69efe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b6429b3021d7bf0eb1d47b1cbb69efe">&#9670;&#160;</a></span>arm_batch_matmul_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_batch_matmul_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f16">cmsis_nn_bmm_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input_lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input_rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Batched matrix multiplication.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that may hold a temporary scratch buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul parameters and activation clamp. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Left-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs</td><td>Pointer to the left-hand-side input tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Right-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs</td><td>Pointer to the right-hand-side input tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga6d04c6a4bb74ee20a0f1ad15e7666473" name="ga6d04c6a4bb74ee20a0f1ad15e7666473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6d04c6a4bb74ee20a0f1ad15e7666473">&#9670;&#160;</a></span>arm_batch_matmul_f16_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_batch_matmul_f16_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f16">cmsis_nn_bmm_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the temporary buffer size required by batched matrix multiplication.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul parameters. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Left-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Right-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Required buffer size in bytes, or 0 when no scratch buffer is needed.   </dd></dl>
+
+</div>
+</div>
+<a id="gab7b3a9268b118acdb79e4ec264cc0a32" name="gab7b3a9268b118acdb79e4ec264cc0a32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab7b3a9268b118acdb79e4ec264cc0a32">&#9670;&#160;</a></span>arm_batch_matmul_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_batch_matmul_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f32">cmsis_nn_bmm_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Batched matrix multiplication. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that may hold a temporary scratch buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul parameters and activation clamp. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Left-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs</td><td>Pointer to the left-hand-side input tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Right-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs</td><td>Pointer to the right-hand-side input tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
+<a id="ga5308bd5e9508cc4d9eb0d4d34bab5c9a" name="ga5308bd5e9508cc4d9eb0d4d34bab5c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5308bd5e9508cc4d9eb0d4d34bab5c9a">&#9670;&#160;</a></span>arm_batch_matmul_f32_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_batch_matmul_f32_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__bmm__params__f32">cmsis_nn_bmm_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>bmm_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_lhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_rhs_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the temporary buffer size required by batched matrix multiplication. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmm_params</td><td>Batch matmul parameters. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_lhs_dims</td><td>Left-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_rhs_dims</td><td>Right-hand-side input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Required buffer size in bytes, or 0 when no scratch buffer is needed. </dd></dl>
+
+</div>
+</div>
 <a id="gaf2cd866eb2adc67d53ff71f60c0d2b8b" name="gaf2cd866eb2adc67d53ff71f60c0d2b8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf2cd866eb2adc67d53ff71f60c0d2b8b">&#9670;&#160;</a></span>arm_batch_matmul_s16()</h2>
 
@@ -353,6 +647,482 @@ Functions</h2></td></tr>
 <li>Supported framework: TensorFlow Lite Micro</li>
 <li>Performs row * row matrix multiplication with the RHS transposed. </li>
 </ol>
+
+</div>
+</div>
+<a id="gaa5da7df3bc85f87628aa9c0e69fa5d38" name="gaa5da7df3bc85f87628aa9c0e69fa5d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5da7df3bc85f87628aa9c0e69fa5d38">&#9670;&#160;</a></span>arm_fully_connected_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_fully_connected_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>bias_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a>&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fully connected layer, dispatch by layout.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that may hold a temporary scratch buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fc_params</td><td>Fully connected parameters and activation clamp. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kernel</td><td>Pointer to the filter tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias_dims</td><td>Bias tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>Tensor layout selector. Current float APIs require <code>ARM_NN_LAYOUT_NHWC</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga543e47a90a78fdf88190a6bd57156cf4" name="ga543e47a90a78fdf88190a6bd57156cf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga543e47a90a78fdf88190a6bd57156cf4">&#9670;&#160;</a></span>arm_fully_connected_f16_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_fully_connected_f16_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a>&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the temporary buffer size required by the fully connected layer.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">fc_params</td><td>Fully connected parameters. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>Tensor layout selector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Required buffer size in bytes, or 0 when no scratch buffer is needed.   </dd></dl>
+
+</div>
+</div>
+<a id="ga21a77f02465be372810ce9f87d4e04b8" name="ga21a77f02465be372810ce9f87d4e04b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga21a77f02465be372810ce9f87d4e04b8">&#9670;&#160;</a></span>arm_fully_connected_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_fully_connected_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>bias_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a>&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fully connected layer, dispatch by layout. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that may hold a temporary scratch buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fc_params</td><td>Fully connected parameters and activation clamp. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kernel</td><td>Pointer to the filter tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias_dims</td><td>Bias tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bias</td><td>Optional bias tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output tensor data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>Tensor layout selector. Current float APIs require <code>ARM_NN_LAYOUT_NHWC</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
+<a id="gad9459c8164c522304e5901cee5803c3a" name="gad9459c8164c522304e5901cee5803c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9459c8164c522304e5901cee5803c3a">&#9670;&#160;</a></span>arm_fully_connected_f32_get_buffer_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t arm_fully_connected_f32_get_buffer_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#gaad81fefccdab7eeafac503dd70328366">arm_nn_tensor_layout</a>&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the temporary buffer size required by the fully connected layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">fc_params</td><td>Fully connected parameters. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">input_dims</td><td>Input tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter_dims</td><td>Filter tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">output_dims</td><td>Output tensor dimensions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>Tensor layout selector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Required buffer size in bytes, or 0 when no scratch buffer is needed. </dd></dl>
+
+</div>
+</div>
+<a id="ga3fb15d4c9a37447d37cb54de74095ac5" name="ga3fb15d4c9a37447d37cb54de74095ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3fb15d4c9a37447d37cb54de74095ac5">&#9670;&#160;</a></span>arm_fully_connected_nhwc_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_fully_connected_nhwc_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f16">cmsis_nn_fc_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>bias_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fully connected layer, NHWC layout.   </p>
+
+</div>
+</div>
+<a id="gaf7caca0408ac87cf81b14129b535fd4f" name="gaf7caca0408ac87cf81b14129b535fd4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7caca0408ac87cf81b14129b535fd4f">&#9670;&#160;</a></span>arm_fully_connected_nhwc_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_fully_connected_nhwc_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__context">cmsis_nn_context</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__fc__params__f32">cmsis_nn_fc_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>fc_params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>input_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>filter_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>kernel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>bias_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__dims">cmsis_nn_dims</a> *&#160;</td>
+          <td class="paramname"><em>output_dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fully connected layer, NHWC layout. </p>
 
 </div>
 </div>

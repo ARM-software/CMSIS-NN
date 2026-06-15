@@ -136,6 +136,12 @@ $(document).ready(function(){initNavTree('group__LSTM.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga245b64d12c8a1dc86e9da317461ec7dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#ga245b64d12c8a1dc86e9da317461ec7dd">arm_lstm_unidirectional_f32</a> (const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *input, <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *buffers)</td></tr>
+<tr class="memdesc:ga245b64d12c8a1dc86e9da317461ec7dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unidirectional LSTM inference.  <br /></td></tr>
+<tr class="separator:ga245b64d12c8a1dc86e9da317461ec7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbde8d04141545a594ac4afa52fe9029"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#gabbde8d04141545a594ac4afa52fe9029">arm_lstm_unidirectional_f16</a> (const float16_t *input, float16_t *output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *buffers)</td></tr>
+<tr class="memdesc:gabbde8d04141545a594ac4afa52fe9029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unidirectional LSTM inference.    <br /></td></tr>
+<tr class="separator:gabbde8d04141545a594ac4afa52fe9029"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad1ece452a6bb117836a5565da561a542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__LSTM.html#gad1ece452a6bb117836a5565da561a542">arm_lstm_unidirectional_s16</a> (const int16_t *input, int16_t *output, const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params">cmsis_nn_lstm_params</a> *params, <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context">cmsis_nn_lstm_context</a> *buffers)</td></tr>
 <tr class="memdesc:gad1ece452a6bb117836a5565da561a542"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSTM unidirectional function with 16 bit input and output and 16 bit gate output, 64 bit bias.  <br /></td></tr>
 <tr class="separator:gad1ece452a6bb117836a5565da561a542"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,6 +151,110 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gabbde8d04141545a594ac4afa52fe9029" name="gabbde8d04141545a594ac4afa52fe9029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbde8d04141545a594ac4afa52fe9029">&#9670;&#160;</a></span>arm_lstm_unidirectional_f16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_lstm_unidirectional_f16 </td>
+          <td>(</td>
+          <td class="paramtype">const float16_t *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float16_t *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f16">cmsis_nn_lstm_params_f16</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f16">cmsis_nn_lstm_context_f16</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unidirectional LSTM inference.   </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input sequence tensor. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output sequence tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>LSTM parameters and weights. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buffers</td><td>Mutable LSTM scratch and state buffers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments.   </dd></dl>
+
+</div>
+</div>
+<a id="ga245b64d12c8a1dc86e9da317461ec7dd" name="ga245b64d12c8a1dc86e9da317461ec7dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga245b64d12c8a1dc86e9da317461ec7dd">&#9670;&#160;</a></span>arm_lstm_unidirectional_f32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__genPubTypes.html#ga67ac3e1e650a7040b0f706fb83ea6184">arm_cmsis_nn_status</a> arm_lstm_unidirectional_f32 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="arm__nn__math__types__flt_8h.html#a4611b605e45ab401f02cab15c5e38715">float32_t</a> *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__params__f32">cmsis_nn_lstm_params_f32</a> *&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__genPubTypes.html#structcmsis__nn__lstm__context__f32">cmsis_nn_lstm_context_f32</a> *&#160;</td>
+          <td class="paramname"><em>buffers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unidirectional LSTM inference. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>Pointer to the input sequence tensor. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">output</td><td>Pointer to the output sequence tensor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>LSTM parameters and weights. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buffers</td><td>Mutable LSTM scratch and state buffers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>ARM_CMSIS_NN_SUCCESS</code> on success or <code>ARM_CMSIS_NN_ARG_ERROR</code> on invalid arguments. </dd></dl>
+
+</div>
+</div>
 <a id="gad1ece452a6bb117836a5565da561a542" name="gad1ece452a6bb117836a5565da561a542"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad1ece452a6bb117836a5565da561a542">&#9670;&#160;</a></span>arm_lstm_unidirectional_s16()</h2>
 
