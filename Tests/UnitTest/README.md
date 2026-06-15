@@ -4,6 +4,22 @@ Unit test CMSIS-NN functions on any [Arm Mbed OS](https://os.mbed.com/mbed-os/) 
 
 The [Unity test framework](http://www.throwtheswitch.org/unity) is used for running the actual unit tests.
 
+Float unit tests are handled a bit differently from the legacy integer flow:
+
+- float reference data is generated with the dedicated PyTorch-based scripts such as
+  `*_settings_flt.py`
+- current float unit-test coverage is summarized in
+  [float_unit_test_coverage.md](./float_unit_test_coverage.md)
+  with the machine-readable source of truth in
+  [float_unit_test_coverage.yml](./float_unit_test_coverage.yml)
+- float Corstone-300/FVP execution also has a dedicated CMSIS-Toolbox setup under
+  [cmsis/README.md](./cmsis/README.md)
+
+The unified float runner prints a summary table at the end of the run and exits
+with a non-zero status if any selected generation, host build, host execution,
+CMSIS build, or FVP execution step fails. This makes it suitable for CI while
+still preserving a full per-family pass/fail summary in the log.
+
 For a quick setup, it is reccomended to the helper script targetting the Arm Corstone-300 softwware. See the section " Using FVP based on Arm Corstone-300 software ".
 
 ## Requirements
@@ -70,15 +86,26 @@ Use the -h flag to get more info.
 
 ### Using FVP based on Arm Corstone-300 software
 
-The easiest way to run the unit tests on Corstone-300 is to use the build_and_run_tests.sh script. This script will install required packages, build unit tests and run unit tests. This script has been designed for Linux hosts with both aarch64 and x86_64 architectures. For more help use the '-h' flag on the script.
+For the newer float unit tests, prefer the dedicated CMSIS-Toolbox workflow documented in
+[cmsis/README.md](./cmsis/README.md). The instructions below describe the legacy integer unit-test
+flow.
 
-Sample usage:
-```
-./build_and_run_tests.sh -c cortex-m3,cortex-m7,cortex-m55 -o '-Ofast'
-```
-By default the script will download and target gcc. To use arm compiler ensure that arm compilers folder is located in path, export CC and use the -a option on the script.
+For the legacy integer unit tests, `run_integer_unit_tests.py` provides the
+scripted way to build and run the existing Corstone-300/FVP test suites. It
+does not introduce a separate integer test set; it automates the existing
+integer unit-test targets so they can be driven more easily from CI or from a
+reproducible local command line.
 
-Downloaded dependencies including python venv can be found in Tests/UnitTests/downloads. Test elfs can be found in Tests/UnitTests/build-($cpu) directories.
+Example:
+```
+python3 run_integer_unit_tests.py \
+  --tests all \
+  --build-fvp \
+  --run-fvp \
+  --toolchains GCC \
+  --cmsis-pack-root /home/$USER/.cache/arm/packs \
+  --fvp-bin FVP_Corstone_SSE-300
+```
 
 Otherwise, you can build it manually:
 
@@ -119,6 +146,9 @@ FVP_Corstone_SSE-300_Ethos-U55 --cpulimit 2 -C mps3_board.visualisation.disable-
 
 ## Generating new test data
 **NOTE:** The data generation scrips are being reworked, see *Refactoring of generate_test_data*
+
+For float operator coverage, prefer the dedicated `*_settings_flt.py` generators. Those scripts use
+PyTorch to create reproducible reference samples and write them into `TestCases/TestData/`.
 
 Generating new test data is done with the following script. Use the -h flag to get more info.
 

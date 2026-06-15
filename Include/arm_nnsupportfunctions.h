@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        21 May 2026
- * $Revision:    V.22.9.1
+ * $Date:        15 June 2026
+ * $Revision:    V.22.11.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -53,6 +53,7 @@ extern "C" {
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define CLAMP(x, h, l) MAX(MIN((x), (h)), (l))
+#define ARM_NN_ROUND_UP(x, multiple) ((((x) + (multiple) - 1) / (multiple)) * (multiple))
 #define REDUCE_MULTIPLIER(_mult) ((_mult < 0x7FFF0000) ? ((_mult + (1 << 15)) >> 16) : 0x7FFF)
 
 // Number of channels processed in a block for DW Conv with Int8 weights(MVE)
@@ -89,6 +90,10 @@ extern "C" {
 // which may be beneficial for performance. See README.md for more intformation.
 #ifndef OPTIONAL_RESTRICT_KEYWORD
     #define OPTIONAL_RESTRICT_KEYWORD
+#endif
+
+#if ARM_NN_FLOAT_API_ENABLED
+    #include "arm_nnsupportfunctions_flt.h"
 #endif
 
 /**

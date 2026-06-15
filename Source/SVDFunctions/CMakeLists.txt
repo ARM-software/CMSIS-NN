@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Arm Limited.
+# Copyright (c) 2019-2021, 2026 Arm Limited.
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -17,4 +17,11 @@
 #
 
 file(GLOB SRC "./*_s8.c")
-target_sources(cmsis-nn PRIVATE ${SRC})
+set(SRC_FLT "")
+if (ARM_NN_ENABLE_F32)
+  list(APPEND SRC_FLT arm_svdf_f32.c)
+endif()
+if (ARM_NN_ENABLE_F16)
+  list(APPEND SRC_FLT arm_svdf_f16.c)
+endif()
+target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_FLT})

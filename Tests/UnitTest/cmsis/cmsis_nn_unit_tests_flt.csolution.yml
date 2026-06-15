@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+solution:
+  created-for: CMSIS-Toolbox@2.0.0
+
+  cdefault:
+
+  packs:
+    - pack: ARM::CMSIS-NN@0.0.0
+    - pack: ARM::CMSIS@6.3.0
+    - pack: ARM::Cortex_DFP@1.1.0
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@1.5.0
+    - pack: ARM::CMSIS-Compiler
+
+  target-types:
+    - type: Corstone-300-FVP
+      device: ARM::SSE-300-MPS3
+      define:
+        - FVP
+        - USING_FVP_CORSTONE_300
+
+  build-types:
+    - type: F32
+      optimize: speed
+      debug: on
+
+    - type: F16
+      optimize: speed
+      debug: on
+
+  projects:
+    - project: ./test_arm_activation_flt/test_arm_activation_flt.cproject.yml
+    - project: ./test_arm_avg_pool_flt/test_arm_avg_pool_flt.cproject.yml
+    - project: ./test_arm_batch_matmul_flt/test_arm_batch_matmul_flt.cproject.yml
+    - project: ./test_arm_batch_norm_flt/test_arm_batch_norm_flt.cproject.yml
+    - project: ./test_arm_concatenation_flt/test_arm_concatenation_flt.cproject.yml
+    - project: ./test_arm_convolve_flt/test_arm_convolve_flt.cproject.yml
+    - project: ./test_arm_depthwise_conv_flt/test_arm_depthwise_conv_flt.cproject.yml
+    - project: ./test_arm_ds_cnn_s_body_flt/test_arm_ds_cnn_s_body_flt.cproject.yml
+    - project: ./test_arm_elementwise_add_flt/test_arm_elementwise_add_flt.cproject.yml
+    - project: ./test_arm_elementwise_mul_flt/test_arm_elementwise_mul_flt.cproject.yml
+    - project: ./test_arm_fully_connected_flt/test_arm_fully_connected_flt.cproject.yml
+    - project: ./test_arm_lstm_unidirectional_flt/test_arm_lstm_unidirectional_flt.cproject.yml
+    - project: ./test_arm_max_pool_flt/test_arm_max_pool_flt.cproject.yml
+    - project: ./test_arm_maximum_minimum_flt/test_arm_maximum_minimum_flt.cproject.yml
+    - project: ./test_arm_pad_flt/test_arm_pad_flt.cproject.yml
+    - project: ./test_arm_reshape_flt/test_arm_reshape_flt.cproject.yml
+    - project: ./test_arm_softmax_flt/test_arm_softmax_flt.cproject.yml
+    - project: ./test_arm_svdf_flt/test_arm_svdf_flt.cproject.yml
+    - project: ./test_arm_transpose_flt/test_arm_transpose_flt.cproject.yml
+    - project: ./test_arm_transpose_conv_flt/test_arm_transpose_conv_flt.cproject.yml
+
+  output-dirs:
+    cprjdir: ./$Project$.$BuildType$+$TargetType$-$Compiler$
+    outdir: ./$Project$.$BuildType$+$TargetType$-$Compiler$/outdir

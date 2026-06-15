@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2019-2022, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2019-2022, 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,4 +18,11 @@
 
 file(GLOB SRC_S8 "./*_s8.c")
 file(GLOB SRC_S16 "./*_s16.c")
-target_sources(cmsis-nn PRIVATE ${SRC_S8} ${SRC_S16})
+set(SRC_FLT "")
+if (ARM_NN_ENABLE_F32)
+  list(APPEND SRC_FLT arm_lstm_unidirectional_f32.c)
+endif()
+if (ARM_NN_ENABLE_F16)
+  list(APPEND SRC_FLT arm_lstm_unidirectional_f16.c)
+endif()
+target_sources(cmsis-nn PRIVATE ${SRC_S8} ${SRC_S16} ${SRC_FLT})

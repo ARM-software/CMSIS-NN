@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2021 Arm Limited. All rights reserved.
+ * Copyright (c) 2019-2021, 2026 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -70,6 +70,8 @@ unsigned char uart_putc(unsigned char my_ch)
     }
 
     CMSDK_UART0->DATA = my_ch; // write to transmit holding register
+    while ((CMSDK_UART0->STATE & 1))
+        ; // Wait until transmit holding register accepts the byte
 
     return (my_ch);
 }

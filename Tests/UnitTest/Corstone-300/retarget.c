@@ -1,5 +1,6 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2021, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2021, 2024, 2026 Arm Limited and/or its affiliates
+ * <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -29,6 +30,18 @@
     #include <sys/stat.h>
 #endif
 
+#if defined(__has_include)
+    #if __has_include("RTE_Components.h")
+        #include "RTE_Components.h"
+    #endif
+#endif
+
+#if defined(RTE_CMSIS_Compiler_STDOUT) || defined(RTE_CMSIS_Compiler_STDERR) || defined(RTE_CMSIS_Compiler_STDIN)
+    #define CMSIS_COMPILER_CUSTOM_STDIO 1
+#else
+    #define CMSIS_COMPILER_CUSTOM_STDIO 0
+#endif
+
 #include "uart.h"
 
 unsigned char UartPutc(unsigned char ch) { return uart_putc(ch); }
@@ -51,6 +64,24 @@ void exit(int code)
     {
     }
 }
+
+#if CMSIS_COMPILER_CUSTOM_STDIO && defined(__clang__)
+__attribute__((noreturn)) void _exit(int code)
+{
+    UartEndSimulation(code);
+    while (1)
+    {
+    }
+}
+
+__attribute__((noreturn)) void _sys_exit(int code)
+{
+    UartEndSimulation(code);
+    while (1)
+    {
+    }
+}
+#endif
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6100100) && !defined(GCCCOMPILER)
 int fputc(int ch, FILE *f)
@@ -79,14 +110,17 @@ int SER_GetChar(void) { return UartPutc(UartGetc()); }
     #define FH_STDOUT 0x8002
     #define FH_STDERR 0x8003
 
+    #if !CMSIS_COMPILER_CUSTOM_STDIO
 const char __stdin_name[] = ":STDIN";
 const char __stdout_name[] = ":STDOUT";
 const char __stderr_name[] = ":STDERR";
+    #endif
 
 /**
   The following _sys_xxx functions are defined in rt_sys.h.
 */
 
+    #if !CMSIS_COMPILER_CUSTOM_STDIO
 __attribute__((weak)) FILEHANDLE _sys_open(const char *name, int openmode)
 {
     (void)openmode;
@@ -227,12 +261,14 @@ __attribute__((weak)) char *(_sys_command_string)(char *cmd, int len)
 }
 
 __attribute__((weak)) void(_sys_exit)(int return_code) { exit(return_code); }
+    #endif
 
 #else
 /**
    Copied from CMSIS/DSP/DSP_Lib_TestSuite/Common/platform/GCC/Retarget.c
 */
 
+    #if !CMSIS_COMPILER_CUSTOM_STDIO
 int _open(const char *path, int flags, ...)
 {
     (void)path;
@@ -294,4 +330,5 @@ int _write(int fd, char *ptr, int len)
         SER_PutChar(*ptr++);
     return (i);
 }
+    #endif
 #endif

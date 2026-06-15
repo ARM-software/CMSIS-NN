@@ -35,10 +35,15 @@
       <files>
         <file category="doc" name="Documentation/html/index.html"/>
         <file category="header" name="Include/arm_nn_types.h"/>
+        <file category="header" name="Include/arm_nn_types_flt.h"/>
         <file category="header" name="Include/arm_nnfunctions.h"/>
+        <file category="header" name="Include/arm_nnfunctions_flt.h"/>
         <file category="header" name="Include/arm_nnsupportfunctions.h"/>
+        <file category="header" name="Include/arm_nnsupportfunctions_flt.h"/>
         <file category="header" name="Include/arm_nn_tables.h"/>
+        <file category="header" name="Include/Internal/arm_nn_config.h"/>
         <file category="header" name="Include/arm_nn_math_types.h"/>
+        <file category="header" name="Include/arm_nn_math_types_flt.h"/>
 
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s4.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c"/>
@@ -73,23 +78,41 @@
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s4.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_f32.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_f16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_f32.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1_x_n_f16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1x1_f32.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_convolve_1x1_f16.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_f32.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_depthwise_conv_f16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_s8.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_f32.c"/>
+        <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_f16.c"/>
         <file category="source" name="Source/ConvolutionFunctions/arm_transpose_conv_wrapper_s8.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_x.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_w.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_y.c"/>
         <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_s8_z.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_f32.c"/>
+        <file category="source" name="Source/ConcatenationFunctions/arm_concatenation_f16.c"/>
         <file category="source" name="Source/SVDFunctions/arm_svdf_s8.c"/>
         <file category="source" name="Source/SVDFunctions/arm_svdf_state_s16_s8.c"/>
         <file category="source" name="Source/SVDFunctions/arm_svdf_get_buffer_sizes_s8.c"/>
+        <file category="source" name="Source/SVDFunctions/arm_svdf_f32.c"/>
+        <file category="source" name="Source/SVDFunctions/arm_svdf_f16.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_max_pool_s8.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_max_pool_s16.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_s8.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_get_buffer_sizes_s16.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/PoolingFunctions/arm_avgpool_s16.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_max_pool_f32.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_max_pool_f16.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_avg_pool_f32.c"/>
+        <file category="source" name="Source/PoolingFunctions/arm_avg_pool_f16.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16_batch_offset.c"/>
@@ -99,12 +122,26 @@
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_minimum_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_maximum_s8.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_f32.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_f32.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_minimum_f32.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_maximum_f32.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_f16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_f16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_minimum_f16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_maximum_f16.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu6_s8.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu_q15.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_relu_q7.c"/>
         <file category="source" name="Source/ActivationFunctions/arm_nn_activation_s16.c"/>
+        <file category="source" name="Source/ActivationFunctions/arm_nn_activation_f32.c"/>
+        <file category="source" name="Source/ActivationFunctions/arm_nn_activation_f16.c"/>
         <file category="source" name="Source/ReshapeFunctions/arm_reshape_s8.c"/>
+        <file category="source" name="Source/ReshapeFunctions/arm_reshape_f32.c"/>
+        <file category="source" name="Source/ReshapeFunctions/arm_reshape_f16.c"/>
         <file category="source" name="Source/TransposeFunctions/arm_transpose_s8.c"/>
+        <file category="source" name="Source/TransposeFunctions/arm_transpose_f32.c"/>
+        <file category="source" name="Source/TransposeFunctions/arm_transpose_f16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s4.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_per_ch_s8.c"/>
@@ -122,6 +159,34 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nntables.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nntables_flt.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_batch_norm_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_batch_norm_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_get_buffer_size_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_get_buffer_size_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k3_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k3_packed_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k3_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k3_packed_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k5_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k5_packed_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k5_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_conv1d_k5_packed_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv1d_k3_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv1d_k3_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv2x5_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv3x3_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv3x3_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_pack_conv_patch_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_pack_conv_patch_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_maxpool1d_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_maxpool1d_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_f16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_n_packed_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mult_nt_n_packed_f16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_transpose_conv_row_s8_s32.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s4.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c"/>
@@ -129,6 +194,8 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s8.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_s16.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_f32.c"/>
+        <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_step_f16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s8_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_lstm_calculate_gate_s16.c"/>
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8_s16.c"/>
@@ -136,23 +203,33 @@
         <file category="source" name="Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_batch_matmul_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_batch_matmul_s16.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_batch_matmul_f32.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_batch_matmul_f16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s4.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_per_channel_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_wrapper_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_s16.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_f32.c"/>
+        <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_f16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s16.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_vector_sum_s8.c"/>
         <file category="source" name="Source/FullyConnectedFunctions/arm_vector_sum_s8_s64.c"/>
         <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s8.c"/>
         <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_s16.c"/>
+        <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_f32.c"/>
+        <file category="source" name="Source/LSTMFunctions/arm_lstm_unidirectional_f16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s8_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_s16.c"/>
         <file category="source" name="Source/SoftmaxFunctions/arm_softmax_u8.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_f32.c"/>
+        <file category="source" name="Source/SoftmaxFunctions/arm_softmax_f16.c"/>
         <file category="source" name="Source/PadFunctions/arm_pad_s8.c"/>
+        <file category="source" name="Source/PadFunctions/arm_pad_f32.c"/>
+        <file category="source" name="Source/PadFunctions/arm_pad_f16.c"/>
       </files>
     </component>
   </components>

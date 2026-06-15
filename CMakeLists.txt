@@ -18,12 +18,29 @@
 
 cmake_minimum_required(VERSION 3.15.6)
 set(CMSIS_OPTIMIZATION_LEVEL "-Ofast" CACHE STRING "Compiler optimization level.")
+option(ARM_NN_ENABLE_F32 "Enable CMSIS-NN float32 extensions." OFF)
+option(ARM_NN_ENABLE_F16 "Enable CMSIS-NN float16 extensions." OFF)
 
 project(CMSISNN C CXX)
 
 add_library(cmsis-nn STATIC)
 
+if(ARM_NN_ENABLE_F32)
+    set(ARM_NN_ENABLE_F32_VALUE 1)
+else()
+    set(ARM_NN_ENABLE_F32_VALUE 0)
+endif()
+
+if(ARM_NN_ENABLE_F16)
+    set(ARM_NN_ENABLE_F16_VALUE 1)
+else()
+    set(ARM_NN_ENABLE_F16_VALUE 0)
+endif()
+
 target_compile_options(cmsis-nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
+target_compile_definitions(cmsis-nn
+                           PUBLIC ARM_NN_ENABLE_F32=${ARM_NN_ENABLE_F32_VALUE}
+                                  ARM_NN_ENABLE_F16=${ARM_NN_ENABLE_F16_VALUE})
 
 target_include_directories(cmsis-nn PUBLIC "Include")
 
