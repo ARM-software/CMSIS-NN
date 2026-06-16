@@ -90,9 +90,8 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s8(const int8_t *input,
 
         for (int b = 0; b < params->batch_size; b++)
         {
-            int8_t *step_hidden_in = (buffers->hidden_state != NULL)
-                ? ((int8_t *)buffers->hidden_state + b * params->hidden_size)
-                : NULL;
+            int8_t *step_hidden_in =
+                (buffers->hidden_state != NULL) ? ((int8_t *)buffers->hidden_state + b * params->hidden_size) : NULL;
 
             cmsis_nn_lstm_context step_buffers = *buffers;
             step_buffers.cell_state = (int16_t *)buffers->cell_state + b * params->hidden_size;
@@ -102,8 +101,8 @@ arm_cmsis_nn_status arm_lstm_unidirectional_s8(const int8_t *input,
                 const int8_t *data_in = input + (b * params->time_steps + t) * params->input_size;
                 int8_t *hidden_out = output + (b * params->time_steps + t) * params->hidden_size;
 
-                arm_cmsis_nn_status status = arm_nn_lstm_step_s8(
-                    data_in, step_hidden_in, hidden_out, &step_params, &step_buffers, 1);
+                arm_cmsis_nn_status status =
+                    arm_nn_lstm_step_s8(data_in, step_hidden_in, hidden_out, &step_params, &step_buffers, 1);
 
                 if (status != ARM_CMSIS_NN_SUCCESS)
                 {
