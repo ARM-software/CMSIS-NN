@@ -60,20 +60,24 @@ if(CMSISNN_BUILD_PYBIND)
   )
   target_compile_options(cmsis-nn-shared PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 
-  set(Python3_FIND_VIRTUALENV FIRST)
-  find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+  if(NOT TARGET pybind11::module)
+    # pybind11 was not provided as a target, try to find installed package.
 
-  execute_process(
-    COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir
-    OUTPUT_VARIABLE pybind11_PYTHON_CMAKE_DIR
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
+    set(Python3_FIND_VIRTUALENV FIRST)
+    find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+
+    execute_process(
+      COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir
+      OUTPUT_VARIABLE pybind11_PYTHON_CMAKE_DIR
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
 
   find_package(pybind11 CONFIG
-              HINTS "${pybind11_PYTHON_CMAKE_DIR}"
-  )
-  if(NOT pybind11_FOUND)
-    message(FATAL_ERROR "pybind11 not found. Install pybind11, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF.")
+                HINTS "${pybind11_PYTHON_CMAKE_DIR}"
+    )
+    if(NOT pybind11_FOUND)
+      message(FATAL_ERROR "pybind11 not found. Install pybind11, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF.")
+    endif()
   endif()
 
   pybind11_add_module(cmsis_nn MODULE
