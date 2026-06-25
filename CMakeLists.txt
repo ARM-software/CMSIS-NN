@@ -17,7 +17,9 @@
 #
 
 cmake_minimum_required(VERSION 3.15.6)
-set(CMSIS_OPTIMIZATION_LEVEL "-Ofast" CACHE STRING "Compiler optimization level.")
+set(CMSIS_OPTIMIZATION_LEVEL
+    "-Ofast"
+    CACHE STRING "Compiler optimization level.")
 option(ARM_NN_ENABLE_F32 "Enable CMSIS-NN float32 extensions." OFF)
 option(ARM_NN_ENABLE_F16 "Enable CMSIS-NN float16 extensions." OFF)
 
@@ -26,57 +28,64 @@ project(CMSISNN C CXX)
 add_library(cmsis-nn STATIC)
 
 if(ARM_NN_ENABLE_F32)
-    set(ARM_NN_ENABLE_F32_VALUE 1)
+  set(ARM_NN_ENABLE_F32_VALUE 1)
 else()
-    set(ARM_NN_ENABLE_F32_VALUE 0)
+  set(ARM_NN_ENABLE_F32_VALUE 0)
 endif()
 
 if(ARM_NN_ENABLE_F16)
-    set(ARM_NN_ENABLE_F16_VALUE 1)
+  set(ARM_NN_ENABLE_F16_VALUE 1)
 else()
-    set(ARM_NN_ENABLE_F16_VALUE 0)
+  set(ARM_NN_ENABLE_F16_VALUE 0)
 endif()
 
 target_compile_options(cmsis-nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
-target_compile_definitions(cmsis-nn
-                           PUBLIC ARM_NN_ENABLE_F32=${ARM_NN_ENABLE_F32_VALUE}
-                                  ARM_NN_ENABLE_F16=${ARM_NN_ENABLE_F16_VALUE})
+target_compile_definitions(
+  cmsis-nn PUBLIC ARM_NN_ENABLE_F32=${ARM_NN_ENABLE_F32_VALUE}
+                  ARM_NN_ENABLE_F16=${ARM_NN_ENABLE_F16_VALUE})
 
 target_include_directories(cmsis-nn PUBLIC "Include")
 
 add_subdirectory(Source)
 
-option(CMSISNN_BUILD_PYBIND "Build pybind11 Python module for CMSIS-NN helpers" OFF)
+option(CMSISNN_BUILD_PYBIND "Build pybind11 Python module for CMSIS-NN helpers"
+       OFF)
 
 if(CMSISNN_BUILD_PYBIND)
 
   # Add shared library for testing bindings with ctest
-  add_library(cmsis-nn-shared SHARED
-    $<TARGET_PROPERTY:cmsis-nn,SOURCES>
-  )
+  add_library(cmsis-nn-shared SHARED $<TARGET_PROPERTY:cmsis-nn,SOURCES>)
   set_target_properties(cmsis-nn-shared PROPERTIES OUTPUT_NAME cmsis-nn)
-  target_include_directories(cmsis-nn-shared PRIVATE
-    $<TARGET_PROPERTY:cmsis-nn,INCLUDE_DIRECTORIES>
-  )
+  target_include_directories(
+    cmsis-nn-shared PRIVATE $<TARGET_PROPERTY:cmsis-nn,INCLUDE_DIRECTORIES>)
   target_compile_options(cmsis-nn-shared PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 
-  set(Python3_FIND_VIRTUALENV FIRST)
-  find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+  if(NOT TARGET pybind11::module)
+    # pybind11 was not provided as a target, try to find installed package.
 
-  execute_process(
-    COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir
-    OUTPUT_VARIABLE pybind11_PYTHON_CMAKE_DIR
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
+    set(Python3_FIND_VIRTUALENV FIRST)
+    find_package(
+      Python3
+      COMPONENTS Interpreter Development
+      REQUIRED)
 
-  find_package(pybind11 CONFIG
-              HINTS "${pybind11_PYTHON_CMAKE_DIR}"
-  )
-  if(NOT pybind11_FOUND)
-    message(FATAL_ERROR "pybind11 not found. Install pybind11, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF.")
+    execute_process(
+      COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir
+      OUTPUT_VARIABLE pybind11_PYTHON_CMAKE_DIR
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    find_package(pybind11 CONFIG HINTS "${pybind11_PYTHON_CMAKE_DIR}")
+    if(NOT pybind11_FOUND)
+      message(
+        FATAL_ERROR
+          "pybind11 not found. Install pybind11, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF."
+      )
+    endif()
   endif()
 
-  pybind11_add_module(cmsis_nn MODULE
+  pybind11_add_module(
+    cmsis_nn
+    MODULE
     Source/Bindings/arm_py_module.cpp
     Source/Bindings/arm_py_backend.cpp
     Source/Bindings/arm_py_avgpool_buffer_size.cpp
@@ -84,25 +93,20 @@ if(CMSISNN_BUILD_PYBIND)
     Source/Bindings/arm_py_depthwise_conv_buffer_size.cpp
     Source/Bindings/arm_py_fully_connected_buffer_size.cpp
     Source/Bindings/arm_py_svdf_buffer_size.cpp
-    Source/Bindings/arm_py_transpose_conv_buffer_size.cpp
-  )
+    Source/Bindings/arm_py_transpose_conv_buffer_size.cpp)
   set_target_properties(cmsis_nn PROPERTIES PREFIX "")
-  target_include_directories(cmsis_nn PRIVATE
-      ${Python3_INCLUDE_DIRS}
-      ${CMAKE_CURRENT_SOURCE_DIR}/Include
-  )
+  target_include_directories(
+    cmsis_nn PRIVATE ${Python3_INCLUDE_DIRS}
+                     ${CMAKE_CURRENT_SOURCE_DIR}/Include)
 
-  target_link_libraries(cmsis_nn PRIVATE
-      cmsis-nn
-      pybind11::headers
-  )
+  target_link_libraries(cmsis_nn PRIVATE cmsis-nn pybind11::headers)
 
   target_compile_options(cmsis_nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 
   # Put the built .so into the python package directory inside the wheel
-  install(TARGETS cmsis_nn
-                  LIBRARY DESTINATION cmsis_nn
-                  RUNTIME DESTINATION cmsis_nn
-  )
+  install(
+    TARGETS cmsis_nn
+    LIBRARY DESTINATION cmsis_nn
+    RUNTIME DESTINATION cmsis_nn)
 
 endif()
