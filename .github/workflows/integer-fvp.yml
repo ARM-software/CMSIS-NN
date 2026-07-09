@@ -159,7 +159,7 @@ jobs:
 
       - name: Upload integer FVP logs
         if: always() && steps.select.outputs.enabled == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: integer-fvp-${{ matrix.key }}
           path: |
