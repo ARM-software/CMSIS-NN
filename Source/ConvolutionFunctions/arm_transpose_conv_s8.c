@@ -21,8 +21,8 @@
  * Title:        arm_transpose_conv_s8.c
  * Description:  s8 version of transposed convolution using symmetric quantization.
  *
- * $Date:        29 October 2024
- * $Revision:    V.2.0.0
+ * $Date:        12 July 2026
+ * $Revision:    V.2.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -138,9 +138,19 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
                                              skip_rows_bottom);
             input += input_ch * input_x;
 
-            if (skip_rows_top == 0)
+            // Number of output rows that became final (no later input row can still add to
+            // them) after processing input row j, i.e. the increase in
+            // MAX(0, row * stride_y - pad_y) between row j and row j + 1. This is stride_y in
+            // steady state, but must be a *partial* count during the initial ramp-up when
+            // pad_y is not a multiple of stride_y, otherwise the flush under-counts on the
+            // transition row and every following row is written to the wrong place in the
+            // circular buffer (see issue #230).
+            const int32_t rows_to_flush =
+                MAX(0, (j + 1) * stride_y - pad_y) - MAX(0, j * stride_y - pad_y);
+
+            if (rows_to_flush > 0)
             {
-                for (int y = 0; y < stride_y; y++)
+                for (int y = 0; y < rows_to_flush; y++)
                 {
                     int32_t *buf_out = buf + buf_row;
                     buf_out += output_ch * pad_x;
