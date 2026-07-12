@@ -145,8 +145,7 @@ arm_cmsis_nn_status arm_transpose_conv_s8(const cmsis_nn_context *ctx,
             // pad_y is not a multiple of stride_y, otherwise the flush under-counts on the
             // transition row and every following row is written to the wrong place in the
             // circular buffer (see issue #230).
-            const int32_t rows_to_flush =
-                MAX(0, (j + 1) * stride_y - pad_y) - MAX(0, j * stride_y - pad_y);
+            const int32_t rows_to_flush = MAX(0, (j + 1) * stride_y - pad_y) - MAX(0, j * stride_y - pad_y);
 
             if (rows_to_flush > 0)
             {
