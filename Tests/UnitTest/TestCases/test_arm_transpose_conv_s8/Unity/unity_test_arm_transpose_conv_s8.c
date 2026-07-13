@@ -46,4 +46,4 @@ void tearDown(void) {}
 void test_transpose_conv_1_arm_transpose_conv_s8(void) { transpose_conv_1_arm_transpose_conv_s8(); }
 void test_transpose_conv_2_arm_transpose_conv_s8(void) { transpose_conv_2_arm_transpose_conv_s8(); }
 void test_transpose_conv_3_arm_transpose_conv_s8(void) { transpose_conv_3_arm_transpose_conv_s8(); }
-void test_transpose_conv_4_arm_transpose_conv_s8(void) { transpose_conv_3_arm_transpose_conv_s8(); }
+void test_transpose_conv_4_arm_transpose_conv_s8(void) { transpose_conv_4_arm_transpose_conv_s8(); }
