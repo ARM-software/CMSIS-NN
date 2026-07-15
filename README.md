@@ -102,7 +102,7 @@ Each File has a version number and a date field that must be updated when making
 follows Semantic Versioning 2.0.0 format. For details check: https://semver.org/
 
 ## Building CMSIS-NN as a library
-It is recommended to use toolchain files from [Arm Ethos-U Core Platform](https://review.mlplatform.org/admin/repos/ml/ethos-u/ethos-u-core-platform) project. These are supporting TARGET_CPU, which is a required argument. Note that if not specifying TARGET_CPU, these toolchains will set some default. The format must be TARGET_CPU=cortex-mXX, see examples below.
+It is recommended to use toolchain files from [Arm Ethos-U Core Platform](https://gitlab.arm.com/artificial-intelligence/ethos-u/ethos-u-core-platform) project. These are supporting TARGET_CPU, which is a required argument. Note that if not specifying TARGET_CPU, these toolchains will set some default. The format must be TARGET_CPU=cortex-mXX, see examples below.
 
 Here is an example:
 
