@@ -47,7 +47,6 @@ PACK_BASE_FILES="
 #
 PACK_DELETE_FILES="
   Documentation/Doxygen
-  Documentation/README.md
 "
 
 # Specify patches to be applied
