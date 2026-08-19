@@ -80,7 +80,6 @@ jobs:
         uses: ARM-software/cmsis-actions/vcpkg@v1
 
       - name: Activate Arm tool license
-        if: matrix.toolchain == 'AC6'
         uses: ARM-software/cmsis-actions/armlm@v1
 
       - name: Cache CMSIS packs
