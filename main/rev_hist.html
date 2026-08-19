@@ -136,7 +136,12 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
-<td>v7.0.0 </td><td>v7.0.0   </td></tr>
+<td>v7.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v7.0.0">CMSIS-NN v6.0.0</a></p>
+<p class="intertd">New int8 Pad operator New int8 Transpose operator New int8 Minimum/Maximum s8 operator New int8 /int16 Batch Matmul operator Per channel quantized support for Fully connected operator</p>
+<p class="intertd">Improved performance and reduced memory usage for Transposed convolution. MVE conv int4: interleave im2col Align kernel_sum/ effective_bias useage Change SVDF MVE memmove to faster arm_memcpy_s8 Add optional restrict keyword to conv core loop out pointers Treat DW conv with 1 input ch as a regular conv op Fast 1x1 Conv DSP case use unordered im2col</p>
+<p class="intertd"><b>arm_convolve_s8</b> New argument <em>upscale_dims</em> to support new transposed conv implementation. May be set to NULL with no behavioural change. <b>arm_transpose_conv_s8_get_buffer_size</b> New argument <em>transposed_conv_params</em> and behaviour to support new transposed conv implementation. <b>arm_vector_sum_s8</b> New argument <em>rhs_offset</em> to support pre-computation of kernel_sum and bias</p>
+<p class="endtd">Full Changelog**: <a href="https://github.com/ARM-software/CMSIS-NN/compare/v6.0.0...v7.0.0">https://github.com/ARM-software/CMSIS-NN/compare/v6.0.0...v7.0.0</a>   </p>
+</td></tr>
 <tr>
 <td>v6.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v5.0.0">CMSIS-NN v5.0.0</a> These are non backward compatible API change, hence the release has a major version update. Please refer to <a class="el" href="arm__nnfunctions_8h.html">arm_nnfunctions.h</a> for more details. Int32 bias support for int16x8 convolution - arm_convolve_wrapper_s16/arm_convolve_s16 parameters updated Int16 input convolution support for MVEI - removed arm_convolve_fast_s16 LSTM reimplemention - most LSTM API functions replaced or updated API function arm_convolve_1_x_n_s8_get_buffer_size parameters updated</p>
 <p class="intertd">Performance improvements for int4 DW convolution MVE Conv improvments by avoiding unaligned access LSTM reimplementation - overall improvements MVE Conv 1xN conv using im2col</p>
