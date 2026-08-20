@@ -137,45 +137,122 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <th>Version </th><th>Description  </th></tr>
 <tr>
 <td>v7.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v7.0.0">CMSIS-NN v6.0.0</a></p>
-<p class="intertd">New int8 Pad operator New int8 Transpose operator New int8 Minimum/Maximum s8 operator New int8 /int16 Batch Matmul operator Per channel quantized support for Fully connected operator</p>
-<p class="intertd">Improved performance and reduced memory usage for Transposed convolution. MVE conv int4: interleave im2col Align kernel_sum/ effective_bias useage Change SVDF MVE memmove to faster arm_memcpy_s8 Add optional restrict keyword to conv core loop out pointers Treat DW conv with 1 input ch as a regular conv op Fast 1x1 Conv DSP case use unordered im2col</p>
-<p class="intertd"><b>arm_convolve_s8</b> New argument <em>upscale_dims</em> to support new transposed conv implementation. May be set to NULL with no behavioural change. <b>arm_transpose_conv_s8_get_buffer_size</b> New argument <em>transposed_conv_params</em> and behaviour to support new transposed conv implementation. <b>arm_vector_sum_s8</b> New argument <em>rhs_offset</em> to support pre-computation of kernel_sum and bias</p>
-<p class="endtd">Full Changelog**: <a href="https://github.com/ARM-software/CMSIS-NN/compare/v6.0.0...v7.0.0">https://github.com/ARM-software/CMSIS-NN/compare/v6.0.0...v7.0.0</a>   </p>
+<p class="intertd">New operators and features</p><ul>
+<li>New int8 Pad operator</li>
+<li>New int8 Transpose operator</li>
+<li>New int8 Minimum/Maximum s8 operator</li>
+<li>New int8 /int16 Batch Matmul operator</li>
+<li>Per channel quantized support for Fully connected operator</li>
+</ul>
+<p class="intertd">Optimizations</p><ul>
+<li>Improved performance and reduced memory usage for Transposed convolution.</li>
+<li>MVE conv int4: interleave im2col</li>
+<li>Align kernel_sum/ effective_bias useage</li>
+<li>Change SVDF MVE memmove to faster arm_memcpy_s8</li>
+<li>Add optional restrict keyword to conv core loop out pointers</li>
+<li>Treat DW conv with 1 input ch as a regular conv op</li>
+<li>Fast 1x1 Conv DSP case use unordered im2col</li>
+</ul>
+<p class="endtd">API changes</p><ul>
+<li><b>arm_convolve_s8</b> New argument <em>upscale_dims</em> to support new transposed conv implementation. May be set to NULL with no behavioural change.</li>
+<li><b>arm_transpose_conv_s8_get_buffer_size</b> New argument <em>transposed_conv_params</em> and behaviour to support new transposed conv implementation.</li>
+<li><b>arm_vector_sum_s8</b> New argument <em>rhs_offset</em> to support pre-computation of kernel_sum and bias   </li>
+</ul>
 </td></tr>
 <tr>
-<td>v6.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v5.0.0">CMSIS-NN v5.0.0</a> These are non backward compatible API change, hence the release has a major version update. Please refer to <a class="el" href="arm__nnfunctions_8h.html">arm_nnfunctions.h</a> for more details. Int32 bias support for int16x8 convolution - arm_convolve_wrapper_s16/arm_convolve_s16 parameters updated Int16 input convolution support for MVEI - removed arm_convolve_fast_s16 LSTM reimplemention - most LSTM API functions replaced or updated API function arm_convolve_1_x_n_s8_get_buffer_size parameters updated</p>
-<p class="intertd">Performance improvements for int4 DW convolution MVE Conv improvments by avoiding unaligned access LSTM reimplementation - overall improvements MVE Conv 1xN conv using im2col</p>
-<p class="intertd">MVEI packed int4 kernel support in FC, convolution and DW convolution LSTM reimplemented to align with TFLM reference kernel. LSTM support for int16 input DSP/MVEI support for Transpose convolution Support for grouped convolutions Non zero filter offset support for FC Int16 input convolution support for MVEI Int32 bias support for int16x8 convolution</p>
-<p class="intertd">Unit tests refactoring started</p>
-<p class="endtd">Full Changelog**: <a href="https://github.com/ARM-software/CMSIS-NN/compare/v5.0.0...v6.0.0">https://github.com/ARM-software/CMSIS-NN/compare/v5.0.0...v6.0.0</a>   </p>
+<td>v6.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v5.0.0">CMSIS-NN v5.0.0</a></p>
+<p class="intertd">API Changes</p><ul>
+<li>These are non backward compatible API change, hence the release has a major version update. Please refer to <a class="el" href="arm__nnfunctions_8h.html">arm_nnfunctions.h</a> for more details.<ul>
+<li>Int32 bias support for int16x8 convolution - arm_convolve_wrapper_s16/arm_convolve_s16 parameters updated</li>
+<li>Int16 input convolution support for MVEI - removed arm_convolve_fast_s16</li>
+<li>LSTM reimplemention - most LSTM API functions replaced or updated</li>
+<li>API function arm_convolve_1_x_n_s8_get_buffer_size parameters updated</li>
+</ul>
+</li>
+</ul>
+<p class="intertd">Performance Improvements</p><ul>
+<li>Performance improvements for int4 DW convolution</li>
+<li>MVE Conv improvments by avoiding unaligned access</li>
+<li>LSTM reimplementation - overall improvements</li>
+<li>MVE Conv 1xN conv using im2col</li>
+</ul>
+<p class="intertd">New Features</p><ul>
+<li>MVEI packed int4 kernel support in FC, convolution and DW convolution</li>
+<li>LSTM reimplemented to align with TFLM reference kernel.</li>
+<li>LSTM support for int16 input</li>
+<li>DSP/MVEI support for Transpose convolution</li>
+<li>Support for grouped convolutions</li>
+<li>Non zero filter offset support for FC</li>
+<li>Int16 input convolution support for MVEI</li>
+<li>Int32 bias support for int16x8 convolution</li>
+</ul>
+<p class="endtd">General Improvements</p><ul>
+<li>Unit tests refactoring started   </li>
+</ul>
 </td></tr>
 <tr>
-<td>v5.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.1.0">CMSIS-NN v4.1.0</a> Improved read efficiency in FC for MVE extension. This also means FC and SVDF calculate kernel sums in prepare phase before actual inference, and because of this there may be an increase in memory usage for certain models. Packed int4 kernel support in FC, convolution and DW convolution for scalar version and DSP extension. Scalar/base support for new operator Transpose convolution. Extended unit test coverage.</p>
-<p class="endtd">Full Changelog**: <a href="https://github.com/ARM-software/CMSIS-NN/compare/23.08...v5.0.0">https://github.com/ARM-software/CMSIS-NN/compare/23.08...v5.0.0</a>   </p>
+<td>v5.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.1.0">CMSIS-NN v4.1.0</a></p>
+<p class="intertd">API Changes</p><ul>
+<li>This is non backward compatible API change, hence the release has a major version update.<ul>
+<li>The new api changes are arm_vector_sum_s8, arm_svdf_s8 and arm_svdf_s8_get_buffer_size_mve. Please refer to <a class="el" href="arm__nnfunctions_8h.html">arm_nnfunctions.h</a> for details.</li>
+</ul>
+</li>
+</ul>
+<p class="intertd">Performance Improvements</p><ul>
+<li>Improved read efficiency in FC for MVE extension.<ul>
+<li>This also means FC and SVDF calculate kernel sums in prepare phase before actual inference, and because of this there may be an increase in memory usage for certain models.</li>
+</ul>
+</li>
+</ul>
+<p class="intertd">New Features</p><ul>
+<li>Packed int4 kernel support in FC, convolution and DW convolution for scalar version and DSP extension.</li>
+<li>Scalar/base support for new operator Transpose convolution.</li>
+</ul>
+<p class="endtd">General Improvements</p><ul>
+<li>Extended unit test coverage.   </li>
+</ul>
 </td></tr>
 <tr>
 <td>v4.1.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v4.0.0">CMSIS-NN v4.0.0</a></p>
-<p class="intertd">Improvements in LSTM, generic convolution, 1xN convolution, DW convolution and FC for MVE extension. Improvements in LSTM, generic convolution and int8/int16 elementwise mul for DSP extension.</p>
-<p class="intertd">Script to extract model hyperparameters. Get size of buffers on host to support TVM use case. Dependency to CMSIS-Core is removed. CMSIS-NN can be built without including any other CMSIS module. A new DS_CNN_S model unit test is added that is used in End-to-End benchmark <a href="https://github.com/eembc/audiomark">AudioMark</a>.</p>
-<p class="intertd">Extended unit test coverage.</p>
-<p class="endtd">Potential out of buffer write in SVDF state data. Fix selection of correct int16 DW Convolution function. Workaround for a GCC 12.2 Internal Compiler Error affecting MVE. Fix error in buffer size calculation of DW Convolution wrapper for int8. Fix 'asm operand has impossible constraint' error for certain combination of GCC compiler related to MVE optimizations.   </p>
+<p class="intertd">Performance Improvements</p><ul>
+<li>Improvements in LSTM, generic convolution, 1xN convolution, DW convolution and FC for MVE extension.</li>
+<li>Improvements in LSTM, generic convolution and int8/int16 elementwise mul for DSP extension.</li>
+</ul>
+<p class="intertd">New Features</p><ul>
+<li>Script to extract model hyperparameters.</li>
+<li>Get size of buffers on host to support TVM use case.</li>
+<li>Dependency to CMSIS-Core is removed. CMSIS-NN can be built without including any other CMSIS module.</li>
+<li>A new DS_CNN_S model unit test is added that is used in End-to-End benchmark <a href="https://github.com/eembc/audiomark">AudioMark</a>.</li>
+</ul>
+<p class="intertd">General Improvements</p><ul>
+<li>Extended unit test coverage.</li>
+</ul>
+<p class="endtd">Bug Fixes</p><ul>
+<li>Potential out of buffer write in SVDF state data.</li>
+<li>Fix selection of correct int16 DW Convolution function.</li>
+<li>Workaround for a GCC 12.2 Internal Compiler Error affecting MVE.</li>
+<li>Fix error in buffer size calculation of DW Convolution wrapper for int8.</li>
+<li>Fix 'asm operand has impossible constraint' error for certain combination of GCC compiler related to MVE optimizations.   </li>
+</ul>
 </td></tr>
 <tr>
 <td>v4.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS_5/releases/tag/5.9.0">CMSIS 5.9.0</a></p>
 <p class="intertd">The return type of all API's that returned a status is now changed. CMSIS-NN used error codes from CMSIS-DSP in the form of enum 'arm_status'. This is now replaced by enum 'arm_cmsis_nn_status'. The status values are still the same. It is reccomended that users change the return type in their applications.</p>
 <p class="intertd">Neural Network(NN) operators which do not follow the quantization specification of TensorFlow Lite for Microcontrollers is removed. Existing users can use CMSIS 5.9.0 release to continue using it. As a consequence of this, the data type aliases q7_t, q15_t, q31_t and q63_t are replaced by int8_t, int16_t, int32_t, int64_t respectively.</p>
-<p class="intertd">Scalar implementation of LSTM with unit tests. We plan to add optimizations for DSP extension and Multi Vector Extension(MVE) in the next release.</p>
-<p class="endtd">These are new optimizations to existing operators.</p><ul>
+<p class="intertd">New Operators</p><ul>
+<li>Scalar implementation of LSTM with unit tests. We plan to add optimizations for DSP extension and Multi Vector Extension(MVE) in the next release.</li>
+</ul>
+<p class="intertd">Optimizations</p><ul>
 <li>DSP extension optimization for int16 average pooling</li>
 <li>MVE optimization for int16 max and average pooling</li>
 <li>MVE optimization for int16 add and mul</li>
 <li>MVE optimization for int16 fully connected</li>
 <li>MVE and DSP extension optimization for int16 depthwise convolution</li>
-<li>MVE and DSP extension optimization for non-unity stride 1x1 convolution<ul>
+<li>MVE and DSP extension optimization for non-unity stride 1x1 convolution</li>
+</ul>
+<p class="endtd">Performance Improvements</p><ul>
 <li>3x3 depthwise convolution for DSP extension</li>
 <li>1x1 convolution for MVE   </li>
-</ul>
-</li>
 </ul>
 </td></tr>
 </table>
