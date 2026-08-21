@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2022 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2022, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_s8_core.c
  * Description:  Depthwise convolution on im2col buffers.
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.0.5
+ * $Date:        31 August 2026
+ * $Revision:    V.1.0.6
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -184,7 +184,10 @@ int8_t *arm_nn_depthwise_conv_s8_core(const int8_t *row,
         const int32x4_t mult = vldrwq_z_s32(out_mult, p);
         const int32x4_t shift = vldrwq_z_s32(out_shift, p);
 
+        // Inactive vector lanes are masked by p when the result is stored.
+        // cppcheck-suppress uninitvar
         col_0_sum = arm_requantize_mve_32x4(col_0_sum, mult, shift);
+        // cppcheck-suppress uninitvar
         col_1_sum = arm_requantize_mve_32x4(col_1_sum, mult, shift);
 
         col_0_sum = vaddq_n_s32(col_0_sum, out_offset);
