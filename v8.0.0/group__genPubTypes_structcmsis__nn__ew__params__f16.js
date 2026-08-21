@@ -1,0 +1,4 @@
+var group__genPubTypes_structcmsis__nn__ew__params__f16 =
+[
+    [ "activation", "group__genPubTypes.html#ad5776c610352acb3ef804120510ad1cf", null ]
+];
