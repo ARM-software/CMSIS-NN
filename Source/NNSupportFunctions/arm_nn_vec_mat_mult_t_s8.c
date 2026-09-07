@@ -52,7 +52,7 @@
  * Refer header file for details.
  *
  */
-#if !defined(ARM_MATH_MVEI) && defined(ARM_MATH_DSP) && !defined(__ARMCC_VERSION) && !defined(__ICCARM__)
+#if !defined(ARM_MATH_MVEI) && defined(ARM_MATH_DSP) && !defined(__ARMCC_VERSION) && !defined(__ICCARM__) && !defined(__clang__)
     #pragma GCC optimize("unroll-loops")
 #endif
 arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s8(const int8_t *lhs,
