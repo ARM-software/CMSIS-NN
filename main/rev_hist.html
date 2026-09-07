@@ -136,6 +136,33 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
+<td>v8.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v7.0.0">CMSIS-NN v7.0.0</a></p>
+<p class="intertd">New operators and features</p><ul>
+<li>Experimental Floating-Point extension (AC6 compiler is recommended, there are known issues with GCC).<ul>
+<li>Introduce float16/float32 operator APIs aligned with quantized CMSIS-NN.</li>
+<li>Make float support fully opt-in (<code>f16</code>, <code>f32</code>, or both) to avoid extra code size for integer-only builds. Enable float support by defining <code>ARM_NN_ENABLE_F16</code> and/or <code>ARM_NN_ENABLE_F32</code> to a non-zero value.</li>
+<li>Add optional optimized kernels for convolution, depthwise convolution, and pooling.</li>
+<li>Add GitHub Actions for FVP tests, host tests, and code-size tracking.</li>
+</ul>
+</li>
+<li>Python bindings for host buffer size functions.</li>
+</ul>
+<p class="intertd">Optimizations</p><ul>
+<li>Optimize <b>arm_nn_requantize</b> for Thumb-2 processors (enable by defining <code>CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY</code>).</li>
+</ul>
+<p class="intertd">Bug fixes</p><ul>
+<li>Fix state persistence and out-of-bounds access in int8 and int16 LSTM for non-time-major inference.</li>
+<li>Fix integer overflow in single rounding requantization.</li>
+<li>Fix dispatch condition mismatch in convolve wrapper buffer size functions.</li>
+<li>Fix transpose convolution buffer size handling for DSP and MVE.</li>
+<li>Fix int8 transpose convolution row alignment when vertical padding is not divisible by the stride.</li>
+<li>Fix Clang and MSVC build issues.</li>
+</ul>
+<p class="endtd">General improvements</p><ul>
+<li>Add a GitHub Action for automated clang-format checking.   </li>
+</ul>
+</td></tr>
+<tr>
 <td>v7.0.0 </td><td><p class="starttd">The following are the updates compared to previous release in <a href="https://github.com/ARM-software/CMSIS-NN/releases/tag/v7.0.0">CMSIS-NN v6.0.0</a></p>
 <p class="intertd">New operators and features</p><ul>
 <li>New int8 Pad operator</li>
