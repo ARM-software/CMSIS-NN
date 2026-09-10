@@ -21,8 +21,8 @@
  * Title:        arm_transpose_conv_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the transpose convolution layer functions.
  *
- * $Date:        9 Mars 2026
- * $Revision:    V.2.1.0
+ * $Date:        10 September 2026
+ * $Revision:    V.2.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -71,7 +71,7 @@ int32_t arm_transpose_conv_s8_get_buffer_size(const cmsis_nn_transpose_conv_para
     else
     {
         const int32_t buf_x = ((input_dims->w - 1) * transpose_conv_params->stride.w +
-                               MAX(filter_dims->w, transpose_conv_params->stride.h)) *
+                               MAX(filter_dims->w, transpose_conv_params->stride.w)) *
             out_dims->c;
         const int32_t buf_y = MAX(filter_dims->h, transpose_conv_params->stride.h);
         return buf_x * buf_y * sizeof(int32_t);
@@ -101,7 +101,7 @@ int32_t arm_transpose_conv_s8_get_buffer_size_mve(const cmsis_nn_transpose_conv_
     else
     {
         const int32_t buf_x = ((input_dims->w - 1) * transpose_conv_params->stride.w +
-                               MAX(filter_dims->w, transpose_conv_params->stride.h)) *
+                               MAX(filter_dims->w, transpose_conv_params->stride.w)) *
             out_dims->c;
         const int32_t buf_y = MAX(filter_dims->h, transpose_conv_params->stride.h);
         return buf_x * buf_y * sizeof(int32_t);
