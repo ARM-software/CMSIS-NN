@@ -38,6 +38,31 @@ from cmsis_nn import (
 logger = logging.getLogger(__name__)
 
 
+@pytest.mark.parametrize("backend", [Backend.SCALAR, Backend.DSP, Backend.MVE])
+@pytest.mark.parametrize(
+    "input_nhwc, filter_nhwc, output_nhwc, stride_hw, expected",
+    [
+        ((2, 1, 9, 4), (4, 1, 1, 4), (2, 1, 17, 4), (1, 2), 288),
+        ((1, 4, 5, 4), (3, 1, 1, 4), (1, 7, 5, 3), (2, 1), 120),
+        ((1, 4, 5, 4), (3, 1, 1, 4), (1, 4, 13, 3), (1, 3), 180),
+        ((1, 4, 5, 4), (3, 1, 1, 4), (1, 10, 5, 3), (3, 1), 180),
+        ((1, 4, 5, 4), (3, 3, 3, 4), (1, 6, 11, 3), (1, 2), 396),
+    ],
+)
+def test_transpose_conv_rolling_buffer_size(backend, input_nhwc, filter_nhwc, output_nhwc, stride_hw, expected):
+    size = transpose_conv_buffer_size(
+        backend,
+        DataType.A8W8,
+        input_nhwc=input_nhwc,
+        filter_nhwc=filter_nhwc,
+        output_nhwc=output_nhwc,
+        padding_hw=(0, 0),
+        stride_hw=stride_hw,
+        dilation_hw=(1, 1),
+    )
+    assert size == expected
+
+
 @pytest.mark.parametrize(
     "input_nhwc, filter_nhwc, output_nhwc, padding_hw, stride_hw, dilation_hw, padding_offsets_hw, input_offset, output_offset, activation_min, activation_max",
     [
