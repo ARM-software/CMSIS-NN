@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2023-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Optimized s4 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        17 April 2024
- * $Revision:    V.1.1.0
+ * $Date:        31 August 2026
+ * $Revision:    V.1.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -531,8 +531,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s4_opt(const cmsis_nn_context *ctx,
                         sum_3 = *bias++;
                         sum_4 = *bias++;
                     }
-
-                    uint16_t col_count = num_cols / 2;
+                    uint16_t col_count;
                     int16_t *col_pos = col_buffer_start + col_shift;
                     const int8_t *row_pos = kernel + row_shift;
 
@@ -540,6 +539,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s4_opt(const cmsis_nn_context *ctx,
                     col_shift += 4;
 
     #ifdef ARM_MATH_DSP
+                    col_count = num_cols / 2;
                     while (col_count)
                     {
                         /* General idea is to read 4 + 4 (input, kernel) pair and re-arrange them in the right order to

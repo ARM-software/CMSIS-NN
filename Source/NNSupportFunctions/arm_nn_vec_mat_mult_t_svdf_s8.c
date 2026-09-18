@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2021-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2021-2023, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  s8 vector by matrix (transposed) multiplication with
  *               s16 output. Targetted at SVDF operator.
  *
- * $Date:        28 March 2023
- * $Revision:    V.3.2.0
+ * $Date:        31 August 2026
+ * $Revision:    V.3.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -327,7 +327,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
         acc_0 = MAX(acc_0, activation_min);
         acc_0 = MIN(acc_0, activation_max);
         *dst = (int16_t)acc_0;
-        dst += dst_offset;
     }
 
 #else

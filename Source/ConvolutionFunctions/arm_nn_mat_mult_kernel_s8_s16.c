@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_kernel_s8_s16.c
  * Description:  Matrix-multiplication function for convolution
  *
- * $Date:        28 October 2024
- * $Revision:    V.2.1.0
+ * $Date:        31 August 2026
+ * $Revision:    V.2.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -220,8 +220,6 @@ int8_t *arm_nn_mat_mult_kernel_s8_s16(const int8_t *input_a,
         ch_0_out_1 = MAX(ch_0_out_1, activation_min);
         ch_0_out_1 = MIN(ch_0_out_1, activation_max);
         *out_1++ = (int8_t)ch_0_out_1;
-        out_mult++;
-        out_shift++;
     }
 
     out_0 += output_ch;
