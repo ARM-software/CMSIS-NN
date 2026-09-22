@@ -21,8 +21,8 @@
  * Title:        arm_depthwise_conv_s8.c
  * Description:  s8 version of depthwise convolution.
  *
- * $Date:        28 April 2026
- * $Revision:    V.3.0.5
+ * $Date:        22 September 2026
+ * $Revision:    V.3.1.0
  *
  * Target Processor:  Cortex-M CPUs
  *
