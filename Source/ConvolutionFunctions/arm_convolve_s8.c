@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        04 November 2024
- * $Revision:    V.4.0.0
+ * $Date:        16 October 2026
+ * $Revision:    V.4.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,7 @@
 
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+#include <stdbool.h>
 /**
  *  @ingroup Public
  */
@@ -59,6 +60,28 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                                     const cmsis_nn_dims *output_dims,
                                     int8_t *output_data)
 {
+#if ARM_NN_ENABLE_AOT
+    const bool effective_bias = conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16;
+    /* Only paired representations are supported. Validate before consuming data. */
+    if (!((conv_params->filter_format == ARM_NN_FILTER_FORMAT_ROW_MAJOR &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_ORIGINAL) ||
+          (conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16 &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_EFFECTIVE)))
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    if (effective_bias && bias_data == NULL)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    #if !defined(ARM_MATH_MVEI)
+    if (effective_bias)
+    {
+        return ARM_CMSIS_NN_NO_IMPL_ERROR;
+    }
+    #endif
+#endif
+
     (void)bias_dims;
 
     if (ctx->buf == NULL)
@@ -117,6 +140,13 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
 
     const int32_t remainder = rhs_cols % 4;
     const int32_t aligned_rhs_cols = remainder != 0 ? rhs_cols + 4 - remainder : rhs_cols;
+
+#if ARM_NN_ENABLE_AOT
+    const int32_t filter_group_stride =
+        effective_bias ? ((output_ch_per_group + 3) & ~3) * ((rhs_cols + 15) & ~15) : output_ch_per_group * rhs_cols;
+#else
+    const int32_t filter_group_stride = output_ch_per_group * rhs_cols;
+#endif
 
     for (int i_batch = 0; i_batch < input_batches; i_batch++)
     {
@@ -215,21 +245,45 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                     /* Computation is filed for every 4 columns */
                     if (lhs_rows == 4)
                     {
-                        arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
-                                                filter_data_ptr,
-                                                bias_data_ptr,
-                                                out,
-                                                output_mult_ptr,
-                                                output_shift_ptr,
-                                                lhs_rows,
-                                                output_ch_per_group,
-                                                rhs_cols,
-                                                input_offset,
-                                                out_offset,
-                                                out_activation_min,
-                                                out_activation_max,
-                                                output_ch,
-                                                aligned_rhs_cols);
+
+    #if ARM_NN_ENABLE_AOT
+                        if (effective_bias)
+                        {
+                            arm_nn_mat_mult_nt_t_s8_packed((int8_t *)buffer_a,
+                                                           filter_data_ptr,
+                                                           bias_data_ptr,
+                                                           out,
+                                                           output_mult_ptr,
+                                                           output_shift_ptr,
+                                                           lhs_rows,
+                                                           output_ch_per_group,
+                                                           rhs_cols,
+                                                           out_offset,
+                                                           out_activation_min,
+                                                           out_activation_max,
+                                                           output_ch,
+                                                           aligned_rhs_cols);
+                        }
+                        else
+    #endif
+
+                        {
+                            arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
+                                                    filter_data_ptr,
+                                                    bias_data_ptr,
+                                                    out,
+                                                    output_mult_ptr,
+                                                    output_shift_ptr,
+                                                    lhs_rows,
+                                                    output_ch_per_group,
+                                                    rhs_cols,
+                                                    input_offset,
+                                                    out_offset,
+                                                    out_activation_min,
+                                                    out_activation_max,
+                                                    output_ch,
+                                                    aligned_rhs_cols);
+                        }
 
                         out += lhs_rows * output_ch;
 
@@ -301,21 +355,45 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
             if (lhs_rows != 0)
             {
 #if defined(ARM_MATH_MVEI)
-                arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
-                                        filter_data_ptr,
-                                        bias_data_ptr,
-                                        out,
-                                        output_mult_ptr,
-                                        output_shift_ptr,
-                                        lhs_rows,
-                                        output_ch_per_group,
-                                        rhs_cols,
-                                        input_offset,
-                                        out_offset,
-                                        out_activation_min,
-                                        out_activation_max,
-                                        output_ch,
-                                        aligned_rhs_cols);
+
+    #if ARM_NN_ENABLE_AOT
+                if (effective_bias)
+                {
+                    arm_nn_mat_mult_nt_t_s8_packed((int8_t *)buffer_a,
+                                                   filter_data_ptr,
+                                                   bias_data_ptr,
+                                                   out,
+                                                   output_mult_ptr,
+                                                   output_shift_ptr,
+                                                   lhs_rows,
+                                                   output_ch_per_group,
+                                                   rhs_cols,
+                                                   out_offset,
+                                                   out_activation_min,
+                                                   out_activation_max,
+                                                   output_ch,
+                                                   aligned_rhs_cols);
+                }
+                else
+    #endif
+
+                {
+                    arm_nn_mat_mult_nt_t_s8((int8_t *)buffer_a,
+                                            filter_data_ptr,
+                                            bias_data_ptr,
+                                            out,
+                                            output_mult_ptr,
+                                            output_shift_ptr,
+                                            lhs_rows,
+                                            output_ch_per_group,
+                                            rhs_cols,
+                                            input_offset,
+                                            out_offset,
+                                            out_activation_min,
+                                            out_activation_max,
+                                            output_ch,
+                                            aligned_rhs_cols);
+                }
 
                 out += lhs_rows * output_ch;
                 lhs_rows = 0;
@@ -380,7 +458,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
                 lhs_rows = 0;
 #endif // #if defined(ARM_MATH_MVEI)
             }
-            filter_data_ptr += output_ch_per_group * rhs_cols;
+            filter_data_ptr += filter_group_stride;
             bias_data_ptr += output_ch_per_group;
             output_mult_ptr += output_ch_per_group;
             output_shift_ptr += output_ch_per_group;

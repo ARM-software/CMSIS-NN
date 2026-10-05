@@ -18,6 +18,9 @@
 
 file(GLOB SRC_S4 "./*_s4*.c")
 file(GLOB SRC_S8 "./*_s8*.c")
+if(NOT ARM_NN_ENABLE_AOT)
+  list(FILTER SRC_S8 EXCLUDE REGEX "/arm_nn_mat_mult_nt_t_s8_packed\.c$")
+endif()
 file(GLOB SRC_S16 "./*_s16*.c")
 file(GLOB SRC_S32 "./*_s32*.c")
 set(SRC_FLT "")

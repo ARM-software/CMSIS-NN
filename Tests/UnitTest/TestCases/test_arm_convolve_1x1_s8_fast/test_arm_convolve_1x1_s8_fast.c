@@ -26,6 +26,7 @@
 #include "../TestData/kernel1x1_stride_x_y_1/test_data.h"
 #include "../TestData/kernel1x1_stride_x_y_2/test_data.h"
 #include "../Utils/validate.h"
+#include "../Utils/validate_aot.h"
 
 void kernel1x1_arm_convolve_1x1_s8_fast(void)
 {
@@ -33,7 +34,7 @@ void kernel1x1_arm_convolve_1x1_s8_fast(void)
     int8_t output[KERNEL1X1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -97,6 +98,16 @@ void kernel1x1_arm_convolve_1x1_s8_fast(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, kernel1x1_output_ref, KERNEL1X1_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_output_ref);
 }
 
 void kernel1x1_stride_x_arm_convolve_1x1_s8(void)
@@ -105,7 +116,7 @@ void kernel1x1_stride_x_arm_convolve_1x1_s8(void)
     int8_t output[KERNEL1X1_STRIDE_X_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -185,6 +196,16 @@ void kernel1x1_stride_x_arm_convolve_1x1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
 
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_output_ref, KERNEL1X1_STRIDE_X_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_stride_x_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_stride_x_output_ref);
 }
 
 void kernel1x1_stride_x_y_arm_convolve_1x1_s8(void)
@@ -193,7 +214,7 @@ void kernel1x1_stride_x_y_arm_convolve_1x1_s8(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -252,6 +273,16 @@ void kernel1x1_stride_x_y_arm_convolve_1x1_s8(void)
                                                          &output_dims,
                                                          output);
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_y_output_ref, KERNEL1X1_STRIDE_X_Y_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_stride_x_y_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_stride_x_y_output_ref);
 
     if (ctx.buf)
     {
@@ -276,6 +307,16 @@ void kernel1x1_stride_x_y_arm_convolve_1x1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
 
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_y_output_ref, KERNEL1X1_STRIDE_X_Y_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_stride_x_y_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_stride_x_y_output_ref);
 }
 
 void kernel1x1_stride_x_y_1_arm_convolve_1x1_s8(void)
@@ -284,7 +325,7 @@ void kernel1x1_stride_x_y_1_arm_convolve_1x1_s8(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -343,6 +384,16 @@ void kernel1x1_stride_x_y_1_arm_convolve_1x1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
 
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_y_1_output_ref, KERNEL1X1_STRIDE_X_Y_1_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_stride_x_y_1_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_stride_x_y_1_output_ref);
 }
 
 void kernel1x1_stride_x_y_2_arm_convolve_1x1_s8(void)
@@ -351,7 +402,7 @@ void kernel1x1_stride_x_y_2_arm_convolve_1x1_s8(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -410,11 +461,21 @@ void kernel1x1_stride_x_y_2_arm_convolve_1x1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
 
     TEST_ASSERT_TRUE(validate(output, kernel1x1_stride_x_y_2_output_ref, KERNEL1X1_STRIDE_X_Y_2_DST_SIZE));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel1x1_stride_x_y_2_weights,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             kernel1x1_stride_x_y_2_output_ref);
 }
 
 void buffer_size_arm_convolve_1x1_s8_fast(void)
 {
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -455,7 +516,7 @@ void buffer_size_arm_convolve_1x1_s8_fast(void)
 void buffer_size_mve_arm_convolve_1x1_s8_fast(void)
 {
 #if defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -495,7 +556,7 @@ void buffer_size_mve_arm_convolve_1x1_s8_fast(void)
 void buffer_size_dsp_arm_convolve_1x1_s8_fast(void)
 {
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;

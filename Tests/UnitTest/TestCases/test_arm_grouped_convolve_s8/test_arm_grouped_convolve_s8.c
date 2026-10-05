@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -26,6 +26,7 @@
 #include "../TestData/grouped_conv_3/test_data.h"
 #include "../TestData/grouped_conv_4/test_data.h"
 #include "../Utils/validate.h"
+#include "../Utils/validate_aot.h"
 
 void grouped_conv_arm_grouped_convolve_1_s8(void)
 {
@@ -33,7 +34,7 @@ void grouped_conv_arm_grouped_convolve_1_s8(void)
     int8_t output[GROUPED_CONV_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -97,6 +98,17 @@ void grouped_conv_arm_grouped_convolve_1_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
     memset(output, 0, sizeof(output));
+
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void grouped_conv_arm_grouped_convolve_2_s8(void)
@@ -105,7 +117,7 @@ void grouped_conv_arm_grouped_convolve_2_s8(void)
     int8_t output[GROUPED_CONV_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -168,6 +180,16 @@ void grouped_conv_arm_grouped_convolve_2_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 }
 
@@ -177,7 +199,7 @@ void grouped_conv_arm_grouped_convolve_3_s8(void)
     int8_t output[GROUPED_CONV_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -240,6 +262,16 @@ void grouped_conv_arm_grouped_convolve_3_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 }
 
@@ -249,7 +281,7 @@ void grouped_conv_arm_grouped_convolve_4_s8(void)
     int8_t output[GROUPED_CONV_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -312,5 +344,15 @@ void grouped_conv_arm_grouped_convolve_4_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 }

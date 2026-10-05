@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -16,9 +16,12 @@
  * limitations under the License.
  */
 
+#include <limits.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <arm_nnfunctions.h>
+#include <arm_nnsupportfunctions.h>
 #include <unity.h>
 
 #include "../TestData/basic/test_data.h"
@@ -35,6 +38,7 @@
 #include "../TestData/conv_out_activation/test_data.h"
 #include "../TestData/stride2pad1/test_data.h"
 #include "../Utils/validate.h"
+#include "../Utils/validate_aot.h"
 
 void basic_arm_convolve_s8(void)
 {
@@ -42,7 +46,7 @@ void basic_arm_convolve_s8(void)
     int8_t output[BASIC_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -105,6 +109,16 @@ void basic_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -130,6 +144,16 @@ void basic_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void stride2pad1_arm_convolve_s8(void)
@@ -138,7 +162,7 @@ void stride2pad1_arm_convolve_s8(void)
     int8_t output[STRIDE2PAD1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -200,6 +224,16 @@ void stride2pad1_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -225,6 +259,16 @@ void stride2pad1_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_2_arm_convolve_s8(void)
@@ -233,7 +277,7 @@ void conv_2_arm_convolve_s8(void)
     int8_t output[CONV_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -295,6 +339,16 @@ void conv_2_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -320,6 +374,16 @@ void conv_2_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_3_arm_convolve_s8(void)
@@ -328,7 +392,7 @@ void conv_3_arm_convolve_s8(void)
     int8_t output[CONV_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -390,6 +454,16 @@ void conv_3_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -415,6 +489,16 @@ void conv_3_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_4_arm_convolve_s8(void)
@@ -423,7 +507,7 @@ void conv_4_arm_convolve_s8(void)
     int8_t output[CONV_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -485,6 +569,16 @@ void conv_4_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -510,6 +604,17 @@ void conv_4_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_out_activation_arm_convolve_s8(void)
@@ -517,7 +622,7 @@ void conv_out_activation_arm_convolve_s8(void)
     int8_t output[CONV_OUT_ACTIVATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -576,6 +681,16 @@ void conv_out_activation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_2x2_dilation_arm_convolve_s8(void)
@@ -583,7 +698,7 @@ void conv_2x2_dilation_arm_convolve_s8(void)
     int8_t output[CONV_2X2_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -646,6 +761,16 @@ void conv_2x2_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -671,6 +796,16 @@ void conv_2x2_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
@@ -678,7 +813,7 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
     int8_t output[CONV_2X2_DILATION_5X5_INPUT_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -739,6 +874,16 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -764,6 +909,16 @@ void conv_2x2_dilation_5x5_input_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
@@ -771,7 +926,7 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
     int8_t output[CONV_3X3_DILATION_5X5_INPUT_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -832,6 +987,16 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -857,6 +1022,16 @@ void conv_3x3_dilation_5x5_input_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_2x3_dilation_arm_convolve_s8(void)
@@ -864,7 +1039,7 @@ void conv_2x3_dilation_arm_convolve_s8(void)
     int8_t output[CONV_2X3_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -925,6 +1100,16 @@ void conv_2x3_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -950,6 +1135,16 @@ void conv_2x3_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_3x2_dilation_arm_convolve_s8(void)
@@ -957,7 +1152,7 @@ void conv_3x2_dilation_arm_convolve_s8(void)
     int8_t output[CONV_3X2_DILATION_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1018,6 +1213,16 @@ void conv_3x2_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -1043,6 +1248,16 @@ void conv_3x2_dilation_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_dilation_golden_arm_convolve_s8(void)
@@ -1050,7 +1265,7 @@ void conv_dilation_golden_arm_convolve_s8(void)
     int8_t output[CONV_DILATION_GOLDEN_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1111,6 +1326,16 @@ void conv_dilation_golden_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -1136,6 +1361,17 @@ void conv_dilation_golden_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void conv_5_arm_convolve_s8(void)
@@ -1144,7 +1380,7 @@ void conv_5_arm_convolve_s8(void)
     int8_t output[CONV_5_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1206,6 +1442,16 @@ void conv_5_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
     memset(output, 0, sizeof(output));
 
     buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
@@ -1231,11 +1477,21 @@ void conv_5_arm_convolve_s8(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    validate_aot_convolve_s8(&conv_params,
+                             &quant_params,
+                             &input_dims,
+                             input_data,
+                             &filter_dims,
+                             kernel_data,
+                             &bias_dims,
+                             bias_data,
+                             &output_dims,
+                             output_ref);
 }
 
 void buffer_size_arm_convolve_s8(void)
 {
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -1273,7 +1529,7 @@ void buffer_size_arm_convolve_s8(void)
 void buffer_size_mve_arm_convolve_s8(void)
 {
 #if defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -1313,7 +1569,7 @@ void buffer_size_mve_arm_convolve_s8(void)
 void buffer_size_dsp_arm_convolve_s8(void)
 {
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -1347,5 +1603,250 @@ void buffer_size_dsp_arm_convolve_s8(void)
         arm_convolve_wrapper_s8_get_buffer_size_dsp(&conv_params, &input_dims, &filter_dims, &output_dims);
 
     TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
+#endif
+}
+
+void packed_convolve_s8_arguments(void)
+{
+#if ARM_NN_ENABLE_AOT
+    cmsis_nn_conv_params params = {0};
+    cmsis_nn_dims shape = {1, 1, 1, 1};
+    int32_t bias = 0;
+    const int32_t formats[][2] = {{0, 1}, {1, 0}, {2, 0}, {1, 2}, {-1, -1}, {1, 1}};
+    for (unsigned i = 0; i < sizeof(formats) / sizeof(formats[0]); i++)
+    {
+        params.filter_format = formats[i][0];
+        params.bias_format = formats[i][1];
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR,
+                          arm_convolve_s8(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL));
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR,
+                          arm_convolve_1x1_s8(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL));
+        TEST_ASSERT_EQUAL(
+            ARM_CMSIS_NN_ARG_ERROR,
+            arm_convolve_1x1_s8_fast(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL));
+        TEST_ASSERT_EQUAL(
+            ARM_CMSIS_NN_ARG_ERROR,
+            arm_convolve_wrapper_s8(NULL, &params, NULL, &shape, NULL, &shape, NULL, NULL, NULL, NULL, NULL));
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR,
+                          arm_convolve_1_x_n_s8(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL));
+    }
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_NO_IMPL_ERROR,
+                      arm_convolve_1_x_n_s8(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, &bias, NULL, NULL));
+    #if !defined(ARM_MATH_MVEI)
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_NO_IMPL_ERROR,
+                      arm_convolve_s8(NULL, &params, NULL, NULL, NULL, NULL, NULL, NULL, &bias, NULL, NULL, NULL));
+    #else
+    (void)bias;
+    #endif
+    cmsis_nn_dims dims = {6, 2, 1, 9};
+    int8_t buffer[600] = {0};
+    TEST_ASSERT_EQUAL_INT32(256, arm_convolve_s8_packed_get_filter_size(&dims, 2));
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(NULL, 1));
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, 0));
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, -1));
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, 4));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(&dims, NULL, 2, buffer));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(&dims, buffer, 2, NULL));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(NULL, buffer, 2, buffer + 300));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(&dims, buffer, 2, buffer));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(&dims, buffer, 2, buffer + 107));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_ARG_ERROR, arm_convolve_s8_pack_weights(&dims, buffer + 255, 2, buffer));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, arm_convolve_s8_pack_weights(&dims, buffer, 2, buffer + 108));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, arm_convolve_s8_pack_weights(&dims, buffer + 256, 2, buffer));
+    for (int i = 0; i < 4; i++)
+    {
+        cmsis_nn_dims invalid = dims;
+        switch (i)
+        {
+        case 0:
+            invalid.n = 0;
+            break;
+        case 1:
+            invalid.h = -1;
+            break;
+        case 2:
+            invalid.w = 0;
+            break;
+        case 3:
+            invalid.c = -1;
+            break;
+        }
+        TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&invalid, 1));
+    }
+    dims = (cmsis_nn_dims){INT32_MAX, INT32_MAX, INT32_MAX, INT32_MAX};
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, 1));
+    dims = (cmsis_nn_dims){INT32_MAX, 1, 1, 1};
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, INT32_MAX));
+    dims = (cmsis_nn_dims){1, 1, 1, INT32_MAX};
+    TEST_ASSERT_EQUAL_INT32(0, arm_convolve_s8_packed_get_filter_size(&dims, 1));
+#endif
+}
+
+void packed_convolve_s8_matrix_tails(void)
+{
+#if ARM_NN_ENABLE_AOT && defined(ARM_MATH_MVEI)
+    const int32_t reductions[] = {1, 7, 15, 16, 17, 31, 32, 33};
+    for (unsigned int r = 0; r < sizeof(reductions) / sizeof(reductions[0]); r++)
+    {
+        const int32_t cols = reductions[r];
+        for (int32_t channels = 1; channels <= 9; channels++)
+        {
+            cmsis_nn_dims dims = {channels, 1, 1, cols};
+            int8_t weights[9 * 33];
+            int8_t input[5 * 38];
+            int32_t bias[9], multiplier[9], shift[9];
+            for (int32_t i = 0; i < channels * cols; i++)
+            {
+                weights[i] = (int8_t)(i * 17 % 31 - 15);
+            }
+            for (unsigned int i = 0; i < sizeof(input); i++)
+            {
+                input[i] = (int8_t)(i * 7 % 41 - 20);
+            }
+            for (int32_t i = 0; i < channels; i++)
+            {
+                bias[i] = 137 * (i - 4);
+                multiplier[i] = 1073741824 + i * 1000000;
+                shift[i] = -3 + i % 3;
+            }
+            int8_t *packed = malloc(arm_convolve_s8_packed_get_filter_size(&dims, 1));
+            TEST_ASSERT_NOT_NULL(packed);
+            TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, arm_convolve_s8_pack_weights(&dims, weights, 1, packed));
+            for (int32_t positions = 1; positions <= 5; positions++)
+            {
+                int8_t output[5 * 12 + 2];
+                memset(output, 0x55, sizeof(output));
+                const int32_t stride = channels + 3;
+                TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                                  arm_nn_mat_mult_nt_t_s8_packed(input,
+                                                                 packed,
+                                                                 bias,
+                                                                 output + 1,
+                                                                 multiplier,
+                                                                 shift,
+                                                                 positions,
+                                                                 channels,
+                                                                 cols,
+                                                                 -7,
+                                                                 -101,
+                                                                 93,
+                                                                 stride,
+                                                                 cols + 5));
+                TEST_ASSERT_EQUAL_INT8(0x55, output[0]);
+                for (int32_t pos = 0; pos < positions; pos++)
+                {
+                    for (int32_t oc = 0; oc < channels; oc++)
+                    {
+                        int32_t acc = bias[oc];
+                        for (int32_t k = 0; k < cols; k++)
+                        {
+                            acc += input[pos * (cols + 5) + k] * weights[oc * cols + k];
+                        }
+                        acc = arm_nn_requantize(acc, multiplier[oc], shift[oc]) - 7;
+                        TEST_ASSERT_EQUAL_INT8(MAX(-101, MIN(93, acc)), output[1 + pos * stride + oc]);
+                    }
+                    for (int32_t oc = channels; oc < stride; oc++)
+                    {
+                        TEST_ASSERT_EQUAL_INT8(0x55, output[1 + pos * stride + oc]);
+                    }
+                }
+                TEST_ASSERT_EQUAL_INT8(0x55, output[1 + positions * stride]);
+            }
+            free(packed);
+        }
+    }
+#endif
+}
+
+void packed_convolve_s8_group_tails(void)
+{
+#if ARM_NN_ENABLE_AOT && defined(ARM_MATH_MVEI)
+    /* Fast 1x1, strided 1x1, then padded/dilated general convolution.
+     * An odd nine-position output also exercises leftover im2col batches.
+     */
+    for (int32_t mode = 0; mode < 3; mode++)
+    {
+        for (int32_t groups = 1; groups <= 3; groups++)
+        {
+            for (int32_t channels = 1; channels <= 7; channels++)
+            {
+                cmsis_nn_dims input_dims = {1, 5, 5, groups * 17};
+                cmsis_nn_dims filter_dims = {groups * channels, mode == 2 ? 2 : 1, mode == 2 ? 2 : 1, 17};
+                cmsis_nn_dims output_dims = {1, mode == 0 ? 5 : 3, mode == 0 ? 5 : 3, groups * channels};
+                cmsis_nn_dims bias_dims = {1, 1, 1, output_dims.c};
+                cmsis_nn_conv_params params = {0};
+                params.input_offset = mode == 1 ? -19 : 13;
+                params.output_offset = -9;
+                params.stride.h = params.stride.w = mode == 0 ? 1 : 2;
+                params.dilation.h = params.dilation.w = mode == 2 ? 2 : 1;
+                params.padding.h = params.padding.w = mode == 2 ? 1 : 0;
+                params.activation.min = -103;
+                params.activation.max = 87;
+                int8_t input[25 * 51], weights[21 * 68], expected[25 * 21];
+                int32_t bias[21], multiplier[21], shift[21];
+                const int32_t cols = filter_dims.h * filter_dims.w * filter_dims.c;
+                for (int32_t i = 0; i < 25 * input_dims.c; i++)
+                {
+                    input[i] = (int8_t)(i * 11 % 63 - 31);
+                }
+                for (int32_t i = 0; i < output_dims.c * cols; i++)
+                {
+                    weights[i] = (int8_t)(i * 19 % 17 - 8);
+                }
+                for (int32_t i = 0; i < output_dims.c; i++)
+                {
+                    bias[i] = 71 * (i - 10);
+                    multiplier[i] = 1073741824 + i * 2000000;
+                    shift[i] = -5 + i % 4;
+                }
+                cmsis_nn_per_channel_quant_params quant = {multiplier, shift};
+                const int32_t *original_bias = channels % 2 ? NULL : bias;
+                /* Use an independent scalar oracle, including null bias for every group. */
+                for (int32_t y = 0; y < output_dims.h; y++)
+                {
+                    for (int32_t x = 0; x < output_dims.w; x++)
+                    {
+                        for (int32_t oc = 0; oc < output_dims.c; oc++)
+                        {
+                            int32_t acc = original_bias ? original_bias[oc] : 0;
+                            for (int32_t ky = 0; ky < filter_dims.h; ky++)
+                            {
+                                const int32_t iy = y * params.stride.h + ky * params.dilation.h - params.padding.h;
+                                for (int32_t kx = 0; kx < filter_dims.w; kx++)
+                                {
+                                    const int32_t ix = x * params.stride.w + kx * params.dilation.w - params.padding.w;
+                                    if (iy < 0 || iy >= input_dims.h || ix < 0 || ix >= input_dims.w)
+                                    {
+                                        continue;
+                                    }
+                                    for (int32_t ic = 0; ic < filter_dims.c; ic++)
+                                    {
+                                        const int32_t input_index = (iy * input_dims.w + ix) * input_dims.c +
+                                            (oc / channels) * filter_dims.c + ic;
+                                        const int32_t weight_index =
+                                            oc * cols + (ky * filter_dims.w + kx) * filter_dims.c + ic;
+                                        acc += (input[input_index] + params.input_offset) * weights[weight_index];
+                                    }
+                                }
+                            }
+                            acc = arm_nn_requantize(acc, multiplier[oc], shift[oc]) + params.output_offset;
+                            expected[(y * output_dims.w + x) * output_dims.c + oc] =
+                                (int8_t)MAX(params.activation.min, MIN(params.activation.max, acc));
+                        }
+                    }
+                }
+                validate_aot_convolve_s8(&params,
+                                         &quant,
+                                         &input_dims,
+                                         input,
+                                         &filter_dims,
+                                         weights,
+                                         &bias_dims,
+                                         original_bias,
+                                         &output_dims,
+                                         expected);
+            }
+        }
+    }
 #endif
 }

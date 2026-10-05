@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1x1_s8_fast.c
  * Description:  Fast s8 version of 1x1 convolution (non-square shape)
  *
- * $Date:        05 November 2024
- * $Revision:    V.3.6.0
+ * $Date:        15 October 2026
+ * $Revision:    V.3.7.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,7 @@
 
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+#include <stdbool.h>
 
 /**
  *  @ingroup Public
@@ -58,6 +59,33 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
                                              const cmsis_nn_dims *output_dims,
                                              int8_t *output_data)
 {
+#if ARM_NN_ENABLE_AOT
+    const bool effective_bias = conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16;
+#else
+    const bool effective_bias = false;
+    (void)effective_bias;
+#endif
+#if ARM_NN_ENABLE_AOT
+    /* Only paired representations are supported. Validate before consuming data. */
+    if (!((conv_params->filter_format == ARM_NN_FILTER_FORMAT_ROW_MAJOR &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_ORIGINAL) ||
+          (conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16 &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_EFFECTIVE)))
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    if (effective_bias && bias_data == NULL)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    #if !defined(ARM_MATH_MVEI)
+    if (effective_bias)
+    {
+        return ARM_CMSIS_NN_NO_IMPL_ERROR;
+    }
+    #endif
+#endif
+
     if (conv_params->padding.w != 0 || conv_params->padding.h != 0 || conv_params->stride.w != 1 ||
         conv_params->stride.h != 1)
     {
@@ -173,21 +201,44 @@ arm_cmsis_nn_status arm_convolve_1x1_s8_fast(const cmsis_nn_context *ctx,
     (void)ctx;
 #endif
 
-    arm_nn_mat_mult_nt_t_s8(input_data,
-                            filter_data,
-                            bias_data,
-                            output_data,
-                            quant_params->multiplier,
-                            quant_params->shift,
-                            lhs_rows,
-                            rhs_rows,
-                            rhs_cols,
-                            conv_params->input_offset,
-                            conv_params->output_offset,
-                            conv_params->activation.min,
-                            conv_params->activation.max,
-                            rhs_rows,
-                            rhs_cols);
+#if ARM_NN_ENABLE_AOT
+    if (effective_bias)
+    {
+        arm_nn_mat_mult_nt_t_s8_packed(input_data,
+                                       filter_data,
+                                       bias_data,
+                                       output_data,
+                                       quant_params->multiplier,
+                                       quant_params->shift,
+                                       lhs_rows,
+                                       rhs_rows,
+                                       rhs_cols,
+                                       conv_params->output_offset,
+                                       conv_params->activation.min,
+                                       conv_params->activation.max,
+                                       rhs_rows,
+                                       rhs_cols);
+    }
+    else
+#endif
+
+    {
+        arm_nn_mat_mult_nt_t_s8(input_data,
+                                filter_data,
+                                bias_data,
+                                output_data,
+                                quant_params->multiplier,
+                                quant_params->shift,
+                                lhs_rows,
+                                rhs_rows,
+                                rhs_cols,
+                                conv_params->input_offset,
+                                conv_params->output_offset,
+                                conv_params->activation.min,
+                                conv_params->activation.max,
+                                rhs_rows,
+                                rhs_cols);
+    }
 
     /* Return to application */
     return ARM_CMSIS_NN_SUCCESS;

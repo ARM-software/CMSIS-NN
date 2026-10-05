@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Wrapper API to select appropriate transpose conv API based
  *               on dimensions.
  *
- * $Date:        16 October 2024
- * $Revision:    V.1.0.0
+ * $Date:        15 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -90,7 +90,7 @@ arm_cmsis_nn_status arm_transpose_conv_wrapper_s8(const cmsis_nn_context *ctx,
         const int32_t padding_w = transpose_conv_params->padding.w;
         const int32_t padding_h = transpose_conv_params->padding.h;
 
-        cmsis_nn_conv_params conv_params;
+        cmsis_nn_conv_params conv_params = {0};
         conv_params.padding.h = filter_h - 1 - padding_h;
         conv_params.padding.w = filter_w - 1 - padding_w;
         conv_params.input_offset = transpose_conv_params->input_offset;

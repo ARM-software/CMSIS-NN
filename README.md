@@ -125,7 +125,28 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=</path/to/ethos-u-core-platform>/cmake/toolchain
 ## Python bindings (optional)
 The Python helpers are built as a `cmsis_nn` extension module using pybind11.
 
-The purpose is to expose the CMSIS-NN host buffer size getter functions so they can be accessed and used from Python.
+Dependency requirements are declared in [CMakeLists.txt](CMakeLists.txt) and
+[pyproject.toml](pyproject.toml). `PYBIND11_NUMPY_1_ONLY` is unsupported. These requirements apply
+also to parent-provided CMake targets; builds without bindings do not require
+these Python dependencies. Import validates Python-visible int8/int32 arrays
+and raises `ImportError` with dependency versions and rebuild instructions.
+
+For an incompatible extension, remove the old build directory and cached wheel,
+then rebuild and reinstall with compatible pybind11 headers. Rebuilding repairs
+the extension. Models exported with incorrect packed weights or effective bias
+must also be re-exported from the original model; upgrading NumPy alone cannot
+repair serialized arrays.
+
+ExecuTorch and other consumers must invalidate cached host extensions/wheels
+and invalidate or version prepacked model caches before regenerating artifacts.
+Cache keys should include binding build identity and dependency compatibility
+policy. These are consumer integration requirements: this patch cannot protect
+cached older binaries or repair their cached model artifacts. See
+[verification commands](Tests/Bindings/README.md#dependency-and-import-guards).
+
+
+The helpers expose host scratch-buffer size queries and optional AOT
+preparation for use from Python.
 
 Build the extension with CMake:
 ```
@@ -162,6 +183,34 @@ Optionally backend can be derived, e.g.:
 backend = cmsis_nn.resolve_backend(cmsis_nn.CortexM.M55)
 ```
 
+
+### Ahead-of-time (AOT) preparation
+
+AOT preparation moves supported operator preparation work, such as weight
+packing and effective-bias calculation, offline. Enable it alongside the Python
+bindings:
+
+```sh
+cmake -S . -B build-aot -DCMSISNN_BUILD_PYBIND=ON -DARM_NN_ENABLE_AOT=ON
+cmake --build build-aot
+```
+
+For a wheel, enable AOT through the build backend:
+
+```sh
+pip wheel . -w dist -Ccmake.define.ARM_NN_ENABLE_AOT=ON
+```
+
+AOT is disabled by default. Python exposes `cmsis_nn.aot_enabled` to report
+the build setting; AOT preparation helpers are available only in enabled builds.
+Library, callers, bindings, and ctypes layouts must use consistent AOT flags
+because enabling AOT can change public parameter layouts.
+
+Refer to the API documentation in [arm_nnfunctions.h](Include/arm_nnfunctions.h)
+and [arm_nnsupportfunctions.h](Include/arm_nnsupportfunctions.h) for functions
+that support AOT, their preparation helpers, supported targets, required data
+formats, and scratch-buffer requirements. Support is specific to each function;
+query scratch using the parameters and formats selected for inference.
 
 ### Compiler Options
 Default optimization level is set at Ofast. This can be overwritten with CMake on command line by using <nobr>*"-DCMSIS_OPTIMIZATION_LEVEL"*</nobr>. Please change according to project needs.

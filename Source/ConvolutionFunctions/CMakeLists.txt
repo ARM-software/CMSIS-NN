@@ -18,6 +18,9 @@
 
 file(GLOB SRC_S4 "./*_s4*.c")
 file(GLOB SRC_S8 "./*_s8*.c")
+if(NOT ARM_NN_ENABLE_AOT)
+  list(FILTER SRC_S8 EXCLUDE REGEX "/arm_convolve_s8_(pack_weights|packed_get_filter_size)\.c$")
+endif()
 file(GLOB SRC_S16 "./*_s16*.c")
 set(SRC_FLT "")
 if (ARM_NN_ENABLE_F32)

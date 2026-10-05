@@ -1,6 +1,6 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com> All rights
- * reserved.
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com> All
+ * rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -42,7 +42,7 @@ void int16xint8_arm_convolve_s16(void)
     int16_t output[INT16XINT8_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -132,7 +132,7 @@ void requantize_s64_arm_convolve_s16(void)
     int16_t output[REQUANTIZE_S64_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -222,7 +222,7 @@ void int16xint8_dilation_1_arm_convolve_s16(void)
     int16_t output[INT16XINT8_DILATION_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -312,7 +312,7 @@ void int16xint8_dilation_2_arm_convolve_s16(void)
     int16_t output[INT16XINT8_DILATION_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -402,7 +402,7 @@ void int16xint8_dilation_3_arm_convolve_s16(void)
     int16_t output[INT16XINT8_DILATION_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -489,7 +489,7 @@ void int16xint8_dilation_3_arm_convolve_s16(void)
 
 void buffer_size_arm_convolve_s16(void)
 {
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -526,7 +526,7 @@ void buffer_size_arm_convolve_s16(void)
 void buffer_size_mve_arm_convolve_s16(void)
 {
 #if defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -565,7 +565,7 @@ void buffer_size_mve_arm_convolve_s16(void)
 void buffer_size_dsp_arm_convolve_s16(void)
 {
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -606,7 +606,7 @@ void int16xint8_spill_arm_convolve_s16(void)
     int16_t output[INT16XINT8_SPILL_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -696,7 +696,7 @@ void int16xint8_spill2_arm_convolve_s16(void)
     int16_t output[INT16XINT8_SPILL2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -786,7 +786,7 @@ void int16xint8xint32_1_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_1_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -876,7 +876,7 @@ void int16xint8xint32_2_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -966,7 +966,7 @@ void int16xint8xint32_3_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1056,7 +1056,7 @@ void int16xint8xint32_4_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1146,7 +1146,7 @@ void int16xint8xint32_5_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_5_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -1236,7 +1236,7 @@ void int16xint8xint32_6_arm_convolve_s16(void)
     int16_t output[INT16XINT8XINT32_6_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;

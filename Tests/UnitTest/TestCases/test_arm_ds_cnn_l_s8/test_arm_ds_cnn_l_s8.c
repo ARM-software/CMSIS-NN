@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -38,7 +38,7 @@ int ds_cnn_l_s8_get_buffer_size(void)
 {
     /* Custom function based on knowledge that only select layers of DS_CNN_L network require additional buffers. */
     int max_buffer = 0;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -141,7 +141,7 @@ void ds_cnn_l_s8_inference(void)
     // 1x490 is interpreted as 49x10
 
     // Layer 1 - Conv
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims in_out_dim_0;
     cmsis_nn_dims conv_filter_dims;

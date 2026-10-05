@@ -20,6 +20,7 @@ cmake_minimum_required(VERSION 3.21)
 set(CMSIS_OPTIMIZATION_LEVEL
     "-Ofast"
     CACHE STRING "Compiler optimization level.")
+option(ARM_NN_ENABLE_AOT "Enable opt-in ahead-of-time for existing integer path." OFF)
 option(ARM_NN_ENABLE_F32 "Enable CMSIS-NN float32 extensions." OFF)
 option(ARM_NN_ENABLE_F16 "Enable CMSIS-NN float16 extensions." OFF)
 
@@ -39,9 +40,16 @@ else()
   set(ARM_NN_ENABLE_F16_VALUE 0)
 endif()
 
+if(ARM_NN_ENABLE_AOT)
+  set(ARM_NN_ENABLE_AOT_VALUE 1)
+else()
+  set(ARM_NN_ENABLE_AOT_VALUE 0)
+endif()
+
 target_compile_options(cmsis-nn PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 target_compile_definitions(
-  cmsis-nn PUBLIC ARM_NN_ENABLE_F32=${ARM_NN_ENABLE_F32_VALUE}
+  cmsis-nn PUBLIC ARM_NN_ENABLE_AOT=${ARM_NN_ENABLE_AOT_VALUE}
+                  ARM_NN_ENABLE_F32=${ARM_NN_ENABLE_F32_VALUE}
                   ARM_NN_ENABLE_F16=${ARM_NN_ENABLE_F16_VALUE})
 
 target_include_directories(cmsis-nn PUBLIC "Include")
@@ -58,6 +66,10 @@ if(CMSISNN_BUILD_PYBIND)
   set_target_properties(cmsis-nn-shared PROPERTIES OUTPUT_NAME cmsis-nn)
   target_include_directories(
     cmsis-nn-shared PRIVATE $<TARGET_PROPERTY:cmsis-nn,INCLUDE_DIRECTORIES>)
+
+  # Keep feature flags consistent for the shared library used by binding tests
+  target_compile_definitions(cmsis-nn-shared PRIVATE $<TARGET_PROPERTY:cmsis-nn,INTERFACE_COMPILE_DEFINITIONS>)
+
   target_compile_options(cmsis-nn-shared PRIVATE ${CMSIS_OPTIMIZATION_LEVEL})
 
   if(NOT TARGET pybind11::module)
@@ -74,11 +86,11 @@ if(CMSISNN_BUILD_PYBIND)
       OUTPUT_VARIABLE pybind11_PYTHON_CMAKE_DIR
       OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-    find_package(pybind11 CONFIG HINTS "${pybind11_PYTHON_CMAKE_DIR}")
+    find_package(pybind11 2.13.6...<4 CONFIG HINTS "${pybind11_PYTHON_CMAKE_DIR}")
     if(NOT pybind11_FOUND)
       message(
         FATAL_ERROR
-          "pybind11 not found. Install pybind11, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF."
+          "Compatible pybind11 not found. Install pybind11>=2.13.6,<4, set pybind11_DIR, or set CMSISNN_BUILD_PYBIND=OFF."
       )
     endif()
   endif()
@@ -93,7 +105,11 @@ if(CMSISNN_BUILD_PYBIND)
     Source/Bindings/arm_py_depthwise_conv_buffer_size.cpp
     Source/Bindings/arm_py_fully_connected_buffer_size.cpp
     Source/Bindings/arm_py_svdf_buffer_size.cpp
-    Source/Bindings/arm_py_transpose_conv_buffer_size.cpp)
+    Source/Bindings/arm_py_transpose_conv_buffer_size.cpp
+    Source/Bindings/arm_py_vector_sum.cpp)
+  if(ARM_NN_ENABLE_AOT)
+    target_sources(cmsis_nn PRIVATE Source/Bindings/arm_py_convolve_packed.cpp)
+  endif()
   set_target_properties(cmsis_nn PROPERTIES PREFIX "")
   target_include_directories(
     cmsis_nn PRIVATE ${Python3_INCLUDE_DIRS}

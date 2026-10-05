@@ -54,6 +54,9 @@ class CmsisNnConvParams(ctypes.Structure):
         ("activation", CmsisNnActivation),
     ]
 
+    if cmsis_nn.aot_enabled:
+        _fields_ += [("filter_format", ctypes.c_int32), ("bias_format", ctypes.c_int32)]
+
 
 class CmsisNnDwConvParams(ctypes.Structure):
     _fields_ = [
