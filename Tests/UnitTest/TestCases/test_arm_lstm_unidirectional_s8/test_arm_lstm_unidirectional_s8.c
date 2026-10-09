@@ -17,6 +17,7 @@
  */
 
 #include <arm_nnfunctions.h>
+#include <arm_nnsupportfunctions.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -662,4 +663,64 @@ void lstm_stateful_batch_major_multibatch(void)
 
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+}
+
+/* Regression for CMSIS-NN issue #245.
+ * Each FC result must be saturated to int16 before accumulation.
+ */
+void lstm_gate_saturation(void)
+{
+    static const int32_t cases[][2] = {
+        {-20000, 40000},
+        {20000, -40000},
+        {10000, 5000},
+        {30000, 10000},
+        {-30000, -10000},
+        {0, 50000},
+        {0, -50000},
+        {50000, 50000},
+        {-50000, -50000},
+    };
+
+    const int32_t multiplier = 1073741824;
+    const int32_t shift = 1;
+    const int8_t lhs[1] = {0};
+    const int8_t rhs[8] = {0};
+
+    for (int32_t rows = 1; rows <= 8; ++rows)
+    {
+        for (size_t c = 0; c < sizeof(cases) / sizeof(cases[0]); ++c)
+        {
+            int32_t input_bias[8] = {0};
+            int32_t recurrent_bias[8] = {0};
+            int16_t dst[8] = {0};
+
+            for (int32_t i = 0; i < rows; ++i)
+            {
+                input_bias[i] = cases[c][0];
+                recurrent_bias[i] = cases[c][1];
+            }
+
+            int32_t a = arm_nn_requantize(cases[c][0], multiplier, shift);
+            int32_t b = arm_nn_requantize(cases[c][1], multiplier, shift);
+
+            a = CLAMP(a, NN_Q15_MAX, NN_Q15_MIN);
+            b = CLAMP(b, NN_Q15_MAX, NN_Q15_MIN);
+
+            const int32_t expected = CLAMP(a + b, NN_Q15_MAX, NN_Q15_MIN);
+
+            TEST_ASSERT_EQUAL(
+                ARM_CMSIS_NN_SUCCESS,
+                arm_nn_vec_mat_mul_result_acc_s8_s16(lhs, rhs, input_bias, dst, multiplier, shift, 1, rows, 1, 1));
+
+            TEST_ASSERT_EQUAL(
+                ARM_CMSIS_NN_SUCCESS,
+                arm_nn_vec_mat_mul_result_acc_s8_s16(lhs, rhs, recurrent_bias, dst, multiplier, shift, 1, rows, 1, 1));
+
+            for (int32_t i = 0; i < rows; ++i)
+            {
+                TEST_ASSERT_EQUAL_INT16(expected, dst[i]);
+            }
+        }
+    }
 }
