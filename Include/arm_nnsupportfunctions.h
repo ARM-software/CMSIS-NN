@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        15 June 2026
- * $Revision:    V.22.11.0
+ * $Date:        10 October 2026
+ * $Revision:    V.22.11.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1619,6 +1619,12 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_
 __STATIC_FORCEINLINE int32_t arm_nn_divide_by_power_of_two(const int32_t dividend, const int32_t exponent)
 {
 #ifdef CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY
+    // ASRS by zero leaves the carry flag unchanged, so the ADC below would add a stale carry.
+    if (exponent == 0)
+    {
+        return dividend;
+    }
+
     // We use arithmetic right shift (ASR) as signed division. ASR rounds midpoints towards negative infinity.
     // To correct this, we subtract 1 from negative numbers and unconditionally add the carry bit to both
     // positive and negative numbers in the same way.
