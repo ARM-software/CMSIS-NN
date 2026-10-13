@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2022 Arm Limited or its affiliates.
+ * Copyright (C) 2010-2022, 2026 Arm Limited or its affiliates.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -45,3 +45,5 @@ void setUp(void)
 void tearDown(void) {}
 
 void test_softmax_s16_arm_softmax_s16(void) { softmax_s16_arm_softmax_s16(); }
+
+void test_softmax_s16_boundaries_arm_softmax_s16(void) { softmax_s16_boundaries_arm_softmax_s16(); }
