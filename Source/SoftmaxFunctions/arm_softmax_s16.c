@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022-2023, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -87,7 +87,7 @@ arm_cmsis_nn_status arm_softmax_s16(const int16_t *input,
         const int32_t headroom = CLZ(sum);
 
         // Compute the reciprocal 1/sum
-        const int32_t shifted_sum = (((int64_t)sum << (headroom - 1)) + (1 << 13)) >> 14;
+        const int32_t shifted_sum = (((uint32_t)sum << (headroom - 1)) + (1U << 13)) >> 14;
 
         // Since LUT computes 1/(1 + x), compute x = (sum - 1) => -65536
         // Since LUT expects a symmetrical input, recenter from [UINT16_MIN, UINT16_MAX] to [INT16_MIN, INT16_MAX] =>
