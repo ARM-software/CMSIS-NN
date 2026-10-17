@@ -160,7 +160,8 @@ def generate(params, args, fpaths):
             "suite_name", "name", "input_data_type", "op_type", "input_data_type", "weights_data_type",
             "bias_data_type", "shift_and_mult_data_type", "interpreter", "tflite_generator", "json_template",
             "groups", "generate_bias", "bias_min", "bias_max", "weights_min", "weights_max", "bias_zp", "w_zp",
-            "input_zp", "output_zp", "w_scale", "bias_scale", "input_scale", "output_scale", "arena_size"
+            "input_zp", "output_zp", "w_scale", "bias_scale", "input_scale", "output_scale", "arena_size",
+            "weights_scale_factor"
         ]
 
     config_params = {key: val for key, val in params.items() if include_in_config(key)}

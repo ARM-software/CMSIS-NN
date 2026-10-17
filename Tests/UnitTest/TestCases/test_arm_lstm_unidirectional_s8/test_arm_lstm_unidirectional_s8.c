@@ -17,7 +17,6 @@
  */
 
 #include <arm_nnfunctions.h>
-#include <arm_nnsupportfunctions.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +24,7 @@
 
 #include "../TestData/lstm_1/test_data.h"
 #include "../TestData/lstm_2/test_data.h"
+#include "../TestData/lstm_gate_saturation/test_data.h"
 #include "../TestData/lstm_one_time_step/test_data.h"
 #include "../TestData/lstm_stateful_batch_major_multibatch/test_data.h"
 #include "../Utils/validate.h"
@@ -665,62 +665,161 @@ void lstm_stateful_batch_major_multibatch(void)
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
 }
 
-/* Regression for CMSIS-NN issue #245.
- * Each FC result must be saturated to int16 before accumulation.
- */
 void lstm_gate_saturation(void)
 {
-    static const int32_t cases[][2] = {
-        {-20000, 40000},
-        {20000, -40000},
-        {10000, 5000},
-        {30000, 10000},
-        {-30000, -10000},
-        {0, 50000},
-        {0, -50000},
-        {50000, 50000},
-        {-50000, -50000},
-    };
+    int8_t output[LSTM_GATE_SATURATION_BATCH_SIZE * LSTM_GATE_SATURATION_TIME_STEPS *
+                  LSTM_GATE_SATURATION_HIDDEN_SIZE] = {0};
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    const int8_t *output_ref = &lstm_gate_saturation_output[0];
+    const int32_t output_ref_size =
+        LSTM_GATE_SATURATION_BATCH_SIZE * LSTM_GATE_SATURATION_TIME_STEPS * LSTM_GATE_SATURATION_HIDDEN_SIZE;
 
-    const int32_t multiplier = 1073741824;
-    const int32_t shift = 1;
-    const int8_t lhs[1] = {0};
-    const int8_t rhs[8] = {0};
+    int32_t input_data_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t forget_data_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t cell_data_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t output_data_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
 
-    for (int32_t rows = 1; rows <= 8; ++rows)
-    {
-        for (size_t c = 0; c < sizeof(cases) / sizeof(cases[0]); ++c)
-        {
-            int32_t input_bias[8] = {0};
-            int32_t recurrent_bias[8] = {0};
-            int16_t dst[8] = {0};
+    int32_t input_hidden_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t forget_hidden_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t cell_hidden_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
+    int32_t output_hidden_kernel_sum[LSTM_GATE_SATURATION_HIDDEN_SIZE];
 
-            for (int32_t i = 0; i < rows; ++i)
-            {
-                input_bias[i] = cases[c][0];
-                recurrent_bias[i] = cases[c][1];
-            }
+    arm_vector_sum_s8(&input_data_kernel_sum[0],
+                      LSTM_GATE_SATURATION_INPUT_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_input_gate_input_weights[0],
+                      LSTM_GATE_SATURATION_INPUT_ZERO_POINT,
+                      0,
+                      &lstm_gate_saturation_input_gate_bias[0]);
+    arm_vector_sum_s8(&forget_data_kernel_sum[0],
+                      LSTM_GATE_SATURATION_INPUT_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_forget_gate_input_weights[0],
+                      LSTM_GATE_SATURATION_INPUT_ZERO_POINT,
+                      0,
+                      &lstm_gate_saturation_forget_gate_bias[0]);
+    arm_vector_sum_s8(&cell_data_kernel_sum[0],
+                      LSTM_GATE_SATURATION_INPUT_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_cell_gate_input_weights[0],
+                      LSTM_GATE_SATURATION_INPUT_ZERO_POINT,
+                      0,
+                      &lstm_gate_saturation_cell_gate_bias[0]);
+    arm_vector_sum_s8(&output_data_kernel_sum[0],
+                      LSTM_GATE_SATURATION_INPUT_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_output_gate_input_weights[0],
+                      LSTM_GATE_SATURATION_INPUT_ZERO_POINT,
+                      0,
+                      &lstm_gate_saturation_output_gate_bias[0]);
 
-            int32_t a = arm_nn_requantize(cases[c][0], multiplier, shift);
-            int32_t b = arm_nn_requantize(cases[c][1], multiplier, shift);
+    arm_vector_sum_s8(&input_hidden_kernel_sum[0],
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_input_gate_hidden_weights[0],
+                      -LSTM_GATE_SATURATION_OUTPUT_ZERO_POINT,
+                      0,
+                      NULL);
+    arm_vector_sum_s8(&forget_hidden_kernel_sum[0],
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_forget_gate_hidden_weights[0],
+                      -LSTM_GATE_SATURATION_OUTPUT_ZERO_POINT,
+                      0,
+                      NULL);
+    arm_vector_sum_s8(&cell_hidden_kernel_sum[0],
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_cell_gate_hidden_weights[0],
+                      -LSTM_GATE_SATURATION_OUTPUT_ZERO_POINT,
+                      0,
+                      NULL);
+    arm_vector_sum_s8(&output_hidden_kernel_sum[0],
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                      &lstm_gate_saturation_output_gate_hidden_weights[0],
+                      -LSTM_GATE_SATURATION_OUTPUT_ZERO_POINT,
+                      0,
+                      NULL);
 
-            a = CLAMP(a, NN_Q15_MAX, NN_Q15_MIN);
-            b = CLAMP(b, NN_Q15_MAX, NN_Q15_MIN);
+    // INPUT GATE
+    const cmsis_nn_lstm_gate gate_input = {LSTM_GATE_SATURATION_INPUT_GATE_INPUT_MULTIPLIER,
+                                           LSTM_GATE_SATURATION_INPUT_GATE_INPUT_SHIFT,
+                                           &lstm_gate_saturation_input_gate_input_weights[0],
+                                           &input_data_kernel_sum[0],
+                                           LSTM_GATE_SATURATION_INPUT_GATE_HIDDEN_MULTIPLIER,
+                                           LSTM_GATE_SATURATION_INPUT_GATE_HIDDEN_SHIFT,
+                                           &lstm_gate_saturation_input_gate_hidden_weights[0],
+                                           &input_hidden_kernel_sum[0],
+                                           &lstm_gate_saturation_input_gate_bias[0],
+                                           ARM_SIGMOID};
 
-            const int32_t expected = CLAMP(a + b, NN_Q15_MAX, NN_Q15_MIN);
+    // FORGET GATE
+    const cmsis_nn_lstm_gate gate_forget = {LSTM_GATE_SATURATION_FORGET_GATE_INPUT_MULTIPLIER,
+                                            LSTM_GATE_SATURATION_FORGET_GATE_INPUT_SHIFT,
+                                            &lstm_gate_saturation_forget_gate_input_weights[0],
+                                            &forget_data_kernel_sum[0],
+                                            LSTM_GATE_SATURATION_FORGET_GATE_HIDDEN_MULTIPLIER,
+                                            LSTM_GATE_SATURATION_FORGET_GATE_HIDDEN_SHIFT,
+                                            &lstm_gate_saturation_forget_gate_hidden_weights[0],
+                                            &forget_hidden_kernel_sum[0],
+                                            &lstm_gate_saturation_forget_gate_bias[0],
+                                            ARM_SIGMOID};
 
-            TEST_ASSERT_EQUAL(
-                ARM_CMSIS_NN_SUCCESS,
-                arm_nn_vec_mat_mul_result_acc_s8_s16(lhs, rhs, input_bias, dst, multiplier, shift, 1, rows, 1, 1));
+    // CELL GATE
+    const cmsis_nn_lstm_gate gate_cell = {LSTM_GATE_SATURATION_CELL_GATE_INPUT_MULTIPLIER,
+                                          LSTM_GATE_SATURATION_CELL_GATE_INPUT_SHIFT,
+                                          &lstm_gate_saturation_cell_gate_input_weights[0],
+                                          &cell_data_kernel_sum[0],
+                                          LSTM_GATE_SATURATION_CELL_GATE_HIDDEN_MULTIPLIER,
+                                          LSTM_GATE_SATURATION_CELL_GATE_HIDDEN_SHIFT,
+                                          &lstm_gate_saturation_cell_gate_hidden_weights[0],
+                                          &cell_hidden_kernel_sum[0],
+                                          &lstm_gate_saturation_cell_gate_bias[0],
+                                          ARM_TANH};
 
-            TEST_ASSERT_EQUAL(
-                ARM_CMSIS_NN_SUCCESS,
-                arm_nn_vec_mat_mul_result_acc_s8_s16(lhs, rhs, recurrent_bias, dst, multiplier, shift, 1, rows, 1, 1));
+    // OUTPUT GATE
+    const cmsis_nn_lstm_gate gate_output = {LSTM_GATE_SATURATION_OUTPUT_GATE_INPUT_MULTIPLIER,
+                                            LSTM_GATE_SATURATION_OUTPUT_GATE_INPUT_SHIFT,
+                                            &lstm_gate_saturation_output_gate_input_weights[0],
+                                            &output_data_kernel_sum[0],
+                                            LSTM_GATE_SATURATION_OUTPUT_GATE_HIDDEN_MULTIPLIER,
+                                            LSTM_GATE_SATURATION_OUTPUT_GATE_HIDDEN_SHIFT,
+                                            &lstm_gate_saturation_output_gate_hidden_weights[0],
+                                            &output_hidden_kernel_sum[0],
+                                            &lstm_gate_saturation_output_gate_bias[0],
+                                            ARM_SIGMOID};
 
-            for (int32_t i = 0; i < rows; ++i)
-            {
-                TEST_ASSERT_EQUAL_INT16(expected, dst[i]);
-            }
-        }
-    }
+    // LSTM DATA
+    const cmsis_nn_lstm_params params = {LSTM_GATE_SATURATION_TIME_MAJOR,
+                                         LSTM_GATE_SATURATION_BATCH_SIZE,
+                                         LSTM_GATE_SATURATION_TIME_STEPS,
+                                         LSTM_GATE_SATURATION_INPUT_SIZE,
+                                         LSTM_GATE_SATURATION_HIDDEN_SIZE,
+                                         LSTM_GATE_SATURATION_INPUT_ZERO_POINT,
+                                         LSTM_GATE_SATURATION_FORGET_TO_CELL_MULTIPLIER,
+                                         LSTM_GATE_SATURATION_FORGET_TO_CELL_SHIFT,
+                                         LSTM_GATE_SATURATION_INPUT_TO_CELL_MULTIPLIER,
+                                         LSTM_GATE_SATURATION_INPUT_TO_CELL_SHIFT,
+                                         LSTM_GATE_SATURATION_CELL_CLIP,
+                                         LSTM_GATE_SATURATION_CELL_SCALE_POWER,
+                                         LSTM_GATE_SATURATION_OUTPUT_MULTIPLIER,
+                                         LSTM_GATE_SATURATION_OUTPUT_SHIFT,
+                                         LSTM_GATE_SATURATION_OUTPUT_ZERO_POINT,
+                                         gate_forget,
+                                         gate_input,
+                                         gate_cell,
+                                         gate_output};
+
+    cmsis_nn_lstm_context buffers;
+    buffers.temp1 = buffer1;
+    buffers.temp2 = buffer2;
+    buffers.cell_state = buffer3;
+    buffers.hidden_state = NULL;
+
+    arm_cmsis_nn_status result =
+        arm_lstm_unidirectional_s8(lstm_gate_saturation_input_tensor, output, &params, &buffers);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
 }

@@ -550,6 +550,15 @@
          "input_size" : 6,
          "hidden_size" : 7,
          "json_template": "lstm_s16.json"
+        },
+        {"name" : "lstm_gate_saturation_s16",
+         "time_major" : false,
+         "batch_size" : 1,
+         "time_steps" : 9,
+         "input_size" : 6,
+         "hidden_size" : 7,
+         "json_template": "lstm_s16.json",
+         "weights_scale_factor" : 256
         }
     ]
 },
@@ -589,6 +598,15 @@
          "time_steps" : 2,
          "input_size" : 6,
          "hidden_size" : 7
+        },
+        {"name" : "lstm_gate_saturation",
+         "time_major" : false,
+         "batch_size" : 1,
+         "time_steps" : 10,
+         "input_size" : 22,
+         "hidden_size" : 11,
+         "weights_min" : -8,
+         "weights_max" : 8
         }
     ]
 },
