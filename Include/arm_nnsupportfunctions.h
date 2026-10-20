@@ -1242,8 +1242,9 @@ __STATIC_FORCEINLINE void arm_memset_s8(int8_t *dst, const int8_t val, uint32_t 
  */
 __STATIC_FORCEINLINE void read_and_pad_s4(const int8_t *source, int32_t *out1, int32_t *out2)
 {
-    int16_t in = arm_nn_read_s8x2(source);
-    int32_t inA = (in & 0x00FF) | ((in & 0xFF00) << 8);
+    uint16_t in;
+    memcpy(&in, source, sizeof(in));
+    int32_t inA = in | (in << 8);
 
     *out1 = SXTB16_RORn(__sxtb16(inA << 4), 4);
     *out2 = SXTB16_RORn(__sxtb16(inA), 4);
