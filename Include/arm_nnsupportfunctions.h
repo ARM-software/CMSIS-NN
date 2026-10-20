@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        15 June 2026
- * $Revision:    V.22.11.0
+ * $Date:        17 October 2026
+ * $Revision:    V.22.11.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1612,7 +1612,9 @@ __STATIC_FORCEINLINE int32_t arm_nn_doubling_high_mult_no_sat(int32_t m1, int32_
  * @brief           Rounding divide by power of two.
  * @param[in]       dividend - Dividend
  * @param[in]       exponent - Divisor = power(2, exponent)
- *                             Range: [0, 31]
+ *                             C implementation: [0, 31].
+ *                             With CMSIS_NN_USE_REQUANTIZE_INLINE_ASSEMBLY: [1, 31];
+ *                             callers must handle zero separately.
  * @return          Rounded result of division. Midpoint is rounded away from zero.
  *
  */
