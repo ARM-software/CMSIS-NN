@@ -23,7 +23,7 @@ on:
       - ".github/workflows/clang-format.yml"
       - "Include/**"
       - "Source/**"
-      - "Tests/UnitTest/Corstone-300/**"
+      - "Tests/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -54,7 +54,7 @@ jobs:
               -- \
               Include \
               Source \
-              Tests/UnitTest/Corstone-300 |
+              Tests |
             grep -E '\.(c|cc|cpp|h|hpp)$' || true
           )
 

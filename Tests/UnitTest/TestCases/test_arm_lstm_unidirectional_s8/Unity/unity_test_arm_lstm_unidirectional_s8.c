@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022, 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022, 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -47,5 +47,8 @@ void tearDown(void) {}
 void test_lstm_1_arm_lstm_unidirectional_s8(void) { lstm_1(); }
 void test_lstm_2_arm_lstm_unidirectional_s8(void) { lstm_2(); }
 void test_lstm_one_time_step_arm_lstm_unidirectional_s8(void) { lstm_one_time_step(); }
-void test_lstm_stateful_batch_major_multibatch_arm_lstm_unidirectional_s8(void) { lstm_stateful_batch_major_multibatch(); }
+void test_lstm_stateful_batch_major_multibatch_arm_lstm_unidirectional_s8(void)
+{
+    lstm_stateful_batch_major_multibatch();
+}
 void test_lstm_gate_saturation_arm_lstm_unidirectional_s8(void) { lstm_gate_saturation(); }

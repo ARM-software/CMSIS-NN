@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -505,10 +505,12 @@ void lstm_one_time_step(void)
 
 void lstm_stateful_batch_major_multibatch(void)
 {
-    int8_t output[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE] = {0};
+    int8_t output[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_TIME_STEPS *
+                  LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE] = {0};
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
     const int8_t *output_ref = &lstm_stateful_batch_major_multibatch_output[0];
-    const int32_t output_ref_size = LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE;
+    const int32_t output_ref_size = LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE *
+        LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE;
 
     int32_t input_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE];
     int32_t forget_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE];
@@ -648,7 +650,8 @@ void lstm_stateful_batch_major_multibatch(void)
                                          gate_output};
 
     // Allocate hidden state buffer and initialize to zero point (representing real 0.0)
-    int8_t hidden_state[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE];
+    int8_t hidden_state[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_BATCH_SIZE *
+                        LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_HIDDEN_SIZE];
     memset(hidden_state, LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_OUTPUT_ZERO_POINT, sizeof(hidden_state));
 
     memset(buffer3, 0, sizeof(buffer3));
@@ -659,7 +662,8 @@ void lstm_stateful_batch_major_multibatch(void)
     buffers.cell_state = buffer3;
     buffers.hidden_state = hidden_state;
 
-    arm_cmsis_nn_status result = arm_lstm_unidirectional_s8(lstm_stateful_batch_major_multibatch_input_tensor, output, &params, &buffers);
+    arm_cmsis_nn_status result =
+        arm_lstm_unidirectional_s8(lstm_stateful_batch_major_multibatch_input_tensor, output, &params, &buffers);
 
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
