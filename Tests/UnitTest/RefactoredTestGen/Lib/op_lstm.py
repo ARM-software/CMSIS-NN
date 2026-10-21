@@ -64,10 +64,14 @@ class Op_lstm(Lib.op_utils.Op_type):
 
         model = keras.Model(input_layer, lstm_layer, name="LSTM")
 
-        input_weights = Lib.op_utils.generate_tf_tensor(shapes["all_input_weights"], -1, 1, decimals=8)
+        # Optional real-valued weight range, applied to both the input and the recurrent kernels.
+        w_min = params.get("weights_min", -1)
+        w_max = params.get("weights_max", 1)
+
+        input_weights = Lib.op_utils.generate_tf_tensor(shapes["all_input_weights"], w_min, w_max, decimals=8)
         model.layers[1 + time_major_offset].weights[0].assign(input_weights)
 
-        hidden_weights = Lib.op_utils.generate_tf_tensor(shapes["all_hidden_weights"], -1, 1, decimals=8)
+        hidden_weights = Lib.op_utils.generate_tf_tensor(shapes["all_hidden_weights"], w_min, w_max, decimals=8)
         model.layers[1 + time_major_offset].weights[1].assign(hidden_weights)
 
         biases = Lib.op_utils.generate_tf_tensor(shapes["all_bias"], -1, 1, decimals=8) * 0
@@ -153,9 +157,13 @@ class Op_lstm(Lib.op_utils.Op_type):
         effective_scales["input_to_cell"] = pow(2, -15) * pow(2, -15) / scales["cell_scale"]
         effective_scales["output"] = pow(2, -15) * pow(2, -15) / scales["output_scale"]
 
+        # Optional factor applied to all weight scales, e.g. to let the gate FC results exceed the int16 range
+        weights_scale_factor = params.get("weights_scale_factor", 1)
+
         #Help-function to generate a scale, and calculating corresponding effective scale
         def create_scales(name, input_scale1):
-            scales[name + "_scale"] = np.round(np.random.rand(1) * (maxval - minval) + minval, 6)[0]
+            scale = np.round(np.random.rand(1) * (maxval - minval) + minval, 6)[0]
+            scales[name + "_scale"] = scale * weights_scale_factor
             effective_scales[name] = input_scale1 * scales[name + "_scale"] / pow(2, -12)
 
         create_scales("output_gate_hidden", scales["output_scale"])

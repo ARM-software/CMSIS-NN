@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mul_result_acc_s16
  * Description:  s16 vector by matrix (transposed) multiplication
  *
- * $Date:        26 March 2023
- * $Revision:    V.1.0.0
+ * $Date:        09 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -59,6 +59,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
     int32_t reduced_multiplier = REDUCE_MULTIPLIER(dst_multiplier);
 
+    // Saturate each requantized result to int16 before accumulating it into dst. This matches TFLM, where the
+    // input and recurrent FC outputs are clamped separately before the saturating add.
     for (int batch = 0; batch < batches; batch++)
     {
 
@@ -138,6 +140,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             int32_t tmp;
             tmp = arm_nn_requantize_s64(result_64_0, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -145,6 +148,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             tmp = 0;
             tmp = arm_nn_requantize_s64(result_64_1, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -152,6 +156,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             tmp = 0;
             tmp = arm_nn_requantize_s64(result_64_2, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -159,6 +164,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             tmp = 0;
             tmp = arm_nn_requantize_s64(result_64_3, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -204,6 +210,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             int32_t tmp = 0;
             tmp = arm_nn_requantize_s64(result_64, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -268,12 +275,14 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
             int32_t tmp;
 
             tmp = arm_nn_requantize_s64(acc_64_0, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
             *dst++ = (int16_t)tmp;
 
             tmp = arm_nn_requantize_s64(acc_64_1, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -315,6 +324,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             int32_t tmp;
             tmp = arm_nn_requantize_s64(acc_64_0, reduced_multiplier, dst_shift);
+            tmp = CLAMP(tmp, NN_Q15_MAX, NN_Q15_MIN);
             tmp += (int64_t)*dst;
             tmp = MAX(tmp, NN_Q15_MIN);
             tmp = MIN(tmp, NN_Q15_MAX);
@@ -341,6 +351,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s16(const int16_t *lhs,
 
             // Quantize down
             result = arm_nn_requantize_s64(result, reduced_multiplier, dst_shift);
+            result = CLAMP(result, NN_Q15_MAX, NN_Q15_MIN);
             result += (int64_t)*dst;
 
             // Clamp the result

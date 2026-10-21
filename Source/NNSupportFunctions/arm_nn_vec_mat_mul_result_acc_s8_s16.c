@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mul_result_acc_s8_s16.c
  * Description:  Multiplies a matrix by a vector and accumulate with output.
  *
- * $Date:        19 January 2024
- * $Revision:    V.2.0.0
+ * $Date:        09 October 2026
+ * $Revision:    V.2.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -51,7 +51,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
                                                          const int32_t batches,
                                                          const int32_t batch_offset)
 {
-
+    // Saturate each requantized result to int16 before accumulating it into dst. This matches TFLM, where the
+    // input and recurrent FC outputs are clamped separately before the saturating add.
     for (int batch = 0; batch < batches; batch++)
     {
         const int8_t *rhs_ptr = &rhs[0];
@@ -109,6 +110,8 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
             int32x4_t acc = {acc_0, acc_1, acc_2, acc_3};
 
             acc = arm_requantize_mve(acc, dst_multiplier, dst_shift);
+            acc = vmaxq_s32(acc, vdupq_n_s32(NN_Q15_MIN));
+            acc = vminq_s32(acc, vdupq_n_s32(NN_Q15_MAX));
             acc = vaddq_s32(acc, vldrhq_s32(dst));
 
             acc = vmaxq_s32(acc, vdupq_n_s32(NN_Q15_MIN));
@@ -142,6 +145,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
             rhs_ptr += rhs_cols;
 
             acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = CLAMP(acc_0, NN_Q15_MAX, NN_Q15_MIN);
             acc_0 += *dst;
 
             // Clamp the result
@@ -197,7 +201,9 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
             }
 
             acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = CLAMP(acc_0, NN_Q15_MAX, NN_Q15_MIN);
             acc_1 = arm_nn_requantize(acc_1, dst_multiplier, dst_shift);
+            acc_1 = CLAMP(acc_1, NN_Q15_MAX, NN_Q15_MIN);
 
             // Add offset
             acc_0 += *dst;
@@ -244,6 +250,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
             }
 
             acc_0 = arm_nn_requantize(acc_0, dst_multiplier, dst_shift);
+            acc_0 = CLAMP(acc_0, NN_Q15_MAX, NN_Q15_MIN);
 
             // Accumulate
             acc_0 += dst[0];
@@ -289,8 +296,11 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
             }
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
+            res00 = CLAMP(res00, NN_Q15_MAX, NN_Q15_MIN);
             res01 = arm_nn_requantize(res01, dst_multiplier, dst_shift);
+            res01 = CLAMP(res01, NN_Q15_MAX, NN_Q15_MIN);
             res02 = arm_nn_requantize(res02, dst_multiplier, dst_shift);
+            res02 = CLAMP(res02, NN_Q15_MAX, NN_Q15_MIN);
 
             // Add offset
             res00 += (int32_t)*dst;
@@ -328,6 +338,7 @@ arm_cmsis_nn_status arm_nn_vec_mat_mul_result_acc_s8_s16(const int8_t *lhs,
 
             // Quantize down
             res00 = arm_nn_requantize(res00, dst_multiplier, dst_shift);
+            res00 = CLAMP(res00, NN_Q15_MAX, NN_Q15_MIN);
 
             // Accumulate
             res00 += (int32_t)dst[0];
