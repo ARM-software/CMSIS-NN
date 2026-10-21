@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -482,10 +482,13 @@ void lstm_one_time_step_s16(void)
 
 void lstm_stateful_batch_major_multibatch_s16(void)
 {
-    int16_t output[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
+    int16_t output[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE *
+                   LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS *
+                   LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
     const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
     const int16_t *output_ref = &lstm_stateful_batch_major_multibatch_s16_output[0];
-    const int32_t output_ref_size = LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE;
+    const int32_t output_ref_size = LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE *
+        LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_TIME_STEPS * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE;
 
     int64_t input_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
     int64_t forget_data_kernel_sum[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE];
@@ -617,7 +620,8 @@ void lstm_stateful_batch_major_multibatch_s16(void)
                                          gate_output};
 
     // Allocate zero-initialized hidden state buffer to test the non-null path!
-    int16_t hidden_state[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE * LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
+    int16_t hidden_state[LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_BATCH_SIZE *
+                         LSTM_STATEFUL_BATCH_MAJOR_MULTIBATCH_S16_HIDDEN_SIZE] = {0};
 
     memset(buffer3, 0, sizeof(buffer3));
 
