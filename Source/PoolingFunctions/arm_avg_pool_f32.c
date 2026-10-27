@@ -21,8 +21,8 @@
  * Title:        arm_avg_pool_f32.c
  * Description:  Avg pooling function implementations (float32)
  *
- * $Date:        2 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F32
 
 /**
  *  @ingroup Public
@@ -95,7 +97,7 @@ arm_cmsis_nn_status arm_avg_pool_f32(const cmsis_nn_context *ctx,
                 const int32_t kernel_x_end = MIN(kernel_x, input_x - base_idx_x);
                 const int32_t count = (kernel_y_end - ker_y_start) * (kernel_x_end - ker_x_start);
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
                 const float32x4_t v_act_min = vdupq_n_f32(act_min);
                 const float32x4_t v_act_max = vdupq_n_f32(act_max);
                 const float32_t inv_count = (count > 0) ? (1.0f / (float32_t)count) : 0.0f;
@@ -115,7 +117,7 @@ arm_cmsis_nn_status arm_avg_pool_f32(const cmsis_nn_context *ctx,
                     v = arm_nn_clamp_mve_f32(v, v_act_min, v_act_max);
                     vst1q_p(dst + (i_y * output_x + i_x) * channel_in + c, v, p);
                 }
-#else
+    #else
                 for (int32_t c = 0; c < channel_in; ++c)
                 {
                     float32_t sum = 0.0f;
@@ -130,7 +132,7 @@ arm_cmsis_nn_status arm_avg_pool_f32(const cmsis_nn_context *ctx,
                     float32_t v = (count > 0) ? (sum / (float32_t)count) : 0.0f;
                     dst[(i_y * output_x + i_x) * channel_in + c] = CLAMP(v, act_max, act_min);
                 }
-#endif
+    #endif
             }
         }
 
@@ -156,3 +158,5 @@ arm_cmsis_nn_status arm_avg_pool_nhwc_f32(const cmsis_nn_context *ctx,
 /**
  * @} end of Pooling group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

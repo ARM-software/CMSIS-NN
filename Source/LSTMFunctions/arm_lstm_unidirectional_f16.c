@@ -21,8 +21,8 @@
  * Title:        arm_lstm_unidirectional_f16.c
  * Description:  Unidirectional LSTM (float16)
  *
- * $Date:        26 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture with FP16 support
  *
@@ -30,6 +30,8 @@
 
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup Public
@@ -95,3 +97,5 @@ arm_cmsis_nn_status arm_lstm_unidirectional_f16(const float16_t *input,
 }
 
 /** @} */
+
+#endif /* ARM_NN_ENABLE_F16 */

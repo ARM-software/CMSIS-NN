@@ -21,8 +21,8 @@
  * Title:        arm_max_pool_f16.c
  * Description:  Max pooling function implementations (float16)
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  *  @ingroup Public
@@ -89,9 +91,9 @@ arm_cmsis_nn_status arm_max_pool_f16(const cmsis_nn_context *ctx,
     {
         bool use_specialized = (input_y == 1 && output_y == 1 && kernel_y == 1 && stride_y == 1 && pad_y == 0 &&
                                 kernel_x == 2 && stride_x == 2 && pad_x == 0);
-#ifdef NN_DISABLE_SPECIALIZATION
+    #ifdef NN_DISABLE_SPECIALIZATION
         use_specialized = false;
-#endif
+    #endif
         if (use_specialized)
         {
             if (act_min <= f16_finite_lowest && act_max >= f16_finite_max)
@@ -112,9 +114,9 @@ arm_cmsis_nn_status arm_max_pool_f16(const cmsis_nn_context *ctx,
         use_specialized =
             (input_y == 1 && output_y == 1 && kernel_y == 1 && stride_y == 1 && pad_y == 0 && kernel_x == 3 &&
              stride_x == 3 && pad_x == 0 && act_min <= f16_finite_lowest && act_max >= f16_finite_max);
-#ifdef NN_DISABLE_SPECIALIZATION
+    #ifdef NN_DISABLE_SPECIALIZATION
         use_specialized = false;
-#endif
+    #endif
         if (use_specialized)
         {
             arm_nn_maxpool1d_k3s3_nhwc_f16(src, channel_in, input_x, dst, output_x);
@@ -133,7 +135,7 @@ arm_cmsis_nn_status arm_max_pool_f16(const cmsis_nn_context *ctx,
                 const int32_t kernel_y_end = MIN(kernel_y, input_y - base_idx_y);
                 const int32_t kernel_x_end = MIN(kernel_x, input_x - base_idx_x);
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
                 const float16x8_t v_act_min = vdupq_n_f16(act_min);
                 const float16x8_t v_act_max = vdupq_n_f16(act_max);
                 for (int32_t c = 0; c < channel_in; c += 8)
@@ -153,7 +155,7 @@ arm_cmsis_nn_status arm_max_pool_f16(const cmsis_nn_context *ctx,
                     v_max = arm_nn_clamp_mve_f16(v_max, v_act_min, v_act_max);
                     vst1q_p(dst + (i_y * output_x + i_x) * channel_in + c, v_max, p);
                 }
-#else
+    #else
                 for (int32_t c = 0; c < channel_in; ++c)
                 {
                     _Float16 max_val = f16_finite_lowest;
@@ -169,7 +171,7 @@ arm_cmsis_nn_status arm_max_pool_f16(const cmsis_nn_context *ctx,
                     dst[(i_y * output_x + i_x) * channel_in + c] =
                         arm_nn_clamp_scalar_f16((float16_t)max_val, (float16_t)act_min, (float16_t)act_max);
                 }
-#endif
+    #endif
             }
         }
 
@@ -195,3 +197,5 @@ arm_cmsis_nn_status arm_max_pool_nhwc_f16(const cmsis_nn_context *ctx,
 /**
  * @} end of Pooling group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

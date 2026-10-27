@@ -21,13 +21,16 @@
  * Title:        arm_minimum_f16.c
  * Description:  Elementwise minimum for float16 tensors
  *
- * $Date:        19 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
-#include "Internal/arm_minmax_f16_common.h"
+#include "Internal/arm_nn_config.h"
+#if ARM_NN_ENABLE_F16
+
+    #include "Internal/arm_minmax_f16_common.h"
 
 /**
  * @ingroup Public
@@ -52,3 +55,5 @@ arm_cmsis_nn_status arm_minimum_f16(const cmsis_nn_context *ctx,
 /**
  * @} end of groupElementwise group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

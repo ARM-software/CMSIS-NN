@@ -21,35 +21,39 @@
  * Title:        arm_depthwise_conv_f16.c
  * Description:  Convolution: depthwise (float16)
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
-#include "Internal/arm_depthwise_conv_opt_common.h"
-#include "Internal/arm_depthwise_conv_opt_f16.h"
-#include "Internal/arm_nn_activation_flt.h"
-#include "arm_nnfunctions.h"
-#include "arm_nnsupportfunctions.h"
+#include "Internal/arm_nn_config.h"
 
-/**
- * @ingroup Public
- */
+#if ARM_NN_ENABLE_F16
 
-/**
- * @addtogroup NNConv
- * @{
- */
+    #include "Internal/arm_depthwise_conv_opt_common.h"
+    #include "Internal/arm_depthwise_conv_opt_f16.h"
+    #include "Internal/arm_nn_activation_flt.h"
+    #include "arm_nnfunctions.h"
+    #include "arm_nnsupportfunctions.h"
 
-/* Number of packed output rows processed per depthwise NT-T tile. */
-#define ARM_NN_DW_NT_T_F16_TILE_ROWS (4)
+    /**
+     * @ingroup Public
+     */
+
+    /**
+     * @addtogroup NNConv
+     * @{
+     */
+
+    /* Number of packed output rows processed per depthwise NT-T tile. */
+    #define ARM_NN_DW_NT_T_F16_TILE_ROWS (4)
 
 __STATIC_INLINE void
 arm_depthwise_accumulate_vec_f16(float16_t *acc, const float16_t *input, const float16_t *kernel, int32_t channels)
 {
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     for (int32_t c = 0; c < channels; c += 8)
     {
         const mve_pred16_t p = vctp16q((uint32_t)(channels - c));
@@ -57,13 +61,13 @@ arm_depthwise_accumulate_vec_f16(float16_t *acc, const float16_t *input, const f
         vacc = vfmaq(vacc, vld1q_z(input + c, p), vld1q_z(kernel + c, p));
         vst1q_p(acc + c, vacc, p);
     }
-#else
+    #else
     for (int32_t c = 0; c < channels; ++c)
     {
         const _Float16 sum = (_Float16)acc[c] + (_Float16)input[c] * (_Float16)kernel[c];
         acc[c] = (float16_t)sum;
     }
-#endif
+    #endif
 }
 
 static void arm_depthwise_conv_nhwc_fast_chmult1_kc_f16(const float16_t *input,
@@ -246,7 +250,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_fast_chmult1_kc_nt_t_f16(cons
     return ARM_CMSIS_NN_SUCCESS;
 }
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
 __STATIC_INLINE bool arm_depthwise_conv_nhwc_convert_to_conv_f16(const cmsis_nn_dw_conv_params_f16 *dw_conv_params,
                                                                  const cmsis_nn_dims *input_dims,
                                                                  const cmsis_nn_dims *output_dims)
@@ -466,7 +470,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_to_conv_f16(const cmsis_nn_co
     return arm_depthwise_conv_nhwc_to_conv_packed_f16(
         &conv_ctx, dw_conv_params, input_dims, input, filter_dims, conv_kernel, bias, output_dims, output);
 }
-#endif
+    #endif
 
 static void arm_depthwise_conv_f16_generic(const float16_t *input,
                                            const int32_t input_batches,
@@ -618,7 +622,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_dispatch_f16(const cmsis_nn_c
                                                                 float16_t *output,
                                                                 arm_nn_dw_kernel_layout_f16 kernel_layout)
 {
-#ifndef NN_DISABLE_SPECIALIZATION
+    #ifndef NN_DISABLE_SPECIALIZATION
     /* First try exact-shape NHWC specializations such as 1D-k3, 2x5, and 3x3 kernels. */
     ARM_DW_DISPATCH(arm_dw_spec_nhwc_f16,
                     ARM_DW_ARRAY_SIZE(arm_dw_spec_nhwc_f16),
@@ -633,7 +637,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_dispatch_f16(const cmsis_nn_c
                     output_dims,
                     output,
                     kernel_layout);
-#endif
+    #endif
 
     /* Then try the broader ch_mult=1 fast NHWC routes before falling back to the generic kernel. */
     if (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1)
@@ -682,7 +686,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_dispatch_f16(const cmsis_nn_c
         return ARM_CMSIS_NN_SUCCESS;
     }
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     /* For one-input-channel cases on MVE, reusing the float convolution wrapper can be faster. */
     if (arm_depthwise_conv_nhwc_convert_to_conv_f16(dw_conv_params, input_dims, output_dims))
     {
@@ -702,7 +706,7 @@ static arm_cmsis_nn_status arm_depthwise_conv_nhwc_dispatch_f16(const cmsis_nn_c
             return conv_status;
         }
     }
-#endif
+    #endif
 
     /* Generic NHWC fallback for remaining channel-multiplier, dilation, or kernel-layout cases. */
     arm_depthwise_conv_f16_generic(input,
@@ -833,3 +837,5 @@ arm_cmsis_nn_status arm_depthwise_conv_wrapper_f16(const cmsis_nn_context *ctx,
 /**
  * @} end of NNConv group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

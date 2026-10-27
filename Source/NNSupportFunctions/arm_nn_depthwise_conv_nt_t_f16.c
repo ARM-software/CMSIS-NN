@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_f16.c
  * Description:  Support: depthwise NT_T kernel for f16
  *
- * $Date:        09 Mar 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,8 @@
 
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup groupSupport
@@ -58,7 +60,7 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_f16(const float16_t *__RESTRICT l
     }
 
     int32_t c = 0;
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     const float16x8_t v_act_min = vdupq_n_f16(activation_min);
     const float16x8_t v_act_max = vdupq_n_f16(activation_max);
     for (; c + 8 <= total_ch; c += 8)
@@ -218,7 +220,7 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_f16(const float16_t *__RESTRICT l
         }
         c = total_ch;
     }
-#endif
+    #endif
 
     for (int32_t row = 0; row < lhs_rows; ++row)
     {
@@ -241,3 +243,5 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_f16(const float16_t *__RESTRICT l
 /**
  * @} end of supportConvolution group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

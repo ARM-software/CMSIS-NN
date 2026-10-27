@@ -21,8 +21,8 @@
  * Title:        arm_svdf_f32.c
  * Description:  SVDF layer (float32)
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F32
 
 /**
  * @ingroup Public
@@ -50,7 +52,7 @@ __STATIC_INLINE float32_t arm_nn_svdf_dot_f32(const float32_t *lhs, const float3
 {
     float32_t sum = 0.0f;
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     float32x4_t v_acc = vdupq_n_f32(0.0f);
     int32_t i = 0;
     for (; i + 4 <= count; i += 4)
@@ -62,12 +64,12 @@ __STATIC_INLINE float32_t arm_nn_svdf_dot_f32(const float32_t *lhs, const float3
     {
         sum += lhs[i] * rhs[i];
     }
-#else
+    #else
     for (int32_t i = 0; i < count; ++i)
     {
         sum += lhs[i] * rhs[i];
     }
-#endif
+    #endif
 
     return sum;
 }
@@ -163,7 +165,7 @@ arm_cmsis_nn_status arm_svdf_f32(const cmsis_nn_context *ctx,
         {
             if (unit_count == feature_batches)
             {
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
                 for (int32_t j = 0; j < feature_batches; j += 4)
                 {
                     const mve_pred16_t p = vctp32q((uint32_t)(feature_batches - j));
@@ -171,12 +173,12 @@ arm_cmsis_nn_status arm_svdf_f32(const cmsis_nn_context *ctx,
                     const float32x4_t v_b = vld1q_z(bias_data + j, p);
                     vst1q_p(out_b + j, vaddq(v_a, v_b), p);
                 }
-#else
+    #else
                 for (int32_t j = 0; j < feature_batches; j++)
                 {
                     out_b[j] = ptr_a[j] + bias_data[j];
                 }
-#endif
+    #endif
             }
             else
             {
@@ -206,7 +208,7 @@ arm_cmsis_nn_status arm_svdf_f32(const cmsis_nn_context *ctx,
     }
 
     const int32_t output_count = input_batches * unit_count;
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     const float32x4_t v_act_min = vdupq_n_f32(svdf_params->output_activation.min);
     const float32x4_t v_act_max = vdupq_n_f32(svdf_params->output_activation.max);
     int32_t i = 0;
@@ -217,14 +219,14 @@ arm_cmsis_nn_status arm_svdf_f32(const cmsis_nn_context *ctx,
         v = arm_nn_clamp_mve_f32(v, v_act_min, v_act_max);
         vst1q_p(output_data + i, v, p);
     }
-#else
+    #else
     for (int32_t i = 0; i < output_count; i++)
     {
         float32_t v = buffer_b[i];
         v = clamp_and_activate(v, &svdf_params->output_activation);
         output_data[i] = v;
     }
-#endif
+    #endif
 
     return ARM_CMSIS_NN_SUCCESS;
 }
@@ -232,3 +234,5 @@ arm_cmsis_nn_status arm_svdf_f32(const cmsis_nn_context *ctx,
 /**
  * @} end of SVDF group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

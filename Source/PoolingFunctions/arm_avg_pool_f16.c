@@ -21,8 +21,8 @@
  * Title:        arm_avg_pool_f16.c
  * Description:  Avg pooling function implementations (float16)
  *
- * $Date:        26 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  *  @ingroup Public
@@ -95,7 +97,7 @@ arm_cmsis_nn_status arm_avg_pool_f16(const cmsis_nn_context *ctx,
                 const int32_t kernel_x_end = MIN(kernel_x, input_x - base_idx_x);
                 const int32_t count = (kernel_y_end - ker_y_start) * (kernel_x_end - ker_x_start);
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
                 const float16x8_t v_act_min = vdupq_n_f16(act_min);
                 const float16x8_t v_act_max = vdupq_n_f16(act_max);
                 const float16_t inv_count = (count > 0) ? (float16_t)(1.0f / (float32_t)count) : (float16_t)0.0f;
@@ -118,7 +120,7 @@ arm_cmsis_nn_status arm_avg_pool_f16(const cmsis_nn_context *ctx,
                     v_avg = arm_nn_clamp_mve_f16(v_avg, v_act_min, v_act_max);
                     vst1q_p(dst + (i_y * output_x + i_x) * channel_in + c, v_avg, p);
                 }
-#else
+    #else
                 for (int32_t c = 0; c < channel_in; ++c)
                 {
                     float32_t sum = 0.0f;
@@ -133,7 +135,7 @@ arm_cmsis_nn_status arm_avg_pool_f16(const cmsis_nn_context *ctx,
                     const float16_t v = (count > 0) ? (float16_t)(sum / (float32_t)count) : (float16_t)0.0f;
                     dst[(i_y * output_x + i_x) * channel_in + c] = arm_nn_clamp_scalar_f16(v, act_min, act_max);
                 }
-#endif
+    #endif
             }
         }
 
@@ -159,3 +161,5 @@ arm_cmsis_nn_status arm_avg_pool_nhwc_f16(const cmsis_nn_context *ctx,
 /**
  * @} end of Pooling group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

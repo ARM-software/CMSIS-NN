@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv3x3_f32.c
  * Description:  Support: depthwise conv 3x3 kernels for f32
  *
- * $Date:        30 Mar 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,8 @@
 
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F32
 
 /**
  * @ingroup groupSupport
@@ -42,7 +44,7 @@
 
 __STATIC_INLINE void depthwise_init_vec_f32(float32_t *dst, const float32_t *bias, int32_t channels)
 {
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     if (bias)
     {
         for (int32_t c = 0; c < channels; c += 4)
@@ -60,7 +62,7 @@ __STATIC_INLINE void depthwise_init_vec_f32(float32_t *dst, const float32_t *bia
             vst1q_p(dst + c, vzero, p);
         }
     }
-#else
+    #else
     if (bias)
     {
         for (int32_t c = 0; c < channels; ++c)
@@ -75,13 +77,13 @@ __STATIC_INLINE void depthwise_init_vec_f32(float32_t *dst, const float32_t *bia
             dst[c] = 0.0f;
         }
     }
-#endif
+    #endif
 }
 
 __STATIC_INLINE void
 depthwise_accumulate_vec_f32(float32_t *acc, const float32_t *input, const float32_t *kernel, int32_t channels)
 {
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     for (int32_t c = 0; c < channels; c += 4)
     {
         const mve_pred16_t p = vctp32q((uint32_t)(channels - c));
@@ -89,12 +91,12 @@ depthwise_accumulate_vec_f32(float32_t *acc, const float32_t *input, const float
         vacc = vfmaq(vacc, vld1q_z(input + c, p), vld1q_z(kernel + c, p));
         vst1q_p(acc + c, vacc, p);
     }
-#else
+    #else
     for (int32_t c = 0; c < channels; ++c)
     {
         acc[c] += input[c] * kernel[c];
     }
-#endif
+    #endif
 }
 
 __STATIC_INLINE void depthwise_clamp_vec_f32(float32_t *data, int32_t channels, float32_t act_min, float32_t act_max)
@@ -319,3 +321,5 @@ void arm_nn_depthwise_conv3x3_nhwc_f32(const float32_t *__RESTRICT x_nhwc,
 /**
  * @} end of supportConvolution group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

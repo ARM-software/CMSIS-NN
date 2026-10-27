@@ -21,13 +21,15 @@
  * Title:        arm_elementwise_mul_f32.c
  * Description:  Elementwise multiply for float32 tensors
  *
- * $Date:        19 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
 #include "Internal/arm_nn_activation_flt.h"
+
+#if ARM_NN_ENABLE_F32
 
 /**
  * @ingroup Public
@@ -50,7 +52,7 @@ arm_cmsis_nn_status arm_elementwise_mul_f32(const float32_t *input_1_vect,
         return ARM_CMSIS_NN_ARG_ERROR;
     }
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     int32_t i = 0;
     const float32x4_t vmin = vdupq_n_f32(out_activation_min);
     const float32x4_t vmax = vdupq_n_f32(out_activation_max);
@@ -63,16 +65,18 @@ arm_cmsis_nn_status arm_elementwise_mul_f32(const float32_t *input_1_vect,
         vr = arm_nn_clamp_mve_f32(vr, vmin, vmax);
         vstrwq_p(&output[i], vr, p);
     }
-#else
+    #else
     for (int32_t i = 0; i < block_size; ++i)
     {
         const float32_t v = input_1_vect[i] * input_2_vect[i];
         output[i] = CLAMP(v, out_activation_max, out_activation_min);
     }
-#endif
+    #endif
 
     return ARM_CMSIS_NN_SUCCESS;
 }
 /**
  * @} end of groupElementwise group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

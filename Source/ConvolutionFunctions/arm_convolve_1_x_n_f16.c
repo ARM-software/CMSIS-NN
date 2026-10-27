@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_f16.c
  * Description:  Dedicated float16 1xN convolution
  *
- * $Date:        31 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup Public
@@ -41,18 +43,18 @@
  * @{
  */
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
-    #define ARM_NN_CONV_1XN_F16_MVE_BLOCK_ROWS (8)
-    #define ARM_NN_CONV_1XN_F16_MVE_DUAL_BLOCK_ROWS (16)
-    #define ARM_NN_CONV_1XN_F16_MVE_SUB_BLOCK_ROWS (4)
-    #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_8)
-    #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS_DUAL ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_16)
-    #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS_SUB ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_4)
-#endif
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+        #define ARM_NN_CONV_1XN_F16_MVE_BLOCK_ROWS (8)
+        #define ARM_NN_CONV_1XN_F16_MVE_DUAL_BLOCK_ROWS (16)
+        #define ARM_NN_CONV_1XN_F16_MVE_SUB_BLOCK_ROWS (4)
+        #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_8)
+        #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS_DUAL ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_16)
+        #define ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS_SUB ((int32_t)ARM_NN_MVE_F16_MAX_GATHER_STRIDE_4)
+    #endif
 
 __STATIC_INLINE float16_t arm_convolve_1_x_n_dot_f16(const float16_t *lhs, const float16_t *rhs, int32_t len)
 {
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     float16x8_t vacc = vdupq_n_f16((float16_t)0.0f);
     for (int32_t i = 0; i < len; i += 8)
     {
@@ -60,14 +62,14 @@ __STATIC_INLINE float16_t arm_convolve_1_x_n_dot_f16(const float16_t *lhs, const
         vacc = vfmaq_m(vacc, vld1q_z(lhs + i, p), vld1q_z(rhs + i, p), p);
     }
     return arm_nn_vec_reduce_add_f16(vacc);
-#else
+    #else
     _Float16 acc = (_Float16)0.0f;
     for (int32_t i = 0; i < len; ++i)
     {
         acc += (_Float16)lhs[i] * (_Float16)rhs[i];
     }
     return (float16_t)acc;
-#endif
+    #endif
 }
 
 __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f16(const float16_t *__RESTRICT lhs,
@@ -93,7 +95,7 @@ __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f16
         const float16_t *lhs_row = lhs + (size_t)r * lhs_cols_offset;
         float16_t *dst_row = dst + (size_t)r * row_address_offset;
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
         int32_t c = 0;
         if (rhs_cols <= ARM_NN_CONV_1XN_F16_MVE_MAX_RHS_COLS)
         {
@@ -167,9 +169,9 @@ __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f16
                 }
             }
         }
-#else
+    #else
         int32_t c = 0;
-#endif
+    #endif
 
         for (; c < rhs_rows; ++c)
         {
@@ -421,3 +423,5 @@ arm_cmsis_nn_status arm_convolve_1_x_n_f16(const cmsis_nn_context *ctx,
 }
 
 /** @} end of NNConv group */
+
+#endif /* ARM_NN_ENABLE_F16 */
