@@ -22,7 +22,7 @@
  * Description:  Query storage for packed s8 convolution weights
  *
  * $Date:        28 October 2026
- * $Revision:    V.1.0.1
+ * $Revision:    V.1.0.0
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"

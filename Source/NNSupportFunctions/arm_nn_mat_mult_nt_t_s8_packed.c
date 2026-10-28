@@ -22,7 +22,7 @@
  * Description:  MVE matrix multiplication with packed s8 weights
  *
  * $Date:        28 October 2026
- * $Revision:    V.1.0.1
+ * $Revision:    V.1.0.0
  * -------------------------------------------------------------------- */
 
 #include "arm_nnsupportfunctions.h"
