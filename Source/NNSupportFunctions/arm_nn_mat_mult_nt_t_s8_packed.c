@@ -44,7 +44,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                                                    const int32_t row_address_offset,
                                                    const int32_t lhs_cols_offset)
 {
-#if defined(ARM_MATH_MVEI)
+    #if defined(ARM_MATH_MVEI)
     const int32_t block_bytes = ((rhs_cols + 15) & ~15) * 4;
     int32_t i_items = 0;
     for (; i_items <= (lhs_rows - 2); i_items += 2)
@@ -54,7 +54,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
             const int8_t *col_base = rhs + (i / 4) * block_bytes;
             const int8_t *ip_row_0 = lhs;
             const int8_t *ip_row_1 = lhs + lhs_cols_offset;
-    #if defined(ARM_MATH_AUTOVECTORIZE)
+        #if defined(ARM_MATH_AUTOVECTORIZE)
             int32_t a00 = 0;
             int32_t a10 = 0;
             int32_t a01 = 0;
@@ -75,7 +75,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                 a12 += ip_row_1[k] * col_base[offset + 32];
                 a13 += ip_row_1[k] * col_base[offset + 48];
             }
-    #else
+        #else
             /* Eight even-numbered accumulator registers are required, including
              * LR, so use explicit loop control rather than wlstp/letp.
              *
@@ -208,7 +208,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                              [a13] "+&r"(a13)
                            :
                            : "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "cc", "memory");
-    #endif
+        #endif
             int32x4_t acc_n0 = (int32x4_t){a00, a01, a02, a03};
             int32x4_t acc_n1 = (int32x4_t){a10, a11, a12, a13};
 
@@ -239,7 +239,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
             const int8_t *col_base = rhs + (i / 4) * block_bytes;
             const int8_t *lhs_vec = lhs;
             int32_t a0 = 0, a1 = 0, a2 = 0, a3 = 0;
-    #if defined(ARM_MATH_AUTOVECTORIZE)
+        #if defined(ARM_MATH_AUTOVECTORIZE)
             for (int32_t k = 0; k < rhs_cols; k++)
             {
                 const int32_t offset = (k / 16) * 64 + (k & 15);
@@ -248,7 +248,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                 a2 += lhs_vec[k] * col_base[offset + 32];
                 a3 += lhs_vec[k] * col_base[offset + 48];
             }
-    #else
+        #else
             for (int32_t k = 0; k < rhs_cols; k += 16)
             {
                 const int8x16_t in = vldrbq_z_s8(lhs_vec + k, vctp8q(MIN(rhs_cols - k, 16)));
@@ -258,7 +258,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                 a3 = vmladavaq_s8(a3, in, vldrbq_s8(col_base + 48));
                 col_base += 64;
             }
-    #endif
+        #endif
             int32x4_t acc_n0 = {a0, a1, a2, a3};
 
             const mve_pred16_t pred = vctp32q(MIN(rhs_rows - i, 4));
@@ -275,7 +275,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
         dst += row_address_offset;
     }
     return ARM_CMSIS_NN_SUCCESS;
-#else
+    #else
     (void)lhs;
     (void)rhs;
     (void)effective_bias;
@@ -291,7 +291,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
     (void)row_address_offset;
     (void)lhs_cols_offset;
     return ARM_CMSIS_NN_NO_IMPL_ERROR;
-#endif
+    #endif
 }
 
 #endif /* ARM_NN_ENABLE_AOT */
