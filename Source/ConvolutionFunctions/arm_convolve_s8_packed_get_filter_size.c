@@ -21,13 +21,15 @@
  * Title:        arm_convolve_s8_packed_get_filter_size.c
  * Description:  Query storage for packed s8 convolution weights
  *
- * $Date:        15 October 2026
- * $Revision:    V.1.0.0
+ * $Date:        28 October 2026
+ * $Revision:    V.1.0.1
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
 #include <limits.h>
 #include <stdint.h>
+
+#if ARM_NN_ENABLE_AOT
 
 int32_t arm_convolve_s8_packed_get_filter_size(const cmsis_nn_dims *filter_dims, const int32_t groups)
 {
@@ -56,3 +58,5 @@ int32_t arm_convolve_s8_packed_get_filter_size(const cmsis_nn_dims *filter_dims,
     }
     return (int32_t)(groups * rows * cols);
 }
+
+#endif /* ARM_NN_ENABLE_AOT */

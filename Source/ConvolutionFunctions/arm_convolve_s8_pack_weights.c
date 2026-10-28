@@ -21,13 +21,15 @@
  * Title:        arm_convolve_s8_pack_weights.c
  * Description:  Pack s8 convolution weights for AOT inference
  *
- * $Date:        15 October 2026
- * $Revision:    V.1.0.0
+ * $Date:        28 October 2026
+ * $Revision:    V.1.0.1
  * -------------------------------------------------------------------- */
 
 #include "arm_nnfunctions.h"
 #include <limits.h>
 #include <stdint.h>
+
+#if ARM_NN_ENABLE_AOT
 
 arm_cmsis_nn_status arm_convolve_s8_pack_weights(const cmsis_nn_dims *filter_dims,
                                                  const int8_t *filter_data,
@@ -71,3 +73,5 @@ arm_cmsis_nn_status arm_convolve_s8_pack_weights(const cmsis_nn_dims *filter_dim
     }
     return ARM_CMSIS_NN_SUCCESS;
 }
+
+#endif /* ARM_NN_ENABLE_AOT */

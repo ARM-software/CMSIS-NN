@@ -21,11 +21,13 @@
  * Title:        arm_nn_mat_mult_nt_t_s8_packed.c
  * Description:  MVE matrix multiplication with packed s8 weights
  *
- * $Date:        20 October 2026
- * $Revision:    V.1.0.0
+ * $Date:        28 October 2026
+ * $Revision:    V.1.0.1
  * -------------------------------------------------------------------- */
 
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_AOT
 
 arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
                                                    const int8_t *rhs,
@@ -291,3 +293,5 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
     return ARM_CMSIS_NN_NO_IMPL_ERROR;
 #endif
 }
+
+#endif /* ARM_NN_ENABLE_AOT */
