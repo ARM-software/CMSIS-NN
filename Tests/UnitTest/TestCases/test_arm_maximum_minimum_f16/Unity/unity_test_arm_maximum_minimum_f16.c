@@ -40,3 +40,4 @@ void test_minimum_broadcast_batch_f16_arm_minimum_f16(void) { minimum_broadcast_
 void test_minimum_broadcast_height_f16_arm_minimum_f16(void) { minimum_broadcast_height_f16_arm_minimum_f16(); }
 void test_minimum_broadcast_width_f16_arm_minimum_f16(void) { minimum_broadcast_width_f16_arm_minimum_f16(); }
 void test_minimum_broadcast_ch_f16_arm_minimum_f16(void) { minimum_broadcast_ch_f16_arm_minimum_f16(); }
+void test_maximum_broadcast_row_f16_arm_maximum_f16(void) { maximum_broadcast_row_f16_arm_maximum_f16(); }
