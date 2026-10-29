@@ -363,3 +363,30 @@ void minimum_broadcast_ch_int8(void)
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate(output, output_ref_data, dst_size));
 }
+
+void minimum_broadcast_row_int8(void)
+{
+    const cmsis_nn_context ctx = {0};
+
+    int8_t output[4] = {0};
+
+    const cmsis_nn_dims input_1_dims = {1, 2, 1, 1};
+    const cmsis_nn_dims input_2_dims = {1, 2, 2, 1};
+    const cmsis_nn_dims output_dims = {1, 2, 2, 1};
+
+    // The last element is outside input_1_dims and must not be read.
+    const int8_t input_1_data[3] = {10, 20, -128};
+    const int8_t input_2_data[4] = {5, 25, 15, 30};
+    const int8_t output_ref_data[4] = {5, 10, 15, 20};
+
+    arm_cmsis_nn_status result =
+        arm_minimum_s8(&ctx, input_1_data, &input_1_dims, input_2_data, &input_2_dims, output, &output_dims);
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref_data, 4));
+
+    result = arm_minimum_s8(&ctx, input_2_data, &input_2_dims, input_1_data, &input_1_dims, output, &output_dims);
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref_data, 4));
+}

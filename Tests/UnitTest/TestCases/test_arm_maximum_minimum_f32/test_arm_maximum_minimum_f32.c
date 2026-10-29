@@ -70,3 +70,32 @@ RUN_MINMAX_F32_CASE(MINIMUM_BROADCAST_BATCH_F32, minimum_broadcast_batch_f32, ar
 RUN_MINMAX_F32_CASE(MINIMUM_BROADCAST_HEIGHT_F32, minimum_broadcast_height_f32, arm_minimum_f32, 1.0e-7f)
 RUN_MINMAX_F32_CASE(MINIMUM_BROADCAST_WIDTH_F32, minimum_broadcast_width_f32, arm_minimum_f32, 1.0e-7f)
 RUN_MINMAX_F32_CASE(MINIMUM_BROADCAST_CH_F32, minimum_broadcast_ch_f32, arm_minimum_f32, 1.0e-7f)
+
+void maximum_broadcast_row_f32_arm_maximum_f32(void)
+{
+    float32_t output[4] = {0};
+    const cmsis_nn_context ctx = {0};
+    const cmsis_nn_dims input_1_dims = {.n = 1, .h = 2, .w = 1, .c = 1};
+    const cmsis_nn_dims input_2_dims = {.n = 1, .h = 2, .w = 2, .c = 1};
+    const cmsis_nn_dims output_dims = {.n = 1, .h = 2, .w = 2, .c = 1};
+    // The last element is outside input_1_dims and must not be read.
+    const float32_t input_1[3] = {10.0f, 20.0f, 1000.0f};
+    const float32_t input_2[4] = {5.0f, 25.0f, 15.0f, 30.0f};
+    const float32_t output_ref[4] = {10.0f, 25.0f, 20.0f, 30.0f};
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_maximum_f32(&ctx, input_1, &input_1_dims, input_2, &input_2_dims, output, &output_dims));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        TEST_ASSERT_FLOAT_WITHIN(1.0e-7f, output_ref[i], output[i]);
+    }
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_maximum_f32(&ctx, input_2, &input_2_dims, input_1, &input_1_dims, output, &output_dims));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        TEST_ASSERT_FLOAT_WITHIN(1.0e-7f, output_ref[i], output[i]);
+    }
+}
