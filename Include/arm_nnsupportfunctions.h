@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        21 October 2026
- * $Revision:    V.22.13.0
+ * $Date:        29 October 2026
+ * $Revision:    V.22.14.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1796,6 +1796,26 @@ __STATIC_FORCEINLINE void arm_memcpy_q15(int16_t *__RESTRICT dst, const int16_t 
 }
 
 #if defined(ARM_MATH_MVEI)
+/**
+ * @brief           vld2q_s8() that also accepts pointers that are not 4-byte aligned.
+ * @param[in]       ptr         Pointer to 32 int8 values
+ * @param[in]       is_aligned  True if ptr is 4-byte aligned, as required by VLD2x
+ * @return          De-interleaved even (val[0]) and odd (val[1]) elements
+ *
+ */
+__STATIC_FORCEINLINE int8x16x2_t arm_nn_vld2q_s8(const int8_t *ptr, const bool is_aligned)
+{
+    if (is_aligned)
+    {
+        return vld2q_s8(ptr);
+    }
+    const uint8x16_t even_offsets = vidupq_u8((uint32_t)0, 2);
+    int8x16x2_t res;
+    res.val[0] = vldrbq_gather_offset_s8(ptr, even_offsets);
+    res.val[1] = vldrbq_gather_offset_s8(ptr + 1, even_offsets);
+    return res;
+}
+
 /**
  * @brief           Vector saturating doubling high multiply returning high half.
  * @param[in]       m1        Multiplicand

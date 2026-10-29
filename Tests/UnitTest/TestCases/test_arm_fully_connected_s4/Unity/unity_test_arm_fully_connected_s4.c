@@ -50,3 +50,4 @@ void test_fully_connected_arm_fully_connected_s4_3(void) { fully_connected_int4_
 void test_fully_connected_arm_fully_connected_s4_4(void) { fully_connected_int4_arm_fully_connected_s4_4(); }
 void test_fully_connected_arm_fully_connected_s4_5(void) { fully_connected_int4_arm_fully_connected_s4_5(); }
 void test_fully_connected_arm_fully_connected_s4_6(void) { fully_connected_int4_arm_fully_connected_s4_6(); }
+void test_fully_connected_arm_fully_connected_s4_odd(void) { fully_connected_int4_arm_fully_connected_s4_odd(); }
