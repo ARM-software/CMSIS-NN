@@ -986,3 +986,111 @@ void conv_1_x_n_8_arm_convolve_s8(void)
                              &output_dims,
                              output_ref);
 }
+
+void conv_1_x_n_9_arm_convolve_s8(void)
+{
+    // Right padding wider than stride_x (pad_right = 2, stride_x = 2) and strided VALID with unused trailing input.
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[6] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_conv_params conv_params = {0};
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims bias_dims;
+    cmsis_nn_dims output_dims;
+
+    const int32_t bias_data[2] = {5, -4};
+    const int32_t output_mult[2] = {0x40000000, 0x40000000};
+    const int32_t output_shift[2] = {1, 1};
+    const int8_t kernel_data[40] = {1,  -1, 2,  1, -2, 1,  1, -1, 2,  -1, 1,  2, 2,  3,  1, 2,  -1, 2,  -2, 1,
+                                    -1, 2,  -1, 1, 1,  -2, 2, 1,  -1, 1,  -2, 1, -2, -1, 3, -2, 2,  -1, 1,  -2};
+    const int8_t input_data[24] = {3, -2, 4, -1, 2, 5, -3, 1, -4, 1, 2, -2, 5, -3, 1, 3, -2, 4, -3, 2, 1, -2, 3, -1};
+    const int8_t output_ref[6] = {-8, 42, 39, -9, 30, -37};
+    const int8_t output_ref_valid[4] = {7, 22, -16, 1};
+    int32_t output_ref_size = 6;
+
+    input_dims.n = 1;
+    input_dims.w = 6;
+    input_dims.h = 1;
+    input_dims.c = 4;
+    filter_dims.n = 2;
+    filter_dims.w = 5;
+    filter_dims.h = 1;
+    filter_dims.c = 4;
+    bias_dims.n = 1;
+    bias_dims.w = 1;
+    bias_dims.h = 1;
+    bias_dims.c = 2;
+    output_dims.n = 1;
+    output_dims.w = 3;
+    output_dims.h = 1;
+    output_dims.c = 2;
+
+    conv_params.padding.w = 1;
+    conv_params.padding.h = 0;
+    conv_params.stride.w = 2;
+    conv_params.stride.h = 1;
+    conv_params.dilation.w = 1;
+    conv_params.dilation.h = 1;
+
+    conv_params.input_offset = 1;
+    conv_params.output_offset = -2;
+    conv_params.activation.min = -128;
+    conv_params.activation.max = 127;
+    quant_params.multiplier = (int32_t *)output_mult;
+    quant_params.shift = (int32_t *)output_shift;
+
+    int32_t buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+    ctx.size = 0;
+
+    arm_cmsis_nn_status result = arm_convolve_wrapper_s8(&ctx,
+                                                         &conv_params,
+                                                         &quant_params,
+                                                         &input_dims,
+                                                         input_data,
+                                                         &filter_dims,
+                                                         kernel_data,
+                                                         &bias_dims,
+                                                         bias_data,
+                                                         &output_dims,
+                                                         output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    memset(output, 0, sizeof(output));
+
+    filter_dims.w = 3;
+    output_dims.w = 2;
+    conv_params.padding.w = 0;
+    output_ref_size = 4;
+
+    buf_size = arm_convolve_wrapper_s8_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+
+    result = arm_convolve_wrapper_s8(&ctx,
+                                     &conv_params,
+                                     &quant_params,
+                                     &input_dims,
+                                     input_data,
+                                     &filter_dims,
+                                     kernel_data,
+                                     &bias_dims,
+                                     bias_data,
+                                     &output_dims,
+                                     output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref_valid, output_ref_size));
+}

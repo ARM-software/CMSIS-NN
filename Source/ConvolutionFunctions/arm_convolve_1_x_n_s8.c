@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s8.c
  * Description:  s8 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        15 October 2026
- * $Revision:    V.3.7.0
+ * $Date:        29 October 2026
+ * $Revision:    V.3.7.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -89,26 +89,22 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
     const int32_t stride_x = conv_params->stride.w;
 
     // Total pad for dilation of 1
-    const int32_t total_pad = ((output_x - 1) * stride_x + kernel_x - input_x);
+    const int32_t total_pad = MAX((output_x - 1) * stride_x + kernel_x - input_x, 0);
     const int32_t asym_pad = total_pad % 2;
-
-    if (pad_x * 2 + asym_pad != total_pad)
-    {
-        return ARM_CMSIS_NN_FAILURE;
-    }
 
     const int32_t right_pad_num = pad_x + asym_pad != 0 ? MAX(1, (pad_x + asym_pad + stride_x - 1) / stride_x) : 0;
     const int32_t left_pad_num = pad_x != 0 ? MAX(1, (pad_x + stride_x - 1) / stride_x) : 0;
     const int32_t no_pad_num = MAX(output_x - (right_pad_num + left_pad_num), 0);
 
     const int32_t pad_size_left = pad_x * input_ch;
-    const int32_t pad_size_right = asym_pad ? right_pad_num * input_ch : pad_size_left;
+    const int32_t pad_size_right = (pad_x + asym_pad) * input_ch;
 
     const int32_t rhs_cols = kernel_x * input_ch;
     const int32_t rhs_rows = output_dims->c;
     const int32_t lhs_offset = input_ch * stride_x;
 
-    if (right_pad_num + no_pad_num + left_pad_num != output_x)
+    if ((right_pad_num + no_pad_num + left_pad_num != output_x) || (pad_x * 2 + asym_pad != total_pad) ||
+        (output_dims->h != 1) || (conv_params->padding.h != 0))
     {
         return arm_convolve_s8(ctx,
                                conv_params,
@@ -124,8 +120,8 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                                output_data);
     }
 
-    const uint32_t num_elem_left = kernel_x * input_ch;
-    const uint32_t num_elem_right = num_elem_left - input_ch;
+    const uint32_t num_elem_left = MIN(kernel_x, input_x) * input_ch;
+    const uint32_t num_elem_right = MAX(input_x - (stride_x * (left_pad_num + no_pad_num) - pad_x), 0) * input_ch;
 
     for (int i_batch = 0; i_batch < input_dims->n; i_batch++)
     {
