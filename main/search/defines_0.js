@@ -19,11 +19,12 @@ var searchData=
   ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5fk_16',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_K',['../arm__conv__opt__common_8h.html#af738868d80df929d68eabd33ad7641c4',1,'arm_conv_opt_common.h']]],
   ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5foc_17',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_OC',['../arm__conv__opt__common_8h.html#a956573652c006dda49caa746da9cb07e',1,'arm_conv_opt_common.h']]],
   ['arm_5fnn_5fconv_5fnhwc_5fpatch_5fgemm_5ff32_5fmin_5fpos_18',['ARM_NN_CONV_NHWC_PATCH_GEMM_F32_MIN_POS',['../arm__conv__opt__common_8h.html#af878397b07dddc35e97c7de3ff26ebe9',1,'arm_conv_opt_common.h']]],
-  ['arm_5fnn_5ff16_5ffinite_5flowest_19',['ARM_NN_F16_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a7fd9ed6ddad98a14b3531eac12d4ce9b',1,'arm_nn_math_types_flt.h']]],
-  ['arm_5fnn_5ff16_5ffinite_5fmax_20',['ARM_NN_F16_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#ad49ae19194289fe580222043931a994e',1,'arm_nn_math_types_flt.h']]],
-  ['arm_5fnn_5ff32_5ffinite_5flowest_21',['ARM_NN_F32_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a3bd445f3beafc7af99a2497ce8e3e83b',1,'arm_nn_math_types_flt.h']]],
-  ['arm_5fnn_5ff32_5ffinite_5fmax_22',['ARM_NN_F32_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#a0c165eefed53ed471bb81e2a9d3bd0d1',1,'arm_nn_math_types_flt.h']]],
-  ['arm_5fnn_5ffloat_5fapi_5fenabled_23',['ARM_NN_FLOAT_API_ENABLED',['../arm__nn__config_8h.html#ab0c41045456c8a4d7828bbbaa7abd1bc',1,'arm_nn_config.h']]],
-  ['arm_5fnn_5fround_5fup_24',['ARM_NN_ROUND_UP',['../arm__nnsupportfunctions_8h.html#a384f092d826757c509f32b054aff719d',1,'arm_nnsupportfunctions.h']]],
-  ['arm_5ftranspose_5fdefine_25',['ARM_TRANSPOSE_DEFINE',['../arm__transpose__common_8h.html#a45d698ff7f7bd373950ed51580c470a2',1,'arm_transpose_common.h']]]
+  ['arm_5fnn_5fenable_5faot_19',['ARM_NN_ENABLE_AOT',['../arm__nn__config_8h.html#a965f8996bb17c03011f75ad17458090b',1,'arm_nn_config.h']]],
+  ['arm_5fnn_5ff16_5ffinite_5flowest_20',['ARM_NN_F16_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a7fd9ed6ddad98a14b3531eac12d4ce9b',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff16_5ffinite_5fmax_21',['ARM_NN_F16_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#ad49ae19194289fe580222043931a994e',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff32_5ffinite_5flowest_22',['ARM_NN_F32_FINITE_LOWEST',['../arm__nn__math__types__flt_8h.html#a3bd445f3beafc7af99a2497ce8e3e83b',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ff32_5ffinite_5fmax_23',['ARM_NN_F32_FINITE_MAX',['../arm__nn__math__types__flt_8h.html#a0c165eefed53ed471bb81e2a9d3bd0d1',1,'arm_nn_math_types_flt.h']]],
+  ['arm_5fnn_5ffloat_5fapi_5fenabled_24',['ARM_NN_FLOAT_API_ENABLED',['../arm__nn__config_8h.html#ab0c41045456c8a4d7828bbbaa7abd1bc',1,'arm_nn_config.h']]],
+  ['arm_5fnn_5fround_5fup_25',['ARM_NN_ROUND_UP',['../arm__nnsupportfunctions_8h.html#a384f092d826757c509f32b054aff719d',1,'arm_nnsupportfunctions.h']]],
+  ['arm_5ftranspose_5fdefine_26',['ARM_TRANSPOSE_DEFINE',['../arm__transpose__common_8h.html#a45d698ff7f7bd373950ed51580c470a2',1,'arm_transpose_common.h']]]
 ];

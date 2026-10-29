@@ -136,11 +136,31 @@ $(document).ready(function(){initNavTree('arm__nn__config_8h.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a965f8996bb17c03011f75ad17458090b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__config_8h.html#a965f8996bb17c03011f75ad17458090b">ARM_NN_ENABLE_AOT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a965f8996bb17c03011f75ad17458090b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ahead-of-time (AOT) feature gate for integer operators.  <br /></td></tr>
+<tr class="separator:a965f8996bb17c03011f75ad17458090b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0c41045456c8a4d7828bbbaa7abd1bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__nn__config_8h.html#ab0c41045456c8a4d7828bbbaa7abd1bc">ARM_NN_FLOAT_API_ENABLED</a>&#160;&#160;&#160;(ARM_NN_ENABLE_F32 || ARM_NN_ENABLE_F16)</td></tr>
 <tr class="memdesc:ab0c41045456c8a4d7828bbbaa7abd1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional feature gates for floating-point extensions.  <br /></td></tr>
 <tr class="separator:ab0c41045456c8a4d7828bbbaa7abd1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a965f8996bb17c03011f75ad17458090b" name="a965f8996bb17c03011f75ad17458090b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a965f8996bb17c03011f75ad17458090b">&#9670;&#160;</a></span>ARM_NN_ENABLE_AOT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARM_NN_ENABLE_AOT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ahead-of-time (AOT) feature gate for integer operators. </p>
+<p>Disabled by default to protect the legacy integer APIs and parameter layouts. Once callers have migrated to the updated APIs, this flag can be removed. Library and callers must use the same setting during the transition. Floating-point weight preparation is independent of this flag. </p>
+
+</div>
+</div>
 <a id="ab0c41045456c8a4d7828bbbaa7abd1bc" name="ab0c41045456c8a4d7828bbbaa7abd1bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0c41045456c8a4d7828bbbaa7abd1bc">&#9670;&#160;</a></span>ARM_NN_FLOAT_API_ENABLED</h2>
 

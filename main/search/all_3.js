@@ -63,5 +63,6 @@ var searchData=
   ['convert_5fdw_5fconv_5fwith_5fone_5finput_5fch_5fand_5foutput_5fch_5fabove_5fthreshold_60',['CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD',['../arm__nnsupportfunctions_8h.html#a9c0bf77866d5d657dbffdf7822d91cbf',1,'arm_nnsupportfunctions.h']]],
   ['convolution_61',['Convolution',['../group__supportConvolution.html',1,'']]],
   ['convolution_20functions_62',['Convolution Functions',['../group__NNConv.html',1,'']]],
-  ['cortexm_63',['CortexM',['../arm__py__common_8hpp.html#ad99b2c0abf8e8bc1917f1481b4ee29ff',1,'arm_py_common.hpp']]]
+  ['convolve_5fpacked_63',['convolve_packed',['../arm__py__convolve__packed_8cpp.html#a4350b75a00d6803e3f0d4ce7f80b3844',1,'convolve_packed(py::module_ &amp;m):&#160;arm_py_convolve_packed.cpp'],['../arm__py__module_8cpp.html#a4350b75a00d6803e3f0d4ce7f80b3844',1,'convolve_packed(py::module_ &amp;m):&#160;arm_py_convolve_packed.cpp']]],
+  ['cortexm_64',['CortexM',['../arm__py__common_8hpp.html#ad99b2c0abf8e8bc1917f1481b4ee29ff',1,'arm_py_common.hpp']]]
 ];

@@ -1018,6 +1018,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>1xn convolution </p>
+<dl class="section note"><dt>Note</dt><dd>With AOT enabled, packed/effective pairs return ARM_CMSIS_NN_NO_IMPL_ERROR. Use arm_convolve_wrapper_s8 or arm_convolve_s8 for packed 1xN convolution. Mixed/unknown formats or missing effective bias return ARM_CMSIS_NN_ARG_ERROR.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">ctx</td><td>Function context that contains the additional buffer if required by the function. arm_convolve_1_x_n_s8_get_buffer_size will return the buffer_size if required The caller is expected to clear the buffer, if applicable, for security reasons. </td></tr>
