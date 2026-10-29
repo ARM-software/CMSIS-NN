@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s4.c
  * Description:  s4 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        9 April 2026
- * $Revision:    V.1.0.1
+ * $Date:        29 October 2026
+ * $Revision:    V.1.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -78,21 +78,27 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
     const uint16_t stride_x = conv_params->stride.w;
 
     // Total pad for dilation of 1
-    const int32_t total_pad = ((output_x - 1) * stride_x + kernel_x - input_x);
+    const int32_t total_pad = MAX((output_x - 1) * stride_x + kernel_x - input_x, 0);
     const int32_t asym_pad = total_pad % 2;
-
-    if (pad_x * 2 + asym_pad != total_pad)
-    {
-        return ARM_CMSIS_NN_FAILURE;
-    }
 
     const int32_t right_pad_num = pad_x + asym_pad != 0 ? MAX(1, (pad_x + asym_pad + stride_x - 1) / stride_x) : 0;
     const int32_t left_pad_num = pad_x != 0 ? MAX(1, (pad_x + stride_x - 1) / stride_x) : 0;
     const int32_t no_pad_num = MAX(output_x - (right_pad_num + left_pad_num), 0);
 
-    if (right_pad_num + no_pad_num + left_pad_num != output_x)
+    if ((right_pad_num + no_pad_num + left_pad_num != output_x) || (pad_x * 2 + asym_pad != total_pad) ||
+        (output_dims->h != 1) || (conv_params->padding.h != 0) || (input_ch % 2))
     {
-        return ARM_CMSIS_NN_FAILURE;
+        return arm_convolve_s4(ctx,
+                               conv_params,
+                               quant_params,
+                               input_dims,
+                               input_data,
+                               filter_dims,
+                               filter_data,
+                               bias_dims,
+                               bias_data,
+                               output_dims,
+                               output_data);
     }
 
     for (int i_batch = 0; i_batch < input_dims->n; i_batch++)

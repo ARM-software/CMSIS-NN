@@ -1876,3 +1876,114 @@ void conv_1_x_n_5_arm_convolve_s4(void)
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
 }
+
+void conv_1_x_n_6_arm_convolve_s4(void)
+{
+    // Odd input channels (in_c = 5, stride_x = 4) and overlapping left/right padding (in_w = 2, f_w = 4, pad_w = 1).
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[6] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_conv_params conv_params = {0};
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims bias_dims;
+    cmsis_nn_dims output_dims;
+
+    const int32_t bias_data[2] = {3, -2};
+    const int32_t output_mult[2] = {0x40000000, 0x40000000};
+    const int32_t output_shift[2] = {1, 1};
+    const int8_t kernel_data[20] = {-46, 65, 62,  47,  28,  62,  -47, 18,  62,  47,
+                                    47,  29, -29, -12, -46, -13, 46,  -47, -31, -12};
+    const int8_t input_data[45] = {-3, 2, -2, 3, -1, 4, 0,  -4, 1,  -3, 2, -2, 3, -1, 4, 0,  -4, 1,  -3, 2, -2, 3, -1,
+                                   4,  0, -4, 1, -3, 2, -2, 3,  -1, 4,  0, -4, 1, -3, 2, -2, 3,  -1, 4,  0, -4, 1};
+    const int8_t output_ref[6] = {-18, 21, -14, -1, 14, 0};
+    const int8_t output_ref_overlap[4] = {18, 9, 12, 23};
+    int32_t output_ref_size = 6;
+
+    input_dims.n = 1;
+    input_dims.w = 9;
+    input_dims.h = 1;
+    input_dims.c = 5;
+    filter_dims.n = 2;
+    filter_dims.w = 4;
+    filter_dims.h = 1;
+    filter_dims.c = 5;
+    bias_dims.n = 1;
+    bias_dims.w = 1;
+    bias_dims.h = 1;
+    bias_dims.c = 2;
+    output_dims.n = 1;
+    output_dims.w = 3;
+    output_dims.h = 1;
+    output_dims.c = 2;
+
+    conv_params.padding.w = 1;
+    conv_params.padding.h = 0;
+    conv_params.stride.w = 4;
+    conv_params.stride.h = 1;
+    conv_params.dilation.w = 1;
+    conv_params.dilation.h = 1;
+
+    conv_params.input_offset = 1;
+    conv_params.output_offset = -1;
+    conv_params.activation.min = -128;
+    conv_params.activation.max = 127;
+    quant_params.multiplier = (int32_t *)output_mult;
+    quant_params.shift = (int32_t *)output_shift;
+
+    int32_t buf_size = arm_convolve_wrapper_s4_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+    ctx.size = 0;
+
+    arm_cmsis_nn_status result = arm_convolve_wrapper_s4(&ctx,
+                                                         &conv_params,
+                                                         &quant_params,
+                                                         &input_dims,
+                                                         input_data,
+                                                         &filter_dims,
+                                                         kernel_data,
+                                                         &bias_dims,
+                                                         bias_data,
+                                                         &output_dims,
+                                                         output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    memset(output, 0, sizeof(output));
+
+    input_dims.w = 2;
+    input_dims.c = 4;
+    filter_dims.c = 4;
+    output_dims.w = 2;
+    conv_params.stride.w = 1;
+    output_ref_size = 4;
+
+    buf_size = arm_convolve_wrapper_s4_get_buffer_size(&conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+
+    result = arm_convolve_wrapper_s4(&ctx,
+                                     &conv_params,
+                                     &quant_params,
+                                     &input_dims,
+                                     input_data,
+                                     &filter_dims,
+                                     kernel_data,
+                                     &bias_dims,
+                                     bias_data,
+                                     &output_dims,
+                                     output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref_overlap, output_ref_size));
+}
