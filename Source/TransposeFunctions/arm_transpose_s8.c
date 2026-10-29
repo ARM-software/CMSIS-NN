@@ -21,8 +21,8 @@
  * Title:        arm_transpose_s8.c
  * Description:  Transpose a s8 vector
  *
- * $Date:        30 October 2024
- * $Revision:    V.1.0.1
+ * $Date:        29 October 2026
+ * $Revision:    V.1.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -54,15 +54,15 @@ static arm_cmsis_nn_status arm_transpose_s8_nhcw(const int8_t *input,
     const int8_t *input_n = input;
     int8_t *output_n = output;
 
-    const uint16_t src_rows = w;
-    const uint16_t src_cols = c;
+    const int32_t src_rows = w;
+    const int32_t src_cols = c;
 
 #if defined(ARM_MATH_MVEI)
     uint16x8_t vec_offsets;
     uint16x8_t vec_input;
 
     vec_offsets = vidupq_u16((uint32_t)0, 1);
-    vec_offsets = vec_offsets * src_cols;
+    vec_offsets = vec_offsets * (uint16_t)src_cols;
 #endif
 
     for (int32_t i = 0; i < n; i++)
@@ -104,7 +104,7 @@ static arm_cmsis_nn_status arm_transpose_s8_nhcw(const int8_t *input,
 
             for (int32_t src_row_i = 0; src_row_i < src_rows; src_row_i++)
             {
-                output_w = (uint8_t *)output + src_row_i;
+                output_w = (uint8_t *)output_h + src_row_i;
 
                 for (int32_t x = 0; x < src_cols; x++)
                 {
@@ -192,8 +192,23 @@ arm_cmsis_nn_status arm_transpose_s8(const int8_t *input,
     }
     else if (transpose_params->num_dims == 2)
     {
+        if (perm[0] == 0 && perm[1] == 1)
+        {
+            arm_memcpy_s8(output, input, n * h);
+            return ARM_CMSIS_NN_SUCCESS;
+        }
+
         const cmsis_nn_dims smaller_input_dims = {1, 1, n, h};
 
+#if defined(ARM_MATH_MVEI)
+        if (h > (int32_t)(UINT16_MAX / 7))
+        {
+            in_strides[2] = h;
+            out_strides[2] = 1;
+            out_strides[3] = n;
+            return arm_transpose_s8_default(input, output, &smaller_input_dims, in_strides, out_strides);
+        }
+#endif
         return arm_transpose_s8_nhcw(input, output, &smaller_input_dims, in_strides, out_strides);
     }
     else if (transpose_params->num_dims == 3)
@@ -229,7 +244,7 @@ arm_cmsis_nn_status arm_transpose_s8(const int8_t *input,
     out_strides[perm[3]] = 1;
 
 #if defined(ARM_MATH_MVEI)
-    if (perm[0] == 0 && perm[1] == 1)
+    if (perm[0] == 0 && perm[1] == 1 && perm[2] == 3 && perm[3] == 2 && c <= (int32_t)(UINT16_MAX / 7))
     {
         return arm_transpose_s8_nhcw(input, output, input_dims, in_strides, out_strides);
     }
