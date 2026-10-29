@@ -58,6 +58,8 @@ void test_conv_2x3_dilation_arm_convolve_s4(void) { conv_2x3_dilation_arm_convol
 void test_conv_3x2_dilation_arm_convolve_s4(void) { conv_3x2_dilation_arm_convolve_s4(); }
 void test_conv_3x3_dilation_5x5_input_arm_convolve_s4(void) { conv_3x3_dilation_5x5_input_arm_convolve_s4(); }
 void test_conv_2x2_dilation_5x5_input_arm_convolve_s4(void) { conv_2x2_dilation_5x5_input_arm_convolve_s4(); }
+void test_conv_unaligned_1_arm_convolve_s4(void) { conv_unaligned_1_arm_convolve_s4(); }
+void test_conv_unaligned_2_arm_convolve_s4(void) { conv_unaligned_2_arm_convolve_s4(); }
 void test_buffer_size_arm_convolve_s4(void) { buffer_size_arm_convolve_s4(); }
 void test_buffer_size_mve_arm_convolve_s4(void) { buffer_size_mve_arm_convolve_s4(); }
 void test_buffer_size_dsp_arm_convolve_s4(void) { buffer_size_dsp_arm_convolve_s4(); }
