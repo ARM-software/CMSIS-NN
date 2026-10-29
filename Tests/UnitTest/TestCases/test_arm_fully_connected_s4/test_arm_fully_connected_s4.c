@@ -406,3 +406,66 @@ void fully_connected_int4_arm_fully_connected_s4_6(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
 }
+
+void fully_connected_int4_arm_fully_connected_s4_odd(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[2 * 5] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_fc_params fc_params = {0};
+    cmsis_nn_per_tensor_quant_params quant_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims bias_dims = {};
+    cmsis_nn_dims output_dims;
+
+    // in_ch = 33 (odd) and 2 batches leave some of the input rows unaligned.
+    int8_t input_data[2 * 33];
+    int8_t kernel_data[(5 * 33 + 1) / 2];
+    const int32_t bias_data[5] = {1, -2, 3, -4, 5};
+    const int8_t output_ref[2 * 5] = {-14, -17, -12, -19, -10, -19, -16, -17, -18, -15};
+    const int32_t output_ref_size = 2 * 5;
+
+    for (int i = 0; i < 2 * 33; i++)
+    {
+        input_data[i] = (int8_t)(i % 7 - 3);
+    }
+    memset(kernel_data, 0xE1, sizeof(kernel_data)); // int4 pairs {1, -2}
+
+    input_dims.n = 2;
+    input_dims.w = 1;
+    input_dims.h = 1;
+    input_dims.c = 33;
+    filter_dims.n = 33;
+    filter_dims.c = 5;
+    output_dims.n = 2;
+    output_dims.c = 5;
+
+    fc_params.input_offset = 1;
+    fc_params.filter_offset = 0;
+    fc_params.output_offset = -1;
+    fc_params.activation.min = -128;
+    fc_params.activation.max = 127;
+
+    quant_params.multiplier = 0x40000000;
+    quant_params.shift = 1;
+
+    ctx.buf = NULL;
+    ctx.size = 0;
+
+    arm_cmsis_nn_status result = arm_fully_connected_s4(&ctx,
+                                                        &fc_params,
+                                                        &quant_params,
+                                                        &input_dims,
+                                                        input_data,
+                                                        &filter_dims,
+                                                        kernel_data,
+                                                        &bias_dims,
+                                                        bias_data,
+                                                        &output_dims,
+                                                        output);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+}

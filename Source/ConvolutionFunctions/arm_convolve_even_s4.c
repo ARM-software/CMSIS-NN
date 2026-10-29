@@ -21,8 +21,8 @@
  * Title:        arm_convolve_even_s4.c
  * Description:  s8 version of convolution using symmetric quantization with 4 bit weights.
  *
- * $Date:        05 Jun 2024
- * $Revision:    V.1.0.0
+ * $Date:        29 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -140,9 +140,10 @@ arm_cmsis_nn_status arm_convolve_even_s4(const cmsis_nn_context *ctx,
 
                 /* Reformat most of the buffer by interleaving it */
                 int8_t *im2col_buf_interleaved = (int8_t *)buffer_a + lhs_rows * rhs_cols;
+                const bool is_aligned = ((uintptr_t)im2col_buf_interleaved & 0x3U) == 0U;
                 for (int j = blk_cnt; j > 0; --j)
                 {
-                    int8x16x2_t x2 = vld2q_s8(im2col_buf_interleaved);
+                    int8x16x2_t x2 = arm_nn_vld2q_s8(im2col_buf_interleaved, is_aligned);
 
                     vstrbq_s8(im2col_buf_interleaved, x2.val[1]);
                     im2col_buf_interleaved += 16;

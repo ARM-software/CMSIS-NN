@@ -21,8 +21,8 @@
  * Title:        arm_nn_mat_mult_nt_t_s4
  * Description:  Matrix multiplication support function with the right-hand-side (rhs) matrix transposed, and 4 bit rhs.
  *
- * $Date:        27 May 2024
- * $Revision:    V.1.2.0
+ * $Date:        29 October 2026
+ * $Revision:    V.1.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -305,6 +305,8 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s4(const int8_t *lhs,
                 ++ip_row_1;
             }
 
+            const bool row_0_aligned = ((uintptr_t)ip_row_0 & 0x3U) == 0U;
+            const bool row_1_aligned = ((uintptr_t)ip_row_1 & 0x3U) == 0U;
             for (int j = blk_cnt; j > 0; --j)
             {
                 const int8x16_t col_vec = vldrbq_s8(col_base);
@@ -316,12 +318,12 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s4(const int8_t *lhs,
                 sum_tmp = vaddvaq_s8(sum_tmp, ker_low);
                 sum_tmp = vaddvaq_s8(sum_tmp, ker_high);
 
-                int8x16x2_t lhs_x2 = vld2q_s8(ip_row_0);
+                int8x16x2_t lhs_x2 = arm_nn_vld2q_s8(ip_row_0, row_0_aligned);
 
                 acc_n0 = vmladavaq_s8(acc_n0, ker_low, lhs_x2.val[0]);
                 acc_n0 = vmladavaq_s8(acc_n0, ker_high, lhs_x2.val[1]);
 
-                lhs_x2 = vld2q_s8(ip_row_1);
+                lhs_x2 = arm_nn_vld2q_s8(ip_row_1, row_1_aligned);
                 acc_n1 = vmladavaq_s8(acc_n1, ker_low, lhs_x2.val[0]);
                 acc_n1 = vmladavaq_s8(acc_n1, ker_high, lhs_x2.val[1]);
 
@@ -414,6 +416,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s4(const int8_t *lhs,
                 ++ip_row_0;
             }
 
+            const bool row_0_aligned = ((uintptr_t)ip_row_0 & 0x3U) == 0U;
             for (int j = blk_cnt; j > 0; --j)
             {
                 const int8x16_t col_vec = vldrbq_s8(col_base);
@@ -425,7 +428,7 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s4(const int8_t *lhs,
                 sum_tmp = vaddvaq_s8(sum_tmp, ker_low);
                 sum_tmp = vaddvaq_s8(sum_tmp, ker_high);
 
-                int8x16x2_t lhs_x2 = vld2q_s8(ip_row_0);
+                int8x16x2_t lhs_x2 = arm_nn_vld2q_s8(ip_row_0, row_0_aligned);
 
                 acc_n0 = vmladavaq_s8(acc_n0, ker_low, lhs_x2.val[0]);
                 acc_n0 = vmladavaq_s8(acc_n0, ker_high, lhs_x2.val[1]);

@@ -21,8 +21,8 @@
  * Title:        arm_nn_vec_mat_mult_t_s4
  * Description:  s4 vector by matrix (transposed) multiplication
  *
- * $Date:        26 April 2024
- * $Revision:    V.2.0.0
+ * $Date:        29 October 2026
+ * $Revision:    V.2.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -106,9 +106,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s4(const int8_t *lhs,
             ++bias;
         }
 
+        bool lhs_aligned = ((uintptr_t)lhs_ptr & 0x3U) == 0U;
         for (int i = 0; i < col_loop_cnt; i++)
         {
-            const int8x16x2_t inputx2 = vld2q_s8(lhs_ptr);
+            const int8x16x2_t inputx2 = arm_nn_vld2q_s8(lhs_ptr, lhs_aligned);
             const int8x16_t ker_0 = vldrbq_s8(rhs_ptr);
 
             int8x16_t ker_low_0 = vrshlq_n_s8(ker_0, 4);
@@ -213,9 +214,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s4(const int8_t *lhs,
         int32_t rhs_sum_1 = 0;
         int32_t rhs_sum_3 = 0;
 
+        lhs_aligned = ((uintptr_t)lhs_ptr & 0x3U) == 0U;
         for (int i = 0; i < col_loop_cnt; i++)
         {
-            const int8x16x2_t inputx2 = vld2q_s8(lhs_ptr);
+            const int8x16x2_t inputx2 = arm_nn_vld2q_s8(lhs_ptr, lhs_aligned);
             int8x16_t ker_0 = vldrbq_s8(rhs_ptr);
 
             int8x16_t ker_low_0 = vrshlq_n_s8(ker_0, 4);
@@ -612,9 +614,10 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_s4(const int8_t *lhs,
 #if defined(ARM_MATH_MVEI)
         int32_t rhs_sum_0 = 0;
 
+        const bool lhs_aligned = ((uintptr_t)lhs_ptr & 0x3U) == 0U;
         for (int i = 0; i < col_loop_cnt; i++)
         {
-            const int8x16x2_t inputx2 = vld2q_s8(lhs_ptr);
+            const int8x16x2_t inputx2 = arm_nn_vld2q_s8(lhs_ptr, lhs_aligned);
             const int8x16_t ker_0 = vldrbq_s8(&rhs_ptr[rhs_offset]);
 
             int8x16_t ker_low_0 = vrshlq_n_s8(ker_0, 4);
