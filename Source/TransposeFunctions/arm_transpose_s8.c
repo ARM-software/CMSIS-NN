@@ -21,8 +21,8 @@
  * Title:        arm_transpose_s8.c
  * Description:  Transpose a s8 vector
  *
- * $Date:        30 October 2024
- * $Revision:    V.1.0.1
+ * $Date:        04 November 2026
+ * $Revision:    V.1.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -54,16 +54,8 @@ static arm_cmsis_nn_status arm_transpose_s8_nhcw(const int8_t *input,
     const int8_t *input_n = input;
     int8_t *output_n = output;
 
-    const uint16_t src_rows = w;
-    const uint16_t src_cols = c;
-
-#if defined(ARM_MATH_MVEI)
-    uint16x8_t vec_offsets;
-    uint16x8_t vec_input;
-
-    vec_offsets = vidupq_u16((uint32_t)0, 1);
-    vec_offsets = vec_offsets * src_cols;
-#endif
+    const int32_t src_rows = w;
+    const int32_t src_cols = c;
 
     for (int32_t i = 0; i < n; i++)
     {
@@ -72,47 +64,54 @@ static arm_cmsis_nn_status arm_transpose_s8_nhcw(const int8_t *input,
 
         for (int32_t y = 0; y < h; y++)
         {
-
 #if defined(ARM_MATH_MVEI)
-            const uint8_t *input_c = (const uint8_t *)input_h;
-            uint8_t *output_c = (uint8_t *)output_h;
-
-            for (int32_t z = 0; z < src_cols; z++)
+            if (src_cols <= (int32_t)(UINT16_MAX / 7))
             {
-                uint8_t const *input_w = (uint8_t const *)input_c;
-                uint8_t *output_w = (uint8_t *)output_c;
+                uint16x8_t vec_offsets = vidupq_u16((uint32_t)0, 1);
+                vec_offsets = vec_offsets * (uint16_t)src_cols;
 
-                int32_t block_count = src_rows;
-                while (block_count > 0)
+                const uint8_t *input_c = (const uint8_t *)input_h;
+                uint8_t *output_c = (uint8_t *)output_h;
+
+                for (int32_t z = 0; z < src_cols; z++)
                 {
-                    mve_pred16_t p = vctp16q(block_count);
+                    uint8_t const *input_w = (uint8_t const *)input_c;
+                    uint8_t *output_w = (uint8_t *)output_c;
 
-                    vec_input = vldrbq_gather_offset_z_u16(input_w, vec_offsets, p);
-                    vstrbq_p_u16(output_w, vec_input, p);
+                    int32_t block_count = src_rows;
+                    while (block_count > 0)
+                    {
+                        mve_pred16_t p = vctp16q(block_count);
 
-                    input_w = input_w + src_cols * 8;
-                    output_w += 8;
-                    block_count -= 8;
-                }
+                        uint16x8_t vec_input = vldrbq_gather_offset_z_u16(input_w, vec_offsets, p);
+                        vstrbq_p_u16(output_w, vec_input, p);
 
-                input_c++;
-                output_c += src_rows;
-            }
-#else
-            const uint8_t *input_w = (const uint8_t *)input_h;
-            uint8_t *output_w = (uint8_t *)output_h;
+                        input_w = input_w + src_cols * 8;
+                        output_w += 8;
+                        block_count -= 8;
+                    }
 
-            for (int32_t src_row_i = 0; src_row_i < src_rows; src_row_i++)
-            {
-                output_w = (uint8_t *)output + src_row_i;
-
-                for (int32_t x = 0; x < src_cols; x++)
-                {
-                    *output_w = *input_w++;
-                    output_w += src_rows;
+                    input_c++;
+                    output_c += src_rows;
                 }
             }
+            else
 #endif
+            {
+                const uint8_t *input_w = (const uint8_t *)input_h;
+                uint8_t *output_w = (uint8_t *)output_h;
+
+                for (int32_t src_row_i = 0; src_row_i < src_rows; src_row_i++)
+                {
+                    output_w = (uint8_t *)output_h + src_row_i;
+
+                    for (int32_t x = 0; x < src_cols; x++)
+                    {
+                        *output_w = *input_w++;
+                        output_w += src_rows;
+                    }
+                }
+            }
             input_h += in_strides[1];
             output_h += out_strides[1];
         }
@@ -192,6 +191,12 @@ arm_cmsis_nn_status arm_transpose_s8(const int8_t *input,
     }
     else if (transpose_params->num_dims == 2)
     {
+        if (perm[0] == 0 && perm[1] == 1)
+        {
+            arm_memcpy_s8(output, input, n * h);
+            return ARM_CMSIS_NN_SUCCESS;
+        }
+
         const cmsis_nn_dims smaller_input_dims = {1, 1, n, h};
 
         return arm_transpose_s8_nhcw(input, output, &smaller_input_dims, in_strides, out_strides);
@@ -228,12 +233,10 @@ arm_cmsis_nn_status arm_transpose_s8(const int8_t *input,
     out_strides[perm[2]] = output_dims->c;
     out_strides[perm[3]] = 1;
 
-#if defined(ARM_MATH_MVEI)
-    if (perm[0] == 0 && perm[1] == 1)
+    if (perm[0] == 0 && perm[1] == 1 && perm[2] == 3 && perm[3] == 2)
     {
         return arm_transpose_s8_nhcw(input, output, input_dims, in_strides, out_strides);
     }
-#endif
 
     return arm_transpose_s8_default(input, output, input_dims, in_strides, out_strides);
 }
