@@ -252,3 +252,67 @@ void transpose_3dim2_arm_transpose_s8(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output_data, output_ref, output_ref_size));
 }
+
+void transpose_identity_arm_transpose_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output_data[6] = {0};
+    int8_t *output_ptr = output_data;
+
+    const cmsis_nn_dims input_dims = {1, 1, 2, 3};
+    const cmsis_nn_dims output_dims = {1, 1, 2, 3};
+    const cmsis_nn_dims matrix_dims = {2, 3, 0, 0};
+
+    const int8_t input_data[6] = {1, 2, 3, 4, 5, 6};
+    const int8_t *const output_ref = input_data;
+    const int32_t output_ref_size = 6;
+
+    const uint32_t perm[4] = {0, 1, 2, 3};
+    const uint32_t matrix_perm[2] = {0, 1};
+    const cmsis_nn_transpose_params transpose_params = {4, perm};
+    const cmsis_nn_transpose_params matrix_transpose_params = {2, matrix_perm};
+
+    arm_cmsis_nn_status result = arm_transpose_s8(input_data, output_ptr, &input_dims, &output_dims, &transpose_params);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output_data, output_ref, output_ref_size));
+    memset(output_data, 0, sizeof(output_data));
+
+    result = arm_transpose_s8(input_data, output_ptr, &matrix_dims, &matrix_dims, &matrix_transpose_params);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output_data, output_ref, output_ref_size));
+}
+
+void transpose_wide_arm_transpose_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    static int8_t input_data[8 * 9363];
+    static int8_t output_data[8 * 9363];
+    int8_t *output_ptr = output_data;
+
+    // 7 * 9363 does not fit in the 16-bit gather offsets of the MVE implementation.
+    const cmsis_nn_dims input_dims = {1, 1, 8, 9363};
+    const cmsis_nn_dims output_dims = {1, 1, 9363, 8};
+    const cmsis_nn_dims matrix_input_dims = {8, 9363, 0, 0};
+    const cmsis_nn_dims matrix_output_dims = {9363, 8, 0, 0};
+
+    const uint32_t perm[4] = {0, 1, 3, 2};
+    const uint32_t matrix_perm[2] = {1, 0};
+    const cmsis_nn_transpose_params transpose_params = {4, perm};
+    const cmsis_nn_transpose_params matrix_transpose_params = {2, matrix_perm};
+
+    input_data[7 * 9363] = 7;
+
+    arm_cmsis_nn_status result = arm_transpose_s8(input_data, output_ptr, &input_dims, &output_dims, &transpose_params);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_EQUAL(7, output_data[7]);
+    output_data[7] = 0;
+
+    result =
+        arm_transpose_s8(input_data, output_ptr, &matrix_input_dims, &matrix_output_dims, &matrix_transpose_params);
+
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_EQUAL(7, output_data[7]);
+}
