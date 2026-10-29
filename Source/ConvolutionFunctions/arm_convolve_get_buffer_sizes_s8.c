@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        6 Mar 2026
- * $Revision:    V.2.3.0
+ * $Date:        15 October 2026
+ * $Revision:    V.2.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -157,7 +157,11 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims))
+    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+    #if ARM_NN_ENABLE_AOT
+             && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
+    #endif
+    )
     {
         return arm_convolve_1_x_n_s8_get_buffer_size(conv_params, input_dims, filter_dims, output_dims);
     }
@@ -185,7 +189,11 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims))
+    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+#if ARM_NN_ENABLE_AOT
+             && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
+#endif
+    )
     {
         return arm_convolve_1_x_n_s8_get_buffer_size_mve(conv_params, input_dims, filter_dims, output_dims);
     }
@@ -212,7 +220,11 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims))
+    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+#if ARM_NN_ENABLE_AOT
+             && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
+#endif
+    )
     {
         return arm_convolve_1_x_n_s8_get_buffer_size(conv_params, input_dims, filter_dims, output_dims);
     }

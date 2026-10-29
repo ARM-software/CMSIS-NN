@@ -21,8 +21,8 @@
  * Title:        arm_py_common.hpp
  * Description:  Common helpers and types for optional Python module
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        15 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Host/Python
  * -------------------------------------------------------------------- */
@@ -34,6 +34,14 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+
+#if PYBIND11_VERSION_HEX < 0x020D0600 || PYBIND11_VERSION_HEX >= 0x04000000
+    #error "CMSIS-NN Python bindings require pybind11>=2.13.6,<4; clean-rebuild with compatible headers."
+#endif
+
+#ifdef PYBIND11_NUMPY_1_ONLY
+    #error "CMSIS-NN Python bindings do not support PYBIND11_NUMPY_1_ONLY; remove it and clean-rebuild."
+#endif
 
 extern "C" {
 #include "arm_nn_types.h"

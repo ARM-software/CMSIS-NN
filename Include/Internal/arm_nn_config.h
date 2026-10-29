@@ -21,8 +21,8 @@
  * Title:        arm_nn_config.h
  * Description:  Internal optional feature configuration for CMSIS-NN
  *
- * $Date:        24 April 2026
- * $Revision:    V.1.0.0
+ * $Date:        15 October 2026
+ * $Revision:    V.1.1.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -32,13 +32,24 @@
  * Applications are expected to include the public arm_nnfunctions*.h headers,
  * which pull the needed configuration through the public type/math headers.
  *
- * The current options focus on floating-point support, but the file name is
- * kept generic so wider CMSIS-NN configuration can be added here over time,
- * including settings shared with quantized paths.
+ * Options include opt-in integer AOT support and floating-point
+ * extensions.
  */
 
 #ifndef ARM_NN_CONFIG_H
 #define ARM_NN_CONFIG_H
+
+/**
+ * @brief Ahead-of-time (AOT) feature gate for integer operators
+ *
+ * Disabled by default to protect the legacy integer APIs and parameter layouts.
+ * Once callers have migrated to the updated APIs, this flag can be removed.
+ * Library and callers must use the same setting during the transition.
+ * Floating-point weight preparation is independent of this flag.
+ */
+#ifndef ARM_NN_ENABLE_AOT
+    #define ARM_NN_ENABLE_AOT 0
+#endif
 
 /**
  *

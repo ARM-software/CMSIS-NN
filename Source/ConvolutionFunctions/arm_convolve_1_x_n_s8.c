@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s8.c
  * Description:  s8 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        04 November 2024
- * $Revision:    V.3.6.1
+ * $Date:        15 October 2026
+ * $Revision:    V.3.7.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -57,6 +57,18 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s8(const cmsis_nn_context *ctx,
                                           const cmsis_nn_dims *output_dims,
                                           int8_t *output_data)
 {
+#if ARM_NN_ENABLE_AOT
+    if (conv_params->filter_format || conv_params->bias_format)
+    {
+        if (conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16 ||
+            conv_params->bias_format != ARM_NN_BIAS_FORMAT_EFFECTIVE || bias_data == NULL)
+        {
+            return ARM_CMSIS_NN_ARG_ERROR;
+        }
+        return ARM_CMSIS_NN_NO_IMPL_ERROR;
+    }
+#endif
+
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
 
     /* The wrapper API is the ultimate reference for argument check */

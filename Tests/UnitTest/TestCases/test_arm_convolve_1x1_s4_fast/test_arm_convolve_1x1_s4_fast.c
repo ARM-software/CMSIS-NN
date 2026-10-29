@@ -35,7 +35,7 @@ void kernel1x1_arm_convolve_1x1_s4_fast(void)
     int8_t output[KERNEL1X1_INT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -109,7 +109,7 @@ void kernel1x1_2_arm_convolve_1x1_s4_fast(void)
     int8_t output[KERNEL1X1_INT4_2_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -182,7 +182,7 @@ void kernel1x1_3_arm_convolve_1x1_s4_fast(void)
     int8_t output[KERNEL1X1_INT4_3_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -256,7 +256,7 @@ void kernel1x1_stride_x_arm_convolve_1x1_s4(void)
     int8_t output[KERNEL1X1_STRIDE_X_INT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -346,7 +346,7 @@ void kernel1x1_stride_x_y_arm_convolve_1x1_s4(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_INT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -439,7 +439,7 @@ void kernel1x1_stride_x_y_1_arm_convolve_1x1_s4(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_1_INT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -508,7 +508,7 @@ void kernel1x1_stride_x_y_2_arm_convolve_1x1_s4(void)
     int8_t output[KERNEL1X1_STRIDE_X_Y_2_INT4_DST_SIZE] = {0};
 
     cmsis_nn_context ctx;
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_per_channel_quant_params quant_params;
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
@@ -573,7 +573,7 @@ void kernel1x1_stride_x_y_2_arm_convolve_1x1_s4(void)
 
 void buffer_size_arm_convolve_1x1_s4_fast(void)
 {
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -611,7 +611,7 @@ void buffer_size_arm_convolve_1x1_s4_fast(void)
 void buffer_size_mve_arm_convolve_1x1_s4_fast(void)
 {
 #if defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;
@@ -651,7 +651,7 @@ void buffer_size_mve_arm_convolve_1x1_s4_fast(void)
 void buffer_size_dsp_arm_convolve_1x1_s4_fast(void)
 {
 #if defined(ARM_MATH_DSP) && !defined(ARM_MATH_MVEI)
-    cmsis_nn_conv_params conv_params;
+    cmsis_nn_conv_params conv_params = {0};
     cmsis_nn_dims input_dims;
     cmsis_nn_dims filter_dims;
     cmsis_nn_dims output_dims;

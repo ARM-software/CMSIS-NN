@@ -15,7 +15,7 @@
 # limitations under the License.
 
 [build-system]
-requires = ["scikit-build-core>=0.8,<1", "pybind11>=2.10,<3"]
+requires = ["scikit-build-core>=0.8,<1", "pybind11>=2.13.6,<4"]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -23,6 +23,7 @@ name = "cmsis_nn"
 version = "0.0.1"
 description = "CMSIS-NN scratch buffer size get helpers."
 requires-python = ">=3.8"
+dependencies = ["numpy>=1,<3"]
 
 [tool.scikit-build]
 cmake.version = ">=3.15"

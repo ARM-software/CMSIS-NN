@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2022-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1x1_s8.c
  * Description:  Generic s8 version of 1x1 convolution
  *
- * $Date:        04 January 2024
- * $Revision:    V.1.1.0
+ * $Date:        15 October 2026
+ * $Revision:    V.1.2.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,7 @@
 
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+#include <stdbool.h>
 
 /**
  *  @ingroup Public
@@ -59,6 +60,33 @@ arm_cmsis_nn_status arm_convolve_1x1_s8(const cmsis_nn_context *ctx,
                                         const cmsis_nn_dims *output_dims,
                                         int8_t *output_data)
 {
+#if ARM_NN_ENABLE_AOT
+    const bool effective_bias = conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16;
+#else
+    const bool effective_bias = false;
+    (void)effective_bias;
+#endif
+#if ARM_NN_ENABLE_AOT
+    /* Only paired representations are supported. Validate before consuming data. */
+    if (!((conv_params->filter_format == ARM_NN_FILTER_FORMAT_ROW_MAJOR &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_ORIGINAL) ||
+          (conv_params->filter_format == ARM_NN_FILTER_FORMAT_PACKED_4X16 &&
+           conv_params->bias_format == ARM_NN_BIAS_FORMAT_EFFECTIVE)))
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    if (effective_bias && bias_data == NULL)
+    {
+        return ARM_CMSIS_NN_ARG_ERROR;
+    }
+    #if !defined(ARM_MATH_MVEI)
+    if (effective_bias)
+    {
+        return ARM_CMSIS_NN_NO_IMPL_ERROR;
+    }
+    #endif
+#endif
+
     (void)ctx;
     (void)filter_dims;
     (void)bias_dims;
@@ -83,21 +111,46 @@ arm_cmsis_nn_status arm_convolve_1x1_s8(const cmsis_nn_context *ctx,
         for (int i_output_h = 0; i_output_h < output_h; i_output_h++)
         {
             // Process one input row
-            arm_cmsis_nn_status result = arm_nn_mat_mult_nt_t_s8(input_data,
-                                                                 filter_data,
-                                                                 bias_data,
-                                                                 output_data,
-                                                                 quant_params->multiplier,
-                                                                 quant_params->shift,
-                                                                 lhs_rows,
-                                                                 rhs_rows,
-                                                                 rhs_cols,
-                                                                 conv_params->input_offset,
-                                                                 conv_params->output_offset,
-                                                                 conv_params->activation.min,
-                                                                 conv_params->activation.max,
-                                                                 rhs_rows,
-                                                                 rhs_cols * stride_w);
+            arm_cmsis_nn_status result;
+
+#if ARM_NN_ENABLE_AOT
+            if (effective_bias)
+            {
+                result = arm_nn_mat_mult_nt_t_s8_packed(input_data,
+                                                        filter_data,
+                                                        bias_data,
+                                                        output_data,
+                                                        quant_params->multiplier,
+                                                        quant_params->shift,
+                                                        lhs_rows,
+                                                        rhs_rows,
+                                                        rhs_cols,
+                                                        conv_params->output_offset,
+                                                        conv_params->activation.min,
+                                                        conv_params->activation.max,
+                                                        rhs_rows,
+                                                        rhs_cols * stride_w);
+            }
+            else
+#endif
+
+            {
+                result = arm_nn_mat_mult_nt_t_s8(input_data,
+                                                 filter_data,
+                                                 bias_data,
+                                                 output_data,
+                                                 quant_params->multiplier,
+                                                 quant_params->shift,
+                                                 lhs_rows,
+                                                 rhs_rows,
+                                                 rhs_cols,
+                                                 conv_params->input_offset,
+                                                 conv_params->output_offset,
+                                                 conv_params->activation.min,
+                                                 conv_params->activation.max,
+                                                 rhs_rows,
+                                                 rhs_cols * stride_w);
+            }
             if (result != ARM_CMSIS_NN_SUCCESS)
             {
                 return result;

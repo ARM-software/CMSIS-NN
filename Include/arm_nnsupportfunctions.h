@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        17 October 2026
- * $Revision:    V.22.11.1
+ * $Date:        21 October 2026
+ * $Revision:    V.22.13.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -53,7 +53,7 @@ extern "C" {
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define CLAMP(x, h, l) MAX(MIN((x), (h)), (l))
-#define ARM_NN_ROUND_UP(x, multiple) ((((x) + (multiple) - 1) / (multiple)) * (multiple))
+#define ARM_NN_ROUND_UP(x, multiple) (((((x) + (multiple)) - 1) / (multiple)) * (multiple))
 #define REDUCE_MULTIPLIER(_mult) ((_mult < 0x7FFF0000) ? ((_mult + (1 << 15)) >> 16) : 0x7FFF)
 
 // Number of channels processed in a block for DW Conv with Int8 weights(MVE)
@@ -635,6 +635,31 @@ arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8(const int8_t *lhs,
                                             const int32_t activation_max,
                                             const int32_t row_address_offset,
                                             const int32_t lhs_cols_offset);
+
+#if ARM_NN_ENABLE_AOT
+/**
+ * @brief MVE s8 matrix multiplication using bias with the LHS-offset contribution already included
+ *
+ * Each required effective_bias entry is bias + lhs_offset * sum(RHS row), so this function does not reduce RHS rows
+ * at runtime. RHS must be packed as [ceil(rhs_rows/4), ceil(rhs_cols/16), 4, 16], with zero padding.
+ * Dimensions and LHS/output strides remain logical; bias and quantization arrays have rhs_rows entries.
+ * Returns ARM_CMSIS_NN_NO_IMPL_ERROR when MVE is unavailable.
+ */
+arm_cmsis_nn_status arm_nn_mat_mult_nt_t_s8_packed(const int8_t *lhs,
+                                                   const int8_t *rhs,
+                                                   const int32_t *effective_bias,
+                                                   int8_t *dst,
+                                                   const int32_t *dst_multipliers,
+                                                   const int32_t *dst_shifts,
+                                                   const int32_t lhs_rows,
+                                                   const int32_t rhs_rows,
+                                                   const int32_t rhs_cols,
+                                                   const int32_t dst_offset,
+                                                   const int32_t activation_min,
+                                                   const int32_t activation_max,
+                                                   const int32_t row_address_offset,
+                                                   const int32_t lhs_cols_offset);
+#endif
 
 /**
  * @brief General Matrix-multiplication function with per-channel requantization and int16 input (LHS) and output.

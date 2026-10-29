@@ -26,3 +26,33 @@ With debug logs:
 ```
 python -m pytest  -o log_cli=true -o log_cli_level=DEBUG  Tests/Bindings/test_convolve_wrapper_buffer_size.p
 ```
+
+`test_convolve_aot.py` and `test_convolve_aot_1x1.py` checks the AOT packing layout, group boundaries,
+zero padding, effective bias, serialization, and invalid C/Python arguments.
+See [AOT preparation](../../README.md#ahead-of-time-aot-preparation)
+for the C and Python APIs and runtime contract.
+
+## Dependency and import guards
+
+Install test dependencies from [requirements.txt](requirements.txt).
+Version checks reject unsupported dependencies, but cannot guarantee that the
+compiled bindings work correctly with the NumPy installation used at runtime.
+Incompatible combinations can silently produce incorrect arrays, so an import-time
+check raises `ImportError` when basic array behavior is incorrect.
+
+Local verification (use Python 3.11 for all CI variants):
+
+```sh
+python3.11 -m venv /tmp/cmsis-nn-bindings
+. /tmp/cmsis-nn-bindings/bin/activate
+python -m pip install -r Tests/Bindings/requirements.txt cmake
+cmake -S . -B build-bindings -DCMSISNN_BUILD_PYBIND=ON -DARM_NN_ENABLE_AOT=ON
+cmake --build build-bindings --parallel 2
+PYTHONPATH="$PWD/build-bindings" CMSIS_NN_BUILD_DIR="$PWD/build-bindings" \
+  python -m pytest Tests/Bindings
+```
+
+The [host CI matrix](../../.github/workflows/bindings-host.yml) defines the
+dependency versions tested. CI tests the extension built by each job. Dependency tests
+configure temporary projects and compile incompatible header fixtures for both
+ordinary discovery and parent targets. Runtime rejection tests use subprocesses.
