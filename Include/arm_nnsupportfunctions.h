@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        21 October 2026
- * $Revision:    V.22.13.0
+ * $Date:        29 October 2026
+ * $Revision:    V.22.13.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1842,7 +1842,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve(const int32x4_t val, const int
     const int32x4_t left_shift_dup = vdupq_n_s32(left_shift);
     const int32x4_t right_shift_dup = vdupq_n_s32(right_shift);
 
-    int32x4_t result = vqdmulhq_n_s32(vshlq_s32(val, left_shift_dup), multiplier);
+    int32x4_t result = vqdmulhq_n_s32(vqshlq_s32(val, left_shift_dup), multiplier);
     result = vrshlq_s32(result, right_shift_dup);
 
     return result;
@@ -1913,7 +1913,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve_pred(const int32x4_t val,
     const int32x4_t left_shift_dup = vdupq_x_n_s32(left_shift, p);
     const int32x4_t right_shift_dup = vdupq_x_n_s32(right_shift, p);
 
-    int32x4_t result = vqrdmulhq_m_n_s32(v_zero, vshlq_m_s32(v_zero, val, left_shift_dup, p), multiplier, p);
+    int32x4_t result = vqdmulhq_m_n_s32(v_zero, vqshlq_m_s32(v_zero, val, left_shift_dup, p), multiplier, p);
     result = vrshlq_m_s32(v_zero, result, right_shift_dup, p);
 
     return result;
@@ -1949,7 +1949,7 @@ __STATIC_FORCEINLINE int32x4_t arm_requantize_mve_32x4(const int32x4_t val,
     const int32x4_t right_shift = vminq_s32(vdupq_n_s32(-1), shift);
     const int32x4_t left_shift = vqsubq_s32(shift, right_shift);
 
-    int32x4_t result = vqdmulhq_s32(vshlq_s32(val, left_shift), multiplier);
+    int32x4_t result = vqdmulhq_s32(vqshlq_s32(val, left_shift), multiplier);
     result = vrshlq_s32(result, right_shift);
 
     return result;
