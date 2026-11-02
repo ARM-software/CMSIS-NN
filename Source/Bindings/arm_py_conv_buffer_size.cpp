@@ -21,8 +21,8 @@
  * Title:        arm_py_conv_buffer_size.cpp
  * Description:  Convolve wrapper buffer size pybinds (optional Python module)
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        02 Nov 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Host/Python
  * -------------------------------------------------------------------- */
@@ -38,6 +38,12 @@ extern "C" {
 }
 
 namespace py = pybind11;
+
+enum class FilterFormat
+{
+    ROW_MAJOR,
+    PACKED_4X16,
+};
 
 static inline cmsis_nn_conv_params make_conv_params(const std::array<int32_t, 2> &padding_hw,
                                                     const std::array<int32_t, 2> &stride_hw,
@@ -75,6 +81,10 @@ void conv_buffer_size(py::module_ &m)
         .value("A8W8", DataType::A8W8)
         .value("A16W8", DataType::A16W8);
 
+    py::enum_<FilterFormat>(m, "FilterFormat")
+        .value("ROW_MAJOR", FilterFormat::ROW_MAJOR)
+        .value("PACKED_4X16", FilterFormat::PACKED_4X16);
+
     m.def(
         "convolve_wrapper_buffer_size",
         [](Backend backend,
@@ -88,9 +98,19 @@ void conv_buffer_size(py::module_ &m)
            int32_t input_offset,
            int32_t output_offset,
            int32_t activation_min,
-           int32_t activation_max) -> int32_t {
-            const cmsis_nn_conv_params conv_params = make_conv_params(
+           int32_t activation_max,
+           FilterFormat filter_format) -> int32_t {
+            cmsis_nn_conv_params conv_params = make_conv_params(
                 padding_hw, stride_hw, dilation_hw, input_offset, output_offset, activation_min, activation_max);
+#if ARM_NN_ENABLE_AOT
+            conv_params.filter_format = filter_format == FilterFormat::PACKED_4X16 ? ARM_NN_FILTER_FORMAT_PACKED_4X16
+                                                                                   : ARM_NN_FILTER_FORMAT_ROW_MAJOR;
+#else
+            if (filter_format != FilterFormat::ROW_MAJOR)
+            {
+                throw py::value_error("Packed filter queries require ARM_NN_ENABLE_AOT=ON");
+            }
+#endif
 
             const cmsis_nn_dims input_dims = make_dims(input_nhwc);
             const cmsis_nn_dims filter_dims = make_dims(filter_nhwc);
@@ -157,5 +177,7 @@ void conv_buffer_size(py::module_ &m)
         py::arg("input_offset") = 0,
         py::arg("output_offset") = 0,
         py::arg("activation_min") = -128,
-        py::arg("activation_max") = 127);
+        py::arg("activation_max") = 127,
+        py::arg("filter_format") = FilterFormat::ROW_MAJOR,
+        "Return convolution scratch size in bytes for the selected backend and filter format.");
 }

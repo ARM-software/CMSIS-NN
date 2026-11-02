@@ -178,6 +178,11 @@ buf_size = cmsis_nn.convolve_wrapper_buffer_size(
 )
 ```
 
+`convolve_wrapper_buffer_size` accepts an optional `filter_format` argument,
+defaulting to `cmsis_nn.FilterFormat.ROW_MAJOR`. For packed int8 MVE filters,
+pass `filter_format=cmsis_nn.FilterFormat.PACKED_4X16` to query the scratch size
+for the packed runtime path. Packed-format queries require an AOT-enabled build.
+
 Optionally backend can be derived, e.g.:
 ```
 backend = cmsis_nn.resolve_backend(cmsis_nn.CortexM.M55)
