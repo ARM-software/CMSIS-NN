@@ -40,3 +40,4 @@ void test_minimum_broadcast_batch_f32_arm_minimum_f32(void) { minimum_broadcast_
 void test_minimum_broadcast_height_f32_arm_minimum_f32(void) { minimum_broadcast_height_f32_arm_minimum_f32(); }
 void test_minimum_broadcast_width_f32_arm_minimum_f32(void) { minimum_broadcast_width_f32_arm_minimum_f32(); }
 void test_minimum_broadcast_ch_f32_arm_minimum_f32(void) { minimum_broadcast_ch_f32_arm_minimum_f32(); }
+void test_maximum_broadcast_row_f32_arm_maximum_f32(void) { maximum_broadcast_row_f32_arm_maximum_f32(); }

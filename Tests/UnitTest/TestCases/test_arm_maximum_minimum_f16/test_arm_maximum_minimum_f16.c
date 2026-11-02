@@ -70,3 +70,32 @@ RUN_MINMAX_F16_CASE(MINIMUM_BROADCAST_BATCH_F16, minimum_broadcast_batch_f16, ar
 RUN_MINMAX_F16_CASE(MINIMUM_BROADCAST_HEIGHT_F16, minimum_broadcast_height_f16, arm_minimum_f16, 1.0e-3f)
 RUN_MINMAX_F16_CASE(MINIMUM_BROADCAST_WIDTH_F16, minimum_broadcast_width_f16, arm_minimum_f16, 1.0e-3f)
 RUN_MINMAX_F16_CASE(MINIMUM_BROADCAST_CH_F16, minimum_broadcast_ch_f16, arm_minimum_f16, 1.0e-3f)
+
+void maximum_broadcast_row_f16_arm_maximum_f16(void)
+{
+    float16_t output[4] = {0};
+    const cmsis_nn_context ctx = {0};
+    const cmsis_nn_dims input_1_dims = {.n = 1, .h = 2, .w = 1, .c = 1};
+    const cmsis_nn_dims input_2_dims = {.n = 1, .h = 2, .w = 2, .c = 1};
+    const cmsis_nn_dims output_dims = {.n = 1, .h = 2, .w = 2, .c = 1};
+    // The last element is outside input_1_dims and must not be read.
+    const float16_t input_1[3] = {(float16_t)10.0f, (float16_t)20.0f, (float16_t)1000.0f};
+    const float16_t input_2[4] = {(float16_t)5.0f, (float16_t)25.0f, (float16_t)15.0f, (float16_t)30.0f};
+    const float16_t output_ref[4] = {(float16_t)10.0f, (float16_t)25.0f, (float16_t)20.0f, (float16_t)30.0f};
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_maximum_f16(&ctx, input_1, &input_1_dims, input_2, &input_2_dims, output, &output_dims));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        TEST_ASSERT_FLOAT_WITHIN(1.0e-3f, (float)output_ref[i], (float)output[i]);
+    }
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_maximum_f16(&ctx, input_2, &input_2_dims, input_1, &input_1_dims, output, &output_dims));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        TEST_ASSERT_FLOAT_WITHIN(1.0e-3f, (float)output_ref[i], (float)output[i]);
+    }
+}

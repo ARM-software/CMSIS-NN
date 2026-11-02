@@ -21,8 +21,8 @@
  * Title:        arm_minimum_s8
  * Description:  Minimum and Maximum
  *
- * $Date:        08 October 2024
- * $Revision:    V.1.0.0
+ * $Date:        29 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -198,7 +198,7 @@ arm_cmsis_nn_status arm_minimum_s8(const cmsis_nn_context *ctx,
                             // arm_min_scalar expects the tensor with the scalar value to be provided first
                             arm_min_scalar_s8(input_1_ptr, input_2_ptr, output_data, flat_size_2);
                             output_data += flat_size_2;
-                            ++input_1_ptr;
+                            input_1_ptr += 1 - width_1_diff;
                             input_2_ptr += flat_size_2;
                         }
                         else if (flat_size_2 == 1)
@@ -206,7 +206,7 @@ arm_cmsis_nn_status arm_minimum_s8(const cmsis_nn_context *ctx,
                             // arm_min_scalar expects the tensor with the scalar value to be provided first
                             arm_min_scalar_s8(input_2_ptr, input_1_ptr, output_data, flat_size_1);
                             output_data += flat_size_1;
-                            ++input_2_ptr;
+                            input_2_ptr += 1 - width_2_diff;
                             input_1_ptr += flat_size_1;
                         }
                         else
