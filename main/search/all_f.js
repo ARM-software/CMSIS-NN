@@ -6,5 +6,6 @@ var searchData=
   ['reverse_5ftcol_5fefficient_5fthreshold_3',['REVERSE_TCOL_EFFICIENT_THRESHOLD',['../arm__nnsupportfunctions_8h.html#a71001d400c6ca2379965f8cfa77cfb5e',1,'arm_nnsupportfunctions.h']]],
   ['revision_20history_4',['Revision History',['../rev_hist.html',1,'']]],
   ['rhs_5fformat_5',['rhs_format',['../group__genPubTypes.html#a6c2e564bab7bbf5e69545445ee3cf5cf',1,'cmsis_nn_bmm_params_f32::rhs_format()'],['../group__genPubTypes.html#a6c2e564bab7bbf5e69545445ee3cf5cf',1,'cmsis_nn_bmm_params_f16::rhs_format()']]],
-  ['right_5fshift_6',['RIGHT_SHIFT',['../arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4',1,'arm_nnsupportfunctions.h']]]
+  ['right_5fshift_6',['RIGHT_SHIFT',['../arm__nnsupportfunctions_8h.html#a26af54489c1401b91595bf0c92ef87c4',1,'arm_nnsupportfunctions.h']]],
+  ['row_5fmajor_7',['ROW_MAJOR',['../arm__py__conv__buffer__size_8cpp.html#a770db9aff254972e04bb4aad53c19b96a21541962976d7709c26e9cd8385bd648',1,'arm_py_conv_buffer_size.cpp']]]
 ];

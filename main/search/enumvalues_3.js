@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scalar_0',['SCALAR',['../arm__py__common_8hpp.html#ae4db5848267c1a5a1413b7f87cf6889da8f3d9a4b6a7b7f2c7afa61ca113d0db9',1,'arm_py_common.hpp']]]
+  ['packed_5f4x16_0',['PACKED_4X16',['../arm__py__conv__buffer__size_8cpp.html#a770db9aff254972e04bb4aad53c19b96ab1a518a16ddd836b9be2349ef28391c5',1,'arm_py_conv_buffer_size.cpp']]]
 ];
