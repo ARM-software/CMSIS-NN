@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_s4.c
  * Description:  s4 version of 1xN convolution using symmetric quantization.
  *
- * $Date:        9 April 2026
- * $Revision:    V.1.0.1
+ * $Date:        02 November 2026
+ * $Revision:    V.1.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -61,8 +61,9 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
     arm_cmsis_nn_status status = ARM_CMSIS_NN_SUCCESS;
     int32_t buffer_size = arm_convolve_1_x_n_s4_get_buffer_size(conv_params, input_dims, filter_dims, output_dims);
     /* The wrapper API is the ultimate reference for argument check */
-    if ((input_dims->h != 1) || conv_params->dilation.w != 1 || (buffer_size != 0 && ctx->buf == NULL) ||
-        conv_params->stride.w == 0 || (conv_params->stride.w * input_dims->c % 4 != 0))
+    if ((input_dims->h != 1) || (output_dims->h != 1) || (filter_dims->h != 1) || (conv_params->padding.h != 0) ||
+        conv_params->dilation.w != 1 || (buffer_size != 0 && ctx->buf == NULL) || conv_params->stride.w == 0 ||
+        (conv_params->stride.w * input_dims->c % 4 != 0))
     {
         return ARM_CMSIS_NN_ARG_ERROR;
     }
@@ -78,10 +79,10 @@ arm_cmsis_nn_status arm_convolve_1_x_n_s4(const cmsis_nn_context *ctx,
     const uint16_t stride_x = conv_params->stride.w;
 
     // Total pad for dilation of 1
-    const int32_t total_pad = ((output_x - 1) * stride_x + kernel_x - input_x);
+    const int32_t total_pad = MAX((output_x - 1) * stride_x + kernel_x - input_x, 0);
     const int32_t asym_pad = total_pad % 2;
 
-    if (pad_x * 2 + asym_pad != total_pad)
+    if ((pad_x * 2 + asym_pad != total_pad) || (input_ch % 2 != 0))
     {
         return ARM_CMSIS_NN_FAILURE;
     }
