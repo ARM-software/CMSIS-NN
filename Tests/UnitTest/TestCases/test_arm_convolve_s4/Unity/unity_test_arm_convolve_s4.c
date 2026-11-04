@@ -68,3 +68,6 @@ void test_conv_1_x_n_2_arm_convolve_s4(void) { conv_1_x_n_2_arm_convolve_s4(); }
 void test_conv_1_x_n_3_arm_convolve_s4(void) { conv_1_x_n_3_arm_convolve_s4(); }
 void test_conv_1_x_n_4_arm_convolve_s4(void) { conv_1_x_n_4_arm_convolve_s4(); }
 void test_conv_1_x_n_5_arm_convolve_s4(void) { conv_1_x_n_5_arm_convolve_s4(); }
+void test_conv_1_x_n_6_arm_convolve_s4(void) { conv_1_x_n_6_arm_convolve_s4(); }
+void test_conv_1_x_n_7_arm_convolve_s4(void) { conv_1_x_n_7_arm_convolve_s4(); }
+void test_conv_1_x_n_8_arm_convolve_s4(void) { conv_1_x_n_8_arm_convolve_s4(); }

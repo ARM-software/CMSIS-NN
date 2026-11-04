@@ -21,8 +21,8 @@
  * Title:        arm_convolve_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        15 October 2026
- * $Revision:    V.2.4.0
+ * $Date:        02 November 2026
+ * $Revision:    V.2.4.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -60,7 +60,7 @@ __STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn
     const int32_t kernel_x = filter_dims->w;
     const int32_t output_x = output_dims->w;
     const int32_t stride_x = conv_params->stride.w;
-    const int32_t total_pad = ((output_x - 1) * stride_x + kernel_x - input_x);
+    const int32_t total_pad = MAX((output_x - 1) * stride_x + kernel_x - input_x, 0);
     const int32_t asym_pad = total_pad % 2;
 
     const int32_t right_pad_num = pad_x + asym_pad != 0 ? MAX(1, (pad_x + asym_pad + stride_x - 1) / stride_x) : 0;
@@ -73,9 +73,9 @@ __STATIC_INLINE int32_t arm_convolve_1_x_n_s8_get_buffer_size_mve(const cmsis_nn
     }
 
     const int32_t pad_size_left = pad_x * input_dims->c;
-    const int32_t pad_size_right = asym_pad ? right_pad_num * input_dims->c : pad_size_left;
-    const int32_t num_elem_left = kernel_x * input_dims->c;
-    const int32_t num_elem_right = num_elem_left - input_dims->c;
+    const int32_t pad_size_right = (pad_x + asym_pad) * input_dims->c;
+    const int32_t num_elem_left = MIN(kernel_x, input_x) * input_dims->c;
+    const int32_t num_elem_right = MAX(input_x - (stride_x * (left_pad_num + no_pad_num) - pad_x), 0) * input_dims->c;
     const int32_t size_1_x_n = MAX(num_elem_left + pad_size_left, num_elem_right + pad_size_right);
 
     return size_1_x_n;
@@ -145,7 +145,6 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv
 #elif defined(ARM_MATH_DSP)
     return arm_convolve_wrapper_s8_get_buffer_size_dsp(conv_params, input_dims, filter_dims, output_dims);
 #else
-    (void)output_dims;
     if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
         if (arm_nn_is_convolve_1x1_fast(conv_params))
@@ -157,7 +156,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size(const cmsis_nn_conv_params *conv
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+    else if (arm_nn_is_convolve_1_x_n_s8(conv_params, input_dims, filter_dims, output_dims)
     #if ARM_NN_ENABLE_AOT
              && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
     #endif
@@ -177,7 +176,6 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *
                                                     const cmsis_nn_dims *filter_dims,
                                                     const cmsis_nn_dims *output_dims)
 {
-    (void)output_dims;
     if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
         if (arm_nn_is_convolve_1x1_fast(conv_params))
@@ -189,7 +187,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_mve(const cmsis_nn_conv_params *
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+    else if (arm_nn_is_convolve_1_x_n_s8(conv_params, input_dims, filter_dims, output_dims)
 #if ARM_NN_ENABLE_AOT
              && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
 #endif
@@ -208,7 +206,6 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *
                                                     const cmsis_nn_dims *filter_dims,
                                                     const cmsis_nn_dims *output_dims)
 {
-    (void)output_dims;
     if (arm_nn_is_convolve_1x1(conv_params, input_dims, filter_dims))
     {
         if (arm_nn_is_convolve_1x1_fast(conv_params))
@@ -220,7 +217,7 @@ int32_t arm_convolve_wrapper_s8_get_buffer_size_dsp(const cmsis_nn_conv_params *
             return 0;
         }
     }
-    else if (arm_nn_is_convolve_1_x_n(conv_params, input_dims, filter_dims)
+    else if (arm_nn_is_convolve_1_x_n_s8(conv_params, input_dims, filter_dims, output_dims)
 #if ARM_NN_ENABLE_AOT
              && conv_params->filter_format != ARM_NN_FILTER_FORMAT_PACKED_4X16
 #endif
