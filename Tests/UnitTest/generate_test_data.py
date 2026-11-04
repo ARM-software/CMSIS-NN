@@ -3068,6 +3068,46 @@ def load_testdata_sets(regenerate_input, regenerate_weights, regenerate_biases, 
                                              randmin=TestSettings.INT16_MIN,
                                              randmax=TestSettings.INT16_MAX,
                                              interpreter=interpreter)
+    # Fixed inputs. Row 0 gives an exp sum of 262142, the largest sum whose normalized reciprocal input still fits in
+    # int16. Row 1 gives 262143, where the rounded normalized sum reaches 2^31 and the reciprocal input must saturate.
+    dataset = 'softmax_s16_sum_boundary'
+    testdata_sets[dataset] = SoftmaxSettings(dataset,
+                                             type_of_test,
+                                             regenerate_weights,
+                                             regenerate_input,
+                                             regenerate_biases,
+                                             schema_file,
+                                             x_in=9,
+                                             y_in=2,
+                                             int16xint8=True,
+                                             interpreter=interpreter,
+                                             input_data=[[32767] * 7 + [28055, -32754], [32767] * 7 + [28055, -32749]])
+    # Fixed inputs. Two equal inputs, each output is exactly one half.
+    dataset = 'softmax_s16_equal_inputs'
+    testdata_sets[dataset] = SoftmaxSettings(dataset,
+                                             type_of_test,
+                                             regenerate_weights,
+                                             regenerate_input,
+                                             regenerate_biases,
+                                             schema_file,
+                                             x_in=2,
+                                             y_in=1,
+                                             int16xint8=True,
+                                             interpreter=interpreter,
+                                             input_data=[[0, 0]])
+    # Fixed inputs. A single input, the output must saturate at INT16_MAX.
+    dataset = 'softmax_s16_single_input'
+    testdata_sets[dataset] = SoftmaxSettings(dataset,
+                                             type_of_test,
+                                             regenerate_weights,
+                                             regenerate_input,
+                                             regenerate_biases,
+                                             schema_file,
+                                             x_in=1,
+                                             y_in=1,
+                                             int16xint8=True,
+                                             interpreter=interpreter,
+                                             input_data=[[0]])
     dataset = 'softmax_s8_s16'
     testdata_sets[dataset] = SoftmaxSettings(dataset,
                                              type_of_test,
