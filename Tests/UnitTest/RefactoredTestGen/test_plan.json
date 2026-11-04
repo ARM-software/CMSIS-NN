@@ -338,6 +338,28 @@
          "dilation_x": 3,
          "dilation_y": 3,
          "padding": "SAME"
+        },
+        {"name" : "conv_unaligned_1_int4",
+         "in_ch" : 33,
+         "out_ch" : 2,
+         "input_w" : 2,
+         "input_h" : 1,
+         "filter_x" : 1,
+         "filter_y": 1,
+         "stride_x": 1,
+         "stride_y": 1,
+         "padding": "VALID"
+        },
+        {"name" : "conv_unaligned_2_int4",
+         "in_ch" : 17,
+         "out_ch" : 2,
+         "input_w" : 2,
+         "input_h" : 2,
+         "filter_x" : 1,
+         "filter_y": 2,
+         "stride_x": 1,
+         "stride_y": 1,
+         "padding": "VALID"
         }
     ]
 },
@@ -833,6 +855,15 @@
          "generate_bias": false,
          "input_zp": -127,
          "output_zp": 128
+        },
+        {"name" : "fully_connected_unaligned_int4",
+         "batch_size": 2,
+         "in_ch" : 33,
+         "out_ch" : 7,
+         "bias_min": -128,
+         "bias_max": 127,
+         "input_zp": 1,
+         "output_zp": -1
         }
 
     ]
