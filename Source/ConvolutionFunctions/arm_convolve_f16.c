@@ -21,8 +21,8 @@
  * Title:        arm_convolve_f16.c
  * Description:  Generic float16 convolution
  *
- * $Date:        31 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,11 +30,15 @@
 
 /* Generic float16 convolution. */
 
-#include "Internal/arm_conv_opt_common.h"
-#include "Internal/arm_conv_opt_f16.h"
-#include "Internal/arm_nn_activation_flt.h"
-#include "arm_nnfunctions.h"
-#include "arm_nnsupportfunctions.h"
+#include "Internal/arm_nn_config.h"
+
+#if ARM_NN_ENABLE_F16
+
+    #include "Internal/arm_conv_opt_common.h"
+    #include "Internal/arm_conv_opt_f16.h"
+    #include "Internal/arm_nn_activation_flt.h"
+    #include "arm_nnfunctions.h"
+    #include "arm_nnsupportfunctions.h"
 
 /**
  * @ingroup Public
@@ -47,7 +51,7 @@
 
 __STATIC_INLINE float16_t arm_conv_dot_f16(const float16_t *lhs, const float16_t *rhs, int32_t len)
 {
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     float16x8_t vacc = vdupq_n_f16((float16_t)0.0f);
     for (int32_t i = 0; i < len; i += 8)
     {
@@ -55,14 +59,14 @@ __STATIC_INLINE float16_t arm_conv_dot_f16(const float16_t *lhs, const float16_t
         vacc = vfmaq_m(vacc, vld1q_z(lhs + i, p), vld1q_z(rhs + i, p), p);
     }
     return arm_nn_vec_reduce_add_f16(vacc);
-#else
+    #else
     _Float16 acc = (_Float16)0.0f;
     for (int32_t i = 0; i < len; ++i)
     {
         acc += (_Float16)lhs[i] * (_Float16)rhs[i];
     }
     return (float16_t)acc;
-#endif
+    #endif
 }
 
 __STATIC_INLINE bool arm_conv_nhwc_use_patch_gemm_f16(const cmsis_nn_context *ctx,
@@ -147,7 +151,7 @@ __STATIC_INLINE bool arm_conv_nhwc_use_1xn_f16(const cmsis_nn_context *ctx,
         return false;
     }
 
-#ifndef NN_DISABLE_SPECIALIZATION
+    #ifndef NN_DISABLE_SPECIALIZATION
     /*
      * If a direct specialization already claims the shape, let the normal
      * specialization dispatcher handle it instead of forcing the generic 1xN
@@ -157,7 +161,7 @@ __STATIC_INLINE bool arm_conv_nhwc_use_1xn_f16(const cmsis_nn_context *ctx,
     {
         return false;
     }
-#endif
+    #endif
 
     /* Remaining 1xN shapes use the generic packed-input helper when workspace is available. */
     const int32_t buf_size =
@@ -263,7 +267,7 @@ static arm_cmsis_nn_status arm_convolve_nhwc_patch_gemm_f16(const cmsis_nn_conte
     return ARM_CMSIS_NN_SUCCESS;
 }
 
-#include <stdio.h>
+    #include <stdio.h>
 
 arm_cmsis_nn_status arm_convolve_nhwc_f16(const cmsis_nn_context *ctx,
                                           const cmsis_nn_conv_params_f16 *conv_params,
@@ -329,7 +333,7 @@ arm_cmsis_nn_status arm_convolve_nhwc_f16(const cmsis_nn_context *ctx,
                                            output_data);
     }
 
-#ifndef NN_DISABLE_SPECIALIZATION
+    #ifndef NN_DISABLE_SPECIALIZATION
     /*
      * Let direct specializations claim their shapes first. Packed-patch GEMM
      * remains the generic fallback for shapes that are not handled by a tuned
@@ -347,7 +351,7 @@ arm_cmsis_nn_status arm_convolve_nhwc_f16(const cmsis_nn_context *ctx,
                       bias_data,
                       output_dims,
                       output_data);
-#endif
+    #endif
 
     const bool use_patch_gemm = arm_conv_nhwc_use_patch_gemm_f16(ctx, patch_len, output_c, output_positions);
 
@@ -461,3 +465,5 @@ arm_cmsis_nn_status arm_convolve_wrapper_f16(const cmsis_nn_context *ctx,
 /**
  * @} end of NNConv group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

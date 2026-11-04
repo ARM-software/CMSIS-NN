@@ -21,8 +21,8 @@
  * Title:        arm_transpose_conv_f16.c
  * Description:  Transpose convolution (float16, NHWC)
  *
- * $Date:        23 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,6 +30,8 @@
 
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup Public
@@ -83,7 +85,7 @@ arm_cmsis_nn_status arm_transpose_conv_nhwc_f16(const cmsis_nn_context *ctx,
     const int32_t dil_h = transpose_conv_params->dilation.h;
     const int32_t dil_w = transpose_conv_params->dilation.w;
     const size_t kernel_oc_stride = (size_t)kernel_h * (size_t)kernel_w * (size_t)input_c;
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     const int32_t oc_gather_mve_ok = (kernel_oc_stride <= ARM_NN_MVE_F16_MAX_GATHER_STRIDE_8);
     uint16x8_t oc_offsets = vdupq_n_u16(0);
     if (oc_gather_mve_ok)
@@ -91,7 +93,7 @@ arm_cmsis_nn_status arm_transpose_conv_nhwc_f16(const cmsis_nn_context *ctx,
         const uint16_t kernel_oc_stride_u16 = (uint16_t)kernel_oc_stride;
         oc_offsets = vmulq(vidupq_u16((uint32_t)0, 1), kernel_oc_stride_u16);
     }
-#endif
+    #endif
 
     for (int32_t b = 0; b < batch; ++b)
     {
@@ -105,34 +107,34 @@ arm_cmsis_nn_status arm_transpose_conv_nhwc_f16(const cmsis_nn_context *ctx,
                 float16_t *out_px = output_b + ((size_t)out_y * output_w + (size_t)out_x) * output_c;
                 if (bias_data)
                 {
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
                     for (int32_t oc = 0; oc < output_c; oc += 8)
                     {
                         const mve_pred16_t p = vctp16q((uint32_t)(output_c - oc));
                         vst1q_p(out_px + oc, vld1q_z(bias_data + oc, p), p);
                     }
-#else
+    #else
                     for (int32_t oc = 0; oc < output_c; ++oc)
                     {
                         out_px[oc] = bias_data[oc];
                     }
-#endif
+    #endif
                 }
                 else
                 {
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
                     const float16x8_t vzero = vdupq_n_f16((float16_t)0);
                     for (int32_t oc = 0; oc < output_c; oc += 8)
                     {
                         const mve_pred16_t p = vctp16q((uint32_t)(output_c - oc));
                         vst1q_p(out_px + oc, vzero, p);
                     }
-#else
+    #else
                     for (int32_t oc = 0; oc < output_c; ++oc)
                     {
                         out_px[oc] = (float16_t)0;
                     }
-#endif
+    #endif
                 }
             }
         }
@@ -166,7 +168,7 @@ arm_cmsis_nn_status arm_transpose_conv_nhwc_f16(const cmsis_nn_context *ctx,
                             float16_t *out_px = output_b + ((size_t)out_y * output_w + (size_t)out_x) * output_c;
                             const float16_t *w_k_ic =
                                 filter_data + ((size_t)ky * kernel_w + (size_t)kx) * input_c + (size_t)ic;
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
                             int32_t oc = 0;
                             if (oc_gather_mve_ok)
                             {
@@ -180,9 +182,9 @@ arm_cmsis_nn_status arm_transpose_conv_nhwc_f16(const cmsis_nn_context *ctx,
                                     vst1q_p(out_px + oc, vout, p);
                                 }
                             }
-#else
+    #else
                             int32_t oc = 0;
-#endif
+    #endif
                             for (; oc < output_c; ++oc)
                             {
                                 out_px[oc] += (_Float16)val * (_Float16)w_k_ic[(size_t)oc * kernel_oc_stride];
@@ -294,3 +296,5 @@ arm_transpose_conv_f16_get_reverse_conv_buffer_size(const cmsis_nn_transpose_con
 /**
  * @} end of NNConv group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

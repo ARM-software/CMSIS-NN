@@ -21,13 +21,16 @@
  * Title:        arm_maximum_f32.c
  * Description:  Elementwise maximum for float32 tensors
  *
- * $Date:        19 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
-#include "Internal/arm_minmax_f32_common.h"
+#include "Internal/arm_nn_config.h"
+#if ARM_NN_ENABLE_F32
+
+    #include "Internal/arm_minmax_f32_common.h"
 
 /**
  * @ingroup Public
@@ -52,3 +55,5 @@ arm_cmsis_nn_status arm_maximum_f32(const cmsis_nn_context *ctx,
 /**
  * @} end of groupElementwise group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

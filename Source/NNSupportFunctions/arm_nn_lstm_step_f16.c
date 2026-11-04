@@ -21,8 +21,8 @@
  * Title:        arm_nn_lstm_step_f16.c
  * Description:  Update LSTM function for a single iteration step (float16)
  *
- * $Date:        19 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture with FP16 support
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup groupSupport
@@ -59,7 +61,7 @@ __STATIC_INLINE float16_t arm_nn_lstm_dot_f16(const float16_t *lhs, const float1
 {
     _Float16 acc = (_Float16)0.0f;
 
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
     float16x8_t vacc = vdupq_n_f16((float16_t)0.0f);
 
     for (int32_t i = 0; i < count; i += 8)
@@ -69,12 +71,12 @@ __STATIC_INLINE float16_t arm_nn_lstm_dot_f16(const float16_t *lhs, const float1
     }
 
     acc += (_Float16)arm_nn_vec_reduce_add_f16(vacc);
-#else
+    #else
     for (int32_t i = 0; i < count; ++i)
     {
         acc += (_Float16)lhs[i] * (_Float16)rhs[i];
     }
-#endif
+    #endif
 
     return (float16_t)acc;
 }
@@ -132,7 +134,7 @@ arm_cmsis_nn_status arm_nn_lstm_step_f16(const float16_t *data_in,
         float16_t *h_out = hidden_out + (size_t)b * (size_t)batch_offset * (size_t)hidden_size;
 
         int32_t h = 0;
-#if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
         for (; h + 8 <= hidden_size; h += 8)
         {
             float16_t f_gate[8];
@@ -169,7 +171,7 @@ arm_cmsis_nn_status arm_nn_lstm_step_f16(const float16_t *data_in,
             vst1q(c_prev + h, vc);
             vst1q(h_out + h, vmulq(vo, arm_nn_vtanh_lut_direct_mve_f16(vc)));
         }
-#endif
+    #endif
         for (; h < hidden_size; h++)
         {
             const float16_t f =
@@ -195,3 +197,5 @@ arm_cmsis_nn_status arm_nn_lstm_step_f16(const float16_t *data_in,
 }
 
 /** @} end of supportLSTM group */
+
+#endif /* ARM_NN_ENABLE_F16 */

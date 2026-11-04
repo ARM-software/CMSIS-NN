@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1x1_f32.c
  * Description:  Generic float32 1x1 convolution
  *
- * $Date:        2 Feb 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -30,12 +30,16 @@
 
 /* Generic float32 1x1 convolution. */
 
-#include "Internal/arm_conv1x1_opt_common.h"
-#include "Internal/arm_conv1x1_opt_f32.h"
-#include "Internal/arm_conv_opt_common.h"
-#include "Internal/arm_nn_activation_flt.h"
-#include "arm_nnfunctions.h"
-#include "arm_nnsupportfunctions.h"
+#include "Internal/arm_nn_config.h"
+
+#if ARM_NN_ENABLE_F32
+
+    #include "Internal/arm_conv1x1_opt_common.h"
+    #include "Internal/arm_conv1x1_opt_f32.h"
+    #include "Internal/arm_conv_opt_common.h"
+    #include "Internal/arm_nn_activation_flt.h"
+    #include "arm_nnfunctions.h"
+    #include "arm_nnsupportfunctions.h"
 
 /**
  * @ingroup Public
@@ -301,3 +305,5 @@ arm_cmsis_nn_status arm_convolve_1x1_f32(const cmsis_nn_context *ctx,
 /**
  * @} end of NNConv group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

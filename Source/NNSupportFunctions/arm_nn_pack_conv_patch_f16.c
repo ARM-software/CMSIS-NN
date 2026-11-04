@@ -21,14 +21,16 @@
  * Title:        arm_nn_pack_conv_patch_f16.c
  * Description:  Support: pack one convolution patch row (float16)
  *
- * $Date:        2 Mar 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
  * -------------------------------------------------------------------- */
 
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F16
 
 /**
  * @ingroup groupSupport
@@ -84,3 +86,5 @@ void arm_nn_pack_conv_patch_f16(const float16_t *__RESTRICT input,
 /**
  * @} end of supportConvolution group
  */
+
+#endif /* ARM_NN_ENABLE_F16 */

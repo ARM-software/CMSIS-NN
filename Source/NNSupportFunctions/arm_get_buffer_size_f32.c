@@ -21,8 +21,8 @@
  * Title:        arm_get_buffer_size_f32.c
  * Description:  Buffer size helpers (float32)
  *
- * $Date:        31 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -33,17 +33,19 @@
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
 
-/**
- * @ingroup NNConv
- */
+#if ARM_NN_ENABLE_F32
 
-/**
- * @addtogroup GetBufferSizeNNConv
- * @{
- */
+    /**
+     * @ingroup NNConv
+     */
 
-/* Keep in sync with arm_depthwise_conv_f32.c fast NT_T packing tile. */
-#define ARM_NN_DW_NT_T_F32_TILE_ROWS (4)
+    /**
+     * @addtogroup GetBufferSizeNNConv
+     * @{
+     */
+
+    /* Keep in sync with arm_depthwise_conv_f32.c fast NT_T packing tile. */
+    #define ARM_NN_DW_NT_T_F32_TILE_ROWS (4)
 
 int32_t arm_depthwise_conv_f32_get_buffer_size(const cmsis_nn_dw_conv_params_f32 *dw_conv_params,
                                                const cmsis_nn_dims *input_dims,
@@ -56,7 +58,7 @@ int32_t arm_depthwise_conv_f32_get_buffer_size(const cmsis_nn_dw_conv_params_f32
         return 0;
     }
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     if (layout == ARM_NN_LAYOUT_NHWC && input_dims->c == 1 &&
         output_dims->c >= CONVERT_DW_CONV_WITH_ONE_INPUT_CH_AND_OUTPUT_CH_ABOVE_THRESHOLD)
     {
@@ -88,7 +90,7 @@ int32_t arm_depthwise_conv_f32_get_buffer_size(const cmsis_nn_dw_conv_params_f32
 
         return arm_nn_size_to_i32_or_zero(filter_bytes);
     }
-#endif
+    #endif
 
     /* Scratch is used only by the NHWC ch_mult=1, dilation=1 fast NT_T kernel. */
     if (layout != ARM_NN_LAYOUT_NHWC || dw_conv_params->ch_mult != 1 || dw_conv_params->dilation.w != 1 ||
@@ -273,3 +275,5 @@ int32_t arm_batch_matmul_f32_get_buffer_size(const cmsis_nn_bmm_params_f32 *bmm_
 /**
  * @} end of GetBufferSizeNNConv group
  */
+
+#endif /* ARM_NN_ENABLE_F32 */

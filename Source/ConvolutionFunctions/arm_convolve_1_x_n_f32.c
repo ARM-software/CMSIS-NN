@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_f32.c
  * Description:  Dedicated float32 1xN convolution
  *
- * $Date:        31 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -31,6 +31,8 @@
 #include "Internal/arm_nn_activation_flt.h"
 #include "arm_nnfunctions.h"
 #include "arm_nnsupportfunctions.h"
+
+#if ARM_NN_ENABLE_F32
 
 /**
  * @ingroup Public
@@ -41,14 +43,14 @@
  * @{
  */
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
-    #define ARM_NN_CONV_1XN_F32_MVE_BLOCK_ROWS (4)
-    #define ARM_NN_CONV_1XN_F32_MVE_DUAL_BLOCK_ROWS (8)
-#endif
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+        #define ARM_NN_CONV_1XN_F32_MVE_BLOCK_ROWS (4)
+        #define ARM_NN_CONV_1XN_F32_MVE_DUAL_BLOCK_ROWS (8)
+    #endif
 
 __STATIC_INLINE float32_t arm_convolve_1_x_n_dot_f32(const float32_t *lhs, const float32_t *rhs, int32_t len)
 {
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     float32x4_t vacc = vdupq_n_f32(0.0f);
     for (int32_t i = 0; i < len; i += 4)
     {
@@ -56,14 +58,14 @@ __STATIC_INLINE float32_t arm_convolve_1_x_n_dot_f32(const float32_t *lhs, const
         vacc = vfmaq_m(vacc, vld1q_z(lhs + i, p), vld1q_z(rhs + i, p), p);
     }
     return arm_nn_vec_reduce_add_f32(vacc);
-#else
+    #else
     float32_t acc = 0.0f;
     for (int32_t i = 0; i < len; ++i)
     {
         acc += lhs[i] * rhs[i];
     }
     return acc;
-#endif
+    #endif
 }
 
 __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f32(const float32_t *__RESTRICT lhs,
@@ -84,20 +86,20 @@ __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f32
         return ARM_CMSIS_NN_ARG_ERROR;
     }
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
     const uint32_t rhs_cols_u32 = (uint32_t)rhs_cols;
     const uint32x4_t offsets = vmulq(vidupq_u32((uint32_t)0, 1), rhs_cols_u32);
     const uint32x4_t offsets_hi = vaddq(offsets, (uint32_t)(ARM_NN_CONV_1XN_F32_MVE_BLOCK_ROWS * rhs_cols_u32));
     const float32x4_t vmin = vdupq_n_f32(activation_min);
     const float32x4_t vmax = vdupq_n_f32(activation_max);
-#endif
+    #endif
 
     for (int32_t r = 0; r < lhs_rows; ++r)
     {
         const float32_t *lhs_row = lhs + (size_t)r * lhs_cols_offset;
         float32_t *dst_row = dst + (size_t)r * row_address_offset;
 
-#if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
+    #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
         int32_t c = 0;
         for (; c + ARM_NN_CONV_1XN_F32_MVE_DUAL_BLOCK_ROWS <= rhs_rows; c += ARM_NN_CONV_1XN_F32_MVE_DUAL_BLOCK_ROWS)
         {
@@ -134,9 +136,9 @@ __STATIC_INLINE arm_cmsis_nn_status arm_convolve_1_x_n_mat_mult_nt_t_strided_f32
             vacc = arm_nn_clamp_mve_f32(vacc, vmin, vmax);
             vst1q(dst_row + c, vacc);
         }
-#else
+    #else
         int32_t c = 0;
-#endif
+    #endif
 
         for (; c < rhs_rows; ++c)
         {
@@ -388,3 +390,5 @@ arm_cmsis_nn_status arm_convolve_1_x_n_f32(const cmsis_nn_context *ctx,
 }
 
 /** @} end of NNConv group */
+
+#endif /* ARM_NN_ENABLE_F32 */

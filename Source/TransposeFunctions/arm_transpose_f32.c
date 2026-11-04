@@ -21,17 +21,19 @@
  * Title:        arm_transpose_f32.c
  * Description:  Transpose a float32 tensor
  *
- * $Date:        19 March 2026
- * $Revision:    V.1.0.0
+ * $Date:        27 October 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
 
-#include "Internal/arm_transpose_common.h"
-#include "arm_nnfunctions.h"
-#include "arm_nnsupportfunctions.h"
+#include "Internal/arm_nn_config.h"
 
 #if ARM_NN_ENABLE_F32
+
+    #include "Internal/arm_transpose_common.h"
+    #include "arm_nnfunctions.h"
+    #include "arm_nnsupportfunctions.h"
 
 /**
  *  @ingroup Public

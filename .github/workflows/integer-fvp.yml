@@ -30,7 +30,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, cmsis_nn_float]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
