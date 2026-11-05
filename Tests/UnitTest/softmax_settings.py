@@ -37,7 +37,8 @@ class SoftmaxSettings(TestSettings):
                  inInt8outInt16=False,
                  input_scale=0.003922,
                  input_zp=-128,
-                 interpreter="tensorflow"):
+                 interpreter="tensorflow",
+                 input_data=None):
         super().__init__(dataset,
                          testtype,
                          regenerate_weights,
@@ -60,6 +61,8 @@ class SoftmaxSettings(TestSettings):
         self.x_input = self.x_output = x_in
         self.y_input = self.y_output = y_in
         self.inInt8outInt16 = inInt8outInt16
+        # Optional fixed input values (num_rows * row_size), e.g. for boundary cases that random data cannot hit.
+        self.fixed_input_data = input_data
 
         if self.inInt8outInt16 and self.is_int16xint8:
             raise RuntimeError("Specify input as either s8 or s16")
@@ -114,6 +117,8 @@ class SoftmaxSettings(TestSettings):
         return input_data
 
     def generate_data(self, input_data=None, weights=None, biases=None) -> None:
+        if input_data is None and self.fixed_input_data is not None:
+            input_data = tf.constant(self.fixed_input_data, dtype=tf.float32)
         input_data = self.get_softmax_randomized_input_data(input_data, [self.y_input, self.x_input])
 
         if self.is_int16xint8:
