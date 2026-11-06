@@ -21,8 +21,8 @@
  * Title:        arm_depthwise_conv_get_buffer_sizes_s16.c
  * Description:  Collection of get buffer size functions for the various s16 convolution layer functions.
  *
- * $Date:        13 January 2023
- * $Revision:    V.1.0.0
+ * $Date:        13 November 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -42,8 +42,7 @@
 __STATIC_INLINE int32_t arm_depthwise_conv_fast_s16_get_buffer_size_mve(const cmsis_nn_dims *input_dims,
                                                                         const cmsis_nn_dims *filter_dims)
 {
-    /* The + 8 accounts for a worst case out of bounds read of the lhs buffers in the *_nt_t_* function.  */
-    return 4 * input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t) + 8;
+    return 4 * input_dims->c * filter_dims->w * filter_dims->h * sizeof(int16_t);
 }
 
 __STATIC_INLINE int32_t arm_depthwise_conv_fast_s16_get_buffer_size_dsp(const cmsis_nn_dims *input_dims,
