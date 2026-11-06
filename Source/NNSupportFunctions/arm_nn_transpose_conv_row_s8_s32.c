@@ -21,8 +21,8 @@
  * Title:        arm_nn_transpose_conv_row_s8_s32
  * Description:  Transpose covolution help function.
  *
- * $Date:        22 Oct 2024
- * $Revision:    V.1.0.0
+ * $Date:        05 November 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -65,6 +65,10 @@ arm_cmsis_nn_status arm_nn_transpose_conv_row_s8_s32(const int8_t *lhs,
     const int32_t skip_pre_rows = skip_rows_top * rhs_cols * input_channels;
     const int32_t skip_post_rows = skip_rows_bottom * rhs_cols * input_channels;
     const int32_t rhs_rows_count = rhs_rows - skip_rows_top - skip_rows_bottom;
+    if (rhs_rows_count <= 0)
+    {
+        return ARM_CMSIS_NN_SUCCESS;
+    }
 
     int32_t input_count = input_x;
     for (; input_count > 3; input_count -= 4)
