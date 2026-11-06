@@ -22,8 +22,8 @@
  * Title:        arm_nn_mat_mult_kernel_s16.c
  * Description:  Matrix-multiplication function for 16 bits convolution
  *
- * $Date:        31 August 2026
- * $Revision:    V.3.0.1
+ * $Date:        13 November 2026
+ * $Revision:    V.3.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -86,7 +86,7 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
         int32_t ch_1_out_1 = 0;
 
     #if defined(ARM_MATH_DSP)
-        uint16_t col_count = num_col_a_fast / 4;
+        int32_t col_count = num_col_a_fast / 4;
 
         /* Accumulate over the vector */
         while (col_count)
@@ -247,7 +247,7 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
         int32_t ch_0_out_1 = 0;
 
     #if defined(ARM_MATH_DSP)
-        uint16_t col_count = num_col_a_fast >> 2;
+        int32_t col_count = num_col_a_fast >> 2;
         while (col_count)
         {
             int32_t a01, a02;
@@ -266,7 +266,7 @@ int16_t *arm_nn_mat_mult_kernel_s16(const int8_t *input_a,
 
             col_count--;
         }
-        col_count = num_col_a & 0x3;
+        col_count = num_col_a_fast & 0x3;
     #else
         int32_t col_count = num_col_a_fast;
     #endif
