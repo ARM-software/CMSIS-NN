@@ -21,8 +21,8 @@
  * Title:        arm_depthwise_conv_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the various s8 convolution layer functions.
  *
- * $Date:        1 November 2024
- * $Revision:    V.1.3.0
+ * $Date:        05 November 2026
+ * $Revision:    V.1.3.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -56,7 +56,8 @@ arm_deptwise_conv_s8_one_in_ch_get_buffer_size_mve(const cmsis_nn_dw_conv_params
 
     int32_t size =
         arm_convolve_wrapper_s8_get_buffer_size_mve(&conv_params, input_dims, &filter_conv_dims, output_dims);
-    size += filter_dims->c * filter_dims->h * filter_dims->w * filter_dims->n;
+    /* The + 16 accounts for a worst case out of bounds read of the rhs buffer in arm_nn_mat_mult_nt_t_s8. */
+    size += filter_dims->c * filter_dims->h * filter_dims->w * filter_dims->n + 16;
 
     return size;
 }

@@ -154,11 +154,12 @@ def test_transpose_conv_buffer_size_matches_raw(
         )
         assert py == raw
 
+
 @pytest.mark.parametrize(
     "input_nhwc, filter_nhwc, stride_hw, expected",
     [
         ((1, 4, 4, 8), (4, 3, 3, 8), (1, 1), 0),
-        ((1, 4, 4, 17), (4, 3, 3, 17), (2, 2), 17 * 3 * 3 * 4),
+        ((1, 4, 4, 17), (4, 3, 3, 17), (2, 2), 17 * 3 * 3 * 4 + 16),
     ],
 )
 def test_transpose_conv_reverse_conv_buffer_size_matches_raw(input_nhwc, filter_nhwc, stride_hw, expected):
