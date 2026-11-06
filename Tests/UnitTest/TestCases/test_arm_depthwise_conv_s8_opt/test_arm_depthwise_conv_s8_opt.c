@@ -17,6 +17,7 @@
  */
 
 #include <arm_nnfunctions.h>
+#include <arm_nnsupportfunctions.h>
 #include <stdlib.h>
 #include <unity.h>
 
@@ -663,6 +664,135 @@ void depthwise_x_stride_arm_depthwise_conv_s8_opt(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_x_stride_output_ref, DEPTHWISE_X_STRIDE_DST_SIZE));
+
+    output_dims.h = 2;
+    static const int32_t test_channels[] = {1, 2, 3, 5};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        input_dims.c = ch;
+        output_dims.c = ch;
+
+        const size_t in_bytes = (size_t)input_dims.n * input_dims.w * input_dims.h * ch * sizeof(int8_t);
+        const size_t ker_bytes = (size_t)filter_dims.w * filter_dims.h * ch * sizeof(int8_t);
+        const size_t q_bytes = (size_t)ch * sizeof(int32_t);
+        const int32_t out_elems = output_dims.w * output_dims.h * ch;
+
+        int8_t *tight_input = malloc(in_bytes);
+        int8_t *tight_kernel = malloc(ker_bytes);
+        int32_t *tight_bias = malloc(q_bytes);
+        int32_t *tight_mult = malloc(q_bytes);
+        int32_t *tight_shift = malloc(q_bytes);
+        int8_t *tight_output = calloc(out_elems, sizeof(int8_t));
+        int8_t *tight_output_ref = calloc(out_elems, sizeof(int8_t));
+        TEST_ASSERT_NOT_NULL(tight_input);
+        TEST_ASSERT_NOT_NULL(tight_kernel);
+        TEST_ASSERT_NOT_NULL(tight_bias);
+        TEST_ASSERT_NOT_NULL(tight_mult);
+        TEST_ASSERT_NOT_NULL(tight_shift);
+        TEST_ASSERT_NOT_NULL(tight_output);
+        TEST_ASSERT_NOT_NULL(tight_output_ref);
+
+        memcpy(tight_input, input_data, in_bytes);
+        memcpy(tight_kernel, kernel_data, ker_bytes);
+        memcpy(tight_bias, bias_data, q_bytes);
+        memcpy(tight_mult, depthwise_x_stride_output_mult, q_bytes);
+        memcpy(tight_shift, depthwise_x_stride_output_shift, q_bytes);
+        quant_params.multiplier = tight_mult;
+        quant_params.shift = tight_shift;
+
+        ctx.size = arm_depthwise_conv_s8_opt_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        result = arm_depthwise_conv_s8_opt(&ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           tight_input,
+                                           &filter_dims,
+                                           tight_kernel,
+                                           &bias_dims,
+                                           tight_bias,
+                                           &output_dims,
+                                           tight_output);
+        TEST_ASSERT_EQUAL(expected, result);
+
+        cmsis_nn_context ref_ctx = {NULL, 0};
+        result = arm_depthwise_conv_s8(&ref_ctx,
+                                       &dw_conv_params,
+                                       &quant_params,
+                                       &input_dims,
+                                       tight_input,
+                                       &filter_dims,
+                                       tight_kernel,
+                                       &bias_dims,
+                                       tight_bias,
+                                       &output_dims,
+                                       tight_output_ref);
+        TEST_ASSERT_EQUAL(expected, result);
+        TEST_ASSERT_TRUE(validate(tight_output, tight_output_ref, out_elems));
+
+#if defined(ARM_MATH_MVEI)
+        int8_t *tight_padded_lhs = calloc(3 * CH_IN_BLOCK_MVE + ch, sizeof(int8_t));
+        int8_t *nt_kernel = malloc((size_t)ch * sizeof(int8_t));
+        int8_t *nt_out = calloc(4 * ch, sizeof(int8_t));
+        int8_t *nt_out_ref = calloc(4 * ch, sizeof(int8_t));
+        TEST_ASSERT_NOT_NULL(tight_padded_lhs);
+        TEST_ASSERT_NOT_NULL(nt_kernel);
+        TEST_ASSERT_NOT_NULL(nt_out);
+        TEST_ASSERT_NOT_NULL(nt_out_ref);
+
+        for (int px = 0; px < 4; px++)
+        {
+            arm_memcpy_s8(&tight_padded_lhs[px * CH_IN_BLOCK_MVE], &tight_input[px * ch], ch);
+        }
+        memcpy(nt_kernel, tight_kernel, (size_t)ch * sizeof(int8_t));
+
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                          arm_nn_depthwise_conv_nt_t_s8(tight_padded_lhs,
+                                                        nt_kernel,
+                                                        dw_conv_params.input_offset,
+                                                        ch,
+                                                        ch,
+                                                        quant_params.shift,
+                                                        quant_params.multiplier,
+                                                        dw_conv_params.output_offset,
+                                                        dw_conv_params.activation.min,
+                                                        dw_conv_params.activation.max,
+                                                        1,
+                                                        tight_bias,
+                                                        nt_out_ref));
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                          arm_nn_depthwise_conv_nt_t_padded_s8(tight_padded_lhs,
+                                                               nt_kernel,
+                                                               dw_conv_params.input_offset,
+                                                               ch,
+                                                               ch,
+                                                               quant_params.shift,
+                                                               quant_params.multiplier,
+                                                               dw_conv_params.output_offset,
+                                                               dw_conv_params.activation.min,
+                                                               dw_conv_params.activation.max,
+                                                               1,
+                                                               tight_bias,
+                                                               nt_out));
+        TEST_ASSERT_TRUE(validate(nt_out, nt_out_ref, 4 * ch));
+
+        free(nt_out_ref);
+        free(nt_out);
+        free(nt_kernel);
+        free(tight_padded_lhs);
+#endif
+
+        free(ctx.buf);
+        free(tight_output_ref);
+        free(tight_output);
+        free(tight_shift);
+        free(tight_mult);
+        free(tight_bias);
+        free(tight_kernel);
+        free(tight_input);
+    }
 }
 
 void buffer_size_arm_depthwise_conv_s8_opt(void)

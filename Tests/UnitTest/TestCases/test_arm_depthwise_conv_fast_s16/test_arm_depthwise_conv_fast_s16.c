@@ -17,6 +17,7 @@
  */
 
 #include <arm_nnfunctions.h>
+#include <stdlib.h>
 #include <unity.h>
 
 #include "../TestData/dw_int16xint8_fast/test_data.h"
@@ -222,6 +223,85 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+
+    input_dims.n = 1;
+    output_dims.h = 3;
+    static const int32_t test_channels[] = {1, 2, 3, 5};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        input_dims.c = ch;
+        output_dims.c = ch;
+
+        const size_t in_bytes = (size_t)input_dims.n * input_dims.w * input_dims.h * ch * sizeof(int16_t);
+        const size_t ker_bytes = (size_t)filter_dims.w * filter_dims.h * ch * sizeof(int8_t);
+        const size_t bias_bytes = (size_t)ch * sizeof(int64_t);
+        const size_t q_bytes = (size_t)ch * sizeof(int32_t);
+        const int32_t out_elems = output_dims.w * output_dims.h * ch;
+
+        int16_t *tight_input = malloc(in_bytes);
+        int8_t *tight_kernel = malloc(ker_bytes);
+        int64_t *tight_bias = malloc(bias_bytes);
+        int32_t *tight_mult = malloc(q_bytes);
+        int32_t *tight_shift = malloc(q_bytes);
+        int16_t *tight_output = calloc(out_elems, sizeof(int16_t));
+        int16_t *tight_output_ref = calloc(out_elems, sizeof(int16_t));
+        TEST_ASSERT_NOT_NULL(tight_input);
+        TEST_ASSERT_NOT_NULL(tight_kernel);
+        TEST_ASSERT_NOT_NULL(tight_bias);
+        TEST_ASSERT_NOT_NULL(tight_mult);
+        TEST_ASSERT_NOT_NULL(tight_shift);
+        TEST_ASSERT_NOT_NULL(tight_output);
+        TEST_ASSERT_NOT_NULL(tight_output_ref);
+
+        memcpy(tight_input, input_data, in_bytes);
+        memcpy(tight_kernel, kernel_data, ker_bytes);
+        memcpy(tight_bias, bias_data, bias_bytes);
+        memcpy(tight_mult, dw_int16xint8_fast_spill_output_mult, q_bytes);
+        memcpy(tight_shift, dw_int16xint8_fast_spill_output_shift, q_bytes);
+        quant_params.multiplier = tight_mult;
+        quant_params.shift = tight_shift;
+
+        ctx.size = arm_depthwise_conv_fast_s16_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        result = arm_depthwise_conv_fast_s16(&ctx,
+                                             &dw_conv_params,
+                                             &quant_params,
+                                             &input_dims,
+                                             tight_input,
+                                             &filter_dims,
+                                             tight_kernel,
+                                             &bias_dims,
+                                             tight_bias,
+                                             &output_dims,
+                                             tight_output);
+        TEST_ASSERT_EQUAL(expected, result);
+
+        cmsis_nn_context ref_ctx = {NULL, 0};
+        result = arm_depthwise_conv_s16(&ref_ctx,
+                                        &dw_conv_params,
+                                        &quant_params,
+                                        &input_dims,
+                                        tight_input,
+                                        &filter_dims,
+                                        tight_kernel,
+                                        &bias_dims,
+                                        tight_bias,
+                                        &output_dims,
+                                        tight_output_ref);
+        TEST_ASSERT_EQUAL(expected, result);
+        TEST_ASSERT_TRUE(validate_s16(tight_output, tight_output_ref, out_elems));
+
+        free(ctx.buf);
+        free(tight_output_ref);
+        free(tight_output);
+        free(tight_shift);
+        free(tight_mult);
+        free(tight_bias);
+        free(tight_kernel);
+        free(tight_input);
+    }
 }
 
 void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)
