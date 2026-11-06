@@ -22,8 +22,8 @@
  * Description:  Optimized s4 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        31 August 2026
- * $Revision:    V.1.1.1
+ * $Date:        05 November 2026
+ * $Revision:    V.1.1.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -149,7 +149,7 @@ arm_cmsis_nn_status arm_depthwise_conv_s4_opt(const cmsis_nn_context *ctx,
                                                   output_activation_min,
                                                   output_activation_max,
                                                   kernel_size,
-                                                  bias + block_offset,
+                                                  bias ? bias + block_offset : NULL,
                                                   out);
 
                     out += (4 * input_ch);

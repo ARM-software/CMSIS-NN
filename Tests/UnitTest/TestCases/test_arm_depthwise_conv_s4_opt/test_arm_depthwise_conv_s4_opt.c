@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <unity.h>
 
+#include "../TestData/depthwise_eq_in_out_ch/test_data.h"
 #include "../TestData/depthwise_int4_1/test_data.h"
 #include "../TestData/depthwise_int4_2/test_data.h"
 #include "../TestData/depthwise_int4_3/test_data.h"
@@ -40,7 +41,7 @@ void depthwise_int4_1_arm_depthwise_conv_s4_opt(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const int32_t *bias_data = depthwise_int4_1_biases;
+    const int32_t *bias_data = get_bias_address(depthwise_int4_1_biases, DEPTHWISE_INT4_1_OUT_CH);
     const int8_t *kernel_data = depthwise_int4_1_weights;
     const int8_t *input_data = depthwise_int4_1_input;
 
@@ -142,6 +143,50 @@ void depthwise_int4_1_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_1_output_ref, DEPTHWISE_INT4_1_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_1_DST_SIZE);
+
+    input_dims.c = DEPTHWISE_EQ_IN_OUT_CH_IN_CH;
+    output_dims.c = DEPTHWISE_EQ_IN_OUT_CH_OUT_CH;
+    output_dims.w = 1;
+    output_dims.h = 4;
+    filter_dims.w = 1;
+    filter_dims.h = 1;
+    quant_params.multiplier = (int32_t *)depthwise_eq_in_out_ch_output_mult;
+    quant_params.shift = (int32_t *)depthwise_eq_in_out_ch_output_shift;
+    int8_t output_null_bias[4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH] = {0};
+    int8_t output_null_bias_ref[4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH] = {0};
+    ctx.size = arm_depthwise_conv_s4_opt_get_buffer_size(&input_dims, &filter_dims);
+    ctx.buf = malloc(ctx.size);
+    result = arm_depthwise_conv_s4_opt(&ctx,
+                                       &dw_conv_params,
+                                       &quant_params,
+                                       &input_dims,
+                                       depthwise_eq_in_out_ch_input,
+                                       &filter_dims,
+                                       depthwise_eq_in_out_ch_weights,
+                                       &bias_dims,
+                                       NULL,
+                                       &output_dims,
+                                       output_null_bias);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, ctx.size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    ctx.buf = NULL;
+    result = arm_depthwise_conv_s4(&ctx,
+                                   &dw_conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   depthwise_eq_in_out_ch_input,
+                                   &filter_dims,
+                                   depthwise_eq_in_out_ch_weights,
+                                   &bias_dims,
+                                   NULL,
+                                   &output_dims,
+                                   output_null_bias_ref);
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output_null_bias, output_null_bias_ref, 4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH));
 }
 
 void depthwise_int4_2_arm_depthwise_conv_s4_opt(void)

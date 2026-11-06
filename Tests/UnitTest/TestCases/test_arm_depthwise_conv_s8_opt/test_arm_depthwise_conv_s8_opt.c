@@ -223,13 +223,41 @@ void depthwise_eq_in_out_ch_arm_depthwise_conv_s8_opt(void)
                                            &output_dims,
                                            output);
 
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, depthwise_eq_in_out_ch_output_ref, DEPTHWISE_EQ_IN_OUT_CH_DST_SIZE));
+
+    output_dims.w = 1;
+    output_dims.h = 4;
+    result = arm_depthwise_conv_s8(&ctx,
+                                   &dw_conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   NULL,
+                                   &output_dims,
+                                   output);
+    TEST_ASSERT_EQUAL(expected, result);
+    result = arm_depthwise_conv_s8_opt(&ctx,
+                                       &dw_conv_params,
+                                       &quant_params,
+                                       &input_dims,
+                                       input_data,
+                                       &filter_dims,
+                                       kernel_data,
+                                       &bias_dims,
+                                       NULL,
+                                       &output_dims,
+                                       output + 4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, wrapper_buf_size);
         free(ctx.buf);
     }
     TEST_ASSERT_EQUAL(expected, result);
-    TEST_ASSERT_TRUE(validate(output, depthwise_eq_in_out_ch_output_ref, DEPTHWISE_EQ_IN_OUT_CH_DST_SIZE));
+    TEST_ASSERT_TRUE(validate(output + 4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH, output, 4 * DEPTHWISE_EQ_IN_OUT_CH_OUT_CH));
 }
 
 void depthwise_sub_block_arm_depthwise_conv_s8_opt(void)
