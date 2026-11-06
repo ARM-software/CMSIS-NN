@@ -25,6 +25,7 @@
 #include "../TestData/grouped_conv_2/test_data.h"
 #include "../TestData/grouped_conv_3/test_data.h"
 #include "../TestData/grouped_conv_4/test_data.h"
+#include "../Utils/utils.h"
 #include "../Utils/validate.h"
 #include "../Utils/validate_aot.h"
 
@@ -41,7 +42,7 @@ void grouped_conv_arm_grouped_convolve_1_s8(void)
     cmsis_nn_dims bias_dims;
     cmsis_nn_dims output_dims;
 
-    const int32_t *bias_data = grouped_conv_1_biases;
+    const int32_t *bias_data = get_bias_address(grouped_conv_1_biases, GROUPED_CONV_1_OUT_CH);
     const int8_t *kernel_data = grouped_conv_1_weights;
     const int8_t *input_data = grouped_conv_1_input;
     const int8_t *output_ref = grouped_conv_1_output_ref;
