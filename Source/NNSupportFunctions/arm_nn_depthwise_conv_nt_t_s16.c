@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_s16.c
  * Description:  Depthwise convolution on matrices with no padding.
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.0.1
+ * $Date:        06 November 2026
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M processors with MVE extension
  * -------------------------------------------------------------------- */
@@ -64,6 +64,7 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
     for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count;
          num_ch_to_process -= 4, offset += 4, out += 4, i_loop_cnt++)
     {
+        const mve_pred16_t p = vctp32q(num_ch_to_process);
         const int8_t *rhs_0 = rhs + offset;
         const int16_t *lhs_0 = lhs + offset;
         const int16_t *lhs_1 = lhs + row_x_col * num_ch + offset;
@@ -77,18 +78,18 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
 
         for (int i_row_x_col = 0; i_row_x_col < row_x_col; i_row_x_col++)
         {
-            const int32x4_t ker_0 = vldrbq_s32(rhs_0);
+            const int32x4_t ker_0 = vldrbq_z_s32(rhs_0, p);
 
-            int32x4_t ip_0 = vldrhq_s32(lhs_0);
+            int32x4_t ip_0 = vldrhq_z_s32(lhs_0, p);
             out_0 += vmulq_s32(ip_0, ker_0);
 
-            int32x4_t ip_1 = vldrhq_s32(lhs_1);
+            int32x4_t ip_1 = vldrhq_z_s32(lhs_1, p);
             out_1 += vmulq_s32(ip_1, ker_0);
 
-            int32x4_t ip_2 = vldrhq_s32(lhs_2);
+            int32x4_t ip_2 = vldrhq_z_s32(lhs_2, p);
             out_2 += vmulq_s32(ip_2, ker_0);
 
-            int32x4_t ip_3 = vldrhq_s32(lhs_3);
+            int32x4_t ip_3 = vldrhq_z_s32(lhs_3, p);
             out_3 += vmulq_s32(ip_3, ker_0);
 
             lhs_0 += num_ch;
@@ -99,10 +100,11 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
             rhs_0 += num_ch;
         }
 
-        for (int i_requantize = 0; i_requantize < 4; i_requantize++)
+        const uint32_t req_ch = MIN(num_ch_to_process, 4U);
+        for (uint32_t i_requantize = 0; i_requantize < req_ch; i_requantize++)
         {
-            int32_t reduced_multiplier = REDUCE_MULTIPLIER(out_mult[i_requantize]);
-            int32_t shift = out_shift[i_requantize];
+            int32_t reduced_multiplier = REDUCE_MULTIPLIER(out_mult[offset + i_requantize]);
+            int32_t shift = out_shift[offset + i_requantize];
             int64_t in_requantize_0 = (int64_t)out_0[i_requantize];
             int64_t in_requantize_1 = (int64_t)out_1[i_requantize];
             int64_t in_requantize_2 = (int64_t)out_2[i_requantize];
@@ -110,11 +112,10 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
 
             if (bias)
             {
-                in_requantize_0 += *bias;
-                in_requantize_1 += *bias;
-                in_requantize_2 += *bias;
-                in_requantize_3 += *bias;
-                bias++;
+                in_requantize_0 += bias[offset + i_requantize];
+                in_requantize_1 += bias[offset + i_requantize];
+                in_requantize_2 += bias[offset + i_requantize];
+                in_requantize_3 += bias[offset + i_requantize];
             }
 
             out_0[i_requantize] = arm_nn_requantize_s64(in_requantize_0, reduced_multiplier, shift);
@@ -122,8 +123,6 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
             out_2[i_requantize] = arm_nn_requantize_s64(in_requantize_2, reduced_multiplier, shift);
             out_3[i_requantize] = arm_nn_requantize_s64(in_requantize_3, reduced_multiplier, shift);
         }
-
-        mve_pred16_t p = vctp32q(num_ch_to_process);
 
         out_0 = vmaxq_s32(out_0, vdupq_n_s32(activation_min));
         out_0 = vminq_s32(out_0, vdupq_n_s32(activation_max));
@@ -140,9 +139,6 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
         out_3 = vmaxq_s32(out_3, vdupq_n_s32(activation_min));
         out_3 = vminq_s32(out_3, vdupq_n_s32(activation_max));
         vstrhq_p_s32(out + 3 * num_ch, out_3, p);
-
-        out_mult += 4;
-        out_shift += 4;
     }
     const int tail_ch = num_ch & 0x3;
     if (tail_ch != 0)

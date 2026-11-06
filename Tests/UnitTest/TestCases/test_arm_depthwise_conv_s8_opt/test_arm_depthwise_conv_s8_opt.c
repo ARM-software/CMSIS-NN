@@ -17,6 +17,7 @@
  */
 
 #include <arm_nnfunctions.h>
+#include <arm_nnsupportfunctions.h>
 #include <stdlib.h>
 #include <unity.h>
 
@@ -635,6 +636,87 @@ void depthwise_x_stride_arm_depthwise_conv_s8_opt(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_x_stride_output_ref, DEPTHWISE_X_STRIDE_DST_SIZE));
+
+    int8_t output_ref[DEPTHWISE_X_STRIDE_DST_SIZE] = {0};
+    ctx.buf = malloc(wrapper_buf_size);
+    output_dims.h = 2;
+    for (int32_t ch = 1; ch <= 3; ch++)
+    {
+        input_dims.c = ch;
+        output_dims.c = ch;
+        const int32_t out_size = output_dims.w * output_dims.h * ch;
+
+        memset(output, 0, sizeof(output));
+        memset(output_ref, 0, sizeof(output_ref));
+
+        result = arm_depthwise_conv_s8_opt(&ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           bias_data,
+                                           &output_dims,
+                                           output);
+        TEST_ASSERT_EQUAL(expected, result);
+
+        cmsis_nn_context ref_ctx = {NULL, 0};
+        result = arm_depthwise_conv_s8(&ref_ctx,
+                                       &dw_conv_params,
+                                       &quant_params,
+                                       &input_dims,
+                                       input_data,
+                                       &filter_dims,
+                                       kernel_data,
+                                       &bias_dims,
+                                       bias_data,
+                                       &output_dims,
+                                       output_ref);
+        TEST_ASSERT_EQUAL(expected, result);
+        TEST_ASSERT_TRUE(validate(output, output_ref, out_size));
+    }
+    free(ctx.buf);
+
+#if defined(ARM_MATH_MVEI)
+    int8_t padded_lhs[4 * CH_IN_BLOCK_MVE] = {0};
+    for (int px = 0; px < 4; px++)
+    {
+        arm_memcpy_s8(&padded_lhs[px * CH_IN_BLOCK_MVE], &input_data[px * 3], 3);
+    }
+    memset(output, 0, sizeof(output));
+    memset(output_ref, 0, sizeof(output_ref));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_nn_depthwise_conv_nt_t_s8(padded_lhs,
+                                                    kernel_data,
+                                                    dw_conv_params.input_offset,
+                                                    3,
+                                                    3,
+                                                    quant_params.shift,
+                                                    quant_params.multiplier,
+                                                    dw_conv_params.output_offset,
+                                                    dw_conv_params.activation.min,
+                                                    dw_conv_params.activation.max,
+                                                    1,
+                                                    bias_data,
+                                                    output_ref));
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                      arm_nn_depthwise_conv_nt_t_padded_s8(padded_lhs,
+                                                           kernel_data,
+                                                           dw_conv_params.input_offset,
+                                                           3,
+                                                           3,
+                                                           quant_params.shift,
+                                                           quant_params.multiplier,
+                                                           dw_conv_params.output_offset,
+                                                           dw_conv_params.activation.min,
+                                                           dw_conv_params.activation.max,
+                                                           1,
+                                                           bias_data,
+                                                           output));
+    TEST_ASSERT_TRUE(validate(output, output_ref, 4 * 3));
+#endif
 }
 
 void buffer_size_arm_depthwise_conv_s8_opt(void)

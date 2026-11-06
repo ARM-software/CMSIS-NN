@@ -222,6 +222,48 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+
+    int16_t output_ref_buf[DW_INT16XINT8_FAST_SPILL_DST_SIZE] = {0};
+    ctx.buf = malloc(buf_size);
+    input_dims.n = 1;
+    output_dims.h = 3;
+    for (int32_t ch = 1; ch <= 3; ch++)
+    {
+        input_dims.c = ch;
+        output_dims.c = ch;
+
+        memset(output, 0, sizeof(output));
+        memset(output_ref_buf, 0, sizeof(output_ref_buf));
+
+        result = arm_depthwise_conv_fast_s16(&ctx,
+                                             &dw_conv_params,
+                                             &quant_params,
+                                             &input_dims,
+                                             input_data,
+                                             &filter_dims,
+                                             kernel_data,
+                                             &bias_dims,
+                                             bias_data,
+                                             &output_dims,
+                                             output);
+        TEST_ASSERT_EQUAL(expected, result);
+
+        cmsis_nn_context ref_ctx = {NULL, 0};
+        result = arm_depthwise_conv_s16(&ref_ctx,
+                                        &dw_conv_params,
+                                        &quant_params,
+                                        &input_dims,
+                                        input_data,
+                                        &filter_dims,
+                                        kernel_data,
+                                        &bias_dims,
+                                        bias_data,
+                                        &output_dims,
+                                        output_ref_buf);
+        TEST_ASSERT_EQUAL(expected, result);
+        TEST_ASSERT_TRUE(validate_s16(output, output_ref_buf, output_dims.w * output_dims.h * ch));
+    }
+    free(ctx.buf);
 }
 
 void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)

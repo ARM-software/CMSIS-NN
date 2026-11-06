@@ -258,6 +258,50 @@ void depthwise_int4_2_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_2_output_ref, DEPTHWISE_INT4_2_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_2_DST_SIZE);
+
+    int8_t output_ref[DEPTHWISE_INT4_2_DST_SIZE] = {0};
+    ctx.size = arm_depthwise_conv_s4_opt_get_buffer_size(&input_dims, &filter_dims);
+    ctx.buf = malloc(ctx.size);
+    for (int32_t ch = 1; ch <= 3; ch++)
+    {
+        for (int32_t h = 1; h <= 2; h++)
+        {
+            input_dims.c = ch;
+            output_dims.c = ch;
+            output_dims.h = h;
+            memset(output, 0, sizeof(output));
+            memset(output_ref, 0, sizeof(output_ref));
+
+            result = arm_depthwise_conv_s4_opt(&ctx,
+                                               &dw_conv_params,
+                                               &quant_params,
+                                               &input_dims,
+                                               input_data,
+                                               &filter_dims,
+                                               kernel_data,
+                                               &bias_dims,
+                                               bias_data,
+                                               &output_dims,
+                                               output);
+            TEST_ASSERT_EQUAL(expected, result);
+
+            cmsis_nn_context ref_ctx = {NULL, 0};
+            result = arm_depthwise_conv_s4(&ref_ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           bias_data,
+                                           &output_dims,
+                                           output_ref);
+            TEST_ASSERT_EQUAL(expected, result);
+            TEST_ASSERT_TRUE(validate(output, output_ref, output_dims.w * h * ch));
+        }
+    }
+    free(ctx.buf);
 }
 
 void depthwise_int4_3_arm_depthwise_conv_s4_opt(void)

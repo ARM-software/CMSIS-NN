@@ -22,8 +22,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_s4.c
  * Description:  Depthwise convolution on matrices with no padding and packed int4 weights.
  *
- * $Date:        05 April 2024
- * $Revision:    V.1.0.0
+ * $Date:        06 November 2026
+ * $Revision:    V.1.0.1
  *
  * Target Processor:  Cortex-M processors with MVE extension.
  * -------------------------------------------------------------------- */
@@ -65,16 +65,18 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
     int32_t loop_count = (active_ch + 3) / 4;
     uint32_t num_ch_to_process = active_ch;
     const uint32x4_t gather_offset = {0, 0, 1, 1};
-    const mve_pred16_t lower_nibble_mask = 3855; // 0000111100001111
+    const uint32x4_t gather_offset_odd = {0, 1, 1, 2};
+    const mve_pred16_t lower_nibble_mask = 3855;        // 0000111100001111
+    const mve_pred16_t upper_lower_nibble_mask = 61680; // 1111000011110000
 
     for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count;
          num_ch_to_process -= 4, offset += 4, out += 4, i_loop_cnt++)
     {
+        const mve_pred16_t p = vctp32q(num_ch_to_process);
         int32x4_t out_0 = vdupq_n_s32(0);
         if (bias)
         {
-            out_0 = vldrwq_s32(bias);
-            bias += 4;
+            out_0 = vldrwq_z_s32(bias + offset, p);
         }
         int32x4_t out_1 = out_0;
         int32x4_t out_2 = out_0;
@@ -95,7 +97,7 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
                 int32x4_t ker_0;
                 if (get_low_nibble)
                 {
-                    ker_0 = vldrbq_gather_offset_s32(rhs_0, gather_offset);
+                    ker_0 = vldrbq_gather_offset_z_s32(rhs_0, gather_offset, p);
 
                     ker_0 = vrshlq_m_n_s32(ker_0, 28, lower_nibble_mask);
                     ker_0 = vshrq_m_n_s32(ker_0, ker_0, 24, lower_nibble_mask);
@@ -104,23 +106,26 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
                 }
                 else
                 {
-                    int8_t temp[] = {
-                        rhs_0[0] >> 4, (int8_t)(rhs_0[1] << 4) >> 4, rhs_0[1] >> 4, (int8_t)(rhs_0[2] << 4) >> 4};
-                    ker_0 = vldrbq_s32(temp);
+                    ker_0 = vldrbq_gather_offset_z_s32(rhs_0, gather_offset_odd, p);
+
+                    ker_0 = vrshlq_m_n_s32(ker_0, 28, upper_lower_nibble_mask);
+                    ker_0 = vshrq_m_n_s32(ker_0, ker_0, 24, upper_lower_nibble_mask);
+
+                    ker_0 = vshrq_n_s32(ker_0, 4);
                 }
 
                 ker_sum = vaddq_s32(ker_sum, ker_0);
 
-                int32x4_t ip_0 = vldrbq_s32(lhs_0);
+                int32x4_t ip_0 = vldrbq_z_s32(lhs_0, p);
                 out_0 += vmulq_s32(ip_0, ker_0);
 
-                int32x4_t ip_1 = vldrbq_s32(lhs_1);
+                int32x4_t ip_1 = vldrbq_z_s32(lhs_1, p);
                 out_1 += vmulq_s32(ip_1, ker_0);
 
-                int32x4_t ip_2 = vldrbq_s32(lhs_2);
+                int32x4_t ip_2 = vldrbq_z_s32(lhs_2, p);
                 out_2 += vmulq_s32(ip_2, ker_0);
 
-                int32x4_t ip_3 = vldrbq_s32(lhs_3);
+                int32x4_t ip_3 = vldrbq_z_s32(lhs_3, p);
                 out_3 += vmulq_s32(ip_3, ker_0);
 
                 lhs_0 += S4_CH_IN_BLOCK_MVE;
@@ -136,7 +141,7 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
         {
             for (int i_row_x_col = 0; i_row_x_col < row_x_col; i_row_x_col++)
             {
-                int32x4_t ker_0 = vldrbq_gather_offset_s32(rhs_0, gather_offset);
+                int32x4_t ker_0 = vldrbq_gather_offset_z_s32(rhs_0, gather_offset, p);
 
                 ker_0 = vrshlq_m_n_s32(ker_0, 28, lower_nibble_mask);
                 ker_0 = vshrq_m_n_s32(ker_0, ker_0, 24, lower_nibble_mask);
@@ -145,16 +150,16 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
 
                 ker_sum = vaddq_s32(ker_sum, ker_0);
 
-                int32x4_t ip_0 = vldrbq_s32(lhs_0);
+                int32x4_t ip_0 = vldrbq_z_s32(lhs_0, p);
                 out_0 += vmulq_s32(ip_0, ker_0);
 
-                int32x4_t ip_1 = vldrbq_s32(lhs_1);
+                int32x4_t ip_1 = vldrbq_z_s32(lhs_1, p);
                 out_1 += vmulq_s32(ip_1, ker_0);
 
-                int32x4_t ip_2 = vldrbq_s32(lhs_2);
+                int32x4_t ip_2 = vldrbq_z_s32(lhs_2, p);
                 out_2 += vmulq_s32(ip_2, ker_0);
 
-                int32x4_t ip_3 = vldrbq_s32(lhs_3);
+                int32x4_t ip_3 = vldrbq_z_s32(lhs_3, p);
                 out_3 += vmulq_s32(ip_3, ker_0);
 
                 lhs_0 += S4_CH_IN_BLOCK_MVE;
@@ -172,11 +177,8 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
         out_2 = ker_sum + out_2;
         out_3 = ker_sum + out_3;
 
-        const int32x4_t mult = vldrwq_s32(out_mult);
-        const int32x4_t shift = vldrwq_s32(out_shift);
-        out_mult += 4;
-        out_shift += 4;
-        mve_pred16_t p = vctp32q(num_ch_to_process);
+        const int32x4_t mult = vldrwq_z_s32(out_mult + offset, p);
+        const int32x4_t shift = vldrwq_z_s32(out_shift + offset, p);
 
         out_0 = arm_requantize_mve_32x4(out_0, mult, shift);
         out_0 = vaddq_n_s32(out_0, out_offset);
