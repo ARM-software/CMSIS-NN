@@ -682,13 +682,48 @@ void int16xint8_spill_arm_convolve_s16(void)
                                       &bias_data,
                                       &output_dims,
                                       output);
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+
+    input_dims.h = 1;
+    input_dims.c = 57;
+    filter_dims.h = 1;
+    output_dims.c = 3;
+    output_dims.w = 1;
+    output_dims.h = 1;
+    int16_t output_odd_ch[3] = {0};
+    result = arm_convolve_s16(&ctx,
+                              &conv_params,
+                              &quant_params,
+                              &input_dims,
+                              input_data,
+                              &filter_dims,
+                              kernel_data,
+                              &bias_dims,
+                              &bias_data,
+                              &output_dims,
+                              output_odd_ch);
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    memset(output, 0, sizeof(output));
+    output_dims.w = 2;
+    result = arm_convolve_s16(&ctx,
+                              &conv_params,
+                              &quant_params,
+                              &input_dims,
+                              input_data,
+                              &filter_dims,
+                              kernel_data,
+                              &bias_dims,
+                              &bias_data,
+                              &output_dims,
+                              output);
     if (ctx.buf)
     {
         memset(ctx.buf, 0, buf_size);
         free(ctx.buf);
     }
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
-    TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+    TEST_ASSERT_TRUE(validate_s16(output, output_odd_ch, 3));
 }
 
 void int16xint8_spill2_arm_convolve_s16(void)
@@ -779,6 +814,37 @@ void int16xint8_spill2_arm_convolve_s16(void)
     }
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+
+    input_dims.w = 1;
+    input_dims.h = 1;
+    input_dims.c = 117;
+    filter_dims.h = 1;
+    output_dims.w = 1;
+    output_dims.h = 1;
+    output_dims.c = 3;
+    conv_params.dilation.w = 0;
+    conv_params.activation.min = INT16XINT8_SPILL_OUT_ACTIVATION_MIN;
+    memset(output, 0, sizeof(output));
+    buf_size = arm_convolve_s16_get_buffer_size(&input_dims, &filter_dims);
+    ctx.buf = malloc(buf_size);
+    result = arm_convolve_s16(&ctx,
+                              &conv_params,
+                              &quant_params,
+                              &input_dims,
+                              input_data,
+                              &filter_dims,
+                              kernel_data,
+                              &bias_dims,
+                              &bias_data,
+                              &output_dims,
+                              output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 3));
 }
 
 void int16xint8xint32_1_arm_convolve_s16(void)
