@@ -22,8 +22,8 @@
  * Description:  Optimized s16 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        19 March 2024
- * $Revision:    V.1.4.0
+ * $Date:        06 November 2026
+ * $Revision:    V.1.4.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -159,6 +159,7 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
 
         for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count; num_ch_to_process -= 4, offset += 4, i_loop_cnt++)
         {
+            const mve_pred16_t p = vctp32q((uint32_t)num_ch_to_process);
             const int8_t *row_0 = kernel + offset;
             const int16_t *col_0 = lhs_buffer + (kernel_size * input_ch * i_buf) + offset;
 
@@ -166,42 +167,30 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
 
             for (int i_ker = 0; i_ker < kernel_size; i_ker++)
             {
-                const int32x4_t ker_0 = vldrbq_s32(row_0);
+                const int32x4_t ker_0 = vldrbq_z_s32(row_0, p);
 
-                int32x4_t ip_0 = vldrhq_s32(col_0);
+                int32x4_t ip_0 = vldrhq_z_s32(col_0, p);
                 out_0 += vmulq_s32(ip_0, ker_0);
 
                 col_0 += input_ch;
                 row_0 += input_ch;
             }
 
-            int64_t in_requantize_0 = (int64_t)out_0[0];
-            int64_t in_requantize_1 = (int64_t)out_0[1];
-            int64_t in_requantize_2 = (int64_t)out_0[2];
-            int64_t in_requantize_3 = (int64_t)out_0[3];
-
-            if (bias)
+            const int32_t req_ch = MIN(num_ch_to_process, 4);
+            for (int32_t i_req = 0; i_req < req_ch; i_req++)
             {
-                in_requantize_0 += bias[offset];
-                in_requantize_1 += bias[offset + 1];
-                in_requantize_2 += bias[offset + 2];
-                in_requantize_3 += bias[offset + 3];
+                int64_t in_requantize = (int64_t)out_0[i_req];
+                if (bias)
+                {
+                    in_requantize += bias[offset + i_req];
+                }
+                int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[offset + i_req]);
+                out_0[i_req] = arm_nn_requantize_s64(in_requantize, reduced_multiplier, output_shift[offset + i_req]);
             }
-
-            int32_t reduced_multiplier_0 = REDUCE_MULTIPLIER(output_mult[offset]);
-            int32_t reduced_multiplier_1 = REDUCE_MULTIPLIER(output_mult[offset + 1]);
-            int32_t reduced_multiplier_2 = REDUCE_MULTIPLIER(output_mult[offset + 2]);
-            int32_t reduced_multiplier_3 = REDUCE_MULTIPLIER(output_mult[offset + 3]);
-
-            out_0[0] = arm_nn_requantize_s64(in_requantize_0, reduced_multiplier_0, output_shift[offset]);
-            out_0[1] = arm_nn_requantize_s64(in_requantize_1, reduced_multiplier_1, output_shift[offset + 1]);
-            out_0[2] = arm_nn_requantize_s64(in_requantize_2, reduced_multiplier_2, output_shift[offset + 2]);
-            out_0[3] = arm_nn_requantize_s64(in_requantize_3, reduced_multiplier_3, output_shift[offset + 3]);
 
             out_0 = vmaxq_s32(out_0, vdupq_n_s32(output_activation_min));
             out_0 = vminq_s32(out_0, vdupq_n_s32(output_activation_max));
 
-            mve_pred16_t p = vctp32q((uint32_t)num_ch_to_process);
             vstrhq_p_s32(out, out_0, p);
 
             out += 4;

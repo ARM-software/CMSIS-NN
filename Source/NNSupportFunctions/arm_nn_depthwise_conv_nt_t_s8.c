@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_s8.c
  * Description:  Depthwise convolution on matrices with no padding.
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.1
+ * $Date:        06 November 2026
+ * $Revision:    V.2.0.2
  *
  * Target Processor:  Cortex-M processors with MVE extension.
  * -------------------------------------------------------------------- */
@@ -66,11 +66,11 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s8(const int8_t *lhs,
     for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count;
          num_ch_to_process -= 4, offset += 4, out += 4, i_loop_cnt++)
     {
+        const mve_pred16_t p = vctp32q(num_ch_to_process);
         int32x4_t out_0 = vdupq_n_s32(0);
         if (bias)
         {
-            out_0 = vldrwq_s32(bias);
-            bias += 4;
+            out_0 = vldrwq_z_s32(bias + offset, p);
         }
         int32x4_t out_1 = out_0;
         int32x4_t out_2 = out_0;
@@ -85,19 +85,19 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s8(const int8_t *lhs,
 
         for (int i_row_x_col = 0; i_row_x_col < row_x_col; i_row_x_col++)
         {
-            const int32x4_t ker_0 = vldrbq_s32(rhs_0);
+            const int32x4_t ker_0 = vldrbq_z_s32(rhs_0, p);
             ker_sum = vaddq_s32(ker_sum, ker_0);
 
-            int32x4_t ip_0 = vldrbq_s32(lhs_0);
+            int32x4_t ip_0 = vldrbq_z_s32(lhs_0, p);
             out_0 += vmulq_s32(ip_0, ker_0);
 
-            int32x4_t ip_1 = vldrbq_s32(lhs_1);
+            int32x4_t ip_1 = vldrbq_z_s32(lhs_1, p);
             out_1 += vmulq_s32(ip_1, ker_0);
 
-            int32x4_t ip_2 = vldrbq_s32(lhs_2);
+            int32x4_t ip_2 = vldrbq_z_s32(lhs_2, p);
             out_2 += vmulq_s32(ip_2, ker_0);
 
-            int32x4_t ip_3 = vldrbq_s32(lhs_3);
+            int32x4_t ip_3 = vldrbq_z_s32(lhs_3, p);
             out_3 += vmulq_s32(ip_3, ker_0);
 
             lhs_0 += CH_IN_BLOCK_MVE;
@@ -114,11 +114,8 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s8(const int8_t *lhs,
         out_2 = ker_sum + out_2;
         out_3 = ker_sum + out_3;
 
-        const int32x4_t mult = vldrwq_s32(out_mult);
-        const int32x4_t shift = vldrwq_s32(out_shift);
-        out_mult += 4;
-        out_shift += 4;
-        mve_pred16_t p = vctp32q(num_ch_to_process);
+        const int32x4_t mult = vldrwq_z_s32(out_mult + offset, p);
+        const int32x4_t shift = vldrwq_z_s32(out_shift + offset, p);
 
         out_0 = arm_requantize_mve_32x4(out_0, mult, shift);
         out_0 = vaddq_n_s32(out_0, out_offset);
