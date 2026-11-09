@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        02 November 2026
- * $Revision:    V.22.14.0
+ * $Date:        10 November 2026
+ * $Revision:    V.22.14.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1807,10 +1807,11 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize_s64(const int64_t val,
 {
     const int64_t new_val = val * reduced_multiplier;
 
-    int32_t result = new_val >> (14 - shift); // 64->32 bit reduction
-    result = (result + 1) >> 1;               // Last shift position and insert round
+    // Keep 64 bits: this intermediate is twice the result and can exceed the int32_t range.
+    int64_t result = new_val >> (14 - shift);
+    result = (result + 1) >> 1; // Last shift position and insert round
 
-    return result;
+    return (int32_t)result;
 }
 
 /**
