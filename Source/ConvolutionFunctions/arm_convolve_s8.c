@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s8.c
  * Description:  s8 version of convolution using symmetric quantization.
  *
- * $Date:        16 October 2026
- * $Revision:    V.4.1.0
+ * $Date:        05 November 2026
+ * $Revision:    V.4.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -164,7 +164,7 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
         int32_t lhs_rows = 0;
 
         const int8_t *filter_data_ptr = &filter_data[0];
-        const int32_t *bias_data_ptr = &bias_data[0];
+        const int32_t *bias_data_ptr = bias_data;
         const int32_t *output_mult_ptr = &output_mult[0];
         const int32_t *output_shift_ptr = &output_shift[0];
 
@@ -459,7 +459,10 @@ arm_cmsis_nn_status arm_convolve_s8(const cmsis_nn_context *ctx,
 #endif // #if defined(ARM_MATH_MVEI)
             }
             filter_data_ptr += filter_group_stride;
-            bias_data_ptr += output_ch_per_group;
+            if (bias_data_ptr)
+            {
+                bias_data_ptr += output_ch_per_group;
+            }
             output_mult_ptr += output_ch_per_group;
             output_shift_ptr += output_ch_per_group;
         }
