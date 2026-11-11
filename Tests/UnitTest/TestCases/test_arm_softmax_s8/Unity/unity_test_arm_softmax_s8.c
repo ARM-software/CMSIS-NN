@@ -47,3 +47,5 @@ void tearDown(void) {}
 void test_softmax_arm_softmax_s8(void) { softmax_arm_softmax_s8(); }
 
 void test_softmax1_arm_softmax_s8(void) { softmax_invalid_diff_min_arm_softmax_s8(); }
+
+void test_softmax_large_sum_arm_softmax_s8(void) { softmax_large_sum_arm_softmax_s8(); }

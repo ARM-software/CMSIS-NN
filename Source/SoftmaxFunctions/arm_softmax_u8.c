@@ -21,8 +21,8 @@
  * Title:        arm_softmax_u8.c
  * Description:  U8 softmax function
  *
- * $Date:        5 January 2023
- * $Revision:    V.1.1.0
+ * $Date:        11 November 2026
+ * $Revision:    V.1.1.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -80,10 +80,14 @@ void arm_softmax_u8(const uint8_t *input,
         const int32_t bits_over_unit = ACCUM_BITS - headroom + 23;
         const int32_t shifted_scale = ONE_OVER1((sum << headroom) - (1 << 31));
 
+        // A sum of exponentials >= 512 gives bits_over_unit > 31. Every output then rounds to zero, and the
+        // shift would be outside the supported range of DIV_POW2.
+        const bool output_is_zero = bits_over_unit > 31;
+
         for (col = 0; col < row_size; ++col)
         {
             diff = input[col] - max;
-            if (diff >= diff_min)
+            if (diff >= diff_min && !output_is_zero)
             {
                 const int32_t res =
                     DIV_POW2(MUL_SAT(shifted_scale, EXP_ON_NEG(MUL_SAT(diff * mask, mult))), bits_over_unit);
