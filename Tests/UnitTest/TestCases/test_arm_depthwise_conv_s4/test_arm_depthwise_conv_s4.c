@@ -399,6 +399,51 @@ void depthwise_int4_generic_4_arm_depthwise_conv_s4(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_generic_4_output_ref, DEPTHWISE_INT4_GENERIC_4_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_GENERIC_4_DST_SIZE);
+
+    quant_params.multiplier = (int32_t *)depthwise_int4_generic_output_mult;
+    quant_params.shift = (int32_t *)depthwise_int4_generic_output_shift;
+    output_dims.w = 1;
+    output_dims.h = 1;
+    result = arm_depthwise_conv_s4(&ctx,
+                                   &dw_conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   input_data,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   NULL,
+                                   &output_dims,
+                                   output);
+    TEST_ASSERT_EQUAL(expected, result);
+
+    int8_t padded_input[DEPTHWISE_INT4_GENERIC_4_FILTER_Y * DEPTHWISE_INT4_GENERIC_4_FILTER_X];
+    memset(padded_input, -DEPTHWISE_INT4_GENERIC_4_INPUT_OFFSET, sizeof(padded_input));
+    for (int y = 0; y < DEPTHWISE_INT4_GENERIC_4_FILTER_Y - DEPTHWISE_INT4_GENERIC_4_PAD_Y; y++)
+    {
+        for (int x = 0; x < DEPTHWISE_INT4_GENERIC_4_FILTER_X - DEPTHWISE_INT4_GENERIC_4_PAD_X; x++)
+        {
+            padded_input[(y + DEPTHWISE_INT4_GENERIC_4_PAD_Y) * DEPTHWISE_INT4_GENERIC_4_FILTER_X + x +
+                         DEPTHWISE_INT4_GENERIC_4_PAD_X] = input_data[y * DEPTHWISE_INT4_GENERIC_4_INPUT_W + x];
+        }
+    }
+    input_dims.w = DEPTHWISE_INT4_GENERIC_4_FILTER_X;
+    input_dims.h = DEPTHWISE_INT4_GENERIC_4_FILTER_Y;
+    dw_conv_params.padding.w = 0;
+    dw_conv_params.padding.h = 0;
+    result = arm_depthwise_conv_s4(&ctx,
+                                   &dw_conv_params,
+                                   &quant_params,
+                                   &input_dims,
+                                   padded_input,
+                                   &filter_dims,
+                                   kernel_data,
+                                   &bias_dims,
+                                   NULL,
+                                   &output_dims,
+                                   output + DEPTHWISE_INT4_GENERIC_4_OUT_CH);
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output + DEPTHWISE_INT4_GENERIC_4_OUT_CH, DEPTHWISE_INT4_GENERIC_4_OUT_CH));
 }
 
 void depthwise_int4_generic_5_arm_depthwise_conv_s4(void)
