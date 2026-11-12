@@ -64,3 +64,35 @@ void softmax_invalid_diff_min_arm_softmax_s8(void)
     }
     free(softmax_expect_invalid_output);
 }
+
+void softmax_large_sum_arm_softmax_s8(void)
+{
+    // input_scale = 1/16 and beta = 1. Both rows have a sum of exponentials >= 512, so every output is below half an
+    // output step and rounds to -128. The row size is not a multiple of four, so MVE also runs the scalar tail.
+    const int32_t num_rows = 2;
+    const int32_t row_size = 1003;
+    const int32_t mult = 1073741824;
+    const int32_t shift = 23;
+    const int32_t diff_min = -248;
+
+    int8_t *input_data = malloc(num_rows * row_size);
+    int8_t *output = malloc(num_rows * row_size);
+    int8_t *expected = malloc(num_rows * row_size);
+
+    for (int i = 0; i < row_size; i++)
+    {
+        input_data[i] = 0;
+        input_data[row_size + i] = -4;
+    }
+    input_data[row_size + 7] = 4;
+    memset(expected, -128, num_rows * row_size);
+
+    for (int i = 0; i < REPEAT_NUM; i++)
+    {
+        arm_softmax_s8(input_data, num_rows, row_size, mult, shift, diff_min, output);
+        TEST_ASSERT_TRUE(validate(output, expected, num_rows * row_size));
+    }
+    free(input_data);
+    free(output);
+    free(expected);
+}
