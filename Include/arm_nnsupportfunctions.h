@@ -1807,11 +1807,16 @@ __STATIC_FORCEINLINE int32_t arm_nn_requantize_s64(const int64_t val,
 {
     const int64_t new_val = val * reduced_multiplier;
 
+#if defined(ARM_MATH_MVEI)
+    // Rounding shift right on 64 bits, in one instruction.
+    return (int32_t)__arm_sqrshrl(new_val, 15 - shift);
+#else
     // Keep 64 bits: this intermediate is twice the result and can exceed the int32_t range.
     int64_t result = new_val >> (14 - shift);
     result = (result + 1) >> 1; // Last shift position and insert round
 
     return (int32_t)result;
+#endif
 }
 
 /**
