@@ -21,8 +21,8 @@
  * Title:        arm_transpose_conv_get_buffer_sizes_s8.c
  * Description:  Collection of get buffer size functions for the transpose convolution layer functions.
  *
- * $Date:        10 September 2026
- * $Revision:    V.2.1.1
+ * $Date:        05 November 2026
+ * $Revision:    V.2.1.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -118,7 +118,8 @@ int32_t arm_transpose_conv_s8_get_reverse_conv_buffer_size(const cmsis_nn_transp
 
     if (reverse_conv_possible && reverse_conv_efficient)
     {
-        return input_dims->c * filter_dims->w * filter_dims->h * filter_dims->n;
+        /* The + 16 accounts for a worst case out of bounds read of the rhs buffer in arm_nn_mat_mult_nt_t_s8. */
+        return input_dims->c * filter_dims->w * filter_dims->h * filter_dims->n + 16;
     }
     else
     {
