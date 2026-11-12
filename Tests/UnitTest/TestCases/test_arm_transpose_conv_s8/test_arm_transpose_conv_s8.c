@@ -99,6 +99,26 @@ void transpose_conv_1_arm_transpose_conv_s8(void)
                                                                &output_dims,
                                                                output);
 
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+
+    output_dims.h = 10;
+    const int32_t cropped_batch_size = output_dims.h * TRANSPOSE_CONV_1_OUTPUT_W * TRANSPOSE_CONV_1_OUT_CH;
+    int8_t cropped_output[TRANSPOSE_CONV_1_INPUT_BATCHES * 10 * TRANSPOSE_CONV_1_OUTPUT_W * TRANSPOSE_CONV_1_OUT_CH] = {
+        0};
+    result = arm_transpose_conv_wrapper_s8(&ctx,
+                                           &reverse_conv_ctx,
+                                           &transpose_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           bias_data,
+                                           &output_dims,
+                                           cropped_output);
+
     if (reverse_conv_ctx.buf)
     {
         // The caller is responsible to clear the scratch buffers for security reasons if applicable.
@@ -114,7 +134,9 @@ void transpose_conv_1_arm_transpose_conv_s8(void)
     }
 
     TEST_ASSERT_EQUAL(expected, result);
-    TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
+    TEST_ASSERT_TRUE(validate(cropped_output, output_ref, cropped_batch_size));
+    TEST_ASSERT_TRUE(
+        validate(cropped_output + cropped_batch_size, output_ref + output_ref_size / 2, cropped_batch_size));
 }
 
 void transpose_conv_2_arm_transpose_conv_s8(void)
