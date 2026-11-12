@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        02 November 2026
- * $Revision:    V.22.14.0
+ * $Date:        12 November 2026
+ * $Revision:    V.22.14.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -42,7 +42,7 @@ extern "C" {
 
 #define USE_FAST_DW_CONV_S16_FUNCTION(dw_conv_params, filter_dims, input_dims)                                         \
     (dw_conv_params->ch_mult == 1 && dw_conv_params->dilation.w == 1 && dw_conv_params->dilation.h == 1 &&             \
-     filter_dims->w * filter_dims->h < 512)
+     filter_dims->w * filter_dims->h <= MAX_INT32_ACC_COUNT)
 
 #define LEFT_SHIFT(_shift) (_shift > 0 ? _shift : 0)
 #define RIGHT_SHIFT(_shift) (_shift > 0 ? 0 : -_shift)
@@ -71,7 +71,13 @@ extern "C" {
 
 // For input of int16 when number of columns are above this limit int64 accumulation is needed
 // to not loose precision.
-#define MAX_COL_COUNT (512)
+// One product of an int16 and an int8 value is at most 2^22 (-32768 * -128), so a sum of 512 products can
+// reach 2^31 and must not be kept in an int32. The limit is below that, and a multiple of 8 for the loops
+// that step through the columns 4 or 8 at a time.
+#define MAX_COL_COUNT (504)
+
+// For input of int16, the largest number of products of an int16 and an int8 value whose sum fits in an int32.
+#define MAX_INT32_ACC_COUNT (511)
 
 // CMSIS-NN has two implementations of the transpose conv operator, selected depending on the number of input
 // channels. This is based on heuristics and may be finetuned depending on other parameters of the operator

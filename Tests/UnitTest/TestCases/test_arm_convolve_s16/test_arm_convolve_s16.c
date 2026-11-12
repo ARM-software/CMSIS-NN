@@ -1320,3 +1320,131 @@ void int16xint8xint32_6_arm_convolve_s16(void)
     TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
 }
+
+void int32_acc_overflow_arm_convolve_s16(void)
+{
+    int16_t output[12] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_conv_params conv_params = {0};
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims = {1, 1, 4, 512};
+    cmsis_nn_dims filter_dims = {3, 1, 1, 512};
+    cmsis_nn_dims bias_dims = {0};
+    cmsis_nn_dims output_dims = {1, 1, 4, 3};
+
+    // 512 input channels of -32768 and a 1x1 filter. A filter of 512 weights of -128 gives an accumulator of
+    // 512 * 2^22 = 2^31, one more than an int32 holds; a filter of weights of -127 gives 2^31 - 2^24. With a
+    // scale of 2^-16 the outputs are 32768, saturated to 32767, and 32512.
+    // Three output channels exercise the unrolled and leftover channel paths; the four output pixels are
+    // computed two by two, or four at once with MVE.
+    static int16_t input_data[4 * 512];
+    static int8_t kernel_data[3 * 512];
+    const cmsis_nn_bias_data bias_data = {NULL, false};
+    const int32_t output_mult[3] = {1 << 30, 1 << 30, 1 << 30};
+    const int32_t output_shift[3] = {-15, -15, -15};
+    const int16_t output_ref[12] = {32767, 32512, 32767, 32767, 32512, 32767, 32767, 32512, 32767, 32767, 32512, 32767};
+
+    for (int i = 0; i < 4 * 512; i++)
+    {
+        input_data[i] = -32768;
+    }
+    for (int i = 0; i < 512; i++)
+    {
+        kernel_data[i] = -128;
+        kernel_data[512 + i] = -127;
+        kernel_data[2 * 512 + i] = -128;
+    }
+
+    conv_params.stride.w = 1;
+    conv_params.stride.h = 1;
+    conv_params.dilation.w = 1;
+    conv_params.dilation.h = 1;
+    conv_params.activation.min = -32768;
+    conv_params.activation.max = 32767;
+    quant_params.multiplier = (int32_t *)output_mult;
+    quant_params.shift = (int32_t *)output_shift;
+
+    int buf_size = arm_convolve_s16_get_buffer_size(&input_dims, &filter_dims);
+    ctx.buf = malloc(buf_size);
+    arm_cmsis_nn_status result = arm_convolve_s16(&ctx,
+                                                  &conv_params,
+                                                  &quant_params,
+                                                  &input_dims,
+                                                  input_data,
+                                                  &filter_dims,
+                                                  kernel_data,
+                                                  &bias_dims,
+                                                  &bias_data,
+                                                  &output_dims,
+                                                  output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 12));
+}
+
+void int32_acc_limit_tail_arm_convolve_s16(void)
+{
+    int16_t output[6] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_conv_params conv_params = {0};
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims = {1, 1, 2, 510};
+    cmsis_nn_dims filter_dims = {3, 1, 1, 510};
+    cmsis_nn_dims bias_dims = {0};
+    cmsis_nn_dims output_dims = {1, 1, 2, 3};
+
+    // 510 columns: more than MAX_COL_COUNT and not a multiple of 4, so the last columns are summed in 64 bits
+    // after a 32-bit part that must stop at MAX_COL_COUNT. Three output channels exercise the unrolled and
+    // leftover channel paths. With a scale of 1 the outputs are the accumulators.
+    static int16_t input_data[2 * 510];
+    static int8_t kernel_data[3 * 510];
+    const cmsis_nn_bias_data bias_data = {NULL, false};
+    const int32_t output_mult[3] = {1 << 30, 1 << 30, 1 << 30};
+    const int32_t output_shift[3] = {1, 1, 1};
+    const int16_t output_ref[6] = {510, 1020, 510, 1020, 2040, 1020};
+
+    for (int i = 0; i < 510; i++)
+    {
+        input_data[i] = 1;
+        input_data[510 + i] = 2;
+        kernel_data[i] = 1;
+        kernel_data[510 + i] = 2;
+        kernel_data[2 * 510 + i] = 1;
+    }
+
+    conv_params.stride.w = 1;
+    conv_params.stride.h = 1;
+    conv_params.dilation.w = 1;
+    conv_params.dilation.h = 1;
+    conv_params.activation.min = -32768;
+    conv_params.activation.max = 32767;
+    quant_params.multiplier = (int32_t *)output_mult;
+    quant_params.shift = (int32_t *)output_shift;
+
+    int buf_size = arm_convolve_s16_get_buffer_size(&input_dims, &filter_dims);
+    ctx.buf = malloc(buf_size);
+    arm_cmsis_nn_status result = arm_convolve_s16(&ctx,
+                                                  &conv_params,
+                                                  &quant_params,
+                                                  &input_dims,
+                                                  input_data,
+                                                  &filter_dims,
+                                                  kernel_data,
+                                                  &bias_dims,
+                                                  &bias_data,
+                                                  &output_dims,
+                                                  output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 6));
+}
