@@ -77,3 +77,5 @@ void test_conv_match_1x1_basic_f32_arm_convolve_f32_packed(void) { conv_match_1x
 void test_conv_basic_f32_arm_convolve_f32_packed(void) { conv_basic_f32_arm_convolve_f32_packed(); }
 void test_conv_k3_opt_f32_arm_convolve_f32_packed(void) { conv_k3_opt_f32_arm_convolve_f32_packed(); }
 void test_conv_k5_opt_f32_arm_convolve_f32_packed(void) { conv_k5_opt_f32_arm_convolve_f32_packed(); }
+
+void test_conv_1xn_padding_only_windows_f32(void) { conv_1xn_padding_only_windows_f32(); }

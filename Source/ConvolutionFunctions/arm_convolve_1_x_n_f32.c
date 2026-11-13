@@ -21,8 +21,8 @@
  * Title:        arm_convolve_1_x_n_f32.c
  * Description:  Dedicated float32 1xN convolution
  *
- * $Date:        27 October 2026
- * $Revision:    V.1.0.1
+ * $Date:        13 November 2026
+ * $Revision:    V.1.0.2
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -204,7 +204,7 @@ __STATIC_INLINE void arm_convolve_1_x_n_pack_rows_f32(float32_t *scratch,
     {
         const int32_t out_x = start_out_x + r;
         const int32_t base_x = out_x * conv_params->stride.w - conv_params->padding.w;
-        const int32_t left_pad_cols = MAX(0, -base_x);
+        const int32_t left_pad_cols = MIN(kernel_w, MAX(0, -base_x));
         const int32_t valid_x0 = MAX(base_x, 0);
         const int32_t valid_x1 = MIN(base_x + kernel_w, input_w);
         const int32_t valid_cols = MAX(valid_x1 - valid_x0, 0);

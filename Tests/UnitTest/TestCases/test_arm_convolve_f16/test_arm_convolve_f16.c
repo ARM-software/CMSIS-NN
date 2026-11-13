@@ -391,3 +391,50 @@ void conv_k5_opt_f16_arm_convolve_f16_packed(void)
 
     free(packed_weights);
 }
+
+void conv_1xn_padding_only_windows_f16(void)
+{
+    const cmsis_nn_dims input_dims = {.n = 2, .h = 1, .w = 1, .c = 2};
+    const cmsis_nn_dims filter_dims = {.n = 1, .h = 1, .w = 2, .c = 2};
+    const cmsis_nn_dims output_dims = {.n = 2, .h = 1, .w = 6, .c = 1};
+    const cmsis_nn_conv_params_f16 params = {
+        .stride = {.h = 1, .w = 1},
+        .padding = {.h = 0, .w = 3},
+        .dilation = {.h = 1, .w = 1},
+        .activation = {.min = -100.0f, .max = 100.0f},
+    };
+    const float16_t input[] = {1.0f, 2.0f, 3.0f, 4.0f};
+    const float16_t weights[] = {1.0f, 1.0f, 2.0f, 2.0f};
+    const float16_t bias[] = {0.5f};
+    const float16_t expected[] = {0.5f, 0.5f, 6.5f, 3.5f, 0.5f, 0.5f, 0.5f, 0.5f, 14.5f, 7.5f, 0.5f, 0.5f};
+    float16_t output[12];
+    const int32_t bytes =
+        arm_convolve_f16_get_buffer_size(&params, &input_dims, &filter_dims, &output_dims, ARM_NN_LAYOUT_NHWC);
+    TEST_ASSERT_EQUAL(4 * sizeof(float16_t), bytes);
+
+    const int32_t guard_elements = 8;
+    const float16_t sentinel = 1.25f;
+    cmsis_nn_context ctx = {.buf = malloc((size_t)bytes + guard_elements * sizeof(float16_t)), .size = bytes};
+    TEST_ASSERT_NOT_NULL(ctx.buf);
+    float16_t *guard = (float16_t *)ctx.buf + bytes / sizeof(float16_t);
+    for (int32_t i = 0; i < guard_elements; ++i)
+    {
+        guard[i] = sentinel;
+    }
+
+    const arm_cmsis_nn_status status = arm_convolve_f16(
+        &ctx, &params, &input_dims, input, &filter_dims, weights, NULL, bias, &output_dims, output, ARM_NN_LAYOUT_NHWC);
+    bool guard_ok = true;
+    for (int32_t i = 0; i < guard_elements; ++i)
+    {
+        guard_ok = guard_ok && guard[i] == sentinel;
+    }
+    free(ctx.buf);
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, status);
+    TEST_ASSERT_TRUE_MESSAGE(guard_ok, "1xN packing wrote beyond the reported scratch size");
+    for (int32_t i = 0; i < 12; ++i)
+    {
+        TEST_ASSERT_EQUAL_FLOAT((float32_t)expected[i], (float32_t)output[i]);
+    }
+}
