@@ -60,3 +60,4 @@ void test_int16xint8xint32_3_arm_convolve_s16(void) { int16xint8xint32_3_arm_con
 void test_int16xint8xint32_4_arm_convolve_s16(void) { int16xint8xint32_4_arm_convolve_s16(); }
 void test_int16xint8xint32_5_arm_convolve_s16(void) { int16xint8xint32_5_arm_convolve_s16(); }
 void test_int16xint8xint32_6_arm_convolve_s16(void) { int16xint8xint32_6_arm_convolve_s16(); }
+void test_requantize_s64_overflow_arm_convolve_s16(void) { requantize_s64_overflow_arm_convolve_s16(); }
