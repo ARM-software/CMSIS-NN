@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2010-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>
+ * SPDX-FileCopyrightText: Copyright 2010-2024, 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_convolve_s16.c
  * Description:  s16 version of convolution.
  *
- * $Date:        22 April 2024
- * $Revision:    V.4.0.0
+ * $Date:        13 November 2026
+ * $Revision:    V.4.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -203,6 +203,9 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
             const int64_t *bias_s64 = (const int64_t *)bias_data->data;
             const int32_t *bias_s32 = (const int32_t *)bias_data->data;
             const bool is_int32_bias = bias_data->is_int32_bias;
+            const int32_t num_col_a_fast =
+                is_int32_bias ? rhs_cols : (rhs_cols > MAX_COL_COUNT ? MAX_COL_COUNT : rhs_cols);
+            const int32_t num_col_a_slow = rhs_cols - MAX_COL_COUNT;
             const int8_t *ker_a = filter_data;
             int i;
 
@@ -216,7 +219,7 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
 
     #if defined(ARM_MATH_DSP)
                 /* 4 multiply and accumulates are done in one loop. */
-                int32_t col_count = rhs_cols >> 2;
+                int32_t col_count = num_col_a_fast >> 2;
 
                 while (col_count)
                 {
@@ -233,9 +236,9 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                     col_count--;
                 }
                 /* Handle left over mac */
-                col_count = rhs_cols & 0x3;
+                col_count = num_col_a_fast & 0x3;
     #else
-                uint16_t col_count = rhs_cols;
+                int32_t col_count = num_col_a_fast;
 
     #endif
 
@@ -263,6 +266,34 @@ arm_cmsis_nn_status arm_convolve_s16(const cmsis_nn_context *ctx,
                     if (bias_s64)
                     {
                         acc_64 += bias_s64[i];
+                    }
+
+                    if (rhs_cols > MAX_COL_COUNT)
+                    {
+    #if defined(ARM_MATH_DSP)
+                        col_count = num_col_a_slow >> 2;
+                        while (col_count)
+                        {
+                            int32_t ker_a1, ker_a2;
+                            int32_t ip_b1, ip_b2;
+                            ker_a = read_and_pad(ker_a, &ker_a1, &ker_a2);
+                            ip_b1 = arm_nn_read_q15x2_ia(&ip_as_col);
+                            acc_64 = SMLALD(ker_a1, ip_b1, acc_64);
+                            ip_b2 = arm_nn_read_q15x2_ia(&ip_as_col);
+                            acc_64 = SMLALD(ker_a2, ip_b2, acc_64);
+                            col_count--;
+                        }
+                        col_count = num_col_a_slow & 0x3;
+    #else
+                        col_count = num_col_a_slow;
+    #endif
+                        while (col_count)
+                        {
+                            int8_t ker_a1 = *ker_a++;
+                            int16_t ip_b1 = *ip_as_col++;
+                            acc_64 += ker_a1 * ip_b1;
+                            col_count--;
+                        }
                     }
 
                     int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[i]);
