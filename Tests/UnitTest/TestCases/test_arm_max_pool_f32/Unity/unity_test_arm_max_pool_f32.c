@@ -36,3 +36,6 @@ void test_maxpooling_match_5_f32_arm_max_pool_f32(void) { maxpooling_match_5_f32
 void test_maxpooling_1d_k2s2_noclip_f32_arm_max_pool_f32(void) { maxpooling_1d_k2s2_noclip_f32_arm_max_pool_f32(); }
 void test_maxpooling_1d_k2s2_clip_f32_arm_max_pool_f32(void) { maxpooling_1d_k2s2_clip_f32_arm_max_pool_f32(); }
 void test_maxpooling_1d_k3s3_noclip_f32_arm_max_pool_f32(void) { maxpooling_1d_k3s3_noclip_f32_arm_max_pool_f32(); }
+void test_maxpooling_1d_k2s2_tail_noclip_arm_max_pool_f32(void) { maxpooling_1d_k2s2_tail_noclip_arm_max_pool_f32(); }
+void test_maxpooling_1d_k2s2_tail_clip_arm_max_pool_f32(void) { maxpooling_1d_k2s2_tail_clip_arm_max_pool_f32(); }
+void test_maxpooling_1d_k3s3_tail_noclip_arm_max_pool_f32(void) { maxpooling_1d_k3s3_tail_noclip_arm_max_pool_f32(); }
