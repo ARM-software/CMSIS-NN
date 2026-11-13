@@ -50,3 +50,7 @@ void test_fully_connected_int16_big_arm_fully_connected_s16(void)
     fully_connected_int16_big_arm_fully_connected_s16();
 }
 void test_fc_int16_slow_arm_fully_connected_s16(void) { fc_int16_slow_arm_fully_connected_s16(); }
+void test_fc_int16_int32_acc_overflow_arm_fully_connected_s16(void)
+{
+    fc_int16_int32_acc_overflow_arm_fully_connected_s16();
+}
