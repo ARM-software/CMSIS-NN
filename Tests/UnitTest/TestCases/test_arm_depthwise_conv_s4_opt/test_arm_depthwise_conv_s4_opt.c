@@ -303,6 +303,87 @@ void depthwise_int4_2_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_2_output_ref, DEPTHWISE_INT4_2_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_2_DST_SIZE);
+
+    static const int32_t test_channels[] = {1, 2, 3, 5};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        const size_t in_bytes = (size_t)input_dims.n * input_dims.w * input_dims.h * ch * sizeof(int8_t);
+        const size_t ker_bytes = (size_t)(filter_dims.w * filter_dims.h * ch + 1) / 2;
+        const size_t q_bytes = (size_t)ch * sizeof(int32_t);
+
+        int8_t *tight_input = malloc(in_bytes);
+        int8_t *tight_kernel = malloc(ker_bytes);
+        int32_t *tight_bias = malloc(q_bytes);
+        int32_t *tight_mult = malloc(q_bytes);
+        int32_t *tight_shift = malloc(q_bytes);
+        TEST_ASSERT_NOT_NULL(tight_input);
+        TEST_ASSERT_NOT_NULL(tight_kernel);
+        TEST_ASSERT_NOT_NULL(tight_bias);
+        TEST_ASSERT_NOT_NULL(tight_mult);
+        TEST_ASSERT_NOT_NULL(tight_shift);
+
+        memcpy(tight_input, input_data, in_bytes);
+        memcpy(tight_kernel, kernel_data, ker_bytes);
+        memcpy(tight_bias, bias_data, q_bytes);
+        memcpy(tight_mult, depthwise_int4_2_output_mult, q_bytes);
+        memcpy(tight_shift, depthwise_int4_2_output_shift, q_bytes);
+        quant_params.multiplier = tight_mult;
+        quant_params.shift = tight_shift;
+
+        input_dims.c = ch;
+        output_dims.c = ch;
+        ctx.size = arm_depthwise_conv_s4_opt_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        for (int32_t h = 1; h <= 2; h++)
+        {
+            output_dims.h = h;
+            const int32_t out_elems = output_dims.w * h * ch;
+            int8_t *tight_output = calloc(out_elems, sizeof(int8_t));
+            int8_t *tight_output_ref = calloc(out_elems, sizeof(int8_t));
+            TEST_ASSERT_NOT_NULL(tight_output);
+            TEST_ASSERT_NOT_NULL(tight_output_ref);
+
+            result = arm_depthwise_conv_s4_opt(&ctx,
+                                               &dw_conv_params,
+                                               &quant_params,
+                                               &input_dims,
+                                               tight_input,
+                                               &filter_dims,
+                                               tight_kernel,
+                                               &bias_dims,
+                                               tight_bias,
+                                               &output_dims,
+                                               tight_output);
+            TEST_ASSERT_EQUAL(expected, result);
+
+            cmsis_nn_context ref_ctx = {NULL, 0};
+            result = arm_depthwise_conv_s4(&ref_ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           tight_input,
+                                           &filter_dims,
+                                           tight_kernel,
+                                           &bias_dims,
+                                           tight_bias,
+                                           &output_dims,
+                                           tight_output_ref);
+            TEST_ASSERT_EQUAL(expected, result);
+            TEST_ASSERT_TRUE(validate(tight_output, tight_output_ref, out_elems));
+
+            free(tight_output_ref);
+            free(tight_output);
+        }
+
+        free(ctx.buf);
+        free(tight_shift);
+        free(tight_mult);
+        free(tight_bias);
+        free(tight_kernel);
+        free(tight_input);
+    }
 }
 
 void depthwise_int4_3_arm_depthwise_conv_s4_opt(void)

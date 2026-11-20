@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        15 October 2026
- * $Revision:    V.19.2.0
+ * $Date:        06 November 2026
+ * $Revision:    V.19.2.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1078,8 +1078,6 @@ int32_t arm_convolve_1_x_n_s4_get_buffer_size(const cmsis_nn_conv_params *conv_p
  *        -# arm_depthwise_conv_s8()
  *        -# arm_depthwise_conv_3x3_s8() - Cortex-M CPUs with DSP extension only
  *        -# arm_depthwise_conv_s8_opt()
- *    - Check details of arm_depthwise_conv_s8_opt() for potential data that can be accessed outside of the
- * boundary.
  */
 arm_cmsis_nn_status arm_depthwise_conv_wrapper_s8(const cmsis_nn_context *ctx,
                                                   const cmsis_nn_dw_conv_params *dw_conv_params,
@@ -1518,12 +1516,6 @@ arm_cmsis_nn_status arm_depthwise_conv_3x3_s8(const cmsis_nn_context *ctx,
  *                                                      ch_mult != 1
  *                <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
  *
- * @note       If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read out
- *             for the following if MVE optimizations(Arm Helium Technology) are used.
- *               - Output shift
- *               - Output multiplier
- *               - Output bias
- *               - kernel
  * @details
  *    - Supported framework: TensorFlow Lite
  *    - The following constrains on the arguments apply
@@ -1552,12 +1544,6 @@ arm_cmsis_nn_status arm_depthwise_conv_s8_opt(const cmsis_nn_context *ctx,
  *                                                      ch_mult != 1
  *                <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation
  *
- * @note       If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read out
- *             for the following if MVE optimizations(Arm Helium Technology) are used.
- *               - Output shift
- *               - Output multiplier
- *               - Output bias
- *               - kernel
  * @details
  *    - Supported framework: TensorFlow Lite
  *    - The following constrains on the arguments apply

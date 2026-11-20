@@ -21,8 +21,8 @@
  * Title:        arm_nnsupportfunctions.h
  * Description:  Public header file of support functions for CMSIS NN Library
  *
- * $Date:        02 November 2026
- * $Revision:    V.22.14.0
+ * $Date:        06 November 2026
+ * $Revision:    V.22.14.1
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1011,13 +1011,6 @@ arm_cmsis_nn_status arm_nn_vec_mat_mult_t_svdf_s8(const int8_t *lhs,
  * @return         The function returns one of the two
  *                  - Updated output pointer if an implementation is available
  *                  - NULL if no implementation is available.
- *
- * @note           If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read
- * out for the following.
- *                  - Output shift
- *                  - Output multiplier
- *                  - Output bias
- *                  - rhs
  */
 arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_padded_s8(const int8_t *lhs,
                                                          const int8_t *rhs,
@@ -1054,13 +1047,6 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_padded_s8(const int8_t *lhs,
  * @return         The function returns one of the two
  *                  - Updated output pointer if an implementation is available
  *                  - NULL if no implementation is available.
- *
- * @note           If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read
- * out for the following.
- *                  - Output shift
- *                  - Output multiplier
- *                  - Output bias
- *                  - rhs
  */
 arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s8(const int8_t *lhs,
                                                   const int8_t *rhs,
@@ -1098,13 +1084,6 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s8(const int8_t *lhs,
  * @return         The function returns one of the two
  *                  - Updated output pointer if an implementation is available
  *                  - NULL if no implementation is available.
- *
- * @note           If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read
- * out for the following.
- *                  - Output shift
- *                  - Output multiplier
- *                  - Output bias
- *                  - rhs
  */
 arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
                                                   const int8_t *rhs,
@@ -1138,13 +1117,6 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_s4(const int8_t *lhs,
  * @return         The function returns one of the two
  *                  - Updated output pointer if an implementation is available
  *                  - NULL if no implementation is available.
- *
- * @note           If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read
- * out for the following.
- *                  - Output shift
- *                  - Output multiplier
- *                  - Output bias
- *                  - rhs
  */
 int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
                                         const int8_t *rhs,
