@@ -2,6 +2,18 @@
  * SPDX-FileCopyrightText: Copyright 2010-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
  *
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include <stdlib.h>
@@ -408,4 +420,48 @@ void conv_k5_opt_f32_arm_convolve_f32_packed(void)
     }
 
     free(packed_weights);
+}
+
+void conv_1xn_padding_only_windows_f32(void)
+{
+    const cmsis_nn_dims input_dims = {.n = 2, .h = 1, .w = 1, .c = 2};
+    const cmsis_nn_dims filter_dims = {.n = 1, .h = 1, .w = 2, .c = 2};
+    const cmsis_nn_dims output_dims = {.n = 2, .h = 1, .w = 6, .c = 1};
+    const cmsis_nn_conv_params_f32 params = {
+        .stride = {.h = 1, .w = 1},
+        .padding = {.h = 0, .w = 3},
+        .dilation = {.h = 1, .w = 1},
+        .activation = {.min = -100.0f, .max = 100.0f},
+    };
+    const float32_t input[] = {1.0f, 2.0f, 3.0f, 4.0f};
+    const float32_t weights[] = {1.0f, 1.0f, 2.0f, 2.0f};
+    const float32_t bias[] = {0.5f};
+    const float32_t expected[] = {0.5f, 0.5f, 6.5f, 3.5f, 0.5f, 0.5f, 0.5f, 0.5f, 14.5f, 7.5f, 0.5f, 0.5f};
+    float32_t output[12];
+    const int32_t bytes =
+        arm_convolve_f32_get_buffer_size(&params, &input_dims, &filter_dims, &output_dims, ARM_NN_LAYOUT_NHWC);
+    TEST_ASSERT_EQUAL(4 * sizeof(float32_t), bytes);
+
+    const int32_t guard_elements = 8;
+    const float32_t sentinel = 1.25f;
+    cmsis_nn_context ctx = {.buf = malloc((size_t)bytes + guard_elements * sizeof(float32_t)), .size = bytes};
+    TEST_ASSERT_NOT_NULL(ctx.buf);
+    float32_t *guard = (float32_t *)ctx.buf + bytes / sizeof(float32_t);
+    for (int32_t i = 0; i < guard_elements; ++i)
+    {
+        guard[i] = sentinel;
+    }
+
+    const arm_cmsis_nn_status status = arm_convolve_f32(
+        &ctx, &params, &input_dims, input, &filter_dims, weights, NULL, bias, &output_dims, output, ARM_NN_LAYOUT_NHWC);
+    bool guard_ok = true;
+    for (int32_t i = 0; i < guard_elements; ++i)
+    {
+        guard_ok = guard_ok && guard[i] == sentinel;
+    }
+    free(ctx.buf);
+
+    TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, status);
+    TEST_ASSERT_TRUE_MESSAGE(guard_ok, "1xN packing wrote beyond the reported scratch size");
+    TEST_ASSERT_EQUAL_FLOAT_ARRAY(expected, output, 12);
 }
