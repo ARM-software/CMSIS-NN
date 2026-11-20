@@ -217,3 +217,59 @@ void fc_int16_slow_arm_fully_connected_s16(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
 }
+
+void fc_int16_requantize_overflow_arm_fully_connected_s16(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int16_t output[5] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_fc_params fc_params;
+    cmsis_nn_per_tensor_quant_params quant_params;
+    cmsis_nn_dims input_dims = {1, 1, 1, 1};
+    cmsis_nn_dims filter_dims = {1, 1, 1, 5};
+    cmsis_nn_dims bias_dims = {0};
+    cmsis_nn_dims output_dims = {1, 1, 1, 5};
+
+    // Accumulators: 2^31, -2^31 - 2, 2^31 - 2 and -2^31. With a multiplier of 2^30 and a shift of 0 the
+    // requantized values are 2^30, -2^30 - 1, 2^30 - 1 and -2^30, which saturate to 32767, -32768, 32767 and
+    // -32768. The first two exceed the 32-bit range before the final rounding shift.
+    // A fifth channel, equal to the first, exercises the leftover-row paths.
+    const int16_t input_data[1] = {1};
+    const int8_t kernel_data[5] = {1, -1, 1, -1, 1};
+    const int64_t bias_data[5] = {2147483647LL, -2147483649LL, 2147483645LL, -2147483647LL, 2147483647LL};
+    const int16_t output_ref[5] = {32767, -32768, 32767, -32768, 32767};
+
+    fc_params.input_offset = 0;
+    fc_params.filter_offset = 0;
+    fc_params.output_offset = 0;
+    fc_params.activation.min = -32768;
+    fc_params.activation.max = 32767;
+
+    quant_params.multiplier = 1 << 30;
+    quant_params.shift = 0;
+
+    int32_t buf_size = arm_fully_connected_s16_get_buffer_size(&filter_dims);
+    ctx.buf = malloc(buf_size);
+    ctx.size = buf_size;
+
+    arm_cmsis_nn_status result = arm_fully_connected_s16(&ctx,
+                                                         &fc_params,
+                                                         &quant_params,
+                                                         &input_dims,
+                                                         input_data,
+                                                         &filter_dims,
+                                                         kernel_data,
+                                                         &bias_dims,
+                                                         bias_data,
+                                                         &output_dims,
+                                                         output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 5));
+}

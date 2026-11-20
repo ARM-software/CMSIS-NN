@@ -440,3 +440,81 @@ void buffer_size_dsp_arm_depthwise_conv_s16(void)
     TEST_ASSERT_EQUAL(wrapper_buf_size, dsp_wrapper_buf_size);
 #endif
 }
+
+void dw_int16xint8_requantize_overflow_arm_depthwise_conv_s16(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int16_t output[20] = {0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_dw_conv_params dw_conv_params = {0};
+    cmsis_nn_per_channel_quant_params quant_params;
+    cmsis_nn_dims input_dims = {1, 1, 5, 4};
+    cmsis_nn_dims filter_dims = {1, 1, 1, 4};
+    cmsis_nn_dims bias_dims = {0};
+    cmsis_nn_dims output_dims = {1, 1, 5, 4};
+
+    // Accumulators: 2^31, -2^31 - 2, 2^31 - 2 and -2^31. With a multiplier of 2^30 and a shift of 0 the
+    // requantized values are 2^30, -2^30 - 1, 2^30 - 1 and -2^30, which saturate to 32767, -32768, 32767 and
+    // -32768. The first two exceed the 32-bit range before the final rounding shift.
+    // Five output pixels with the same accumulators exercise the unrolled and leftover paths.
+    const int16_t input_data[20] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    const int8_t kernel_data[4] = {1, -1, 1, -1};
+    const int64_t bias_data[4] = {2147483647LL, -2147483649LL, 2147483645LL, -2147483647LL};
+    const int32_t output_mult[4] = {1 << 30, 1 << 30, 1 << 30, 1 << 30};
+    const int32_t output_shift[4] = {0, 0, 0, 0};
+    const int16_t output_ref[20] = {32767, -32768, 32767, -32768, 32767, -32768, 32767, -32768, 32767, -32768,
+                                    32767, -32768, 32767, -32768, 32767, -32768, 32767, -32768, 32767, -32768};
+
+    dw_conv_params.stride.w = 1;
+    dw_conv_params.stride.h = 1;
+    dw_conv_params.dilation.w = 1;
+    dw_conv_params.dilation.h = 1;
+    dw_conv_params.ch_mult = 1;
+    dw_conv_params.activation.min = -32768;
+    dw_conv_params.activation.max = 32767;
+    quant_params.multiplier = (int32_t *)output_mult;
+    quant_params.shift = (int32_t *)output_shift;
+
+    ctx.buf = NULL;
+    ctx.size = 0;
+
+    arm_cmsis_nn_status result = arm_depthwise_conv_s16(&ctx,
+                                                        &dw_conv_params,
+                                                        &quant_params,
+                                                        &input_dims,
+                                                        input_data,
+                                                        &filter_dims,
+                                                        kernel_data,
+                                                        &bias_dims,
+                                                        bias_data,
+                                                        &output_dims,
+                                                        output);
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 20));
+    memset(output, 0, sizeof(output));
+
+    const int32_t buf_size =
+        arm_depthwise_conv_wrapper_s16_get_buffer_size(&dw_conv_params, &input_dims, &filter_dims, &output_dims);
+    ctx.buf = malloc(buf_size);
+    ctx.size = buf_size;
+
+    result = arm_depthwise_conv_wrapper_s16(&ctx,
+                                            &dw_conv_params,
+                                            &quant_params,
+                                            &input_dims,
+                                            input_data,
+                                            &filter_dims,
+                                            kernel_data,
+                                            &bias_dims,
+                                            bias_data,
+                                            &output_dims,
+                                            output);
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, buf_size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(validate_s16(output, output_ref, 20));
+}
