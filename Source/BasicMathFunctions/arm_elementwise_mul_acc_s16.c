@@ -21,8 +21,8 @@
  * Title:        arm_elementwise_mul_acc_s16
  * Description:  Accumulative element wise multiplication
  *
- * $Date:        19 January 2024
- * $Revision:    V.1.0.0
+ * $Date:        21 November 2026
+ * $Revision:    V.1.0.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -81,6 +81,9 @@ arm_cmsis_nn_status arm_elementwise_mul_acc_s16(const int16_t *input_1_vect,
 
         res_0 = arm_requantize_mve_32x4(res_0, vdupq_n_s32(out_mult), vdupq_n_s32(out_shift));
 
+        // Saturate the product to int16 before accumulating the cell state, as in TFLM.
+        res_0 = vmaxq_s32(res_0, vdupq_n_s32(NN_Q15_MIN));
+        res_0 = vminq_s32(res_0, vdupq_n_s32(NN_Q15_MAX));
         res_0 = vaddq_s32(res_0, vldrhq_z_s32(output, pred));
 
         res_0 = vmaxq_s32(res_0, vdupq_n_s32(activation_min));
@@ -115,6 +118,7 @@ arm_cmsis_nn_status arm_elementwise_mul_acc_s16(const int16_t *input_1_vect,
         mul_res = input_1 * input_2;
     #endif
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift);
+        mul_res = CLAMP(mul_res, NN_Q15_MAX, NN_Q15_MIN);
         mul_res += output[0];
 
         mul_res = MAX(mul_res, activation_min);
@@ -129,6 +133,7 @@ arm_cmsis_nn_status arm_elementwise_mul_acc_s16(const int16_t *input_1_vect,
         mul_res = input_1 * input_2;
     #endif
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift);
+        mul_res = CLAMP(mul_res, NN_Q15_MAX, NN_Q15_MIN);
         mul_res += output[1];
         mul_res = MAX(mul_res, activation_min);
         mul_res = MIN(mul_res, activation_max);
@@ -149,6 +154,7 @@ arm_cmsis_nn_status arm_elementwise_mul_acc_s16(const int16_t *input_1_vect,
         mul_res = input_1 * input_2;
 
         mul_res = arm_nn_requantize(mul_res, out_mult, out_shift);
+        mul_res = CLAMP(mul_res, NN_Q15_MAX, NN_Q15_MIN);
         mul_res += output[0];
 
         mul_res = MAX(mul_res, activation_min);

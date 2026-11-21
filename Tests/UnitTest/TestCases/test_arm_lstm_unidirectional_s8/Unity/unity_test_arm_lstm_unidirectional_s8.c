@@ -52,3 +52,4 @@ void test_lstm_stateful_batch_major_multibatch_arm_lstm_unidirectional_s8(void)
     lstm_stateful_batch_major_multibatch();
 }
 void test_lstm_gate_saturation_arm_lstm_unidirectional_s8(void) { lstm_gate_saturation(); }
+void test_lstm_cell_product_saturation_arm_lstm_unidirectional_s8(void) { lstm_cell_product_saturation(); }

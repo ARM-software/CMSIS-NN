@@ -827,3 +827,67 @@ void lstm_gate_saturation(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, output_ref, output_ref_size));
 }
+
+void lstm_cell_product_saturation(void)
+{
+    const int8_t input[1] = {0};
+    const int8_t weights[25] = {0};
+    const int32_t zero_bias[5] = {0};
+    const int32_t input_bias[5] = {8192, 8192, 8192, 8192, 8192};
+    const int32_t cell_bias[5] = {8192, -8192, 0, 8192, -8192};
+    const int16_t initial_cell[5] = {-20000, 20000, 1234, 20000, 20000};
+    // TFLM saturates input_gate * cell_gate to int16 before the cell-state add, then applies cell_clip.
+    // sigmoid(8192) = 28862, tanh(8192) = 31589, so the requantized product is 55647.
+    const int16_t cell_ref[2][5] = {{22767, -22768, 617, 32767, -22768}, {20000, -20000, 617, 20000, -20000}};
+    const int8_t output_ref[2][5] = {{21, -21, 1, 30, -21}, {19, -19, 1, 19, -19}};
+    const int32_t cell_clip[2] = {0, 20000};
+
+    const cmsis_nn_lstm_gate gate_input = {.input_multiplier = 1073741824,
+                                           .input_shift = 1,
+                                           .input_weights = weights,
+                                           .input_effective_bias = input_bias,
+                                           .hidden_multiplier = 1073741824,
+                                           .hidden_shift = 1,
+                                           .hidden_weights = weights,
+                                           .hidden_effective_bias = zero_bias,
+                                           .activation_type = ARM_SIGMOID};
+    cmsis_nn_lstm_gate gate_forget = gate_input;
+    gate_forget.input_effective_bias = zero_bias;
+    cmsis_nn_lstm_gate gate_cell = gate_input;
+    gate_cell.input_effective_bias = cell_bias;
+    gate_cell.activation_type = ARM_TANH;
+
+    cmsis_nn_lstm_params params = {.time_major = 1,
+                                   .batch_size = 1,
+                                   .time_steps = 1,
+                                   .input_size = 1,
+                                   .hidden_size = 5,
+                                   .forget_to_cell_multiplier = 1073741824,
+                                   .forget_to_cell_shift = -14,
+                                   .input_to_cell_multiplier = 1073741824,
+                                   .input_to_cell_shift = -13,
+                                   .cell_scale_power = -16,
+                                   .output_multiplier = 1073741824,
+                                   .output_shift = -22,
+                                   .forget_gate = gate_forget,
+                                   .input_gate = gate_input,
+                                   .cell_gate = gate_cell,
+                                   .output_gate = gate_forget};
+
+    for (int i = 0; i < 2; i++)
+    {
+        int16_t temp1[5];
+        int16_t temp2[5];
+        int16_t cell_state[5];
+        int8_t hidden_state[5] = {0};
+        int8_t output[5];
+        memcpy(cell_state, initial_cell, sizeof(cell_state));
+        cmsis_nn_lstm_context buffers = {temp1, temp2, cell_state, hidden_state};
+        params.cell_clip = cell_clip[i];
+
+        TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS, arm_lstm_unidirectional_s8(input, output, &params, &buffers));
+        TEST_ASSERT_EQUAL_INT16_ARRAY(cell_ref[i], cell_state, 5);
+        TEST_ASSERT_EQUAL_INT8_ARRAY(output_ref[i], output, 5);
+        TEST_ASSERT_EQUAL_INT8_ARRAY(output_ref[i], hidden_state, 5);
+    }
+}
