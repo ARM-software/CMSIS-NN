@@ -21,8 +21,8 @@
  * Title:        arm_avgpool_s8.c
  * Description:  Pooling function implementations
  *
- * $Date:        27 November 2023
- * $Revision:    V.3.3.0
+ * $Date:        23 November 2026
+ * $Revision:    V.3.4.0
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -50,6 +50,17 @@ static void scale_q31_to_q7_and_clamp(const int32_t *buffer,
 
         target[i] = (int8_t)sum;
     }
+}
+#endif
+
+#if !defined(ARM_MATH_DSP)
+static int8_t average_and_clamp(int32_t sum, const int32_t count, const int32_t act_min, const int32_t act_max)
+{
+    sum = sum > 0 ? (sum + count / 2) / count : (sum - count / 2) / count;
+    sum = MAX(sum, act_min);
+    sum = MIN(sum, act_max);
+
+    return (int8_t)sum;
 }
 #endif
 
@@ -331,45 +342,78 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
 
     #else
 
-    /* Reference C code adapted from CMSIS-NN arm_avepool_q7_HWC.
-     */
     const int32_t batch_input = input_x * input_y * ch_src;
     const int32_t batch_output = output_x * output_y * ch_src;
+    const int32_t row_stride = input_x * ch_src;
 
     while (batch_cnt)
     {
-        for (int i_y = 0; i_y < output_y; i_y++)
+        int8_t *out = dst;
+
+        for (int i_y = 0, idx_y = -pad_y; i_y < output_y; idx_y += stride_y, i_y++)
         {
-            for (int i_x = 0; i_x < output_x; i_x++)
+            for (int i_x = 0, idx_x = -pad_x; i_x < output_x; idx_x += stride_x, i_x++)
             {
-                for (int i_ch_in = 0; i_ch_in < ch_src; i_ch_in++)
+                const int32_t kernel_y_start = MAX(0, -idx_y);
+                const int32_t kernel_x_start = MAX(0, -idx_x);
+                const int32_t kernel_y_end = MIN(kernel_y, input_y - idx_y);
+                const int32_t kernel_x_end = MIN(kernel_x, input_x - idx_x);
+
+                // Prevent static code issue DIVIDE_BY_ZERO.
+                if (kernel_y_end <= kernel_y_start || kernel_x_end <= kernel_x_start)
                 {
-                    int sum = 0;
-                    int count = 0;
-                    for (int k_y = i_y * stride_y - pad_y; k_y < i_y * stride_y - pad_y + kernel_y; k_y++)
+                    return ARM_CMSIS_NN_ARG_ERROR;
+                }
+
+                const int32_t rows = kernel_y_end - kernel_y_start;
+                const int32_t cols = kernel_x_end - kernel_x_start;
+                const int32_t count = rows * cols;
+                const int8_t *window = src + (idx_y + kernel_y_start) * row_stride + (idx_x + kernel_x_start) * ch_src;
+
+                // Four channels at a time keep their sums in registers.
+                int i_ch = 0;
+                for (; i_ch <= ch_src - 4; i_ch += 4)
+                {
+                    int32_t sum_0 = 0;
+                    int32_t sum_1 = 0;
+                    int32_t sum_2 = 0;
+                    int32_t sum_3 = 0;
+                    const int8_t *row = window + i_ch;
+
+                    for (int k_y = 0; k_y < rows; k_y++, row += row_stride)
                     {
-                        for (int k_x = i_x * stride_x - pad_x; k_x < i_x * stride_x - pad_x + kernel_x; k_x++)
+                        const int8_t *in = row;
+                        for (int k_x = 0; k_x < cols; k_x++, in += ch_src)
                         {
-                            if (k_y >= 0 && k_x >= 0 && k_y < input_y && k_x < input_x)
-                            {
-                                sum += src[i_ch_in + ch_src * (k_x + k_y * input_x)];
-                                count++;
-                            }
+                            sum_0 += in[0];
+                            sum_1 += in[1];
+                            sum_2 += in[2];
+                            sum_3 += in[3];
                         }
                     }
 
-                    // Prevent static code issue DIVIDE_BY_ZERO.
-                    if (count == 0)
+                    out[i_ch] = average_and_clamp(sum_0, count, act_min, act_max);
+                    out[i_ch + 1] = average_and_clamp(sum_1, count, act_min, act_max);
+                    out[i_ch + 2] = average_and_clamp(sum_2, count, act_min, act_max);
+                    out[i_ch + 3] = average_and_clamp(sum_3, count, act_min, act_max);
+                }
+
+                for (; i_ch < ch_src; i_ch++)
+                {
+                    int32_t sum = 0;
+                    const int8_t *row = window + i_ch;
+
+                    for (int k_y = 0; k_y < rows; k_y++, row += row_stride)
                     {
-                        return ARM_CMSIS_NN_ARG_ERROR;
+                        for (int k_x = 0; k_x < cols; k_x++)
+                        {
+                            sum += row[k_x * ch_src];
+                        }
                     }
 
-                    sum = sum > 0 ? (sum + count / 2) / count : (sum - count / 2) / count;
-                    sum = MAX(sum, act_min);
-                    sum = MIN(sum, act_max);
-
-                    dst[i_ch_in + ch_src * (i_x + i_y * output_x)] = sum;
+                    out[i_ch] = average_and_clamp(sum, count, act_min, act_max);
                 }
+                out += ch_src;
             }
         }
         src += batch_input;

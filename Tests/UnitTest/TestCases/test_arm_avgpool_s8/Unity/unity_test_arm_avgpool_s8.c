@@ -56,6 +56,8 @@ void test_avgpooling_4_arm_avgpool_s8(void) { avgpooling_4_arm_avgpool_s8(); }
 
 void test_avgpooling_5_arm_avgpool_s8(void) { avgpooling_5_arm_avgpool_s8(); }
 
+void test_avgpooling_6_arm_avgpool_s8(void) { avgpooling_6_arm_avgpool_s8(); }
+
 void test_buffer_size_mve_arm_avgpool_s8(void) { buffer_size_mve_arm_avgpool_s8(); }
 
 void test_buffer_size_dsp_arm_avgpool_s8(void) { buffer_size_dsp_arm_avgpool_s8(); }

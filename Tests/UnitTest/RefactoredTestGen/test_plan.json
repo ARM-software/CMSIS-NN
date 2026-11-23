@@ -1010,6 +1010,20 @@
          "pad" : "SAME",
          "activation_max": 6,
          "activation_min": 0
+        },
+        {"name" : "avgpooling_6",
+         "batch_size" : 2,
+         "input_n" : 1,
+         "input_w" : 7,
+         "input_h" : 6,
+         "input_c" : 11,
+         "filter_w": 3,
+         "filter_h": 3,
+         "stride_w": 2,
+         "stride_h": 2,
+         "pad" : "SAME",
+         "activation_max": 50,
+         "activation_min": -60
         }
     ]
 },
