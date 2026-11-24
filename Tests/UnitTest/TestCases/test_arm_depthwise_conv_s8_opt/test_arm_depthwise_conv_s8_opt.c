@@ -17,6 +17,7 @@
  */
 
 #include <arm_nnfunctions.h>
+#include <arm_nnsupportfunctions.h>
 #include <stdlib.h>
 #include <unity.h>
 
@@ -663,6 +664,113 @@ void depthwise_x_stride_arm_depthwise_conv_s8_opt(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_x_stride_output_ref, DEPTHWISE_X_STRIDE_DST_SIZE));
+
+    output_dims.h = 2;
+    static const int32_t test_channels[] = {1, 2, 3, 4, 5};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        input_dims.c = ch;
+        output_dims.c = ch;
+
+        const int32_t out_elems = output_dims.w * output_dims.h * ch;
+        int8_t tail_output[DEPTHWISE_X_STRIDE_OUTPUT_W * 2 * 5] = {0};
+        int8_t tail_output_ref[DEPTHWISE_X_STRIDE_OUTPUT_W * 2 * 5] = {0};
+
+        ctx.size = arm_depthwise_conv_s8_opt_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        for (int use_bias = 0; use_bias < 2; use_bias++)
+        {
+            const int32_t *test_bias = use_bias ? bias_data : NULL;
+            result = arm_depthwise_conv_s8_opt(&ctx,
+                                               &dw_conv_params,
+                                               &quant_params,
+                                               &input_dims,
+                                               input_data,
+                                               &filter_dims,
+                                               kernel_data,
+                                               &bias_dims,
+                                               test_bias,
+                                               &output_dims,
+                                               tail_output);
+            TEST_ASSERT_EQUAL(expected, result);
+
+            cmsis_nn_context ref_ctx = {NULL, 0};
+            result = arm_depthwise_conv_s8(&ref_ctx,
+                                           &dw_conv_params,
+                                           &quant_params,
+                                           &input_dims,
+                                           input_data,
+                                           &filter_dims,
+                                           kernel_data,
+                                           &bias_dims,
+                                           test_bias,
+                                           &output_dims,
+                                           tail_output_ref);
+            TEST_ASSERT_EQUAL(expected, result);
+            TEST_ASSERT_TRUE(validate(tail_output, tail_output_ref, out_elems));
+
+#if defined(ARM_MATH_MVEI)
+            const uint16_t row_x_col = 3;
+            int8_t *padded_lhs = (int8_t *)ctx.buf;
+            memset(padded_lhs, 0, ctx.size);
+            for (int px = 0; px < 4; px++)
+            {
+                for (int tap = 0; tap < row_x_col; tap++)
+                {
+                    arm_memcpy_s8(
+                        &padded_lhs[(px * row_x_col + tap) * CH_IN_BLOCK_MVE], &input_data[(px + tap) * ch], ch);
+                }
+            }
+
+            int8_t nt_out[4 * 5] = {0};
+            int8_t nt_out_ref[4 * 5] = {0};
+            TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                              arm_nn_depthwise_conv_nt_t_padded_s8(padded_lhs,
+                                                                   kernel_data,
+                                                                   dw_conv_params.input_offset,
+                                                                   ch,
+                                                                   ch,
+                                                                   quant_params.shift,
+                                                                   quant_params.multiplier,
+                                                                   dw_conv_params.output_offset,
+                                                                   dw_conv_params.activation.min,
+                                                                   dw_conv_params.activation.max,
+                                                                   row_x_col,
+                                                                   test_bias,
+                                                                   nt_out));
+
+            const cmsis_nn_dims nt_in_dims = {.n = 1, .h = 1, .w = 6, .c = ch};
+            const cmsis_nn_dims nt_ker_dims = {.n = 1, .h = 1, .w = row_x_col, .c = ch};
+            const cmsis_nn_dims nt_out_dims = {.n = 1, .h = 1, .w = 4, .c = ch};
+            cmsis_nn_dw_conv_params nt_params = dw_conv_params;
+            nt_params.stride.w = 1;
+            nt_params.stride.h = 1;
+            nt_params.padding.w = 0;
+            nt_params.padding.h = 0;
+            TEST_ASSERT_EQUAL(ARM_CMSIS_NN_SUCCESS,
+                              arm_depthwise_conv_s8(&ref_ctx,
+                                                    &nt_params,
+                                                    &quant_params,
+                                                    &nt_in_dims,
+                                                    input_data,
+                                                    &nt_ker_dims,
+                                                    kernel_data,
+                                                    &bias_dims,
+                                                    test_bias,
+                                                    &nt_out_dims,
+                                                    nt_out_ref));
+            TEST_ASSERT_TRUE(validate(nt_out, nt_out_ref, 4 * ch));
+#endif
+        }
+
+        if (ctx.buf)
+        {
+            memset(ctx.buf, 0, ctx.size);
+            free(ctx.buf);
+        }
+    }
 }
 
 void buffer_size_arm_depthwise_conv_s8_opt(void)

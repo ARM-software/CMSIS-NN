@@ -303,6 +303,63 @@ void depthwise_int4_2_arm_depthwise_conv_s4_opt(void)
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate(output, depthwise_int4_2_output_ref, DEPTHWISE_INT4_2_DST_SIZE));
     memset(output, 0, DEPTHWISE_INT4_2_DST_SIZE);
+
+    static const int32_t test_channels[] = {1, 2, 3, 4, 5};
+    static const int32_t nonzero_bias[5] = {100, -250, 500, -1000, 750};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        input_dims.c = ch;
+        output_dims.c = ch;
+        ctx.size = arm_depthwise_conv_s4_opt_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        for (int32_t h = 1; h <= 2; h++)
+        {
+            output_dims.h = h;
+            const int32_t out_elems = output_dims.w * h * ch;
+            int8_t tail_output[DEPTHWISE_INT4_2_OUTPUT_W * 2 * 5] = {0};
+            int8_t tail_output_ref[DEPTHWISE_INT4_2_OUTPUT_W * 2 * 5] = {0};
+
+            for (int use_bias = 0; use_bias < 2; use_bias++)
+            {
+                const int32_t *test_bias = use_bias ? nonzero_bias : NULL;
+                result = arm_depthwise_conv_s4_opt(&ctx,
+                                                   &dw_conv_params,
+                                                   &quant_params,
+                                                   &input_dims,
+                                                   input_data,
+                                                   &filter_dims,
+                                                   kernel_data,
+                                                   &bias_dims,
+                                                   test_bias,
+                                                   &output_dims,
+                                                   tail_output);
+                TEST_ASSERT_EQUAL(expected, result);
+
+                cmsis_nn_context ref_ctx = {NULL, 0};
+                result = arm_depthwise_conv_s4(&ref_ctx,
+                                               &dw_conv_params,
+                                               &quant_params,
+                                               &input_dims,
+                                               input_data,
+                                               &filter_dims,
+                                               kernel_data,
+                                               &bias_dims,
+                                               test_bias,
+                                               &output_dims,
+                                               tail_output_ref);
+                TEST_ASSERT_EQUAL(expected, result);
+                TEST_ASSERT_TRUE(validate(tail_output, tail_output_ref, out_elems));
+            }
+        }
+
+        if (ctx.buf)
+        {
+            memset(ctx.buf, 0, ctx.size);
+            free(ctx.buf);
+        }
+    }
 }
 
 void depthwise_int4_3_arm_depthwise_conv_s4_opt(void)

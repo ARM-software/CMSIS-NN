@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_padded_s8.c
  * Description:  Depthwise convolution with padded matrices.
  *
- * $Date:        26 October 2022
- * $Revision:    V.2.0.1
+ * $Date:        24 November 2026
+ * $Revision:    V.2.0.2
  *
  * Target Processor:  Cortex-M processors with MVE extension
  * -------------------------------------------------------------------- */
@@ -68,12 +68,12 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_padded_s8(const int8_t *lhs,
                                                          int8_t *out)
 {
 #if defined(ARM_MATH_MVEI)
-    int32_t loop_count = (active_ch + 3) / 4;
+    int32_t loop_count = active_ch / 4;
     const int32_t *bias = output_bias;
-    uint32_t num_ch_to_process = active_ch;
+    const int32_t *const mult_base = out_mult;
+    const int32_t *const shift_base = out_shift;
 
-    for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count;
-         num_ch_to_process -= 4, out += 4, offset += 4, i_loop_cnt++)
+    for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count; out += 4, offset += 4, i_loop_cnt++)
     {
         int32x4_t out_0 = vdupq_n_s32(0);
         if (bias)
@@ -129,7 +129,84 @@ arm_cmsis_nn_status arm_nn_depthwise_conv_nt_t_padded_s8(const int8_t *lhs,
         out_0 = vaddq_n_s32(out_0, out_offset);
         out_0 = vmaxq_s32(out_0, vdupq_n_s32(activation_min));
         out_0 = vminq_s32(out_0, vdupq_n_s32(activation_max));
-        mve_pred16_t p = vctp32q(num_ch_to_process);
+        vstrbq_s32(out, out_0);
+
+        out_1 = arm_requantize_mve_32x4(out_1, mult, shift);
+        out_1 = vaddq_n_s32(out_1, out_offset);
+        out_1 = vmaxq_s32(out_1, vdupq_n_s32(activation_min));
+        out_1 = vminq_s32(out_1, vdupq_n_s32(activation_max));
+        vstrbq_s32(out + total_ch, out_1);
+
+        out_2 = arm_requantize_mve_32x4(out_2, mult, shift);
+        out_2 = vaddq_n_s32(out_2, out_offset);
+        out_2 = vmaxq_s32(out_2, vdupq_n_s32(activation_min));
+        out_2 = vminq_s32(out_2, vdupq_n_s32(activation_max));
+        vstrbq_s32(out + 2 * total_ch, out_2);
+
+        out_3 = arm_requantize_mve_32x4(out_3, mult, shift);
+        out_3 = vaddq_n_s32(out_3, out_offset);
+        out_3 = vmaxq_s32(out_3, vdupq_n_s32(activation_min));
+        out_3 = vminq_s32(out_3, vdupq_n_s32(activation_max));
+        vstrbq_s32(out + 3 * total_ch, out_3);
+    }
+
+    /* Tail: predicate loads and stores so nothing past active_ch is read or written. */
+    const int32_t tail_ch = active_ch & 0x3;
+    if (tail_ch != 0)
+    {
+        const int32_t offset = loop_count * 4;
+        const mve_pred16_t p = vctp32q((uint32_t)tail_ch);
+        int32x4_t out_0 = vdupq_n_s32(0);
+        if (output_bias)
+        {
+            out_0 = vldrwq_z_s32(output_bias + offset, p);
+        }
+        int32x4_t out_1 = out_0;
+        int32x4_t out_2 = out_0;
+        int32x4_t out_3 = out_0;
+
+        const int8_t *rhs_0 = rhs + offset;
+        const int8_t *lhs_0 = lhs + offset;
+        const int8_t *lhs_1 = lhs + row_x_col * CH_IN_BLOCK_MVE + offset;
+        const int8_t *lhs_2 = lhs + (row_x_col * CH_IN_BLOCK_MVE * 2) + offset;
+        const int8_t *lhs_3 = lhs + (row_x_col * CH_IN_BLOCK_MVE * 3) + offset;
+
+        for (int i_row_x_col = 0; i_row_x_col < row_x_col; i_row_x_col++)
+        {
+            const int32x4_t ker_0 = vldrbq_z_s32(rhs_0, p);
+
+            int32x4_t ip_0 = vldrbq_z_s32(lhs_0, p);
+            ip_0 = vaddq_n_s32(ip_0, input_offset);
+            out_0 += vmulq_s32(ip_0, ker_0);
+
+            int32x4_t ip_1 = vldrbq_z_s32(lhs_1, p);
+            ip_1 = vaddq_n_s32(ip_1, input_offset);
+            out_1 += vmulq_s32(ip_1, ker_0);
+
+            int32x4_t ip_2 = vldrbq_z_s32(lhs_2, p);
+            ip_2 = vaddq_n_s32(ip_2, input_offset);
+            out_2 += vmulq_s32(ip_2, ker_0);
+
+            int32x4_t ip_3 = vldrbq_z_s32(lhs_3, p);
+            ip_3 = vaddq_n_s32(ip_3, input_offset);
+
+            out_3 += vmulq_s32(ip_3, ker_0);
+
+            lhs_0 += CH_IN_BLOCK_MVE;
+            lhs_1 += CH_IN_BLOCK_MVE;
+            lhs_2 += CH_IN_BLOCK_MVE;
+            lhs_3 += CH_IN_BLOCK_MVE;
+
+            rhs_0 += total_ch;
+        }
+
+        const int32x4_t mult = vldrwq_z_s32(mult_base + offset, p);
+        const int32x4_t shift = vldrwq_z_s32(shift_base + offset, p);
+
+        out_0 = arm_requantize_mve_32x4(out_0, mult, shift);
+        out_0 = vaddq_n_s32(out_0, out_offset);
+        out_0 = vmaxq_s32(out_0, vdupq_n_s32(activation_min));
+        out_0 = vminq_s32(out_0, vdupq_n_s32(activation_max));
         vstrbq_p_s32(out, out_0, p);
 
         out_1 = arm_requantize_mve_32x4(out_1, mult, shift);

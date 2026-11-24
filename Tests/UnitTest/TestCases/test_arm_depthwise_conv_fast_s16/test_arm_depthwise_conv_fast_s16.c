@@ -222,6 +222,61 @@ void dw_int16xint8_fast_spill_arm_depthwise_conv_fast_s16(void)
     }
     TEST_ASSERT_EQUAL(expected, result);
     TEST_ASSERT_TRUE(validate_s16(output, output_ref, output_ref_size));
+
+    input_dims.n = 1;
+    output_dims.h = 3;
+    static const int32_t test_channels[] = {1, 2, 3, 4, 5};
+    for (size_t i = 0; i < sizeof(test_channels) / sizeof(test_channels[0]); i++)
+    {
+        const int32_t ch = test_channels[i];
+        input_dims.c = ch;
+        output_dims.c = ch;
+
+        const int32_t out_elems = output_dims.w * output_dims.h * ch;
+        int16_t tail_output[DW_INT16XINT8_FAST_SPILL_OUTPUT_W * 3 * 5] = {0};
+        int16_t tail_output_ref[DW_INT16XINT8_FAST_SPILL_OUTPUT_W * 3 * 5] = {0};
+
+        ctx.size = arm_depthwise_conv_fast_s16_get_buffer_size(&input_dims, &filter_dims);
+        ctx.buf = ctx.size > 0 ? malloc(ctx.size) : NULL;
+
+        for (int use_bias = 0; use_bias < 2; use_bias++)
+        {
+            const int64_t *test_bias = use_bias ? bias_data : NULL;
+            result = arm_depthwise_conv_fast_s16(&ctx,
+                                                 &dw_conv_params,
+                                                 &quant_params,
+                                                 &input_dims,
+                                                 input_data,
+                                                 &filter_dims,
+                                                 kernel_data,
+                                                 &bias_dims,
+                                                 test_bias,
+                                                 &output_dims,
+                                                 tail_output);
+            TEST_ASSERT_EQUAL(expected, result);
+
+            cmsis_nn_context ref_ctx = {NULL, 0};
+            result = arm_depthwise_conv_s16(&ref_ctx,
+                                            &dw_conv_params,
+                                            &quant_params,
+                                            &input_dims,
+                                            input_data,
+                                            &filter_dims,
+                                            kernel_data,
+                                            &bias_dims,
+                                            test_bias,
+                                            &output_dims,
+                                            tail_output_ref);
+            TEST_ASSERT_EQUAL(expected, result);
+            TEST_ASSERT_TRUE(validate_s16(tail_output, tail_output_ref, out_elems));
+        }
+
+        if (ctx.buf)
+        {
+            memset(ctx.buf, 0, ctx.size);
+            free(ctx.buf);
+        }
+    }
 }
 
 void dw_int16xint8_fast_stride_arm_depthwise_conv_fast_s16(void)

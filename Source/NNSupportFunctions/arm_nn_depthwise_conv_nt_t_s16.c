@@ -21,8 +21,8 @@
  * Title:        arm_nn_depthwise_conv_nt_t_s16.c
  * Description:  Depthwise convolution on matrices with no padding.
  *
- * $Date:        26 October 2022
- * $Revision:    V.1.0.1
+ * $Date:        24 November 2026
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M processors with MVE extension
  * -------------------------------------------------------------------- */
@@ -58,11 +58,11 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
 #if defined(ARM_MATH_MVEI)
 
     const int64_t *bias = output_bias;
-    int32_t loop_count = (num_ch + 3) / 4;
-    uint32_t num_ch_to_process = num_ch;
+    const int32_t *const mult_base = out_mult;
+    const int32_t *const shift_base = out_shift;
+    int32_t loop_count = num_ch / 4;
 
-    for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count;
-         num_ch_to_process -= 4, offset += 4, out += 4, i_loop_cnt++)
+    for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count; offset += 4, out += 4, i_loop_cnt++)
     {
         const int8_t *rhs_0 = rhs + offset;
         const int16_t *lhs_0 = lhs + offset;
@@ -123,31 +123,107 @@ int16_t *arm_nn_depthwise_conv_nt_t_s16(const int16_t *lhs,
             out_3[i_requantize] = arm_nn_requantize_s64(in_requantize_3, reduced_multiplier, shift);
         }
 
-        mve_pred16_t p = vctp32q(num_ch_to_process);
-
         out_0 = vmaxq_s32(out_0, vdupq_n_s32(activation_min));
         out_0 = vminq_s32(out_0, vdupq_n_s32(activation_max));
-        vstrhq_p_s32(out, out_0, p);
+        vstrhq_s32(out, out_0);
 
         out_1 = vmaxq_s32(out_1, vdupq_n_s32(activation_min));
         out_1 = vminq_s32(out_1, vdupq_n_s32(activation_max));
-        vstrhq_p_s32(out + num_ch, out_1, p);
+        vstrhq_s32(out + num_ch, out_1);
 
         out_2 = vmaxq_s32(out_2, vdupq_n_s32(activation_min));
         out_2 = vminq_s32(out_2, vdupq_n_s32(activation_max));
-        vstrhq_p_s32(out + 2 * num_ch, out_2, p);
+        vstrhq_s32(out + 2 * num_ch, out_2);
 
         out_3 = vmaxq_s32(out_3, vdupq_n_s32(activation_min));
         out_3 = vminq_s32(out_3, vdupq_n_s32(activation_max));
-        vstrhq_p_s32(out + 3 * num_ch, out_3, p);
+        vstrhq_s32(out + 3 * num_ch, out_3);
 
         out_mult += 4;
         out_shift += 4;
     }
+
+    /* Tail: predicate loads and stores so nothing past num_ch is read or written. */
     const int tail_ch = num_ch & 0x3;
     if (tail_ch != 0)
     {
-        out -= (4 - tail_ch);
+        const int32_t offset = loop_count * 4;
+        const mve_pred16_t p = vctp32q((uint32_t)tail_ch);
+        const int8_t *rhs_0 = rhs + offset;
+        const int16_t *lhs_0 = lhs + offset;
+        const int16_t *lhs_1 = lhs + row_x_col * num_ch + offset;
+        const int16_t *lhs_2 = lhs + (row_x_col * num_ch * 2) + offset;
+        const int16_t *lhs_3 = lhs + (row_x_col * num_ch * 3) + offset;
+
+        int32x4_t out_0 = vdupq_n_s32(0);
+        int32x4_t out_1 = vdupq_n_s32(0);
+        int32x4_t out_2 = vdupq_n_s32(0);
+        int32x4_t out_3 = vdupq_n_s32(0);
+
+        for (int i_row_x_col = 0; i_row_x_col < row_x_col; i_row_x_col++)
+        {
+            const int32x4_t ker_0 = vldrbq_z_s32(rhs_0, p);
+
+            int32x4_t ip_0 = vldrhq_z_s32(lhs_0, p);
+            out_0 += vmulq_s32(ip_0, ker_0);
+
+            int32x4_t ip_1 = vldrhq_z_s32(lhs_1, p);
+            out_1 += vmulq_s32(ip_1, ker_0);
+
+            int32x4_t ip_2 = vldrhq_z_s32(lhs_2, p);
+            out_2 += vmulq_s32(ip_2, ker_0);
+
+            int32x4_t ip_3 = vldrhq_z_s32(lhs_3, p);
+            out_3 += vmulq_s32(ip_3, ker_0);
+
+            lhs_0 += num_ch;
+            lhs_1 += num_ch;
+            lhs_2 += num_ch;
+            lhs_3 += num_ch;
+
+            rhs_0 += num_ch;
+        }
+
+        int32_t acc_0[4];
+        int32_t acc_1[4];
+        int32_t acc_2[4];
+        int32_t acc_3[4];
+        vstrwq_s32(acc_0, out_0);
+        vstrwq_s32(acc_1, out_1);
+        vstrwq_s32(acc_2, out_2);
+        vstrwq_s32(acc_3, out_3);
+
+        const int64_t *tail_bias = output_bias ? output_bias + offset : NULL;
+        for (int i_requantize = 0; i_requantize < tail_ch; i_requantize++)
+        {
+            int32_t reduced_multiplier = REDUCE_MULTIPLIER(mult_base[offset + i_requantize]);
+            int32_t shift = shift_base[offset + i_requantize];
+            int64_t in_requantize_0 = (int64_t)acc_0[i_requantize];
+            int64_t in_requantize_1 = (int64_t)acc_1[i_requantize];
+            int64_t in_requantize_2 = (int64_t)acc_2[i_requantize];
+            int64_t in_requantize_3 = (int64_t)acc_3[i_requantize];
+
+            if (tail_bias)
+            {
+                in_requantize_0 += *tail_bias;
+                in_requantize_1 += *tail_bias;
+                in_requantize_2 += *tail_bias;
+                in_requantize_3 += *tail_bias;
+                tail_bias++;
+            }
+
+            int32_t res_0 = arm_nn_requantize_s64(in_requantize_0, reduced_multiplier, shift);
+            int32_t res_1 = arm_nn_requantize_s64(in_requantize_1, reduced_multiplier, shift);
+            int32_t res_2 = arm_nn_requantize_s64(in_requantize_2, reduced_multiplier, shift);
+            int32_t res_3 = arm_nn_requantize_s64(in_requantize_3, reduced_multiplier, shift);
+
+            out[i_requantize] = (int16_t)CLAMP(res_0, activation_max, activation_min);
+            out[num_ch + i_requantize] = (int16_t)CLAMP(res_1, activation_max, activation_min);
+            out[2 * num_ch + i_requantize] = (int16_t)CLAMP(res_2, activation_max, activation_min);
+            out[3 * num_ch + i_requantize] = (int16_t)CLAMP(res_3, activation_max, activation_min);
+        }
+
+        out += tail_ch;
     }
 
     return out + (3 * num_ch);
