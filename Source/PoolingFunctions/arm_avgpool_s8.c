@@ -378,13 +378,14 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                     int32_t sum_1 = 0;
                     int32_t sum_2 = 0;
                     int32_t sum_3 = 0;
-                    const int8_t *row = window + i_ch;
+                    const int8_t *channel = window + i_ch;
 
-                    for (int k_y = 0; k_y < rows; k_y++, row += row_stride)
+                    for (int k_y = 0; k_y < rows; k_y++)
                     {
-                        const int8_t *in = row;
-                        for (int k_x = 0; k_x < cols; k_x++, in += ch_src)
+                        const int8_t *row = channel + k_y * row_stride;
+                        for (int k_x = 0; k_x < cols; k_x++)
                         {
+                            const int8_t *in = row + k_x * ch_src;
                             sum_0 += in[0];
                             sum_1 += in[1];
                             sum_2 += in[2];
@@ -401,10 +402,11 @@ arm_cmsis_nn_status arm_avgpool_s8(const cmsis_nn_context *ctx,
                 for (; i_ch < ch_src; i_ch++)
                 {
                     int32_t sum = 0;
-                    const int8_t *row = window + i_ch;
+                    const int8_t *channel = window + i_ch;
 
-                    for (int k_y = 0; k_y < rows; k_y++, row += row_stride)
+                    for (int k_y = 0; k_y < rows; k_y++)
                     {
+                        const int8_t *row = channel + k_y * row_stride;
                         for (int k_x = 0; k_x < cols; k_x++)
                         {
                             sum += row[k_x * ch_src];
