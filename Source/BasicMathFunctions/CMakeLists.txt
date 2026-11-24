@@ -31,3 +31,13 @@ if (ARM_NN_ENABLE_F16)
                       arm_maximum_f16.c)
 endif()
 target_sources(cmsis-nn PRIVATE ${SRC} ${SRC_FLT})
+
+# Preserve IEEE-754 special-value and division tie-fallback semantics even when
+# CMSIS_OPTIMIZATION_LEVEL defaults to -Ofast.
+if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang|ARMClang")
+  set_source_files_properties(
+    arm_quantize_f32_s8.c
+    arm_quantize_f32_s16.c
+    TARGET_DIRECTORY cmsis-nn
+    PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;-fno-reciprocal-math")
+endif()

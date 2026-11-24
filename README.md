@@ -65,8 +65,11 @@ The float columns below summarize the current experimental float coverage. Float
 | SVDF            | Yes         | No         | No         | Yes                  | Yes         | No           | No           | Yes         | No           | No           | Yes                    |
 | Pad             | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
 | Transpose       | Yes         | No         | N/A        | Yes                  | No          | No           | N/A          | Yes         | No           | N/A          | Yes                    |
+| Quantize**      | Yes         | Yes        | N/A        | N/A                  | No          | No           | N/A          | Yes         | Yes          | N/A          | N/A                    |
+| Requantize      | Yes         | No         | N/A        | N/A                  | No          | No           | N/A          | Yes         | No           | N/A          | N/A                    |
 
 * int4 weights + int8 activations
+** float32 input to int8/int16 output
 
 ## Contribution Guideline
 First, a thank you for the contribution. Here are some guidelines and good to know information to get started.
