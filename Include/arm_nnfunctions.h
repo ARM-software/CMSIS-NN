@@ -21,8 +21,8 @@
  * Title:        arm_nnfunctions.h
  * Description:  Public header file for CMSIS NN Library
  *
- * $Date:        15 October 2026
- * $Revision:    V.19.2.0
+ * $Date:        24 November 2026
+ * $Revision:    V.19.3.0
  *
  * Target :  Arm(R) M-Profile Architecture
  * -------------------------------------------------------------------- */
@@ -1955,7 +1955,7 @@ int32_t arm_fully_connected_s16_get_buffer_size_mve(const cmsis_nn_dims *filter_
 /**
  * @defgroup groupElementwise Elementwise Functions
  *
- * Elementwise add and multiplication functions.
+ * Elementwise add, multiplication, quantization, and requantization functions.
  *
  */
 
@@ -2090,6 +2090,87 @@ arm_cmsis_nn_status arm_elementwise_mul_s16(const int16_t *input_1_vect,
                                             const int32_t out_activation_min,
                                             const int32_t out_activation_max,
                                             const int32_t block_size);
+
+/**
+ * @brief Affine quantize float32 vector to s8
+ * @param[in]       input       pointer to float32 input vector (non-NULL when block_size > 0)
+ * @param[out]      output      pointer to s8 output vector (non-NULL when block_size > 0;
+ *                              may alias input as (int8_t *)input for in-place execution)
+ * @param[in]       scale       quantization scale (checked finite and strictly positive)
+ * @param[in]       zero_point  quantization zero point
+ * @param[in]       block_size  number of samples (checked >= 0; 0 is a no-op and allows NULL pointers)
+ * @return          The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail, or
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details   Computes clamp(round_away_from_zero(input[i] / scale) + zero_point, -128, 127).
+ *            Bit-exact with TensorFlow Lite Micro reference AffineQuantize for finite in-range
+ *            values; saturates on overflow and maps NaN to clamped zero_point (matching Arm vcvta.s32.f32).
+ *            Supports in-place execution when output aliases input as (int8_t *)input.
+ *            Non-CMake builds compiling with -Ofast should pass -fno-finite-math-only
+ *            -fno-reciprocal-math on arm_quantize_f32_s8.c when non-finite inputs or exact
+ *            tie behavior are required.
+ */
+arm_cmsis_nn_status arm_quantize_f32_s8(const float *input,
+                                        int8_t *output,
+                                        const float scale,
+                                        const int32_t zero_point,
+                                        const int32_t block_size);
+
+/**
+ * @brief Affine quantize float32 vector to s16
+ * @param[in]       input       pointer to float32 input vector (non-NULL when block_size > 0)
+ * @param[out]      output      pointer to s16 output vector (non-NULL when block_size > 0)
+ * @param[in]       scale       quantization scale (checked finite and strictly positive)
+ * @param[in]       zero_point  quantization zero point
+ * @param[in]       block_size  number of samples (checked >= 0; 0 is a no-op and allows NULL pointers)
+ * @return          The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if argument constraints fail, or
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details   Computes clamp(round_away_from_zero(input[i] / scale) + zero_point, -32768, 32767).
+ *            Bit-exact with TensorFlow Lite Micro reference AffineQuantize for finite in-range
+ *            values; saturates on overflow and maps NaN to clamped zero_point (matching Arm vcvta.s32.f32).
+ *            Non-CMake builds compiling with -Ofast should pass -fno-finite-math-only
+ *            -fno-reciprocal-math on arm_quantize_f32_s16.c when non-finite inputs or exact
+ *            tie behavior are required.
+ */
+arm_cmsis_nn_status arm_quantize_f32_s16(const float *input,
+                                         int16_t *output,
+                                         const float scale,
+                                         const int32_t zero_point,
+                                         const int32_t block_size);
+
+/**
+ * @brief Requantize s8 vector to s8
+ * @param[in]       input               pointer to s8 input vector (non-NULL when block_size > 0)
+ * @param[out]      output              pointer to s8 output vector (non-NULL when block_size > 0;
+ *                                      may alias input for in-place execution)
+ * @param[in]       input_offset        negative of input zero point. Caller precondition: [-127, 128]
+ * @param[in]       out_offset          output zero point. Caller precondition: [-128, 127]
+ * @param[in]       out_mult            output multiplier. Checked range: [0, INT32_MAX]
+ * @param[in]       out_shift           output shift. Checked range: [-30, 22]
+ * @param[in]       out_activation_min  minimum value to clamp output to. Checked range: [-128, out_activation_max]
+ * @param[in]       out_activation_max  maximum value to clamp output to. Checked range: [out_activation_min, 127]
+ * @param[in]       block_size          number of samples (checked >= 0; 0 is a no-op and allows NULL pointers)
+ * @return          The function returns either
+ *                  <code>ARM_CMSIS_NN_ARG_ERROR</code> if checked argument constraints fail, or
+ *                  <code>ARM_CMSIS_NN_SUCCESS</code> on successful completion.
+ *
+ * @details   Supported framework: TensorFlow Lite Micro.
+ *            Runtime validation checks block_size, out_mult, out_shift, out_activation_min/max,
+ *            and (when block_size > 0) non-NULL pointers. input_offset and out_offset are
+ *            unchecked caller preconditions.
+ */
+arm_cmsis_nn_status arm_requantize_s8(const int8_t *input,
+                                      int8_t *output,
+                                      const int32_t input_offset,
+                                      const int32_t out_offset,
+                                      const int32_t out_mult,
+                                      const int32_t out_shift,
+                                      const int32_t out_activation_min,
+                                      const int32_t out_activation_max,
+                                      const int32_t block_size);
 
 /**
  * @defgroup Acti Activation Functions

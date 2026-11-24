@@ -124,6 +124,9 @@
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_s16_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_minimum_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_maximum_s8.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_quantize_f32_s8.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_quantize_f32_s16.c"/>
+        <file category="source" name="Source/BasicMathFunctions/arm_requantize_s8.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_add_f32.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_elementwise_mul_f32.c"/>
         <file category="source" name="Source/BasicMathFunctions/arm_minimum_f32.c"/>

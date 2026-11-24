@@ -184,6 +184,8 @@ Operator bit-exactness compability:
 | minimum         |   x             |  x        |
 | maximum         |   x             |  x        |
 | transpose       |   x             |  x        |
+| quantize        |   x             |  x        | Float32 to int8/int16 (finite in-range inputs).
+| requantize      |   x             |  x        | Int8 to int8.
 
 ### Refactoring of generate_test_data.py
 Test data generation is in progress of incrementally moving over to the cleaned up scripts placed in `RefactoredTestGen`.
