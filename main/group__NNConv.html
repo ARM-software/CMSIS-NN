@@ -4162,13 +4162,6 @@ Functions</h2></td></tr>
 
 <p>Optimized s4 depthwise convolution function with constraint that in_channel equals out_channel. Refer <a class="el" href="group__NNConv.html#ga6ebf094aa572be6e8dbde746e61f7cf2" title="Basic s4 depthwise convolution function that doesn&#39;t have any constraints on the input dimensions.">arm_depthwise_conv_s4()</a> for function argument details. </p>
 <dl class="section return"><dt>Returns</dt><dd>The function returns one of the following <code>ARM_CMSIS_NN_ARG_ERROR</code> - input channel != output channel or ch_mult != 1 <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read out for the following if MVE optimizations(Arm Helium Technology) are used.<ul>
-<li>Output shift</li>
-<li>Output multiplier</li>
-<li>Output bias</li>
-<li>kernel</li>
-</ul>
-</dd></dl>
 <ul>
 <li>Supported framework: TensorFlow Lite</li>
 <li>The following constrains on the arguments apply<ol type="1">
@@ -4366,13 +4359,6 @@ Functions</h2></td></tr>
 
 <p>Optimized s8 depthwise convolution function with constraint that in_channel equals out_channel. Refer <a class="el" href="group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6" title="Basic s8 depthwise convolution function that doesn&#39;t have any constraints on the input dimensions.">arm_depthwise_conv_s8()</a> for function argument details. </p>
 <dl class="section return"><dt>Returns</dt><dd>The function returns one of the following <code>ARM_CMSIS_NN_ARG_ERROR</code> - input channel != output channel or ch_mult != 1 <code>ARM_CMSIS_NN_SUCCESS</code> - Successful operation</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If number of channels is not a multiple of 4, upto 3 elements outside the boundary will be read out for the following if MVE optimizations(Arm Helium Technology) are used.<ul>
-<li>Output shift</li>
-<li>Output multiplier</li>
-<li>Output bias</li>
-<li>kernel</li>
-</ul>
-</dd></dl>
 <ul>
 <li>Supported framework: TensorFlow Lite</li>
 <li>The following constrains on the arguments apply<ol type="1">
@@ -4976,10 +4962,9 @@ Functions</h2></td></tr>
 <li>Picks one of the the following functions<ol type="1">
 <li><a class="el" href="group__NNConv.html#ga2422e7c1c918e70272c4fe2684b2f6f6" title="Basic s8 depthwise convolution function that doesn&#39;t have any constraints on the input dimensions.">arm_depthwise_conv_s8()</a></li>
 <li><a class="el" href="group__NNConv.html#ga517de01da489d0f3ec9e5c1db0626f48" title="Optimized s8 depthwise convolution function for 3x3 kernel size with some constraints on the input ar...">arm_depthwise_conv_3x3_s8()</a> - Cortex-M CPUs with DSP extension only</li>
-<li><a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba" title="Optimized s8 depthwise convolution function with constraint that in_channel equals out_channel....">arm_depthwise_conv_s8_opt()</a></li>
+<li><a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba" title="Optimized s8 depthwise convolution function with constraint that in_channel equals out_channel....">arm_depthwise_conv_s8_opt()</a> </li>
 </ol>
 </li>
-<li>Check details of <a class="el" href="group__NNConv.html#gaddaca3b837ab79948f856b91654d05ba" title="Optimized s8 depthwise convolution function with constraint that in_channel equals out_channel....">arm_depthwise_conv_s8_opt()</a> for potential data that can be accessed outside of the boundary. </li>
 </ul>
 
 </div>
