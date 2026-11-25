@@ -22,8 +22,8 @@
  * Description:  Optimized s16 depthwise separable convolution function for
  *               channel multiplier of 1.
  *
- * $Date:        19 March 2024
- * $Revision:    V.1.4.0
+ * $Date:        24 November 2026
+ * $Revision:    V.1.4.1
  *
  * Target :  Arm(R) M-Profile Architecture
  *
@@ -152,12 +152,13 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
 
     /* Handle left over buffers */
     lhs_buffer = buffer_a;
+    int16_t *out_base = out;
     for (int i_buf = 0; i_buf < buffer_count; i_buf++)
     {
-        int32_t loop_count = (input_ch + 3) / 4;
-        int32_t num_ch_to_process = input_ch;
+        int32_t loop_count = input_ch / 4;
+        out = out_base + (i_buf * input_ch);
 
-        for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count; num_ch_to_process -= 4, offset += 4, i_loop_cnt++)
+        for (int i_loop_cnt = 0, offset = 0; i_loop_cnt < loop_count; offset += 4, i_loop_cnt++)
         {
             const int8_t *row_0 = kernel + offset;
             const int16_t *col_0 = lhs_buffer + (kernel_size * input_ch * i_buf) + offset;
@@ -201,16 +202,50 @@ arm_cmsis_nn_status arm_depthwise_conv_fast_s16(const cmsis_nn_context *ctx,
             out_0 = vmaxq_s32(out_0, vdupq_n_s32(output_activation_min));
             out_0 = vminq_s32(out_0, vdupq_n_s32(output_activation_max));
 
-            mve_pred16_t p = vctp32q((uint32_t)num_ch_to_process);
-            vstrhq_p_s32(out, out_0, p);
+            vstrhq_s32(out, out_0);
 
             out += 4;
         }
+    }
 
-        const int tail_ch = input_ch & 0x3;
-        if (tail_ch != 0)
+    /* Tail: predicate loads and stores so nothing past input_ch is read or written. */
+    const int tail_ch = input_ch & 0x3;
+    if (tail_ch != 0)
+    {
+        const mve_pred16_t p = vctp32q((uint32_t)tail_ch);
+        const int32_t offset = input_ch & ~0x3;
+        for (int i_buf = 0; i_buf < buffer_count; i_buf++)
         {
-            out -= (4 - tail_ch);
+            const int8_t *row_0 = kernel + offset;
+            const int16_t *col_0 = lhs_buffer + (kernel_size * input_ch * i_buf) + offset;
+
+            int32x4_t out_0 = vdupq_n_s32(0);
+
+            for (int i_ker = 0; i_ker < kernel_size; i_ker++)
+            {
+                const int32x4_t ker_0 = vldrbq_z_s32(row_0, p);
+
+                int32x4_t ip_0 = vldrhq_z_s32(col_0, p);
+                out_0 += vmulq_s32(ip_0, ker_0);
+
+                col_0 += input_ch;
+                row_0 += input_ch;
+            }
+
+            int32_t acc[4];
+            vstrwq_s32(acc, out_0);
+            int16_t *out_tail = out_base + (i_buf * input_ch) + offset;
+            for (int i_req = 0; i_req < tail_ch; i_req++)
+            {
+                int64_t in_requantize = (int64_t)acc[i_req];
+                if (bias)
+                {
+                    in_requantize += bias[offset + i_req];
+                }
+                int32_t reduced_multiplier = REDUCE_MULTIPLIER(output_mult[offset + i_req]);
+                int32_t res = arm_nn_requantize_s64(in_requantize, reduced_multiplier, output_shift[offset + i_req]);
+                out_tail[i_req] = (int16_t)CLAMP(res, output_activation_max, output_activation_min);
+            }
         }
     }
 
