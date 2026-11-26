@@ -25,6 +25,7 @@
 #include "../TestData/avgpooling_3/test_data.h"
 #include "../TestData/avgpooling_4/test_data.h"
 #include "../TestData/avgpooling_5/test_data.h"
+#include "../TestData/avgpooling_6/test_data.h"
 #include "../Utils/validate.h"
 
 void avgpooling_arm_avgpool_s8(void)
@@ -324,6 +325,56 @@ void avgpooling_5_arm_avgpool_s8(void)
         validate(output,
                  avgpooling_5_output,
                  AVGPOOLING_5_OUTPUT_W * AVGPOOLING_5_OUTPUT_H * AVGPOOLING_5_BATCH_SIZE * AVGPOOLING_5_OUTPUT_C));
+}
+
+void avgpooling_6_arm_avgpool_s8(void)
+{
+    const arm_cmsis_nn_status expected = ARM_CMSIS_NN_SUCCESS;
+    int8_t output[AVGPOOLING_6_OUTPUT_W * AVGPOOLING_6_OUTPUT_H * AVGPOOLING_6_BATCH_SIZE * AVGPOOLING_6_OUTPUT_C] = {
+        0};
+
+    cmsis_nn_context ctx;
+    cmsis_nn_pool_params pool_params;
+    cmsis_nn_dims input_dims;
+    cmsis_nn_dims filter_dims;
+    cmsis_nn_dims output_dims;
+
+    const int8_t *input_data = avgpooling_6_input_tensor;
+
+    input_dims.n = AVGPOOLING_6_BATCH_SIZE;
+    input_dims.w = AVGPOOLING_6_INPUT_W;
+    input_dims.h = AVGPOOLING_6_INPUT_H;
+    input_dims.c = AVGPOOLING_6_INPUT_C;
+    filter_dims.w = AVGPOOLING_6_FILTER_W;
+    filter_dims.h = AVGPOOLING_6_FILTER_H;
+    output_dims.w = AVGPOOLING_6_OUTPUT_W;
+    output_dims.h = AVGPOOLING_6_OUTPUT_H;
+    output_dims.c = AVGPOOLING_6_OUTPUT_C;
+
+    pool_params.padding.w = AVGPOOLING_6_PADDING_W;
+    pool_params.padding.h = AVGPOOLING_6_PADDING_H;
+    pool_params.stride.w = AVGPOOLING_6_STRIDE_W;
+    pool_params.stride.h = AVGPOOLING_6_STRIDE_H;
+
+    pool_params.activation.min = AVGPOOLING_6_ACTIVATION_MIN;
+    pool_params.activation.max = AVGPOOLING_6_ACTIVATION_MAX;
+
+    ctx.size = arm_avgpool_s8_get_buffer_size(AVGPOOLING_6_OUTPUT_W, AVGPOOLING_6_INPUT_C);
+    ctx.buf = malloc(ctx.size);
+
+    arm_cmsis_nn_status result =
+        arm_avgpool_s8(&ctx, &pool_params, &input_dims, input_data, &filter_dims, &output_dims, output);
+
+    if (ctx.buf)
+    {
+        memset(ctx.buf, 0, ctx.size);
+        free(ctx.buf);
+    }
+    TEST_ASSERT_EQUAL(expected, result);
+    TEST_ASSERT_TRUE(
+        validate(output,
+                 avgpooling_6_output,
+                 AVGPOOLING_6_OUTPUT_W * AVGPOOLING_6_OUTPUT_H * AVGPOOLING_6_BATCH_SIZE * AVGPOOLING_6_OUTPUT_C));
 }
 
 void buffer_size_mve_arm_avgpool_s8(void)
